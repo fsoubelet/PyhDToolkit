@@ -13,7 +13,6 @@ from typing import TYPE_CHECKING
 
 import numpy as np
 
-from pyhdtoolkit.utils.jit import maybe_jit
 
 if TYPE_CHECKING:
     from tfs import TfsDataFrame
@@ -22,7 +21,6 @@ if TYPE_CHECKING:
 # ----- Setup Utilites ----- #
 
 
-@maybe_jit
 def lebedev_beam_size(
     beta1_: float | np.ndarray, beta2_: float | np.ndarray, geom_emit_x: float, geom_emit_y: float
 ) -> float | np.ndarray:
