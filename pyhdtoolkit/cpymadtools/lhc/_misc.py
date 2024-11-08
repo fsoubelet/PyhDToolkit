@@ -6,7 +6,10 @@
 The functions below are miscellaneous utilities for the ``LHC``.
 """
 
-from cpymad.madx import Madx
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from loguru import logger
 
 from pyhdtoolkit.cpymadtools import twiss
@@ -19,6 +22,10 @@ from pyhdtoolkit.cpymadtools.constants import (
     LHC_PARALLEL_SEPARATION_FLAGS,
 )
 from pyhdtoolkit.optics.ripken import _add_beam_size_to_df
+
+if TYPE_CHECKING:
+    from cpymad.madx import Madx
+
 
 _BEAM4: int = 4  # LHC beam 4 is special case
 _VRF_THRESHOLD: int = 5000

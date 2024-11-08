@@ -6,8 +6,15 @@
 The functions below are utilities to install elements or markers in the ``LHC``.
 """
 
-from cpymad.madx import Madx
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from loguru import logger
+
+if TYPE_CHECKING:
+    from cpymad.madx import Madx
+
 
 _MAX_TRACKING_TOP_TURNS: int = 6600
 

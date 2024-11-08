@@ -6,6 +6,8 @@
 The functions below are setup utilities for the ``LHC``, to easily get simulations ready.
 """
 
+from __future__ import annotations
+
 from pathlib import Path
 
 from cpymad.madx import Madx

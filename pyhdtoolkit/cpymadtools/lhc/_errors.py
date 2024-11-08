@@ -6,10 +6,16 @@
 The functions below are utilities to implement errors in elements of the ``LHC``.
 """
 
-from collections.abc import Sequence
+from __future__ import annotations
 
-from cpymad.madx import Madx
+from typing import TYPE_CHECKING
+
 from loguru import logger
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
+
+    from cpymad.madx import Madx
 
 _MAX_TRIPLET_NUMBER: int = 3
 

@@ -8,12 +8,18 @@ Module with functions to manipulate ``MAD-X`` ``TRACK`` functionality through a
 `~cpymad.madx.Madx` object.
 """
 
-from collections.abc import Sequence
+from __future__ import annotations
 
-import pandas as pd
+from typing import TYPE_CHECKING
 
-from cpymad.madx import Madx
 from loguru import logger
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
+
+    import pandas as pd
+
+    from cpymad.madx import Madx
 
 # ----- Utlites ----- #
 

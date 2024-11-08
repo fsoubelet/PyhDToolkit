@@ -8,16 +8,23 @@ Module with functions to manipulate ``MAD-X`` ``PTC`` functionality through a
 `~cpymad.madx.Madx` object.
 """
 
-from collections.abc import Sequence
-from pathlib import Path
+from __future__ import annotations
 
-import pandas as pd
+from pathlib import Path
+from typing import TYPE_CHECKING
+
 import tfs
 
-from cpymad.madx import Madx
 from loguru import logger
 
 from pyhdtoolkit.cpymadtools.utils import get_table_tfs
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
+
+    import pandas as pd
+
+    from cpymad.madx import Madx
 
 _MAX_PTC_AMPDET_ORDER: int = 2
 _MIN_PTC_AMPDET_ORDER: int = 1

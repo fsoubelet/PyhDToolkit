@@ -6,14 +6,19 @@
 The functions below are betatron coupling utilities for the ``LHC``.
 """
 
-import tfs
+from __future__ import annotations
 
-from cpymad.madx import Madx
+from typing import TYPE_CHECKING
+
 from loguru import logger
 from optics_functions.coupling import coupling_via_cmatrix
 
 from pyhdtoolkit.cpymadtools import twiss
 from pyhdtoolkit.cpymadtools.constants import MONITOR_TWISS_COLUMNS
+
+if TYPE_CHECKING:
+    from cpymad.madx import Madx
+    from tfs import TfsDataFrame
 
 
 # This is a duplicate of the function in _routines.py, merge at some point
@@ -60,7 +65,7 @@ def correct_lhc_global_coupling(
     madx.command.endmatch()
 
 
-def get_lhc_bpms_twiss_and_rdts(madx: Madx, /) -> tfs.TfsDataFrame:
+def get_lhc_bpms_twiss_and_rdts(madx: Madx, /) -> TfsDataFrame:
     """
     .. versionadded:: 0.19.0
 

@@ -9,12 +9,12 @@ Module with functions to perform ``MAD-X`` actions through a `~cpymad.madx.Madx`
 retate to betatron coupling in the machine.
 """
 
-from collections.abc import Sequence
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 import numpy as np
-import tfs
 
-from cpymad.madx import Madx
 from loguru import logger
 from optics_functions.coupling import check_resonance_relation, closest_tune_approach, coupling_via_cmatrix
 from scipy import stats
@@ -23,6 +23,12 @@ from pyhdtoolkit.cpymadtools.constants import MONITOR_TWISS_COLUMNS
 from pyhdtoolkit.cpymadtools.lhc import get_lhc_tune_and_chroma_knobs
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.cpymadtools.twiss import get_pattern_twiss, get_twiss_tfs
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
+
+    from cpymad.madx import Madx
+    from tfs import TfsDataFrame
 
 # ----- General Use ----- #
 
@@ -270,7 +276,7 @@ def match_no_coupling_through_ripkens(
     madx.command.endmatch()
 
 
-def get_coupling_rdts(madx: Madx, /, **kwargs) -> tfs.TfsDataFrame:
+def get_coupling_rdts(madx: Madx, /, **kwargs) -> TfsDataFrame:
     """
     .. versionadded:: 0.20.0
 
@@ -317,7 +323,7 @@ def _fractional_tune(tune: float) -> float:
     return tune - int(tune)  # ok since int truncates to lower integer
 
 
-def _filter_outlier_bpms_from_coupling_rdts(twiss_df: tfs.TfsDataFrame, stdev: float = 3) -> tfs.TfsDataFrame:
+def _filter_outlier_bpms_from_coupling_rdts(twiss_df: TfsDataFrame, stdev: float = 3) -> TfsDataFrame:
     """Only keep BPMs for which the abs. value of coupling RDTs is no further than `stdev` sigma from its mean.Example:
 
     .. note::

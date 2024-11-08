@@ -8,14 +8,21 @@ Module with functions to manipulate ``MAD-X`` ``TWISS`` functionality through a
 `~cpymad.madx.Madx` object.
 """
 
-from collections.abc import Sequence
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 import tfs
 
-from cpymad.madx import Madx
 from loguru import logger
 
 from pyhdtoolkit.cpymadtools.constants import DEFAULT_TWISS_COLUMNS
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
+
+    from cpymad.madx import Madx
+
 
 # ----- Utlites ----- #
 

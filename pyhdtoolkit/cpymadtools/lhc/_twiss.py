@@ -6,18 +6,23 @@
 The functions below are twiss utilities for the ``LHC`` insertion regions.
 """
 
-from collections.abc import Sequence
+from __future__ import annotations
 
-import tfs
+from typing import TYPE_CHECKING
 
-from cpymad.madx import Madx
 from loguru import logger
 
 from pyhdtoolkit.cpymadtools import twiss
 from pyhdtoolkit.cpymadtools.constants import DEFAULT_TWISS_COLUMNS
 
+if TYPE_CHECKING:
+    from collections.abc import Sequence
 
-def get_ips_twiss(madx: Madx, /, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs) -> tfs.TfsDataFrame:
+    from cpymad.madx import Madx
+    from tfs import TfsDataFrame
+
+
+def get_ips_twiss(madx: Madx, /, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs) -> TfsDataFrame:
     """
     .. versionadded:: 0.9.0
 
@@ -42,7 +47,7 @@ def get_ips_twiss(madx: Madx, /, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS,
     return twiss.get_pattern_twiss(madx, columns=columns, patterns=["IP"], **kwargs)
 
 
-def get_ir_twiss(madx: Madx, /, ir: int, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs) -> tfs.TfsDataFrame:
+def get_ir_twiss(madx: Madx, /, ir: int, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs) -> TfsDataFrame:
     """
     .. versionadded:: 0.9.0
 

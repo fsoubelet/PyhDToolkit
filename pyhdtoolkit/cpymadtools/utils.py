@@ -7,13 +7,18 @@ Miscellaneous Utilities
 Module with utility functions to do mundane operations with `~cpymad.madx.Madx` objects.
 """
 
+from __future__ import annotations
+
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pandas as pd
 import tfs
 
-from cpymad.madx import Madx
 from loguru import logger
+
+if TYPE_CHECKING:
+    from cpymad.madx import Madx
 
 
 def export_madx_table(

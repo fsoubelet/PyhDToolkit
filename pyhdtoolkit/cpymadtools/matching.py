@@ -7,12 +7,18 @@ Matching Routines
 Module with functions to perform ``MAD-X`` matchings through a `~cpymad.madx.Madx` object.
 """
 
-from collections.abc import Sequence
+from __future__ import annotations
 
-from cpymad.madx import Madx
+from typing import TYPE_CHECKING
+
 from loguru import logger
 
 from pyhdtoolkit.cpymadtools.lhc import get_lhc_tune_and_chroma_knobs
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
+
+    from cpymad.madx import Madx
 
 # ----- Workhorse ----- #
 

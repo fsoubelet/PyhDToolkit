@@ -8,10 +8,16 @@ Module with functions to fetch or compute different beam and machine parameters
 through a `~cpymad.madx.Madx` object.
 """
 
-from cpymad.madx import Madx
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from loguru import logger
 
 from pyhdtoolkit.models.madx import MADXBeam
+
+if TYPE_CHECKING:
+    from cpymad.madx import Madx
 
 # ----- Utilities ----- #
 

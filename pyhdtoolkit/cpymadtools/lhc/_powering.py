@@ -6,10 +6,16 @@
 The functions below are magnets or knobs powering utilities for the ``LHC``.
 """
 
-from collections.abc import Sequence
+from __future__ import annotations
 
-from cpymad.madx import Madx
+from typing import TYPE_CHECKING
+
 from loguru import logger
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
+
+    from cpymad.madx import Madx
 
 _BEAM4: int = 4  # LHC beam 4 is special case
 _QUAD_CIRCUIT_HAS_B: int = 7  # Q7 has a .b in the circuit name

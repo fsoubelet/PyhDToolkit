@@ -6,11 +6,10 @@
 The functions below are settings query utilities for the ``LHC``.
 """
 
-from collections.abc import Sequence
+from __future__ import annotations
 
-import tfs
+from typing import TYPE_CHECKING
 
-from cpymad.madx import Madx
 from loguru import logger
 
 from pyhdtoolkit.cpymadtools import twiss
@@ -33,10 +32,16 @@ from pyhdtoolkit.cpymadtools.constants import (
 from pyhdtoolkit.cpymadtools.lhc._setup import lhc_orbit_variables
 from pyhdtoolkit.cpymadtools.utils import _get_k_strings
 
+if TYPE_CHECKING:
+    from collections.abc import Sequence
+
+    from cpymad.madx import Madx
+    from tfs import TfsDataFrame
+
 
 def get_magnets_powering(
     madx: Madx, /, patterns: Sequence[str] = [r"^mb\.", r"^mq\.", r"^ms\."], brho: str | float | None = None, **kwargs
-) -> tfs.TfsDataFrame:
+) -> TfsDataFrame:
     r"""
     .. versionadded:: 0.17.0
 

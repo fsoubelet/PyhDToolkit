@@ -6,13 +6,19 @@
 The functions below are routines mimicking manipulations that would be done in the ``LHC``.
 """
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import numpy as np
 import tfs
 
-from cpymad.madx import Madx
 from loguru import logger
 
 from pyhdtoolkit.cpymadtools.lhc._twiss import get_ir_twiss
+
+if TYPE_CHECKING:
+    from cpymad.madx import Madx
 
 
 def do_kmodulation(
