@@ -6,8 +6,6 @@ import subprocess
 import sys
 import time
 
-from tracemalloc import start
-
 import numpy as np
 import pandas as pd
 import pytest
