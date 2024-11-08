@@ -57,12 +57,13 @@ def test_closest_tune_approach_with_explicit_targets(_non_matched_lhc_madx, tele
 
 
 @pytest.mark.parametrize("filtering", [0, 3.5])
-def test_complex_cminus_from_coupling_rdts(_non_matched_lhc_madx, filtering):
+@pytest.mark.parametrize("method", ["teapot", "hoydalsvik"])  # real and complex values returned
+def test_complex_cminus_from_coupling_rdts(_non_matched_lhc_madx, filtering, method):
     """Using LHC lattice."""
     madx = _non_matched_lhc_madx
     apply_lhc_coupling_knob(madx, 2e-3, telescopic_squeeze=True)
 
-    complex_cminus = get_cminus_from_coupling_rdts(madx, method="teapot", filtering=filtering)
+    complex_cminus = get_cminus_from_coupling_rdts(madx, method=method, filtering=filtering)
     assert np.isclose(np.abs(complex_cminus), 2e-3, rtol=1e-1)  # let's say 10% here too
 
 
