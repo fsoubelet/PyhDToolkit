@@ -56,14 +56,15 @@ class CommandLine:
             logger.warning("PID 0 refers to 'every process in calling processes', and should be untouched")
             return True
         try:
-            # Sending SIG 0 only checks if process has terminated, we're not actually terminating it
+            # Sending SIG 0 only checks if process has terminated,
+            # we're not actually terminating it by doing so
             os.kill(pid, 0)
         except OSError as pid_checkout_error:
-            if pid_checkout_error.errno == errno.ESRCH:  # ERROR "No such process"
+            # Below is ERROR "No such process"
+            if pid_checkout_error.errno == errno.ESRCH:
                 return False
-            if (
-                pid_checkout_error.errno == errno.EPERM
-            ):  # ERROR "Operation not permitted" -> there's a process to deny access to.
+            # Below is ERROR "Operation not permitted" -> there's a process to deny access to.
+            if (pid_checkout_error.errno == errno.EPERM):
                 return True
             # According to "man 2 kill" possible error values are (EINVAL, EPERM, ESRCH), therefore
             # we should never get here. If so let's be explicit in considering this an error.
@@ -124,7 +125,7 @@ class CommandLine:
         with timeit(lambda spanned: logger.info(f"Ran command '{command}' in a subprocess, in: {spanned:.4f} seconds")):
             process = subprocess.Popen(command, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env)
             stdout, _ = process.communicate(timeout=timeout)
-            if process.poll() != 0:
+            if process.poll() != 0:  # pragma: no cover
                 logger.warning(f"Subprocess command '{command}' finished with exit code: {process.poll()}")
             else:
                 logger.success(f"Subprocess command '{command}' finished with exit code: {process.poll()}")
