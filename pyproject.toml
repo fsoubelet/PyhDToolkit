@@ -123,6 +123,10 @@ omit = [
   "pyhdtoolkit/cpymadtools/setup.py",
   "pyhdtoolkit/utils/htc_monitor.py",
 ]
+exclude_also = [
+  "if TYPE_CHECKING:",  # do not count if TYPE_CHECKING block imports (ignored at runtime) for coverage
+  "except ImportError:",  # do not count missing optional dependencies set to None, we monkeypatch and test that
+]  
 precision = 2
 
 # ----- Dev Tools Configuration ----- #
