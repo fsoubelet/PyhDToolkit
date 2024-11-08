@@ -327,13 +327,6 @@ def make_lhc_beams(
     madx.globals["NRJ"] = energy
     madx.globals["brho"] = energy * 1e9 / madx.globals.clight
 
-    # TODO: remove accepting the old emittance_x and emittance_y args in the future
-    emittance_x = kwargs.pop("emittance_x", None)
-    emittance_y = kwargs.pop("emittance_y", None)
-    if emittance_x is not None or emittance_y is not None:
-        logger.warning("Providing ambiguous 'emittance_[xy]' is deprecated, use 'nemitt_[xy]' instead")
-        nemitt_x = emittance_x if emittance_x is not None else nemitt_x  # prioritize old ones if given
-        nemitt_y = emittance_y if emittance_y is not None else nemitt_y  # prioritize old ones if given
     geometric_emit_x = madx.globals["geometric_emit_x"] = nemitt_x / (energy / 0.938)
     geometric_emit_y = madx.globals["geometric_emit_y"] = nemitt_y / (energy / 0.938)
 
