@@ -145,7 +145,6 @@ autosectionlabel_prefix_document = True
 autosectionlabel_maxdepth = 2
 
 # Config for the napoleon extension
-napoleon_numpy_docstring = False
 napoleon_include_init_with_doc = True
 napoleon_use_admonition_for_examples = True
 napoleon_use_admonition_for_notes = True
