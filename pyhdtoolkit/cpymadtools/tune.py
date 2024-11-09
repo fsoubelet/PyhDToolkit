@@ -18,7 +18,6 @@ from typing import TYPE_CHECKING
 
 import matplotlib.collections
 import matplotlib.patches
-from matplotlib.pylab import f
 import numpy as np
 import tfs
 
