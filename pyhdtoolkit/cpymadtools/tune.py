@@ -269,16 +269,22 @@ def get_footprint_patches(dynap_dframe: tfs.TfsDataFrame) -> matplotlib.collecti
 
 def _get_dynap_string_rep(dynap_dframe: tfs.TfsDataFrame) -> str:
     """
-    This is a weird dusty function to get a specific useful string representation from the
-    `~tfs.frame.TfsDataFrame` returned by `~.tune.make_footprint_table`. This specific dataframe
-    contains important information.
+    This is a weird dusty function to get a specific useful string
+    representation from the `~tfs.frame.TfsDataFrame` returned by
+    `~.tune.make_footprint_table`. This specific dataframe contains
+    important information.
 
-    Args:
-        dynap_dframe (tfs.frame.TfsDataFrame): the dynap data frame returned by `~.tune.make_footprint_table`.
+    Parameters
+    ----------
+    dynap_dframe : tfs.TfsDataFrame
+        The dynap data frame returned by `~.tune.make_footprint_table`.
 
-    Returns:
-        A weird string representation gathering tune points split according to the number of angles and
-        amplitudes used in `~.tune.make_footprint_table`.
+    Returns
+    -------
+    str
+        A weird string representation gathering tune points split according
+        to the number of angles and amplitudes. This result in internally used
+        in `~.tune.make_footprint_table`.
     """
     logger.trace("Retrieving AMPLITUDE and ANGLE data from TfsDataFrame headers")
     amplitude = dynap_dframe.headers["AMPLITUDE"]
@@ -295,21 +301,28 @@ def _get_dynap_string_rep(dynap_dframe: tfs.TfsDataFrame) -> str:
 
 def _make_tune_groups(dynap_string_rep: str, dsigma: float = 1.0) -> list[list[dict[str, float]]]:  # noqa: ARG001
     """
-    Creates appropriate tune points groups from the arcane string representation returned by
-    `~.tune._get_dynap_string_rep` based on starting amplitude and angle for each particle.
+    Creates appropriate tune points groups from the arcane string representation
+    returned by `~.tune._get_dynap_string_rep` based on starting amplitude and
+    angle for each particle.
 
-    Args:
-        dynap_string_rep (str): weird string representation of the `~tfs.frame.TfsDataFrame` returned by
-            `~.tune.make_footprint_table` and as given by `~.tune._get_dynap_string_rep()`.
-        dsigma (float): The increment in amplitude between different starting amplitudes when starting
-            particles for the ``DYNAP`` command in ``MAD-X``. This information is in the headers of the
-            `~tfs.frame.TfsDataFrame` returned by `~.tune.make_footprint_table`.
+    Parameters
+    ----------
+    dynap_string_rep : str
+        The weird string representation of the `~tfs.frame.TfsDataFrame` returned by
+        `~.tune.make_footprint_table` and as given by `~.tune._get_dynap_string_rep()`.
+    dsigma : float
+        The increment in amplitude between different starting amplitudes when starting
+        particles for the ``DYNAP`` command in ``MAD-X``. This information is found in
+        the headers of the `~tfs.frame.TfsDataFrame` returned by the
+        `~.tune.make_footprint_table` function.
 
-    Returns:
-        A `list` of lists of dictionaries containing horizontal and vertical tune points. The data is
-        constructed such that one can access the data of a particle starting with given amplitude and
-        angle through ``data[amplitude][angle]["H"/"V"]``. This function is only meant to be used internally
-        by `~.tune.get_footprint_lines`.
+    Returns
+    -------
+    list[list[dict[str, float]]]
+        A `list` of lists of dictionaries containing horizontal and vertical tune points.
+        The data is constructed such that one can access the data of a particle starting
+        with given amplitude and angle through ``data[amplitude][angle]["H"/"V"]``. This
+        function is only meant to be used internally by `~.tune.get_footprint_lines`.
     """
     logger.debug("Constructing tune points groups based on starting amplitudes and angles")
     tune_groups: list[list[dict[str, float]]] = []
