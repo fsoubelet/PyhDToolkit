@@ -412,12 +412,12 @@ def ptc_track_particle(
 
     Warning
     -------
-        If the *sequence* argument is given a string value, the ``USE`` command will be
-        ran on the provided sequence name. This means the caveats of ``USE`` apply, for
-        instance the erasing of previously defined errors, orbits corrections etc. In
-        this case a warning will be logged but the function will proceed. If `None` is
-        given (by default) then the sequence already in use will be the one tracking is
-        performed with.
+        If the *sequence* parameter is given a string value, the ``USE`` command will
+        be ran on the provided sequence name. This means the caveats of ``USE`` apply,
+        for instance the erasing of previously defined errors, orbits corrections etc.
+        In this case a warning will be logged but the function will proceed. If `None`
+        is given (by default) then the sequence already in use will be the one tracking
+        is performed with.
 
     Parameters
     ----------
