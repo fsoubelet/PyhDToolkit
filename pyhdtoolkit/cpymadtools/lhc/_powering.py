@@ -78,20 +78,29 @@ def apply_lhc_colinearity_knob_delta(madx: Madx, /, colinearity_knob_delta: floa
     """
     .. versionadded:: 0.21.0
 
-    This is essentially the same as `.apply_lhc_colinearity_knob`, but instead of a applying fixed powering
-    value, it applies a delta to the (potentially) existing value.
+    This is essentially the same as `.apply_lhc_colinearity_knob`, but instead
+    of a applying fixed powering value, it applies a delta to the (potentially)
+    existing value.
 
-    .. note::
-        If you don't know what this is, you really should not be using this function.
+    Warning
+    -------
+        If you don't know what this is, then you most likely should not be
+        using this function.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        colinearity_knob_delta (float): Units of the colinearity knob to vary the existing powerings with.
-            Defaults to 0.
-        ir (int): The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].
-            Classically 1 or 5.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    colinearity_knob_value : float
+        Units of the colinearity knob to vary the existing knob with.
+        Defaults to 0 so users don't mess up local IR coupling by mistake.
+        This should be a positive integer, normally between 1 and 10.
+    ir : int
+        The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].
+        Classically 1 or 5.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             apply_lhc_colinearity_knob_delta(madx, colinearity_knob_delta=3.5, ir=1)
@@ -124,31 +133,45 @@ def apply_lhc_rigidity_waist_shift_knob(
     """
     .. versionadded:: 0.15.0
 
-    Applies a trim of the LHC rigidity waist shift knob, moving the waist left or right of IP.
-    The waist shift is achieved by moving all four betatron waists simltaneously: unbalancing
-    the triplet powering knobs of the left and right-hand sides of the IP.
+    Applies a trim of the LHC rigidity waist shift knob, moving the waist left
+    or right of IP. The waist shift is achieved by moving all four betatron
+    waists simltaneously: unbalancing the triplet powering knobs of the left
+    and right-hand sides of the IP.
 
-    .. note::
-        If you don't know what this is, you really should not be using this function.
+    Warning
+    -------
+        If you don't know what this is, then you most likely should not be
+        using this function.
 
-    .. warning::
-        Applying the shift will modify your tunes and is likely to flip them, making a subsequent matching
-        impossible if your lattice has coupling. To avoid this, one should match to tunes split further apart
-        before applying the waist shift knob, and then match to the desired working point. For instance for
-        the LHC, matching to (62.27, 60.36) before applying and afterwards rematching to (62.31, 60.32) usually
-        works well.
+    Important
+    ---------
+        Applying the shift will modify your tunes and is likely to flip them,
+        making a subsequent matching impossible if your lattice has coupling.
+        To avoid this, one should match to tunes split further apart before
+        applying the waist shift knob, and then match to the desired working
+        point. For instance for the LHC, matching to (62.27, 60.36) before
+        applying and afterwards rematching to (62.31, 60.32) usually works
+        quite well.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        rigidty_waist_shift_value (float): Units of the rigidity waist shift knob (positive values only).
-        ir (int): The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].
-            Classically 1 or 5.
-        side (str): Which side of the IP to move the waist to, determines a sign in the calculation.
-            Defaults to `left`, which means :math:`s_{\\mathrm{waist}} \\lt s_{\\mathrm{ip}}` (and
-            setting it to `right` would move the waist such that
-            :math:`s_{\\mathrm{waist}} \\gt s_{\\mathrm{ip}}`).
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    rigidty_waist_shift_value : float
+        Units of the rigidity waist shift knob (positive values only). Defaults
+        to 0 so users don't mess up the IR setup by mistake.
+    ir : int
+        The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].
+        Classically 1 or 5.
+    side : str
+        Which side of the IP to move the waist to. This parameter determines a
+        sign in the calculation. Defaults to `left`, which means that
+        :math:`s_{\\mathrm{waist}} \\lt s_{\\mathrm{ip}}` (and setting it to
+        `right` would move the waist such that
+        :math:`s_{\\mathrm{waist}} \\gt s_{\\mathrm{ip}}`).
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             # It is recommended to re-match tunes after this routine
@@ -156,6 +179,11 @@ def apply_lhc_rigidity_waist_shift_knob(
             apply_lhc_rigidity_waist_shift_knob(madx, rigidty_waist_shift_value=1.5, ir=5)
             matching.match_tunes(madx, "lhc", "lhcb1", 62.31, 60.32)
     """
+    if ir is None or ir not in (1, 2, 5, 8):
+        logger.error("Invalid IR number provided, not applying any error.")
+        msg = "Invalid 'ir' argument"
+        raise ValueError(msg)
+
     logger.debug(f"Applying Rigidity Waist Shift knob with a unit setting of {rigidty_waist_shift_value}")
     logger.warning("You should re-match tunes & chromaticities after this rigid waist shift knob is applied")
     right_knob, left_knob = f"kqx.r{ir:d}", f"kqx.l{ir:d}"  # IP triplet default knob (no trims)
@@ -184,17 +212,25 @@ def apply_lhc_coupling_knob(
     """
     .. versionadded:: 0.15.0
 
-    Applies a trim of the LHC coupling knob to reach the desired :math:`|C^{-}|` value.
+    Applies a trim of the LHC coupling knob to reach the desired :math:`|C^{-}|`
+    (global coupling) value.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        coupling_knob (float): Desired value for the Cminus, typically a few units of ``1E-3``.
-            Defaults to 0 so users don't mess up coupling by mistake.
-        beam (int): beam to apply the knob to. Defaults to beam 1.
-        telescopic_squeeze (bool): if set to `True`, uses the knobs for Telescopic Squeeze configuration.
-            Defaults to `True` since `v0.9.0`.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    coupling_knob : float
+        Desired value for the Cminus, typically a few units of ``1E-3``.
+        Defaults to 0 so users don't mess up coupling by mistake.
+    beam : int
+        Beam to apply the knob to. Defaults to beam 1.
+    telescopic_squeeze : bool
+        If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
+        Squeeze configuration. Defaults to `True` to reflect Run 3
+        scenarios since `v0.9.0`.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             apply_lhc_coupling_knob(madx, coupling_knob=5e-4, beam=1)
