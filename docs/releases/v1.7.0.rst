@@ -25,6 +25,12 @@ Changes
 * The `pyhdtoolkit.cpymadtools.lhc.make_lhc_beams` function now defaults to a value of `2.5E-6m` for the normalized horizontal and vertical emittances, according to Run 3 operation. Functions that were calling `make_lhc_beams` for the Run 2 configuration explicitely ask for the previous default value of `3.5E-6m`.
 * The `pyhdtoolkit.cpymadtools.lhc.get_sizes_at_ip` function no longer accepts `geom_emit_[xy]` as arguments and requires `gemitt_[xy]` instead.
 
+Documentation
+~~~~~~~~~~~~~
+
+* Fixed various inconsistencies.
+* The whole package's docstrings have been migrated to use `numpy` style to better fit their depth. While the build documentation has not changed, users exploring function docstrings will have a better time reading them.
+
 Maintenance
 ~~~~~~~~~~~
 
