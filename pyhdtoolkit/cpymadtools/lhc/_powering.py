@@ -252,18 +252,23 @@ def carry_colinearity_knob_over(madx: Madx, /, ir: int, to_left: bool = True) ->
     """
     .. versionadded:: 0.20.0
 
-    Removes the powering setting on one side of the colinearty knob and applies it to the
-    other side.
+    Removes the powering setting on one side of the colinearty knob and applies
+    it to the other side.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        ir (int): The Interaction Region around which to apply the change, should be
-            one of [1, 2, 5, 8].
-        to_left (bool): If `True`, the magnet right of IP is de-powered of and its powering
-            is transferred to the magnet left of IP. If `False`, then the opposite happens.
-            Defaults to `True`.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    ir : int
+        The Interaction Region around which to apply the change, should be
+        one of [1, 2, 5, 8].
+    to_left : bool
+        If `True`, the magnet right of IP is de-powered of and its powering
+        is transferred to the magnet left of IP. If `False`, then the opposite
+        happens. Defaults to `True`.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             carry_colinearity_knob_over(madx, ir=5, to_left=True)
@@ -289,13 +294,20 @@ def power_landau_octupoles(madx: Madx, /, beam: int, mo_current: float, defectiv
 
     Powers the Landau octupoles in the (HL)LHC.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        beam (int): beam to use.
-        mo_current (float): `MO` powering, in [A].
-        defective_arc: If set to `True`, the ``KOD`` in Arc 56 are powered for less ``Imax``.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    beam : int
+        The beam to use.
+    mo_current : float
+        The MO powering in [A].
+    defective_arc : bool
+        If set to `True`, the ``KOD`` in Arc 56 are powered for less ``Imax``.
+        Defaults to `False`.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             power_landau_octupoles(madx, beam=1, mo_current=350, defect_arc=True)
@@ -327,11 +339,15 @@ def deactivate_lhc_arc_sextupoles(madx: Madx, /, beam: int) -> None:
 
     Deactivates all arc sextupoles in the (HL)LHC.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        beam (int): beam to use.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    beam : int
+        The beam to use.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             deactivate_lhc_arc_sextupoles(madx, beam=1)
@@ -356,23 +372,33 @@ def vary_independent_ir_quadrupoles(
     """
     .. versionadded:: 0.15.0
 
-    Sends the ``VARY`` commands for the desired quadrupoles in the IR surrounding the provided *ip*.
-    The independent quadrupoles for which this is implemented are Q4 to Q13 included. This is useful
-    to setup some specific matching involving these elements.
+    Sends the ``VARY`` commands for the desired quadrupoles in the IR surrounding
+    the provided *ip*. The independent quadrupoles for which this is implemented
+    are Q4 to Q13 included. This is useful to setup some specific matching involving
+    these elements.
 
-    .. important::
-        It is necessary to have defined a ``brho`` variable when creating your beams. If one has used
-        `make_lhc_beams` to create the beams, this has already been done automatically.
+    Important
+    ---------
+        It is necessary to have defined a ``brho`` variable when creating your beams.
+        If one has used the `~lhc.make_lhc_beams` function to create the beams, this
+        has already been done automatically.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        quad_numbers (Sequence[int]): quadrupoles to be varied, by number (aka position from IP).
-        ip (int): the IP around which to apply the instructions.
-        sides (Sequence[str]): the sides of IP to act on. Should be `R` for right and `L` for left,
-            accepts these letters case-insensitively. Defaults to both sides of the IP.
-        beam (int): the beam for which to apply the instructions. Defaults to 1.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    quad_numbers : Sequence[int]
+        Quadrupoles to be varied, by number (aka position from IP).
+    ip : int
+        The IP around which to apply the instructions.
+    sides : Sequence[str]
+        Sides of the IP for which to apply error on the triplets, either
+        L, R or both, case insensitive. Defaults to both.
+    beam : int
+        The beam for which to apply the instructions. Defaults to 1.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             vary_independent_ir_quadrupoles(
@@ -418,19 +444,24 @@ def switch_magnetic_errors(madx: Madx, /, **kwargs) -> None:
     """
     .. versionadded:: 0.7.0
 
-    Applies magnetic field orders. This will only work for LHC and HLLHC machines.
-    Initial implementation credits go to :user:`Joschua Dilly <joschd>`.
+    Applies magnetic field orders. This will only work for ``LHC`` and ``HLLHC``
+    machines. Initial implementation credits go to :user:`Joschua Dilly <joschd>`.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        **kwargs: The setting works through keyword arguments, and several specific
-            kwargs are expected. `default` sets global default to this value (defaults to `False`).
-            `AB#` sets the default for all of that order, the order being the `#` number. `A#` or
-            `B#` sets the default for systematic and random of this id. `A#s`, `B#r`, etc. sets the
-            specific value for this given order. In all kwargs, the order # should be in the range
-            [1...15], where 1 == dipolar field.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    **kwargs:
+        The setting works through keyword arguments, and several specific kwargs
+        are expected. `default` sets global default to this value (defaults to
+        `False`). `AB#` sets the default for all of that order, the order being
+        the `#` number. `A#` or `B#` sets the default for systematic and random
+        of this id. `A#s`, `B#r`, etc. sets the specific value for this given
+        order. In all kwargs, the order # should be in the range [1...15], where
+        1 == dipolar field.
 
-    Examples:
+    Examples
+    --------
 
         Set random values for (alsmost) all of these orders:
 
@@ -446,7 +477,7 @@ def switch_magnetic_errors(madx: Madx, /, **kwargs) -> None:
 
         .. code-block:: python
 
-            switch_magnetic_errors(madx, {"B6": 1e-4})
+            switch_magnetic_errors(madx, **{"B6": 1e-4})
     """
     logger.debug("Setting magnetic errors")
     global_default = kwargs.get("default", False)
@@ -472,10 +503,14 @@ def _all_lhc_arcs(beam: int) -> list[str]:
     Generates and returns the names of all LHC arcs for a given beam.
     Initial implementation credits go to :user:`Joschua Dilly <joschd>`.
 
-    Args:
-        beam (int): beam to get names for.
+    Parameters
+    ----------
+    beam : int
+        The beam to get arc names for.
 
-    Returns:
-        The list of names.
+    Returns
+    -------
+    list[str]
+        The list of arc names.
     """
     return [f"A{i+1}{(i+1)%8+1}B{beam:d}" for i in range(8)]

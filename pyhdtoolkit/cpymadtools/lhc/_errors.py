@@ -52,7 +52,7 @@ def misalign_lhc_triplets(
         The interaction point around which to apply errors.
     sides : Sequence[str]
         Sides of the IP for which to apply error on the triplets, either
-        L, R or both, case-insensitive. Defaults to both.
+        L, R or both, case insensitive. Defaults to both.
     table : str
         The name of the internal table that will save the assigned errors.
         Defaults to 'triplet_errors'.
@@ -126,7 +126,7 @@ def misalign_lhc_ir_quadrupoles(
         The number of the quadrupoles to apply errors to.
     sides : Sequence[str]
         Sides of the IP for which to apply error on the triplets, either
-        L, R or both, case-insensitive. Defaults to both.
+        L, R or both, case insensitive. Defaults to both.
     table : str
         The name of the internal table that will save the assigned errors.
         Defaults to 'ir_quads_errors'.
