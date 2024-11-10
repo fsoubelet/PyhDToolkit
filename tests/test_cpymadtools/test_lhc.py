@@ -409,6 +409,7 @@ def test_colinearity_knob(knob_value, ir, _non_matched_lhc_madx):
     assert madx.globals[f"KQSX3.R{ir:d}"] == knob_value * 1e-4
     assert madx.globals[f"KQSX3.L{ir:d}"] == -1 * knob_value * 1e-4
 
+
 def test_colinearity_knob_raises_on_wrong_ir(_non_matched_lhc_madx, caplog):
     madx = _non_matched_lhc_madx
 
@@ -438,6 +439,7 @@ def test_colinearity_knob_delta(knob_delta, ir, _non_matched_lhc_madx):
     assert madx.globals[f"KQSX3.R{ir:d}"] == init + 2 * knob_delta * 1e-4
     assert madx.globals[f"KQSX3.L{ir:d}"] == -1 * init - 2 * knob_delta * 1e-4
 
+
 def test_colinearity_knob_delta_raises_on_wrong_ir(_non_matched_lhc_madx, caplog):
     madx = _non_matched_lhc_madx
 
@@ -446,6 +448,7 @@ def test_colinearity_knob_delta_raises_on_wrong_ir(_non_matched_lhc_madx, caplog
 
     for record in caplog.records:
         assert record.levelname == "ERROR"
+
 
 @pytest.mark.parametrize("side", ["left", "right"])
 @pytest.mark.parametrize("knob_value", [1, 2])
@@ -466,6 +469,7 @@ def test_rigidity_knob(side, knob_value, ir, _non_matched_lhc_madx):
         assert madx.globals[right_knob] == (1 + knob_value * 0.005) * current_right_knob
         assert madx.globals[left_knob] == (1 - knob_value * 0.005) * current_left_knob
 
+
 def test_rigidity_knob_fails_on_invalid_ir(_non_matched_lhc_madx, caplog):
     madx = _non_matched_lhc_madx
 
@@ -475,6 +479,7 @@ def test_rigidity_knob_fails_on_invalid_ir(_non_matched_lhc_madx, caplog):
     for record in caplog.records:
         assert record.levelname == "ERROR"
 
+
 def test_rigidity_knob_fails_on_invalid_side(caplog, _non_matched_lhc_madx):
     madx = _non_matched_lhc_madx
 
@@ -483,6 +488,7 @@ def test_rigidity_knob_fails_on_invalid_side(caplog, _non_matched_lhc_madx):
 
     for record in caplog.records:
         assert record.levelname == "ERROR"
+
 
 @pytest.mark.parametrize("knob_value", [1e-3, 3e-3, 5e-5])
 @pytest.mark.parametrize("telescopic_squeeze", [False, True])

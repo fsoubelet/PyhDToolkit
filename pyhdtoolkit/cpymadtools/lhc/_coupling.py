@@ -12,8 +12,8 @@ from typing import TYPE_CHECKING
 
 from optics_functions.coupling import coupling_via_cmatrix
 
-from pyhdtoolkit.cpymadtools.twiss import get_pattern_twiss
 from pyhdtoolkit.cpymadtools.constants import MONITOR_TWISS_COLUMNS
+from pyhdtoolkit.cpymadtools.twiss import get_pattern_twiss
 
 if TYPE_CHECKING:
     from cpymad.madx import Madx

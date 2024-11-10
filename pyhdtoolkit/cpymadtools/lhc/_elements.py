@@ -179,7 +179,7 @@ def install_ac_dipole_as_matrix(madx: Madx, /, deltaqx: float, deltaqy: float, b
     that the `lhcb1` / `lhcb2` sequence is already defined, sliced, with
     an associated beam (``BEAM`` command or `~lhc.make_lhc_beams` function),
     is matched to the desired working point and a ``TWISS`` call has been made.
-    
+
     This function's use is very similar to that of
     :func:`install_ac_dipole_as_kicker`.
 

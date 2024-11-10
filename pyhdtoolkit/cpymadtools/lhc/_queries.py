@@ -275,7 +275,7 @@ def _list_field_currents(madx: Madx, /, brho: str | float | None = None) -> None
         An explicit definition for the magnetic rigidity in :math:`Tm^{-1}`.
         If not given, it will be assumed that a ``brho`` quantity is defined
         in the ``MAD-X`` globals and this one will be used.
-    """ 
+    """
     logger.debug("Creating additional TWISS table columns for magnets' fields and currents")
 
     if brho is not None:
