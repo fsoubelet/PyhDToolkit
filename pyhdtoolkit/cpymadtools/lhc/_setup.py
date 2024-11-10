@@ -28,38 +28,55 @@ def prepare_lhc_run2(
     """
     .. versionadded:: 1.0.0
 
-    Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a Run 2 setup. Both beams
-    are made with a default Run 2 configuration, and the ``lhcb`` sequence for the given beam is re-cycled
-    from ``MSIA.EXIT.B{beam}`` as in the ``OMC`` model_creator, and then ``USE``-d. Specific variable settings
+    Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a
+    Run 2 setup. Both beams are made with a default Run 2 configuration, and the
+    ``lhcb`` sequence for the given beam is re-cycled from ``MSIA.EXIT.B{beam}``
+    as in the ``OMC`` model_creator, and then ``USE``-d. Specific variable settings
     can be given as keyword arguments.
 
-    .. important::
-        As this is a Run 2 setup, it is assumed that files are organised in the typical setup as found on ``AFS``.
-        The sequence file will be looked for as a relative location from the optics file: it is assumed that next
-        to the sequence file is a **PROTON** or **ION** folder with the opticsfiles.
+    Important
+    ---------
+        As this is a Run 2 setup, it is assumed that files are organised in the
+        typical setup as found on ``AFS``. The sequence file will be looked for
+        as a relative location from the optics file: it is assumed that next to
+        the sequence file is a **PROTON** or **ION** folder with the opticsfiles.
 
-    .. note::
-        Matching is **not** performed by this function and should be taken care of by the user, but the working point
-        should be set by the definitions in the *opticsfile*. Beware that passing specific variables as keyword arguments
-        might change that working point.
+    Note
+    ----
+        Matching is **not** performed by this function and should be taken care
+        of by the user, but the working point should be set by the definitions in
+        the *opticsfile*.
 
-    Args:
-        opticsfile (str): the relative string path or a `Path` object to the opticsfile location. This will
-            be used to determine the location of the sequence file, see the admonition above.
-        beam (int): which beam to set up for. Defaults to beam 1.
-        use_b4 (bool): if `True`, the lhcb4 sequence file will be used. This is the beam 2 sequence but for tracking
-            purposes. Defaults to `False`.
-        energy (float): beam energy to set up for, in GeV. Defaults to 6500.
-        slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,
-            which leads to an unsliced sequence.
-        **kwargs: if `echo` or `warn` are found in the keyword arguments they will be transmitted as options
-            to ``MAD-X`` (by default they are given as `False`). Any other keyword argument is transmitted to
-            the `~cpymad.madx.Madx` creation call.
+    Parameters
+    ----------
+    opticsfile : str
+        The relative string path or a `Path` object to the opticsfile location.
+        This will be used to determine the location of the sequence file, see the
+        admonition above.
+    beam : int
+        The beam to set up for. Defaults to beam 1.
+    use_b4 : bool
+        If `True`, the lhcb4 sequence file will be used. This is the beam 2
+        sequence but for tracking purposes. Defaults to `False`.
+    energy : float
+        The beam energy to set up for, in [GeV]. Defaults to 6500.
+    slicefactor : int, optional
+        If provided, the sequence will be sliced and made thin. Defaults to
+        `None`, which leads to an unsliced sequence.
+    **kwargs
+        If `echo` or `warn` are found in the keyword arguments they will be
+        transmitted as options to ``MAD-X`` (by default these two are given
+        as `False`). Any other keyword argument is transmitted to the
+        `~cpymad.madx.Madx` creation call.
 
-    Returns:
-        An instanciated `~cpymad.madx.Madx` object with the required configuration.
+    Returns
+    -------
+    cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object with the required
+        configuration.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             madx = prepare_lhc_run2(
@@ -112,34 +129,54 @@ def prepare_lhc_run3(
     """
     .. versionadded:: 1.0.0
 
-    Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a Run 3 setup. Both beams
-    are made with a default Run 3 configuration, and the provided sequence is re-cycled from ``MSIA.EXIT.[B12]``
-    as in the ``OMC`` model_creator, then ``USE``-d. Specific variable settings can be given as keyword arguments.
+    Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a
+    Run 3 setup. Both beams are made with a default Run 3 configuration, and the
+    ``lhcb`` sequence for the given beam is re-cycled from ``MSIA.EXIT.B{beam}``
+    as in the ``OMC`` model_creator, and then ``USE``-d. Specific variable settings
+    can be given as keyword arguments.
 
-    .. important::
-        As this is a Run 3 setup, it is assumed that the ``acc-models-lhc`` repo is available in the root space,``.
-        which is needed by the different files in ``acc-models-lhc``.
+    Important
+    ---------
+        As this is a Run 3 setup, it is assumed that the ``acc-models-lhc`` repo is
+        available in the root space, which is needed by the different files in the
+        ``acc-models-lhc`` repo itself.
 
-    .. note::
-        Matching is **not** performed by this function and should be taken care of by the user, but the working
-        point should be set by the variable definitions in the *opticsfile*.
+    Note
+    ----
+        Matching is **not** performed by this function and should be taken care
+        of by the user, but the working point should be set by the definitions in
+        the *opticsfile*.
 
-    Args:
-        opticsfile (str): name of the optics file to be used. Can be the string path to the file or only the opticsfile
-            name itself, which would be looked for at the **acc-models-lhc/operation/optics/** path.
-        beam (int): which beam to set up for. Defaults to beam 1.
-        use_b4 (bool): if `True`, the lhcb4 sequence file will be used. This is the beam 2 sequence but for tracking
-            purposes. Defaults to `False`.
-        energy (float): beam energy to set up for, in GeV. Defaults to 6800.
-        slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,
-            which leads to an unsliced sequence.
-        **kwargs: if `echo` or `warn` are found in the keyword arguments they will be transmitted as options to ``MAD-X``.
-            Any other keyword argument is transmitted to the `~cpymad.madx.Madx` creation call.
+    Parameters
+    ----------
+    opticsfile : str
+        The name of the optics file to be used. Can be the string path to the
+        file or only the opticsfile name itself, which would be looked for at
+        the **acc-models-lhc/operation/optics/** path.
+    beam : int
+        The beam to set up for. Defaults to beam 1.
+    use_b4 : bool
+        If `True`, the lhcb4 sequence file will be used. This is the beam 2
+        sequence but for tracking purposes. Defaults to `False`.
+    energy : float
+        The beam energy to set up for, in [GeV]. Defaults to 6800.
+    slicefactor : int, optional
+        If provided, the sequence will be sliced and made thin. Defaults to
+        `None`, which leads to an unsliced sequence.
+    **kwargs
+        If `echo` or `warn` are found in the keyword arguments they will be
+        transmitted as options to ``MAD-X`` (by default these two are given
+        as `False`). Any other keyword argument is transmitted to the
+        `~cpymad.madx.Madx` creation call.
 
-    Returns:
-        An instanciated `~cpymad.madx.Madx` object with the required configuration.
+    Returns
+    -------
+    cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object with the required
+        configuration.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             madx = prepare_lhc_run3(
@@ -184,43 +221,70 @@ class LHCSetup:
     """
     .. versionadded:: 1.0.0
 
-    This is a context manager to prepare an LHC Run 2 or Run 3 setup: calling sequences and opticsfile,
-    re-cycling as is done in the ``OMC`` model creator, making beams, potentially slicing, etc. For details
-    on the achieved setups, look at the `~prepare_lhc_run2` or `~prepare_lhc_run3` functions.
+    context manager to prepare an LHC Run 2 or Run 3 setup: calling sequence
+    and opticsfile, re-cycling as is done in the ``OMC`` model creator, making
+    beams, potentially slicing, etc. For details on the achieved setups, look
+    at the `~prepare_lhc_run2` or `~prepare_lhc_run3` functions.
 
-    .. important::
-        For the Run 3 setup, it is assumed that the **acc-models-lhc** repo is available in the root space.
+    Important
+    ---------
+        For the Run 3 setup, it is assumed that the **acc-models-lhc** repo is
+        available in the root space.
 
-    .. note::
-        Matching is **not** performed by this setup and should be taken care of by the user, but the working
-        point should be set by the definitions in the *opticsfile*.
+    Note
+    ----
+        Matching is **not** performed by this function and should be taken care
+        of by the user, but the working point should be set by the definitions in
+        the *opticsfile*.
 
-    .. note::
-        If you intend to do tracking for beam 2, remember that the ``lhcb4`` sequence needs to be called.
-        This is handled by giving the ``use_b4`` argument as `True` to the constructor.
+    Note
+    ----
+        To do tracking for beam 2, remember that the ``lhcb4`` sequence needs to
+        be called. This is handled by giving the ``use_b4`` argument as `True` to
+        the constructor.
 
-    Args:
-        run (int): which run to set up for, should be 2 or 3. Defaults to run 3.
-        opticsfile (str): name of the opticsfile to be used. For a Run 2 setup, should be the string path to the file.
-            For a Run 3 setup, can be the string path to the file or only the opticsfile name itself, which would be
-            looked for at the **acc-models-lhc/operation/optics/** path. Defaults to `None`, which will raise an error.
-        beam (int): which beam to set up for. Defaults to beam 1.
-        use_b4 (bool): if `True`, the lhcb4 sequence file will be used. This is the beam 2 sequence but for tracking
-            purposes. Defaults to `False`.
-        energy (float): beam energy to set up for, in GeV. Defaults to 6800, to match the default of run 3.
-        slicefactor (int): if provided, the sequence will be sliced and "made thin". Defaults to `None`,
-            which leads to an unsliced sequence.
-        **kwargs: if `echo` or `warn` are found in the keyword arguments they will be transmitted as options to ``MAD-X``.
-            Any other keyword argument is transmitted to the `~cpymad.madx.Madx` creation call.
+    Parameters
+    ----------
+    run : int
+        Which run to set up for, should be 2 or 3. Defaults to run 3.
+    opticsfile : str
+        The name of the optics file to be used. For a Run 2 setup, should be the
+        string path to the file. For a Run 3 setup, can be the string path to the
+        file or only the opticsfile name itself, which would be looked for at the
+        **acc-models-lhc/operation/optics/** path. Defaults to `None`, which will
+        raise an error.
+    beam : int
+        The beam to set up for. Defaults to beam 1.
+    use_b4 : bool
+        If `True`, the lhcb4 sequence file will be used. This is the beam 2
+        sequence but for tracking purposes. Defaults to `False`.
+    energy : float
+        The beam energy to set up for, in [GeV]. Defaults to 6800, to match
+        the default of Run 3.
+    slicefactor : int, optional
+        If provided, the sequence will be sliced and made thin. Defaults to
+        `None`, which leads to an unsliced sequence.
+    **kwargs
+        If `echo` or `warn` are found in the keyword arguments they will be
+        transmitted as options to ``MAD-X`` (by default these two are given
+        as `False`). Any other keyword argument is transmitted to the
+        `~cpymad.madx.Madx` creation call.
 
-    Returns:
-        An instanciated context manager `~cpymad.madx.Madx` object with the required configuration.
+    Returns
+    -------
+    cpymad.madx.Madx
+        An instanciated context manager `~cpymad.madx.Madx` object with
+        the required configuration.
 
-    Raises:
-        NotImplementedError: if the *run* argument is not 2 or 3.
-        AssertionError: if the *opticsfile* argument is not provided.
+    Raises
+    ------
+    NotImplementedError
+        If the *run* argument is not 2 or 3.
+    AssertionError
+        If the *opticsfile* argument is not provided.
 
-    Examples:
+    Examples
+    --------
 
         Get a Run 2 setup for beam 2:
 
@@ -294,24 +358,32 @@ def make_lhc_beams(
     """
     .. versionadded:: 0.15.0
 
-    Defines beams with default configuratons for ``LHCB1`` and ``LHCB2`` sequences.
+    Defines beams with default configuratons for ``LHCB1`` and
+    ``LHCB2`` sequences.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-            Positional only.
-        energy (float): beam energy, in [GeV]. Defaults to 6500.
-        nemitt_x (float): normalized horizontal emittance in [m]. Will
-            be used to calculate geometric emittance which is then fed to
-            the ``BEAM`` command. Defaults to the Run 3 value of 2.5e-6m.
-        nemitt_y (float): normalized vertical emittance in [m]. Will be
-            used to calculate geometric emittance which is then fed to
-            the ``BEAM`` command. Defaults to the Run 3 value of 2.5e-6m.
-        b4 (bool): if `True`, will consider one is using ``lhb4`` to do tracking on beam 2,
-            and will properly set the ``bv`` flag to 1. Defaults to `False`.
-        **kwargs: Old accepted `emittance_x` and `emittance_y` are looked for and used
-            if provided. Any other keyword argument is given to the ``MAD-X`` ``BEAM`` command.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    energy : float
+        Beam energy, in [GeV]. Defaults to 7000.
+    nemitt_x : float
+        Normalized horizontal emittance in [m]. Will be used to calculate
+        geometric emittance which is then fed to the ``BEAM`` command.
+        Defaults to the Run 3 value of 2.5e-6m.
+    nemitt_y : float
+        Normalized vertical emittance in [m]. Will be used to calculate
+        geometric emittance which is then fed to the ``BEAM`` command.
+        Defaults to the Run 3 value of 2.5e-6m.
+    b4 : bool
+        If `True`, will consider one is using ``lhb4`` to do tracking on
+        beam 2, and will properly set the ``bv`` flag to 1. Defaults to
+        `False`.
+    **kwargs
+        Any other keyword argument is given to the ``MAD-X`` ``BEAM`` command.
 
-    Examples:
+    Examples
+    --------
 
         .. code-block:: python
 
@@ -354,23 +426,31 @@ def make_lhc_thin(madx: Madx, /, sequence: str, slicefactor: int = 1, **kwargs) 
     """
     .. versionadded:: 0.15.0
 
-    Executes the ``MAKETHIN`` command for the LHC sequence as previously done in ``MAD-X`` macros.
-    This will use the ``teapot`` style and will enforce ``makedipedge``.
+    Executes the ``MAKETHIN`` command for the LHC sequence as previously done
+    in ``MAD-X`` macros. This will use the ``teapot`` style and will enforce
+    ``makedipedge``.
 
-    One can find an exemple use of this function in the :ref:`AC Dipole Tracking <demo-ac-dipole-tracking>`
-    and :ref:`Free Tracking <demo-free-tracking>` example galleries.
+    One can find an example use of this function in the :ref:`AC Dipole Tracking
+    <demo-ac-dipole-tracking>` and :ref:`Free Tracking <demo-free-tracking>`
+    example galleries.
 
-    Args:
-        madx (cpymad.madx.Madx): an instantiated `~cpymad.madx.Madx` object.
-        sequence (str): the sequence to use for the ``MAKETHIN`` command.
-        slicefactor (int): the slice factor to apply in ``MAKETHIN``, which is a factor
-            applied to default values for different elements, as did the old macro. Defaults
-            to 1.
-        **kwargs: any keyword argument will be transmitted to the ``MAD-X`` ``MAKETHN``
-            command, namely ``style`` (will default to ``teapot``) and the ``makedipedge``
-            flag (will default to `True`).
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    sequence : str
+        The sequence to use for the ``MAKETHIN`` command.
+    slicefactor : int
+        The slice factor to apply in ``MAKETHIN``, which is a factor applied
+        to default values for different elements, as did the old macro.
+        Defaults to 1.
+    **kwargs
+        Any keyword argument will be transmitted to the ``MAD-X`` ``MAKETHN``
+        command, namely ``style`` (will default to ``teapot``) and the
+        ``makedipedge`` flag (will default to `True`).
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
@@ -416,17 +496,24 @@ def re_cycle_sequence(madx: Madx, /, sequence: str = "lhcb1", start: str = "IP3"
     """
     .. versionadded:: 0.15.0
 
-    Re-cycles the provided *sequence* from a different starting point, given as *start*.
+    Re-cycles the provided *sequence* from a different starting point,
+    given as *start*.
 
-    One can find an exemple use of this function in the :ref:`AC Dipole Tracking <demo-ac-dipole-tracking>`
-    and :ref:`Free Tracking <demo-free-tracking>` example galleries.
+    One can find an exemple use of this function in the :ref:`AC Dipole
+    Tracking <demo-ac-dipole-tracking>` and :ref:`Free Tracking
+    <demo-free-tracking>` example galleries.
 
-    Args:
-        madx (cpymad.madx.Madx): an instantiated `~cpymad.madx.Madx` object.
-        sequence (str): the sequence to re-cycle.
-        start (str): element to start the new cycle from.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    sequence : str
+        The sequence to re-cycle. Defaults to "lhcb1".
+    start : str
+        The element to start the new cycle from. Defaults to "IP3".
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             re_cycle_sequence(madx, sequence="lhcb1", start="MSIA.EXIT.B1")
@@ -442,14 +529,18 @@ def lhc_orbit_variables() -> tuple[list[str], dict[str, str]]:
     """
     .. versionadded:: 0.8.0
 
-    Get the variable names used for orbit setup in the (HL)LHC. Initial implementation
-    credits go to :user:`Joschua Dilly <joschd>`.
+    Get the variable names used for orbit setup in the (HL)LHC. Initial
+    implementation credits go to :user:`Joschua Dilly <joschd>`.
 
-    Returns:
-        A `tuple` with a `list` of all orbit variables, and a `dict` of additional variables,
-        that in the default configurations have the same value as another variable.
+    Returns
+    -------
+    tuple[list[str], dict[str, str]]
+        A `tuple` with a `list` of all orbit variables, and a `dict` of
+        additional variables, that in the default configurations have the
+        same value as another variable.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             variables, specials = lhc_orbit_variables()
@@ -503,22 +594,30 @@ def setup_lhc_orbit(madx: Madx, /, scheme: str = "flat", **kwargs) -> dict[str, 
     """
     .. versionadded:: 0.8.0
 
-    Automated orbit setup for (HL)LHC runs, for some default schemes. It is assumed that at
-    least sequence and optics files have been called. Initial implementation credits go to
-    :user:`Joschua Dilly <joschd>`.
+    Automated orbit setup for (HL)LHC runs, for some default schemes. It is
+    assumed that at least sequence and optics files have been called. Initial
+    implementation credits go to :user:`Joschua Dilly <joschd>`.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        scheme (str): the default scheme to apply, as defined in the ``LHC_CROSSING_SCHEMES``
-            constant. Accepted values are keys of `LHC_CROSSING_SCHEMES`. Defaults to *flat*
-            (every orbit variable to 0).
-        **kwargs: Any standard crossing scheme variables (``on_x1``, ``phi_IR1``, etc). Values
-            given here override the values in the default scheme configurations.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    scheme : str
+        The default scheme to apply, as defined in the `LHC_CROSSING_SCHEMES`
+        constant. Accepted values are keys of `LHC_CROSSING_SCHEMES`. Defaults
+        to "flat" (every orbit variable to 0).
+    **kwargs
+        Any standard crossing scheme variables (`on_x1`, `phi_IR1`, etc). Values
+        given here override the values in the default scheme configurations.
 
-    Returns:
-        A `dict` of all orbit variables set, and their values as set in the ``MAD-X`` globals.
+    Returns
+    -------
+    dict[str, float]
+        A `dict` of all orbit variables set, and their values as set in
+        the ``MAD-X`` globals.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             orbit_setup = setup_lhc_orbit(madx, scheme="lhc_top")
