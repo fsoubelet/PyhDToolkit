@@ -236,9 +236,9 @@ def get_sizes_at_ip(
             ip5_x, ip5_y = get_size_at_ip(madx, ip=5)
     """
     logger.debug(f"Getting horizontal and vertical sizes at IP{ip:d} through Ripken parameters")
-    geom_emit_x = gemitt_x or madx.globals["geometric_emit_x"]
-    geom_emit_y = gemitt_y or madx.globals["geometric_emit_y"]
+    gemitt_x = gemitt_x or madx.globals["geometric_emit_x"]
+    gemitt_y = gemitt_y or madx.globals["geometric_emit_y"]
 
     twiss_tfs = twiss.get_twiss_tfs(madx, ripken=True)
-    twiss_tfs = _add_beam_size_to_df(twiss_tfs, geom_emit_x, geom_emit_y)
+    twiss_tfs = _add_beam_size_to_df(twiss_tfs, gemitt_x, gemitt_y)
     return twiss_tfs.loc[f"IP{ip:d}"].SIZE_X, twiss_tfs.loc[f"IP{ip:d}"].SIZE_Y
