@@ -25,17 +25,24 @@ def get_lhc_bpms_twiss_and_rdts(madx: Madx, /) -> TfsDataFrame:
     """
     .. versionadded:: 0.19.0
 
-    Runs a ``TWISS`` on the currently active sequence for all ``LHC`` BPMs. The coupling RDTs
-    are also computed through a CMatrix approach via  `optics_functions.coupling.coupling_via_cmatrix`.
+    Runs a ``TWISS`` on the currently active sequence for all ``LHC`` BPMs.
+    The coupling RDTs are also computed through a CMatrix approach via a call
+    to `optics_functions.coupling.coupling_via_cmatrix`.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
 
-    Returns:
-        A `~tfs.frame.TfsDataFrame` of the ``TWISS`` table with basic default columns, as well as one
-        new column for each of the coupling RDTs. The coupling RDTs are returned as complex numbers.
+    Returns
+    -------
+    TfsDataFrame
+        A `~tfs.frame.TfsDataFrame` of the ``TWISS`` table with basic
+        default columns, as well as one new complex-valued column for
+        each of the coupling RDTs.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             twiss_with_rdts = get_lhc_bpms_twiss_and_rdts(madx)
