@@ -3,7 +3,8 @@
 
 **Setup Utilities**
 
-The functions below are setup utilities for the ``LHC``, to easily get simulations ready.
+The functions below are setup utilities for the ``LHC``,
+to easily get simulations ready.
 """
 
 from __future__ import annotations

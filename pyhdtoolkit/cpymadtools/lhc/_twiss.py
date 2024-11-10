@@ -3,7 +3,8 @@
 
 **Twiss Utilities**
 
-The functions below are twiss utilities for the ``LHC`` insertion regions.
+The functions below are twiss utilities for the
+``LHC`` insertion regions.
 """
 
 from __future__ import annotations
@@ -26,19 +27,29 @@ def get_ips_twiss(madx: Madx, /, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS,
     """
     .. versionadded:: 0.9.0
 
-    Quickly get the ``TWISS`` table for certain variables at IP locations only. The ``SUMM`` table will be
-    included as the `~tfs.frame.TfsDataFrame`'s header dictionary.
+    Quickly get the ``TWISS`` table for certain variables at IP locations only.
+    The ``SUMM`` table will be included as the `~tfs.frame.TfsDataFrame`'s header
+    dictionary.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.
-        **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``TWISS`` command, such as ``chrom``,
-            ``ripken``, ``centre``; or starting coordinates with ``betx``, ``bety`` etc.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        an instanciated `~cpymad.madx.Madx` object. Positional only.
+    columns : Sequence[str]
+        The variables to be returned, as columns in the DataFrame. Defaults
+        to the `DEFAULT_TWISS_COLUMNS` constant.
+    **kwargs
+        Any keyword argument that can be given to the ``MAD-X`` ``TWISS``
+        command, such as ``chrom``, ``ripken``, ``centre``; or starting
+        coordinates for optics functions such as ``betx``, ``bety`` etc.
 
-    Returns:
+    Returns
+    -------
+    TfsDataFrame
         A `~tfs.frame.TfsDataFrame` of the ``TWISS`` table's sub-selection.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             ips_df = get_ips_twiss(madx, chrom=True, ripken=True)
@@ -51,21 +62,32 @@ def get_ir_twiss(madx: Madx, /, ir: int, columns: Sequence[str] = DEFAULT_TWISS_
     """
     .. versionadded:: 0.9.0
 
-    Quickly get the ``TWISS`` table for certain variables for one Interaction Region, meaning at the IP and
-    Q1 to Q3 both left and right of the IP. The ``SUMM`` table will be included as the `~tfs.frame.TfsDataFrame`'s
-    header dictionary.
+    Quickly get the ``TWISS`` table for certain variables for one Interaction
+    Region, meaning at the IP and Q1 to Q3 both left and right of the IP. The
+    ``SUMM`` table will be included as the `~tfs.frame.TfsDataFrame`'s header
+    dictionary.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        ir (int): which interaction region to get the TWISS for.
-        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.
-        **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``TWISS`` command, such as ``chrom``,
-            ``ripken``, ``centre``; or starting coordinates with ``betx``, ``bety`` etc.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        an instanciated `~cpymad.madx.Madx` object. Positional only.
+    ir : int
+        The interaction region to get the TWISS for.
+    columns : Sequence[str]
+        The variables to be returned, as columns in the DataFrame. Defaults
+        to the `DEFAULT_TWISS_COLUMNS` constant.
+    **kwargs
+        Any keyword argument that can be given to the ``MAD-X`` ``TWISS``
+        command, such as ``chrom``, ``ripken``, ``centre``; or starting
+        coordinates for optics functions such as ``betx``, ``bety`` etc.
 
-    Returns:
+    Returns
+    -------
+    TfsDataFrame
         A `~tfs.frame.TfsDataFrame` of the ``TWISS`` table's sub-selection.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             ir_df = get_ir_twiss(madx, chrom=True, ripken=True)
