@@ -439,6 +439,14 @@ def test_colinearity_knob_delta(knob_delta, ir, _non_matched_lhc_madx):
     assert madx.globals[f"KQSX3.R{ir:d}"] == init + 2 * knob_delta * 1e-4
     assert madx.globals[f"KQSX3.L{ir:d}"] == -1 * init - 2 * knob_delta * 1e-4
 
+def test_colinearity_knob_delta_raises_on_wrong_ir(_non_matched_lhc_madx, caplog):
+    madx = _non_matched_lhc_madx
+
+    with pytest.raises(ValueError, match="Invalid 'ir' argument"):
+        apply_lhc_colinearity_knob_delta(madx, colinearity_knob_delta=10, ir=321412)
+
+    for record in caplog.records:
+        assert record.levelname == "ERROR"
 
 def test_rigidity_knob_fails_on_invalid_side(caplog, _non_matched_lhc_madx):
     madx = _non_matched_lhc_madx

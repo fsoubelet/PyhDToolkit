@@ -96,6 +96,11 @@ def apply_lhc_colinearity_knob_delta(madx: Madx, /, colinearity_knob_delta: floa
 
             apply_lhc_colinearity_knob_delta(madx, colinearity_knob_delta=3.5, ir=1)
     """
+    if ir is None or ir not in (1, 2, 5, 8):
+        logger.error("Invalid IR number provided, not applying any error.")
+        msg = "Invalid 'ir' argument"
+        raise ValueError(msg)
+
     logger.debug(f"Applying Colinearity knob delta of {colinearity_knob_delta}")
     logger.warning("You should re-match tunes & chromaticities after this delta is applied")
     knob_variables = (f"KQSX3.R{ir:d}", f"KQSX3.L{ir:d}")  # MQSX IP coupling correctors powering
