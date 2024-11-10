@@ -4,8 +4,8 @@
 Beam Parameters
 ---------------
 
-Module with functions to fetch or compute different beam and machine parameters
-through a `~cpymad.madx.Madx` object.
+Module with functions to fetch or compute different beam and
+machine parameters through a `~cpymad.madx.Madx` object.
 """
 
 from __future__ import annotations

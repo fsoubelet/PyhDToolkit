@@ -5,8 +5,9 @@
 Betatron Coupling Utilities
 ---------------------------
 
-Module with functions to perform ``MAD-X`` actions through a `~cpymad.madx.Madx`
-object, that retate to betatron coupling in the machine.
+Module with functions to perform ``MAD-X`` actions through
+a `~cpymad.madx.Madx` object, that retate to betatron coupling
+in the machine.
 """
 
 from __future__ import annotations

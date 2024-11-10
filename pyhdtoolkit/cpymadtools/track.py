@@ -4,8 +4,8 @@
 Tracking Routines
 -----------------
 
-Module with functions to manipulate ``MAD-X`` ``TRACK`` functionality through a
-`~cpymad.madx.Madx` object.
+Module with functions to manipulate ``MAD-X`` ``TRACK`` functionality
+through a `~cpymad.madx.Madx` object.
 """
 
 from __future__ import annotations

@@ -4,8 +4,8 @@
 Matching Routines
 -----------------
 
-Module with functions to perform ``MAD-X`` matchings through a
-`~cpymad.madx.Madx` object.
+Module with functions to perform ``MAD-X`` matchings
+through a `~cpymad.madx.Madx` object.
 """
 
 from __future__ import annotations

@@ -4,9 +4,10 @@
 Lattice Generators
 ------------------
 
-Module with a collection of functions generating different lattices for `~cpymad.madx.Madx` input.
-These lattices are quite simple and are meant to be used in the package's documentation and
-:ref:`example gallery <gallery>`.
+Module with a collection of functions generating different lattices
+for `~cpymad.madx.Madx` input. These lattices are quite simple and
+are meant to be used in the package's documentation and :ref:`example
+gallery <gallery>`.
 """
 
 # ----- Utlites ----- #

@@ -4,8 +4,8 @@
 PTC Routines
 ------------
 
-Module with functions to manipulate ``MAD-X`` ``PTC`` functionality through a
-`~cpymad.madx.Madx` object.
+Module with functions to manipulate ``MAD-X`` ``PTC`` functionality
+through a `~cpymad.madx.Madx` object.
 """
 
 from __future__ import annotations

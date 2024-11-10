@@ -4,8 +4,8 @@
 Tune Utilities
 --------------
 
-Module with functions to manipulate ``MAD-X`` functionality around the tune through
-a `~cpymad.madx.Madx` object.
+Module with functions to manipulate ``MAD-X`` functionality around
+the tune through a `~cpymad.madx.Madx` object.
 """
 
 from __future__ import annotations
