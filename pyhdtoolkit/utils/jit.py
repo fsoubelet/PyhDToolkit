@@ -8,6 +8,8 @@ if TYPE_CHECKING:
 
 def maybe_jit(func: Callable, **kwargs) -> Callable:
     """
+    .. versionadded:: 0.17.0
+
     A `numba.jit` decorator that does nothing if `numba` is not installed.
 
     Args:
