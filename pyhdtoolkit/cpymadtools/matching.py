@@ -43,67 +43,93 @@ def match_tunes_and_chromaticities(
     """
     .. versionadded:: 0.8.0
 
-    Provided with an active `~cpymad.madx.Madx` object, will run relevant commands to match tunes
-    and/or chromaticities. As target values are given, the function expects knob names to be provided,
-    which are then used and varied by ``MAD-X`` to match the targets. This is a convenient wrapper around
-    the ``MATCH`` command. For usage details, see the
-    `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_.
+    Provided with an active `~cpymad.madx.Madx` object, will run relevant commands to
+    match tunes and/or chromaticities. As target values are given, the function expects
+    knob names to be provided, which are then used and varied by ``MAD-X`` to match the
+    targets. This is a convenient wrapper around the ``MATCH`` command in the ``MAD-X``
+    process. For usage details, see the `MAD-X manual
+    <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_.
 
-    One can find example use of this function in the :ref:`lattice plotting <demo-accelerator-lattice>`,
-    :ref:`rigid waist shift <demo-rigid-waist-shift>` or :ref:`phase space <demo-phase-space>` example
-    galleries.
+    One can find examples of this function in the :ref:`lattice plotting
+    <demo-accelerator-lattice>`, the :ref:`rigid waist shift <demo-rigid-waist-shift>`
+    and the :ref:`phase space <demo-phase-space>` example galleries.
 
-    .. important::
-        If target tune values only are provided, then tune matching is performed with the
-        provided knobs. If target chromaticity values only are provided, then chromaticity
-        matching is performed with the provided knobs. If targets for both types are provided,
-        then both are matched in a single call with the provided knobs.
+    Important
+    ---------
+        If only target tune values are provided, then tune matching is performed
+        with the provided knobs. If only target chromaticity values are provided,
+        then chromaticity matching is performed with the provided knobs. Otherwise
+        if targets are provided for both, then both are matched in a single call
+        with the provided knobs.
 
-    .. note::
-        If the user wishes to perform different matching calls for each, then it is recommended
-        to call this function as many times as necessary, with the appropriate targets.
+    Note
+    ----
+        If one wishes to perform different matching calls for each, then it is
+        recommended to call this function as many times as necessary, with the
+        appropriate targets, or simply the wrappers provided in this module.
 
-        For instance, in some cases and machines some prefer to do a tune matching followed by
-        a chromaticity matching, then followed by a combined matching. In this case the function
-        should be called three times, once with tune targets and knobs, another time with
-        chromaticity targets and knobs, then a final time with all of the above. For this, simple
-        wrappers are provided: the :func:`match_tunes` and :func:`match_chromaticities` functions.
+        For instance, in some cases and machines some prefer to do a tune matching
+        followed by a chromaticity matching, then followed by a combined matching.
+        In this case one could call this function three times, or use each wrapper
+        once (first tunes, then chromaticities, then this function). Refer to the
+        :func:`match_tunes` and :func:`match_chromaticities` functions.
 
-    .. hint::
-        When acting of either the ``LHC`` or ``HLLHC`` machines, the accelerator name can be
-        provided and the vary knobs will be automatically set accordingly to the provided targets.
-        Note that only the relevant knobs are set, so if tune targets only are provided, then tune
-        knobs only will be used, and not chromaticity knobs. If explicit knobs are provided, these
-        will always be used. On other machines the knobs should be provided explicitly, always.
+    Hint
+    ----
+        When acting on either the ``LHC`` or ``HLLHC`` machines, the accelerator name
+        can be provided and the vary knobs will be automatically set accordingly to the
+        provided targets, based on the machine's default knobs. Note that in this case
+        only the relevant knobs are set, so if tune targets only are provided, then tune
+        knobs only will be used, and vice versa. If explicit knobs are provided, these
+        will always take precedence. On any other machine the knobs should be provided
+        explicitly, always.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        accelerator (str | None): name of the accelerator, used to determmine knobs if
-            *variables* is not given. Automatic determination will only work for ``LHC`` and
-            ``HLLHC``. Defaults to `None`, in which case the knobs must be provided explicitly
-            through ``varied_knobs``.
-        sequence (str): name of the sequence you want to perform the matching for. Defaults to
-            `None`, in which case the currently active sequence will be used for the matching.
-        q1_target (float): horizontal tune to match to. Defaults to `None`, in which case it will
-            not be a target and will be excluded from the matching.
-        q2_target (float): vertical tune to match to. Defaults to `None`, in which case it will
-            not be a target and will be excluded from the matching.
-        dq1_target (float): horizontal chromaticity to match to. Defaults to `None`, in which case
-            it will not be a target and will be excluded from the matching.
-        dq2_target (float): vertical chromaticity to match to. Defaults to `None`, in which case it
-            will not be a target and will be excluded from the matching.
-        varied_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` ``MATCH``
-            routine. An example input could be ``["kqf", "ksd", "kqf", "kqd"]`` as they are common
-            names used for quadrupole and sextupole strengths (focusing / defocusing) in most examples.
-        telescopic_squeeze (bool): ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for
-            Telescopic Squeeze configuration. Defaults to `True` since `v0.9.0`.
-        run3 (bool): if set to `True`, uses the ``LHC`` Run 3 `*_op` knobs. Defaults to `False`.
-        step (float): step size to use when varying knobs.
-        calls (int): max number of varying calls to perform. Defaults to 100.
-        tolerance (float): tolerance for successfull matching. Defaults to :math:`10^{-21}`.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object.
+    accelerator : str, optional
+        Name of the accelerator, used to determmine knobs if *variables* is not given.
+        Automatic determination will only work for the ``LHC`` and ``HLLHC`` (accepted
+        case insensitively). Defaults to `None`, in which case the knobs must be provided
+        explicitly through ``varied_knobs``.
+    sequence : str, optional
+        Name of the sequence to perform the matching for. Defaults to `None`, in which
+        case the currently active sequence will be used for the matching.
+    q1_target : float, optional
+        Horizontal tune to match to. Defaults to `None`, in which case it will not be a
+        target and will be excluded from the matching.
+    q2_target : float, optional
+        Vertical tune to match to. Defaults to `None`, in which case it will not be a
+        target and will be excluded from the matching.
+    dq1_target : float, optional
+        Horizontal chromaticity to match to. Defaults to `None`, in which case it will
+        not be a target and will be excluded from the matching.
+    dq2_target : float, optional
+        Vertical chromaticity to match to. Defaults to `None`, in which case it will not
+        be a target and will be excluded from the matching.
+    varied_knobs : Sequence[str], optional
+        The variables names to ``VARY`` in the ``MAD-X`` ``MATCH`` routine. An example
+        input could be ``["kqf", "ksd", "kqf", "kqd"]`` as they are common names used
+        for quadrupole and sextupole strengths (focusing / defocusing) in most examples.
+        This parameter is optional if the accelerator is provided as ``LHC`` or ``HLLHC``,
+        but must be provided otherwise. Defaults to `None`.
+    telescopic_squeeze : bool, optional
+        ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
+        Squeeze configuration. Defaults to `True` since `v0.9.0`.
+    run3 : bool, optional
+        ``LHC`` specific. If set to `True`, uses the ``LHC`` Run 3 `*_op` knobs. Defaults
+        to `False`.
+    step : float, optional
+        Step size to use when varying knobs. Defaults to :math:`10^{-7}`.
+    calls : int, optional
+        Max number of varying calls to perform. Defaults to 100.
+    tolerance : float, optional
+        Tolerance for successfull matching. Defaults to :math:`10^{-21}`.
 
-    Examples:
-        Matching a dummy lattice (not LHC or HLLHC):
+    Examples
+    --------
+        Matching a dummy lattice (not ``LHC`` or ``HLLHC``):
 
         .. code-block:: python
 
@@ -118,9 +144,9 @@ def match_tunes_and_chromaticities(
                 varied_knobs=["kqf", "kqd", "ksf", "ksd"],
             )
 
-        Note that since the ``accelerator`` and ``sequence`` arguments default to `None`,
+        Note that since the `accelerator` and `sequence` parameters default to `None`,
         they can be omitted. In this case the sequence currently in use will be used for
-        the matching, and ``varied_knobs`` must be provided.
+        the matching, and `varied_knobs` must be provided:
 
         .. code-block:: python
 
@@ -133,7 +159,8 @@ def match_tunes_and_chromaticities(
                 varied_knobs=["kqf", "kqd", "ksf", "ksd"],
             )
 
-        Matching the ``lhcb1`` sequence of the ``LHC`` lattice:
+        Matching the ``lhcb1`` sequence of the ``LHC`` lattice and letting
+        the function determine the knobs automatically:
 
         .. code-block:: python
 
@@ -149,6 +176,7 @@ def match_tunes_and_chromaticities(
             )
     """
     if accelerator and not varied_knobs:
+        # Assume valid accelerator, which checked in function below
         logger.trace(f"Getting knobs from default {accelerator.upper()} values")
         lhc_knobs = get_lhc_tune_and_chroma_knobs(
             accelerator=accelerator, beam=int(sequence[-1]), telescopic_squeeze=telescopic_squeeze, run3=run3
@@ -217,34 +245,51 @@ def match_tunes(
     Provided with an active `~cpymad.madx.Madx` object, will run relevant commands
     to match tunes to the desired target values.
 
-    .. note::
-        This is a wrapper around the `~.match_tunes_and_chromaticities` function. Refer
-        to its documentation for usage details.
+    Note
+    ----
+        This is a wrapper around the `~.match_tunes_and_chromaticities` function.
+        Refer to its documentation for usage details.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        accelerator (str | None): name of the accelerator, used to determmine knobs if
-            *variables* is not given. Automatic determination will only work for ``LHC`` and
-            ``HLLHC``. Defaults to `None`, in which case the knobs must be provided explicitly
-            through ``varied_knobs``.
-        sequence (str): name of the sequence you want to perform the matching for. Defaults to
-            `None`, in which case the currently active sequence will be used for the matching.
-        q1_target (float): horizontal tune to match to. Defaults to `None`, in which case it will
-            not be a target and will be excluded from the matching.
-        q2_target (float): vertical tune to match to. Defaults to `None`, in which case it will
-            not be a target and will be excluded from the matching.
-        varied_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` ``MATCH``
-            routine. An example input could be ``["kqf", "ksd", "kqf", "kqd"]`` as they are common
-            names used for quadrupole and sextupole strengths (focusing / defocusing) in most examples.
-        telescopic_squeeze (bool): ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for
-            Telescopic Squeeze configuration. Defaults to `True` since `v0.9.0`.
-        run3 (bool): if set to `True`, uses the ``LHC`` Run 3 `*_op` knobs. Defaults to `False`.
-        step (float): step size to use when varying knobs.
-        calls (int): max number of varying calls to perform. Defaults to 100.
-        tolerance (float): tolerance for successfull matching. Defaults to :math:`10^{-21}`.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object.
+    accelerator : str, optional
+        Name of the accelerator, used to determmine knobs if *variables* is not given.
+        Automatic determination will only work for the ``LHC`` and ``HLLHC`` (accepted
+        case insensitively). Defaults to `None`, in which case the knobs must be provided
+        explicitly through ``varied_knobs``.
+    sequence : str, optional
+        Name of the sequence to perform the matching for. Defaults to `None`, in which
+        case the currently active sequence will be used for the matching.
+    q1_target : float, optional
+        Horizontal tune to match to. Defaults to `None`, in which case it will not be a
+        target and will be excluded from the matching.
+    q2_target : float, optional
+        Vertical tune to match to. Defaults to `None`, in which case it will not be a
+        target and will be excluded from the matching.
+    varied_knobs : Sequence[str], optional
+        The variables names to ``VARY`` in the ``MAD-X`` ``MATCH`` routine. An example
+        input could be ``["kqf", "ksd", "kqf", "kqd"]`` as they are common names used
+        for quadrupole and sextupole strengths (focusing / defocusing) in most examples.
+        This parameter is optional if the accelerator is provided as ``LHC`` or ``HLLHC``,
+        but must be provided otherwise. Defaults to `None`.
+    telescopic_squeeze : bool, optional
+        ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
+        Squeeze configuration. Defaults to `True` since `v0.9.0`.
+    run3 : bool, optional
+        ``LHC`` specific. If set to `True`, uses the ``LHC`` Run 3 `*_op` knobs. Defaults
+        to `False`.
+    step : float, optional
+        Step size to use when varying knobs. Defaults to :math:`10^{-7}`.
+    calls : int, optional
+        Max number of varying calls to perform. Defaults to 100.
+    tolerance : float, optional
+        Tolerance for successfull matching. Defaults to :math:`10^{-21}`.
 
-    Examples:
-        Matching a dummy lattice (not LHC or HLLHC):
+    Examples
+    --------
+        Matching a dummy lattice (not ``LHC`` or ``HLLHC``):
 
         .. code-block:: python
 
@@ -257,9 +302,9 @@ def match_tunes(
                 varied_knobs=["kqf", "kqd"],  # only tune knobs
             )
 
-        Note that since the ``accelerator`` and ``sequence`` arguments default to `None`,
+        Note that since the `accelerator` and `sequence` parameters default to `None`,
         they can be omitted. In this case the sequence currently in use will be used for
-        the matching, and ``varied_knobs`` must be provided.
+        the matching, and `varied_knobs` must be provided:
 
         .. code-block:: python
 
@@ -270,7 +315,8 @@ def match_tunes(
                 varied_knobs=["kqf", "kqd"],  # only tune knobs
             )
 
-        Matching the LHC lattice:
+        Matching the ``lhcb1`` sequence of the ``LHC`` lattice and letting
+        the function determine the knobs automatically:
 
         .. code-block:: python
 
@@ -319,34 +365,51 @@ def match_chromaticities(
     Provided with an active `~cpymad.madx.Madx` object, will run relevant commands
     to match chromaticities to the desired target values.
 
-    .. note::
+    Note
+    ----
         This is a wrapper around the `~.match_tunes_and_chromaticities` function.
         Refer to its documentation for usage details.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        accelerator (str | None): name of the accelerator, used to determmine knobs if
-            *variables* is not given. Automatic determination will only work for ``LHC`` and
-            ``HLLHC``. Defaults to `None`, in which case the knobs must be provided explicitly
-            through ``varied_knobs``.
-        sequence (str): name of the sequence you want to perform the matching for. Defaults to
-            `None`, in which case the currently active sequence will be used for the matching.
-        dq1_target (float): horizontal chromaticity to match to. Defaults to `None`, in which case
-            it will not be a target and will be excluded from the matching.
-        dq2_target (float): vertical chromaticity to match to. Defaults to `None`, in which case it
-            will not be a target and will be excluded from the matching.
-        varied_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` ``MATCH``
-            routine. An example input could be ``["kqf", "ksd", "kqf", "kqd"]`` as they are common
-            names used for quadrupole and sextupole strengths (focusing / defocusing) in most examples.
-        telescopic_squeeze (bool): ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for
-            Telescopic Squeeze configuration. Defaults to `True` since `v0.9.0`.
-        run3 (bool): if set to `True`, uses the ``LHC`` Run 3 `*_op` knobs. Defaults to `False`.
-        step (float): step size to use when varying knobs.
-        calls (int): max number of varying calls to perform. Defaults to 100.
-        tolerance (float): tolerance for successfull matching. Defaults to :math:`10^{-21}`.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object.
+    accelerator : str, optional
+        Name of the accelerator, used to determmine knobs if *variables* is not given.
+        Automatic determination will only work for the ``LHC`` and ``HLLHC`` (accepted
+        case insensitively). Defaults to `None`, in which case the knobs must be provided
+        explicitly through ``varied_knobs``.
+    sequence : str, optional
+        Name of the sequence to perform the matching for. Defaults to `None`, in which
+        case the currently active sequence will be used for the matching.
+    dq1_target : float, optional
+        Horizontal chromaticity to match to. Defaults to `None`, in which case it will
+        not be a target and will be excluded from the matching.
+    dq2_target : float, optional
+        Vertical chromaticity to match to. Defaults to `None`, in which case it will not
+        be a target and will be excluded from the matching.
+    varied_knobs : Sequence[str], optional
+        The variables names to ``VARY`` in the ``MAD-X`` ``MATCH`` routine. An example
+        input could be ``["kqf", "ksd", "kqf", "kqd"]`` as they are common names used
+        for quadrupole and sextupole strengths (focusing / defocusing) in most examples.
+        This parameter is optional if the accelerator is provided as ``LHC`` or ``HLLHC``,
+        but must be provided otherwise. Defaults to `None`.
+    telescopic_squeeze : bool, optional
+        ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
+        Squeeze configuration. Defaults to `True` since `v0.9.0`.
+    run3 : bool, optional
+        ``LHC`` specific. If set to `True`, uses the ``LHC`` Run 3 `*_op` knobs. Defaults
+        to `False`.
+    step : float, optional
+        Step size to use when varying knobs. Defaults to :math:`10^{-7}`.
+    calls : int, optional
+        Max number of varying calls to perform. Defaults to 100.
+    tolerance : float, optional
+        Tolerance for successfull matching. Defaults to :math:`10^{-21}`.
 
-    Examples:
-        Matching a dummy lattice (not LHC or HLLHC):
+    Examples
+    --------
+        Matching a dummy lattice (not ``LHC`` or ``HLLHC``):
 
         .. code-block:: python
 
@@ -359,9 +422,9 @@ def match_chromaticities(
                 varied_knobs=["ksf", "ksd"],  # only chroma knobs
             )
 
-        Note that since the ``accelerator`` and ``sequence`` arguments default to `None`,
+        Note that since the `accelerator` and `sequence` parameters default to `None`,
         they can be omitted. In this case the sequence currently in use will be used for
-        the matching, and ``varied_knobs`` must be provided.
+        the matching, and `varied_knobs` must be provided:
 
         .. code-block:: python
 
@@ -372,7 +435,8 @@ def match_chromaticities(
                 varied_knobs=["ksf", "ksd"],  # only chroma knobs
             )
 
-        Matching the LHC lattice:
+        Matching the ``lhcb1`` sequence of the ``LHC`` lattice and letting
+        the function determine the knobs automatically:
 
         .. code-block:: python
 
