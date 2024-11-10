@@ -8,7 +8,6 @@ The functions below are setup utilities for the ``LHC``, to easily get simulatio
 
 from __future__ import annotations
 
-from operator import ne
 from pathlib import Path
 
 from cpymad.madx import Madx
