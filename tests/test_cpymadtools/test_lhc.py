@@ -749,7 +749,10 @@ def test_correct_lhc_global_coupling_from_coupling_module(_non_matched_lhc_madx,
 def test_get_ip_beam_sizes(_non_matched_lhc_madx, ip):
     madx = _non_matched_lhc_madx
     hor, ver = get_sizes_at_ip(
-        madx, ip=ip, geom_emit_x=madx.globals.geometric_emit, geom_emit_y=madx.globals.geometric_emit
+        madx,
+        ip=ip,
+        gemitt_x=madx.globals.geometric_emit,
+        gemitt_y=madx.globals.geometric_emit,
     )
     assert math.isclose(hor, 1.27415e-05, abs_tol=1e-7)
     assert math.isclose(ver, 1.27415e-05, abs_tol=1e-7)
