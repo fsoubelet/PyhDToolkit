@@ -27,7 +27,7 @@ class LatticeGenerator:
 
         Returns
         -------
-        lattice : str
+        str
             A string to directly ``.input()`` into your
             `~cpymad.madx.Madx` object.
         """
@@ -103,7 +103,7 @@ twiss;
 
         Returns
         -------
-        lattice : str
+        str
             A string to directly ``.input()`` into your
             `~cpymad.madx.Madx` object.
         """
@@ -197,7 +197,7 @@ twiss;
 
         Returns
         -------
-        lattice : str
+        str
             A string to directly ``.input()`` into your
             `~cpymad.madx.Madx` object.
         """
@@ -290,7 +290,7 @@ twiss;
 
         Returns
         -------
-        lattice : str
+        str
             A string to directly ``.input()`` into your
             `~cpymad.madx.Madx` object.
         """
@@ -353,7 +353,7 @@ twiss;
 
         Returns
         -------
-        lattice : str
+        str
             A string to directly ``.input()`` into your
             `~cpymad.madx.Madx` object.
         """
@@ -436,7 +436,7 @@ exec, do_twiss_elements(LHCB1, "./twiss_errors.dat", 0.0);
 
         Returns
         -------
-        lattice : str
+        str
             A string to directly ``.input()`` into your
             `~cpymad.madx.Madx` object.
         """
