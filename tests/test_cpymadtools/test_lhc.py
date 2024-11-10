@@ -818,6 +818,7 @@ def test_lhc_run3_setup_context_manager_raises_on_wrong_run_value():
         with LHCSetup(run=1, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx") as madx:  # noqa: F841
             pass
 
+
 def test_lhcsetup_raises_on_no_opticsfile():
     with pytest.raises(ValueError, match="An opticsfile must be provided"):
         with LHCSetup(run=2, beam=2) as madx:  # didn't provide opticsfile

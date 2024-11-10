@@ -132,7 +132,9 @@ class TestMisc:
         assert _misc.get_betastar_from_opticsfile(INPUTS_DIR / "madx" / "opticsfile.22") == 0.3
 
     def test_query_betastar_from_opticsfile_raises_on_invalid_symmetry_if_required(self):
-        with pytest.raises(AssertionError, match="The betastar values for IP1 and IP5 are not the same in both planes."):
+        with pytest.raises(
+            AssertionError, match="The betastar values for IP1 and IP5 are not the same in both planes."
+        ):
             _misc.get_betastar_from_opticsfile(INPUTS_DIR / "madx" / "opticsfile.asymmetric", check_symmetry=True)
 
     def test_colin_balance_applies(self, _non_matched_lhc_madx):

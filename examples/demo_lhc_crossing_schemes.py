@@ -42,7 +42,9 @@ madx.call("lhc/opticsfile.22")  # collisions optics
 
 lhc.re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
 lhc.re_cycle_sequence(madx, sequence="lhcb2", start="IP3")
-lhc.make_lhc_beams(madx, nemitt_x=3.75e-6, nemitt_y=3.75e-6, energy=6800)  # necessary after re-cycling
+lhc.make_lhc_beams(
+    madx, nemitt_x=3.75e-6, nemitt_y=3.75e-6, energy=6800
+)  # necessary after re-cycling
 madx.command.use(sequence="lhcb1")
 
 ###############################################################################
