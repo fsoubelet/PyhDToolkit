@@ -92,7 +92,7 @@ def get_closest_tune_approach(
 
     Returns
     -------
-    cta : float
+    float
         The closest tune approach, in absolute value.
 
     Example
@@ -190,7 +190,7 @@ def get_cminus_from_coupling_rdts(
 
     Note
     ----
-        If using the “calaga”, “teapot”, “teapot_franchi” or “franchi” method, then
+        If using the `calaga`, `teapot`, `teapot_franchi` or `franchi` method,
         the returned value will be a real number.
 
     Parameters
@@ -218,7 +218,7 @@ def get_cminus_from_coupling_rdts(
 
     Returns
     -------
-    cminus : float
+    float
         The calculated :math:`|C^{-}|` value.
 
     Examples
@@ -335,7 +335,7 @@ def get_coupling_rdts(madx: Madx, /, **kwargs) -> TfsDataFrame:
 
     Returns
     -------
-    twiss_rdts : TfsDataFrame
+    TfsDataFrame
         A `~tfs.TfsDataFrame` with columns of the ``TWISS`` table, and two
         complex columns for the ``F1001`` and ``f1010`` RDTs.
 
@@ -364,7 +364,7 @@ def _fractional_tune(tune: float) -> float:
 
     Returns
     -------
-    fractional : float
+    float
         The fractional part of the tune.
 
     Example
@@ -393,7 +393,7 @@ def _filter_outlier_bpms_from_coupling_rdts(twiss_df: TfsDataFrame, stdev: float
 
     Returns
     -------
-    filtered_df : TfsDataFrame
+    TfsDataFrame
         The `~tfs.TfsDataFrame` with the filtered BPMs.
     """
     logger.debug("Filtering out outlier BPMs based on coupling RDTs")
