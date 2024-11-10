@@ -65,7 +65,7 @@ def get_amplitude_detuning(
     order : int
         Maximum derivative order coefficient (remember that only 0, 1 or 2
         are implemented in ``PTC``). Defaults to 2.
-    file : Path | str
+    file : Path | str, optional
         Path to output file. Defaults to `None`, which will skip writing
         the resulting table to disk.
     fringe : bool
@@ -202,7 +202,7 @@ def get_rdts(
     order : int
         Maximum derivative order coefficient (remember that only 0, 1 or 2
         are implemented in ``PTC``). Defaults to 2.
-    file : Path | str
+    file : Path | str, optional
         Path to output file. Defaults to `None`, which will skip writing
         the resulting table to disk.
     fringe : bool
@@ -313,7 +313,7 @@ def ptc_twiss(
     order : int
         Maximum derivative order coefficient (remember that only 0, 1 or 2
         are implemented in ``PTC``). Defaults to 2.
-    file : Path | str
+    file : Path | str, optional
         Path to output file. Defaults to `None`, which will skip writing
         the resulting table to disk.
     fringe : bool
