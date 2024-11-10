@@ -11,6 +11,7 @@ Removals
 * The `pyhdtoolkit.utils.executors` module has been removed, since it was not in used anymore.
 * The `pyhdtoolkit.utils.operations` module has been removed, since it was not in used anymore.
 * The `pyhdtoolkit.utils.printutil` module has been removed, since it was not in used anymore.
+* The `pyhdtoolkit.cpymadtools.lhc._coupling.correct_lhc_global_coupling` function has been deleted as it was replaced by its clone in `pyhdtoolkit.cpymadtools.lhc._routines`. The publicly exported function from the `pyhdtoolkit.cpymadtools.lhc` module is not changed, but users using the old location should either use the public export or update their imports.
 
 Enhancements
 ~~~~~~~~~~~~
@@ -22,7 +23,6 @@ Changes
 
 * The `pyhdtoolkit.cpymadtools.lhc.make_lhc_beams` function no longer accepts ambiguous `emittance_[xy]`` as arguments anymore. Please use the explicit `nemitt_[xy]` parameters introduced in version `1.6.0` instead.
 * The `pyhdtoolkit.cpymadtools.lhc.make_lhc_beams` function now defaults to a value of `2.5E-6m` for the normalized horizontal and vertical emittances, according to Run 3 operation. Functions that were calling `make_lhc_beams` for the Run 2 configuration explicitely ask for the previous default value of `3.5E-6m`.
-* The `pyhdtoolkit.cpymadtools.lhc._coupling.correct_lhc_global_coupling` function has been deleted as it was replaced by its clone in `pyhdtoolkit.cpymadtools.lhc._routines`. The publicly exported function from the `pyhdtoolkit.cpymadtools.lhc` module is not changed, but users using the old location should either use the public export or update their imports.
 
 Maintenance
 ~~~~~~~~~~~
