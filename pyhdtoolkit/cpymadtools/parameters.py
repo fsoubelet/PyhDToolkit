@@ -26,18 +26,23 @@ def query_beam_attributes(madx: Madx, /) -> MADXBeam:
     """
     .. versionadded:: 0.12.0
 
-    Returns all ``BEAM`` attributes from the ``MAD-X`` process based on the currently defined
-    beam. If no beam has been defined at function call, then ``MAD-X`` will return all the default
-    values. See the `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_
-    for details.
+    Returns all ``BEAM`` attributes from the ``MAD-X`` process based on
+    the currently defined beam. If no beam has been defined at function call,
+    then ``MAD-X`` will return all the default values. See the `MAD-X manual
+    <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_ for details.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object.
 
-    Returns:
+    Returns
+    -------
+    MADXBeam
         A validated `~.models.madx.MADXBeam` object.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             beam_parameters = query_beam_attributes(madx)
