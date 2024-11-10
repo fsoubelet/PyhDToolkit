@@ -3,7 +3,8 @@
 
 **Errors Utilities**
 
-The functions below are utilities to implement errors in elements of the ``LHC``.
+The functions below are utilities to implement errors in
+elements of the ``LHC``.
 """
 
 from __future__ import annotations
