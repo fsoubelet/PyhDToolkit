@@ -28,27 +28,41 @@ def apply_lhc_colinearity_knob(madx: Madx, /, colinearity_knob_value: float = 0,
 
     Applies the a trim of the LHC colinearity knob.
 
-    .. note::
-        If you don't know what this is, you really should not be using this function.
+    Warning
+    -------
+        If you don't know what this is, then you most likely should not be
+        using this function.
 
-    .. tip::
-        The convention, which is also the one I implemented in ``LSA`` for the ``LHC``, is that a
-        positive value of the colinearity knob results in a powering increase of the ``MQSX`` *right*
-        of the IP, and a powering decrease of the ``MQSX`` *left* of the IP.
+    Tip
+    ---
+        The convention, which is also the one I implemented in ``LSA`` for the
+        ``LHC``, is that a positive value of the colinearity knob results in a
+        powering increase of the ``MQSX`` *right* of the IP, and a powering
+        decrease of the ``MQSX`` *left* of the IP.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        colinearity_knob_value (float): Units of the colinearity knob to apply. Defaults to 0 so users
-            don't mess up local IR coupling by mistake. This should be a positive integer, normally between 1
-            and 10.
-        ir (int): The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].
-            Classically 1 or 5.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    colinearity_knob_value : float
+        Units of the colinearity knob to apply. Defaults to 0 so users don't mess
+        up local IR coupling by mistake. This should be a positive integer, normally
+        between 1 and 10.
+    ir : int
+        The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].
+        Classically 1 or 5.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             apply_lhc_colinearity_knob(madx, colinearity_knob_value=5, ir=1)
     """
+    if ir is None or ir not in (1, 2, 5, 8):
+        logger.error("Invalid IR number provided, not applying any error.")
+        msg = "Invalid 'ir' argument"
+        raise ValueError(msg)
+
     logger.debug(f"Applying Colinearity knob with a unit setting of {colinearity_knob_value}")
     logger.warning("You should re-match tunes & chromaticities after this colinearity knob is applied")
     knob_variables = (f"KQSX3.R{ir:d}", f"KQSX3.L{ir:d}")  # MQSX IP coupling correctors powering
