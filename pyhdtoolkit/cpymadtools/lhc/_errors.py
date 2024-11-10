@@ -39,22 +39,30 @@ def misalign_lhc_triplets(
     """
     .. versionadded:: 0.9.0
 
-    Apply misalignment errors to IR triplet quadrupoles on a given side of a given IP. In case of a
-    sliced lattice, this will misalign all slices of each magnet together. This is a convenience wrapper
-    around the `~.misalign_lhc_ir_quadrupoles` function, see that function's docstring for more
-    information.
+    Apply misalignment errors to IR triplet quadrupoles on a given side of a given
+    IP. In case of a sliced lattice, this will misalign all slices of each magnet
+    together. This is a convenience wrapper around the `~.misalign_lhc_ir_quadrupoles`
+    function, see that function's docstring for more information.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        ip (int): the interaction point around which to apply errors.
-        sides (Sequence[str]): sides of the IP to apply error on the triplets, either L or R or both.
-            Case-insensitive. Defaults to both.
-        table (str): the name of the internal table that will save the assigned errors. Defaults to
-            `triplet_errors`.
-        **kwargs: Any keyword argument is given to the ``EALIGN`` command, including the error to apply
-            (`DX`, `DY`, `DPSI` etc) as a string, like it would be given directly into ``MAD-X``.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    ip : int
+        The interaction point around which to apply errors.
+    sides : Sequence[str]
+        Sides of the IP for which to apply error on the triplets, either
+        L, R or both, case-insensitive. Defaults to both.
+    table : str
+        The name of the internal table that will save the assigned errors.
+        Defaults to 'triplet_errors'.
+    **kwargs
+        Any keyword argument is given to the ``EALIGN`` command, including the
+        error to apply (`DX`, `DY`, `DPSI` etc) as a string, like it would be
+        given directly into ``MAD-X``.
 
-    Examples:
+    Examples
+    --------
 
         A random, gaussian truncated ``DX`` misalignment:
 
@@ -83,38 +91,52 @@ def misalign_lhc_ir_quadrupoles(
 ) -> None:
     """
     .. versionadded:: 0.9.0
-
-    Apply misalignment errors to IR quadrupoles on a given side of given IPs. In case of a sliced
-    lattice, this will misalign all slices of each magnet together. According to the
-    `Equipment Codes Main System <https://edms5.cern.ch/cedar/plsql/codes.systems>`_,  those are Q1
-    to Q10 included, quads beyond are ``MQ`` or ``MQT`` which are considered arc elements.
+    Apply misalignment errors to IR triplet quadrupoles on a given side of a given
+    IP. In case of a sliced lattice, this will misalign all slices of each magnet
+    together. According to the `Equipment Codes Main System
+    <https://edms5.cern.ch/cedar/plsql/codes.systems>`_, those are Q1 to Q10 included,
+    quads beyond are ``MQ`` or ``MQT`` which are considered arc elements.
 
     One can find a full example use of the function for tracking in the
     :ref:`LHC IR Errors  <demo-ir-errors>` example gallery.
 
-    .. warning::
-        This implementation is only valid for LHC IP IRs, which are 1, 2, 5 and 8. Other IRs have
-        different layouts incompatible with this function.
+    Warning
+    -------
+        This implementation is only valid for LHC IP IRs, which are 1, 2, 5 and 8.
+        Other IRs have different layouts incompatible with this function.
 
-    .. warning::
-        One should avoid issuing different errors with several uses of this command as it is unclear to me
-        how ``MAD-X`` chooses to handle this internally. Instead, it is advised to give all errors in the same
-        command, which is guaranteed to work. See the last provided example below.
+    Warning
+    -------
+        One should avoid issuing different errors with several uses of this command
+        as it is unclear to me how ``MAD-X`` chooses to handle this internally.
+        Instead, it is advised to give all errors in the same command, which is
+        guaranteed to work. See the last provided example below.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        ips (Sequence[int]): the interaction point(s) around which to apply errors.
-        beam (int): beam number to apply the errors to. Unlike triplet quadrupoles which are single
-            aperture, Q4 to Q10 are not and will need this information.
-        quadrupoles (Sequence[int]): the number of the quadrupoles to apply errors to.
-        sides (Sequence[str]): sides of the IP to apply error on the triplets, either L or R or both.
-            Case-insensitive. Defaults to both.
-        table (str): the name of the internal table that will save the assigned errors. Defaults to
-            'ir_quads_errors'.
-        **kwargs: Any keyword argument is given to the ``EALIGN`` command, including the error to apply
-            (`DX`, `DY`, `DPSI` etc) as a string, like it would be given directly into ``MAD-X``.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    ips : Sequence[int]
+        The interaction point(s) around which to apply errors.
+    beam : int
+        Beam number to apply the errors to. Unlike triplet quadrupoles
+        which are single aperture, Q4 to Q10 are not and will need this
+        information.
+    quadrupoles : Sequence[int]
+        The number of the quadrupoles to apply errors to.
+    sides : Sequence[str]
+        Sides of the IP for which to apply error on the triplets, either
+        L, R or both, case-insensitive. Defaults to both.
+    table : str
+        The name of the internal table that will save the assigned errors.
+        Defaults to 'ir_quads_errors'.
+    **kwargs
+        Any keyword argument is given to the ``EALIGN`` command, including the
+        error to apply (`DX`, `DY`, `DPSI` etc) as a string, like it would be
+        given directly into ``MAD-X``.
 
-    Examples:
+    Examples
+    --------
 
         For systematic ``DX`` misalignment:
 
