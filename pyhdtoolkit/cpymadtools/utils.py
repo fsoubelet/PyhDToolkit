@@ -4,7 +4,8 @@
 Miscellaneous Utilities
 -----------------------
 
-Module with utility functions to do mundane operations with `~cpymad.madx.Madx` objects.
+Module with utility functions to do mundane operations
+with `~cpymad.madx.Madx` objects.
 """
 
 from __future__ import annotations
@@ -33,26 +34,39 @@ def export_madx_table(
     """
     .. versionadded:: 0.17.0
 
-    Exports an internal table from the ``MAD-X`` process into a `~tfs.frame.TfsDataFrame` on disk.
+    Exports an internal table from the ``MAD-X`` process into a
+    `~tfs.frame.TfsDataFrame` on disk.
 
-    .. important::
-        Tables can only be correctly read back in ``MAD-X`` (through ``READTABLE``) if the written
-        file has a ``NAME`` and a ``TYPE`` entries in its headers.
+    Important
+    ---------
+        Tables can only be correctly read back in ``MAD-X`` (through
+        ``READTABLE``) if the written file has a ``NAME`` and a ``TYPE``
+        entries in its headers.
 
-        If these entries are not  (see below for their usage), then
-        they will be given default values so the **TFS** file can be read by ``MAD-X``.
+        If these entries are not present (see below for their usage), then
+        they will be given default values so the **TFS** file can be read
+        back by ``MAD-X``.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        table_name (str): the name of the internal table to retrieve.
-        file_name (str): the name of the file to export to.
-        pattern (str): if given, will be used as a regular expression to filter the extracted
-            table, by passing it as the *regex* parameter of `pandas.DataFrame.filter`.
-        headers_table (str): the name of the internal table to use for headers.
-            Defaults to ``SUMM``.
-        **kwargs: any keyword arguments will be passed to `~tfs.writer.write_tfs`.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    table_name : str
+        The name of the internal table to retrieve.
+    file_name : Path | str
+        The name of the file to export to.
+    pattern : str | None, optional
+        If given, will be used as a regular expression to filter the
+        extracted table, by passing it as the *regex* parameter of
+        `pandas.DataFrame.filter`.
+    headers_table : str
+        The name of the internal table to use for headers. Defaults to
+        using the ``SUMM`` table.
+    **kwargs
+        Any keyword arguments will be passed to `~tfs.writer.write_tfs`.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             madx.command.twiss()
@@ -78,19 +92,27 @@ def get_table_tfs(madx: Madx, /, table_name: str, headers_table: str = "SUMM") -
     """
     .. versionadded:: 0.11.0
 
-    Turns an internal table from the ``MAD-X`` process into a `~tfs.frame.TfsDataFrame`.
+    Turns an internal table from the ``MAD-X`` process into a
+    `~tfs.frame.TfsDataFrame`.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        table_name (str): the name of the internal table to retrieve.
-        headers_table (str): the name of the internal table to use for headers.
-            Defaults to ``SUMM``.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    table_name : str
+        The name of the internal table to retrieve.
+    headers_table : str
+        The name of the internal table to use for headers. Defaults to
+        using the ``SUMM`` table.
 
-    Returns:
-        A `~tfs.frame.TfsDataFrame` object with the *table_name* data, and the desired
-        *headers_table* (usually ``SUMM``) as headers.
+    Returns
+    -------
+    tfs.frame.TfsDataFrame
+        A `~tfs.frame.TfsDataFrame` object with the *table_name* data,
+        and the desired *headers_table* (usually ``SUMM``) as headers.
 
-    Examples:
+    Example
+    -------
         .. code-block:: python
 
             twiss_tfs = get_table_tfs(madx, table_name="TWISS")
