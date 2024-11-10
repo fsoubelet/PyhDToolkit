@@ -114,17 +114,17 @@ def match_tunes_and_chromaticities(
         for quadrupole and sextupole strengths (focusing / defocusing) in most examples.
         This parameter is optional if the accelerator is provided as ``LHC`` or ``HLLHC``,
         but must be provided otherwise. Defaults to `None`.
-    telescopic_squeeze : bool, optional
+    telescopic_squeeze : bool
         ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
         Squeeze configuration. Defaults to `True` since `v0.9.0`.
-    run3 : bool, optional
+    run3 : bool
         ``LHC`` specific. If set to `True`, uses the ``LHC`` Run 3 `*_op` knobs. Defaults
         to `False`.
-    step : float, optional
+    step : float
         Step size to use when varying knobs. Defaults to :math:`10^{-7}`.
-    calls : int, optional
+    calls : int
         Max number of varying calls to perform. Defaults to 100.
-    tolerance : float, optional
+    tolerance : float
         Tolerance for successfull matching. Defaults to :math:`10^{-21}`.
 
     Examples
@@ -274,17 +274,17 @@ def match_tunes(
         for quadrupole and sextupole strengths (focusing / defocusing) in most examples.
         This parameter is optional if the accelerator is provided as ``LHC`` or ``HLLHC``,
         but must be provided otherwise. Defaults to `None`.
-    telescopic_squeeze : bool, optional
+    telescopic_squeeze : bool
         ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
         Squeeze configuration. Defaults to `True` since `v0.9.0`.
-    run3 : bool, optional
+    run3 : bool
         ``LHC`` specific. If set to `True`, uses the ``LHC`` Run 3 `*_op` knobs. Defaults
         to `False`.
-    step : float, optional
+    step : float
         Step size to use when varying knobs. Defaults to :math:`10^{-7}`.
-    calls : int, optional
+    calls : int
         Max number of varying calls to perform. Defaults to 100.
-    tolerance : float, optional
+    tolerance : float
         Tolerance for successfull matching. Defaults to :math:`10^{-21}`.
 
     Examples
@@ -394,17 +394,17 @@ def match_chromaticities(
         for quadrupole and sextupole strengths (focusing / defocusing) in most examples.
         This parameter is optional if the accelerator is provided as ``LHC`` or ``HLLHC``,
         but must be provided otherwise. Defaults to `None`.
-    telescopic_squeeze : bool, optional
+    telescopic_squeeze : bool
         ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
         Squeeze configuration. Defaults to `True` since `v0.9.0`.
-    run3 : bool, optional
+    run3 : bool
         ``LHC`` specific. If set to `True`, uses the ``LHC`` Run 3 `*_op` knobs. Defaults
         to `False`.
-    step : float, optional
+    step : float
         Step size to use when varying knobs. Defaults to :math:`10^{-7}`.
-    calls : int, optional
+    calls : int
         Max number of varying calls to perform. Defaults to 100.
-    tolerance : float, optional
+    tolerance : float
         Tolerance for successfull matching. Defaults to :math:`10^{-21}`.
 
     Examples
