@@ -37,7 +37,6 @@ from pyhdtoolkit.cpymadtools.constants import (
 )
 from pyhdtoolkit.cpymadtools.lhc import (
     LHCSetup,
-    _coupling,
     add_markers_around_lhc_ip,
     apply_lhc_colinearity_knob,
     apply_lhc_colinearity_knob_delta,
@@ -752,19 +751,6 @@ def test_correct_lhc_global_coupling_routine(_non_matched_lhc_madx, telesqueeze)
     assert madx.table.summ.dqmin[0] > 0
 
     correct_lhc_global_coupling(madx, telescopic_squeeze=telesqueeze)
-    assert madx.table.summ.dqmin[0] >= 0
-    assert math.isclose(madx.table.summ.dqmin[0], 0, abs_tol=1e-5)
-
-
-@pytest.mark.parametrize("telesqueeze", [True, False])
-def test_correct_lhc_global_coupling_from_coupling_module(_non_matched_lhc_madx, telesqueeze):
-    madx = _non_matched_lhc_madx
-    madx.globals["CMRS.b1"] = 0.001
-    madx.globals["CMIS.b1"] = 0.001
-    madx.command.twiss()
-    assert madx.table.summ.dqmin[0] > 0
-
-    _coupling.correct_lhc_global_coupling(madx, telescopic_squeeze=telesqueeze)
     assert madx.table.summ.dqmin[0] >= 0
     assert math.isclose(madx.table.summ.dqmin[0], 0, abs_tol=1e-5)
 
