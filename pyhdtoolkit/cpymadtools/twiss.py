@@ -132,10 +132,6 @@ def get_twiss_tfs(madx: Madx, /, **kwargs) -> tfs.TfsDataFrame:
     madx : cpymad.madx.Madx
         An instanciated `~cpymad.madx.Madx` object. Positional only.
     **kwargs
-
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-    **kwargs
         Any keyword argument that can be given to the ``MAD-X`` ``TWISS`` command,
         such as `chrom`, `ripken`, `centre`; or starting values for `betx`, `bety`
         etc.
