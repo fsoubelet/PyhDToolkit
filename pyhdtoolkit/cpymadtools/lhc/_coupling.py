@@ -10,10 +10,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from loguru import logger
 from optics_functions.coupling import coupling_via_cmatrix
 
-from pyhdtoolkit.cpymadtools import twiss
+from pyhdtoolkit.cpymadtools.twiss import get_pattern_twiss
 from pyhdtoolkit.cpymadtools.constants import MONITOR_TWISS_COLUMNS
 
 if TYPE_CHECKING:
@@ -47,7 +46,7 @@ def get_lhc_bpms_twiss_and_rdts(madx: Madx, /) -> TfsDataFrame:
 
             twiss_with_rdts = get_lhc_bpms_twiss_and_rdts(madx)
     """
-    twiss_tfs = twiss.get_pattern_twiss(madx, patterns=["^BPM.*B[12]$"], columns=MONITOR_TWISS_COLUMNS)
+    twiss_tfs = get_pattern_twiss(madx, patterns=["^BPM.*B[12]$"], columns=MONITOR_TWISS_COLUMNS)
     twiss_tfs.columns = twiss_tfs.columns.str.upper()  # optics_functions needs capitalized names
     twiss_tfs.NAME = twiss_tfs.NAME.str.upper()
     twiss_tfs[["F1001", "F1010"]] = coupling_via_cmatrix(twiss_tfs, output=["rdts"])
