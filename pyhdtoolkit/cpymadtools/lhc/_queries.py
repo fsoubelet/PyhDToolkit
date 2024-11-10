@@ -45,9 +45,10 @@ def get_magnets_powering(
     r"""
     .. versionadded:: 0.17.0
 
-    Gets the twiss table with additional defined columns for the given *patterns*.
+    Gets the TWISS table with additional defined columns for the given *patterns*.
 
-    .. note::
+    Hint
+    ----
         Here are below certain useful patterns for the ``LHC`` and their meaning:
 
         * ``^mb\.`` :math:`\rightarrow` main bends.
@@ -60,30 +61,40 @@ def get_magnets_powering(
         * ``^mcbx`` :math:`\rightarrow` crossing scheme magnets.
         * ``^mcb[cy]`` :math:`\rightarrow` crossing scheme magnets.
 
-        To make no selection, one can give ``patterns=[""]`` and this will give back
+        To make no selection, one can give ``patterns=("")`` and this will give back
         the results for *all* elements. One can also give a specific magnet's exact
         name to include it in the results.
 
-    .. note::
+    Note
+    ----
         The ``TWISS`` flag will be fully cleared after running this function.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        patterns (Sequence[str]): a list of regex patterns to define which elements
-            should be selected and included in the returned table. Defaults to selecting
-            the main bends, quads and sextupoles. See the note admonition above for
-            useful patterns to select specific ``LHC`` magnet families.
-        brho (Union[str, float]): optional, an explicit definition for the magnetic
-            rigidity in :math:`Tm^{-1}`. If not given, it will be assumed that
-            a ``brho`` quantity is defined in the ``MAD-X`` globals.
-        **kwargs: any keyword argument will be passed to `~.twiss.get_pattern_twiss` and
-            later on to the ``TWISS`` command executed in ``MAD-X``.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    patterns : Sequence[str]
+        A list of regex patterns to define which elements should be selected
+        and included in the returned table. Defaults to selecting the main
+        bends, quads and sextupoles. See the hint admonition above for useful
+        patterns to select specific ``LHC`` magnet families.
+    brho : Union[str, float], optional
+        An explicit definition for the magnetic rigidity in :math:`Tm^{-1}`.
+        If not given, it will be assumed that a ``brho`` quantity is defined
+        in the ``MAD-X`` globals and this one will be used.
+    **kwargs
+        Any keyword argument will be passed to `~.twiss.get_pattern_twiss` and
+        later on to the ``TWISS`` command executed in ``MAD-X``.
 
-    Returns:
-        A `~tfs.TfsDataFrame` of the ``TWISS`` table, with the relevant newly defined columns
-        and including the elements matching the regex *patterns* that were provided.
+    Returns
+    -------
+    TfsDataFrame
+        A `~tfs.TfsDataFrame` of the ``TWISS`` table, with the relevant newly
+        defined columns and including the elements matching the regex *patterns*
+        that were provided.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             sextupoles_powering = get_magnets_powering(madx, patterns=[r"^ms\."])
@@ -99,17 +110,22 @@ def query_arc_correctors_powering(madx: Madx, /) -> dict[str, float]:
     """
     .. versionadded:: 0.15.0
 
-    Queries for the arc corrector strengths and returns their values as a percentage of
-    their max powering. This is a port of one of the **corr_value.madx** file's macros
+    Queries for the arc corrector strengths and returns their values as a
+    percentage of their max powering. This is a port of one of the macros
+    from the **corr_value.madx** file in the old toolkit.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object with an
-            active (HL)LHC sequence.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
 
-    Returns:
+    Returns
+    -------
+    dict[str, float]
         A `dict` with the percentage for each corrector.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             arc_knobs = query_arc_correctors_powering(madx)
@@ -155,17 +171,22 @@ def query_triplet_correctors_powering(madx: Madx, /) -> dict[str, float]:
     """
     .. versionadded:: 0.15.0
 
-    Queries for the triplet corrector strengths and returns their values as a percentage of
-    their max powering. This is a port of one of the **corr_value.madx** file's macros.
+    Queries for the triplet corrector strengths and returns their values
+    as a percentage of their max powering. This is a port of one of the
+    macros from the **corr_value.madx** file in the old toolkit.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object with an
-            active (HL)LHC sequence.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
 
-    Returns:
+    Returns
+    -------
+    dict[str, float]
         A `dict` with the percentage for each corrector.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             triplet_knobs = query_triplet_correctors_powering(madx)
@@ -203,16 +224,22 @@ def get_current_orbit_setup(madx: Madx, /) -> dict[str, float]:
     """
     .. versionadded:: 0.8.0
 
-    Get the current values for the (HL)LHC orbit variables. Initial implementation credits go to
-    :user:`Joschua Dilly <joschd>`.
+    Get the current values for the (HL)LHC orbit variables. Initial
+    implementation credits go to :user:`Joschua Dilly <joschd>`.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
 
-    Returns:
-        A `dict` of all orbit variables set, and their values as set in the ``MAD-X`` globals.
+    Returns
+    -------
+    dict[str, float]
+        A `dict` of all orbit variables set, and their values as set
+        in the ``MAD-X`` globals.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             orbit_setup = get_current_orbit_setup(madx)
@@ -227,24 +254,28 @@ def get_current_orbit_setup(madx: Madx, /) -> dict[str, float]:
 
 def _list_field_currents(madx: Madx, /, brho: str | float | None = None) -> None:
     """
-    Creates additional columns for the ``TWISS`` table with the magnets' total fields
-    and currents, to help later on determine which proportion of their maximum powering
-    the current setting is using. This is an implementation of the old utility script
-    located at **/afs/cern.ch/eng/lhc/optics/V6.503/toolkit/list_fields_currents.madx**.
+    Creates additional columns for the ``TWISS`` table with the magnets' total
+    fields and currents, to help later on determine which proportion of their
+    maximum powering the current setting is using. This is an implementation of
+    the old utility script located in the toolkit on AFS at
+    **/afs/cern.ch/eng/lhc/optics/V6.503/toolkit/list_fields_currents.madx**.
 
-    .. important::
-        Certain quantities are assumed to be defined in the ``MAD-X`` globals, such as
-        ``brho``, or available in the magnets definition, such as ``calib``. For this
-        reason, this script most likely only works for the ``(HL)LHC`` sequences where
-        those are defined.
+    Important
+    ---------
+        Certain quantities are assumed to be defined in the ``MAD-X`` globals,
+        such as ``brho``, or available in the magnets definition, such as ``calib``.
+        For this reason, this script most likely only works for the ``(HL)LHC``
+        sequences where those are defined.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        brho (Union[str, float]): optional, an explicit definition for the magnetic
-            rigidity in :math:`Tm^{-1}`. If not given, it will be assumed that
-            a ``brho`` quantity is defined in the ``MAD-X`` globals and this one will
-            be used.
-    """
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    brho : Union[str, float], optional
+        An explicit definition for the magnetic rigidity in :math:`Tm^{-1}`.
+        If not given, it will be assumed that a ``brho`` quantity is defined
+        in the ``MAD-X`` globals and this one will be used.
+    """ 
     logger.debug("Creating additional TWISS table columns for magnets' fields and currents")
 
     if brho is not None:
@@ -274,17 +305,24 @@ def _list_field_currents(madx: Madx, /, brho: str | float | None = None) -> None
 
 def _knob_value(madx: Madx, /, knob: str) -> float:
     """
-    Queryies the current value of a given *knob* name in the ``MAD-X`` process, and defaults
-    to 0 (as ``MAD-X`` does) in case that knob has not been defined in the current process.
+    Queryies the current value of a given *knob* name in the ``MAD-X`` process,
+    and defaults to 0 (as ``MAD-X`` does) in case that knob has not been defined
+    in the current process.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        knob (str): the name the knob.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    knob : str
+        The name the knob to get the value for.
 
-    Returns:
+    Returns
+    -------
+    float
         The knob value if it was defined, otherwise 0.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             _knob_value(madx, knob="underfined_for_sure")  # returns 0
