@@ -34,7 +34,7 @@ def query_beam_attributes(madx: Madx, /) -> MADXBeam:
     Parameters
     ----------
     madx : cpymad.madx.Madx
-        An instanciated `~cpymad.madx.Madx` object.
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
 
     Returns
     -------
