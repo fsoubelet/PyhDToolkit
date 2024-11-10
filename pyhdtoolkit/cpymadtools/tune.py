@@ -4,8 +4,8 @@
 Tune Utilities
 --------------
 
-Module with functions to manipulate ``MAD-X`` functionality around
-the tune through a `~cpymad.madx.Madx` object.
+Module with functions to manipulate ``MAD-X`` functionality
+around the tune through a `~cpymad.madx.Madx` object.
 """
 
 from __future__ import annotations
@@ -33,31 +33,45 @@ def make_footprint_table(
     """
     .. versionadded:: 0.9.0
 
-    Instantiates an ensemble of particles up to the desired bunch :math:`\\sigma` amplitude to be tracked for
-    the ``DYNAP`` command, letting ``MAD-X`` infer their tunes. Particules are instantiated for different angle
-    variables for each amplitude, creating an ensemble able to represent the tune footprint.
+    Instantiates an ensemble of particles up to the desired bunch :math:`\\sigma`
+    amplitude to be tracked for the ``DYNAP`` command, letting ``MAD-X`` infer
+    their tunes. Particules are instantiated for different angle variables for each
+    amplitude, creating an ensemble able to represent the tune footprint.
 
-    .. warning::
-        Since the ``DYNAP`` command makes use of tracking, your sequence needs to be sliced before calling
-        this function.
+    Warning
+    -------
+        Since the ``DYNAP`` command makes use of tracking, your sequence needs to
+        be sliced before calling this function.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        sigma (float): the maximum amplitude of the tracked particles, in bunch :math:`\\sigma`. Defaults
-            to 5.
-        dense (bool): if set to `True`, an increased number of particles will be tracked. Defaults to `False`.
-        file (str): If given, the ``dynaptune`` table will be exported as a ``TFS`` file with the provided name.
-        cleanup (bool): If `True`, the **fort.69** and **lyapunov.data** files are cleared before returning the
-            ``dynaptune`` table. Defaults to `True`.
-        **kwargs: any keyword argument will be transmitted to the ``DYNAP`` command in ``MAD-X``.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    sigma : float
+        The maximum amplitude of the tracked particles, in bunch :math:`\\sigma`.
+        Defaults to 5.
+    dense : bool
+        If set to `True`, an increased number of particles will be tracked.
+        Defaults to `False`.
+    file : str, optional
+        If given, the ``DYNAPTUNE`` table will be exported as a ``TFS`` file with
+        the provided name.
+    cleanup : bool
+        If `True`, the **fort.69** and **lyapunov.data** files are cleared before
+        returning the ``DYNAPTUNE`` table. Defaults to `True`.
+    **kwargs
+        Any keyword argument will be transmitted to the ``DYNAP`` command in ``MAD-X``.
 
-    Returns:
-        The resulting ``dynaptune`` table, as a `~tfs.frame.TfsDataFrame`.
+    Returns
+    -------
+    tfs.TfsDataFrame
+        The resulting ``DYNAPTUNE`` table, as a `~tfs.frame.TfsDataFrame`.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
-            dynap_dframe = make_footprint_table(madx)
+            dynap_dframe = make_footprint_table(madx, dense=True)
     """
     logger.debug(f"Initiating particules up to {sigma:d} bunch sigma to create a tune footprint table")
     small, big = 0.05, math.sqrt(1 - 0.05**2)
@@ -118,7 +132,7 @@ def make_footprint_table(
     )
     tfs_dframe = tfs_dframe.reset_index(drop=True)
 
-    if file:
+    if file is not None:
         tfs.write(Path(file).absolute(), tfs_dframe)
 
     return tfs_dframe
@@ -128,22 +142,32 @@ def get_footprint_lines(dynap_dframe: tfs.TfsDataFrame) -> tuple[np.ndarray, np.
     """
     .. versionadded:: 0.12.0
 
-    Provided with the `~tfs.frame.TfsDataFrame` returned by `~.tune.make_footprint_table`, determines the
-    various (Qx, Qy) points needed to plot the footprint data with lines representing the different amplitudes
-    and angles from starting particles, and returns these in immediately plottable `numpy.ndarray` objects.
+    Provided with the `~tfs.frame.TfsDataFrame` as is returned by the
+    `~.tune.make_footprint_table` function, determines the various (Qx, Qy)
+    points needed to plot the footprint data with lines representing the
+    different amplitudes and angles from starting particles, and returns
+    these in immediately plottable `numpy.ndarray` objects.
 
-    .. warning::
-        This function is some *dark magic* stuff I have taken out of very dusty drawers, and I cannot
-        explain exactly how it works. I also do not know who wrote this initially. Results are not
-        guaranteed to be correct and should be checked with a quick plot.
+    Warning
+    -------
+        This function is some *dark magic* stuff I have taken out of very dusty
+        drawers, and I cannot explain exactly how most of it works under the hood.
+        I also do not know who wrote this initially. Results are not guaranteed
+        to be correct and should always be checked with a quick plot.
 
-    Args:
-        dynap_dframe (tfs.frame.TfsDataFrame): the dynap data frame returned by `~.tune.make_footprint_table`.
+    Parameters
+    ----------
+    dynap_dframe : tfs.TfsDataFrame
+        The dynap data frame returned by `~.tune.make_footprint_table`.
 
-    Returns:
-        The Qx and Qy data points to plot directly, both as `~numpy.ndarray` objects.
+    Returns
+    -------
+    tuple[np.ndarray, np.ndarray]
+        The :math:`Q_x` and :math:`Q_y` data points to plot directly, as
+        `~numpy.ndarray` objects.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             dynap_tfs = make_footprint_table(madx)
@@ -166,26 +190,36 @@ def get_footprint_patches(dynap_dframe: tfs.TfsDataFrame) -> matplotlib.collecti
     """
     .. versionadded:: 0.12.0
 
-    Provided with the `~tfs.frame.TfsDataFrame` returned by `~.tune.make_footprint_table`, computes
-    the polygon patches needed to plot the footprint data, with lines representing the different
-    amplitudes and angles from starting particles, and returns the `~matplotlib.collections.PatchCollection`
-    with the computed polygons. Initial implementation credits go to :user:`Konstantinos Paraschou <kparasch>`.
+    Provided with the `~tfs.frame.TfsDataFrame` as is returned by the
+    `~.tune.make_footprint_table` function, computes the polygon patches
+    needed to plot the tune footprint data, with lines representing the
+    different amplitudes and angles from starting particles, and returns
+    the `~matplotlib.collections.PatchCollection` with the computed polygons.
+    Initial implementation credits go to :user:`Konstantinos Paraschou <kparasch>`.
 
-    .. note::
-        The polygons will have blue edges, except the ones corresponding to the last starting angle particles
-        (in red) and the last starting amplitude particles (in green).
+    Note
+    ----
+        The polygons will have blue edges, except the ones corresponding to the
+        last starting angle particles (in red) and the last starting amplitude
+        particles (in green).
 
-    .. warning::
-        The internal construction of polygons can be tricky, and you might need to change the ``ANGLE``
-        or ``AMPLITUDE`` values in *dynap_dframe* headers.
+    Warning
+    -------
+        The internal construction of polygons can be tricky, and one might need
+        to change the ``ANGLE`` or ``AMPLITUDE`` values in *dynap_dframe* headers.
 
-    Args:
-        dynap_dframe (tfs.frame.TfsDataFrame): the dynap data frame returned by `~.tune.make_footprint_table`.
+    Parameters
+    ----------
+    dynap_dframe : tfs.TfsDataFrame
+        The dynap data frame returned by :func:`make_footprint_table`.
 
-    Returns:
+    Returns
+    -------
+    matplotlib.collections.PatchCollection
         The `~matplotlib.collections.PatchCollection` with the created polygons.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             fig, axis = plt.subplots()
