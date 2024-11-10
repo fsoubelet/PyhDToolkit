@@ -21,50 +21,6 @@ if TYPE_CHECKING:
     from tfs import TfsDataFrame
 
 
-# This is a duplicate of the function in _routines.py, merge at some point
-def correct_lhc_global_coupling(
-    madx: Madx, /, beam: int = 1, telescopic_squeeze: bool = True, calls: int = 100, tolerance: float = 1.0e-21
-) -> None:
-    """
-    .. versionadded:: 0.20.0
-
-    A littly tricky matching routine to perform a decent global coupling correction using
-    the ``LHC`` coupling knobs.
-
-    .. important::
-        This routine makes use of some matching tricks and uses the ``SUMM`` table's
-        ``dqmin`` variable for the matching. It should be considered a helpful little
-        trick, but it is not a perfect solution.
-
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        beam (int): which beam you want to perform the matching for, should be `1` or
-            `2`. Defaults to `1`.
-        telescopic_squeeze (bool): If set to `True`, uses the coupling knobs
-            for Telescopic Squeeze configuration. Defaults to `True`.
-        calls (int): max number of varying calls to perform when matching. Defaults to 100.
-        tolerance (float): tolerance for successfull matching. Defaults to :math:`10^{-21}`.
-
-    Example:
-        .. code-block:: python
-
-            correct_lhc_global_coupling(madx, sequence="lhcb1", telescopic_squeeze=True)
-    """
-    suffix = "_sq" if telescopic_squeeze else ""
-    sequence = f"lhcb{beam:d}"
-    logger.debug(f"Attempting to correct global coupling through matching, on sequence '{sequence}'")
-
-    real_knob, imag_knob = f"CMRS.b{beam:d}{suffix}", f"CMIS.b{beam:d}{suffix}"
-    logger.debug(f"Matching using the coupling knobs '{real_knob}' and '{imag_knob}'")
-    madx.command.match(sequence=sequence)
-    madx.command.gweight(dqmin=1, Q1=0)
-    madx.command.global_(dqmin=0, Q1=62.28)
-    madx.command.vary(name=real_knob, step=1.0e-8)
-    madx.command.vary(name=imag_knob, step=1.0e-8)
-    madx.command.lmdif(calls=calls, tolerance=tolerance)
-    madx.command.endmatch()
-
-
 def get_lhc_bpms_twiss_and_rdts(madx: Madx, /) -> TfsDataFrame:
     """
     .. versionadded:: 0.19.0
