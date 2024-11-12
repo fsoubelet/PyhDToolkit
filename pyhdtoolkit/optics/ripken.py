@@ -43,10 +43,10 @@ def lebedev_beam_size(
         Value(s) for the beta1x or beta1y Ripken parameters.
     beta2_ : float | numpy.ndarray
         Value(s) for the beta2x or beta2y Ripken parameters.
-    geom_emit_x : float
-        Geometric emittance of the horizontal plane, in [m].
-    geom_emit_y : float
-        Geometric emittante of the vertical plane, in [m].
+    gemitt_x : float
+        Geometric horizontal emittance, in [m].
+    gemitt_y : float
+        Geometric vertical emittance, in [m].
 
     Returns
     -------
@@ -58,14 +58,14 @@ def lebedev_beam_size(
     -------
         .. code-block:: python
 
-            geom_emit_x = madx.globals["geometric_emit_x"]
-            geom_emit_y = madx.globals["geometric_emit_y"]
+            gemitt_x = madx.globals["geometric_emit_x"]
+            gemitt_y = madx.globals["geometric_emit_y"]
             twiss_tfs = madx.twiss(ripken=True).dframe()
             horizontal_size = lebedev_beam_size(
-                twiss_tfs.beta11, twiss_tfs.beta21, geom_emit_x, geom_emit_y
+                twiss_tfs.beta11, twiss_tfs.beta21, gemitt_x, gemitt_y
             )
             vertical_size = lebedev_beam_size(
-                twiss_tfs.beta12, twiss_tfs.beta22, geom_emit_x, geom_emit_y
+                twiss_tfs.beta12, twiss_tfs.beta22, gemitt_x, gemitt_y
             )
     """
     return np.sqrt(gemitt_x * beta1_ + gemitt_y * beta2_)
