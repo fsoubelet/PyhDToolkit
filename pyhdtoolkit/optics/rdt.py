@@ -2,7 +2,7 @@
 .. _optics-rdt:
 
 Resonance Driving Terms Utilities
------------------
+---------------------------------
 
 Module implementing utilities for the handling of resonance driving terms.
 """
