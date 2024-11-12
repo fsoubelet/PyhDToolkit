@@ -33,7 +33,7 @@ def test_brho():
 
 
 def test_normalized_emittance():
-    assert Beam(6500, 2.5e-6).normalized_emittance == 0.01732157020823949
+    assert Beam(6500, 2.5e-6).nemitt == 0.01732157020823949
 
 
 def test_rms_emittance():
