@@ -61,7 +61,7 @@ def plot_courant_snyder_phase_space(
         plane. Here ``pu_coordinates[0]`` should be the tracked momenta for
         the first particle and so on.
     plane : str
-        The physical plane to plot, should be either ``horizontal`` or 
+        The physical plane to plot, should be either ``horizontal`` or
         `vertical``, case insensitive. Defaults to ``horizontal``.
     title : str, optional
         If provided, is set as title of the plot.
@@ -145,7 +145,7 @@ def plot_courant_snyder_phase_space_colored(
         plane. Here ``pu_coordinates[0]`` should be the tracked momenta for
         the first particle and so on.
     plane : str
-        The physical plane to plot, should be either ``horizontal`` or 
+        The physical plane to plot, should be either ``horizontal`` or
         `vertical``, case insensitive. Defaults to ``horizontal``.
     title : str, optional
         If provided, is set as title of the plot.

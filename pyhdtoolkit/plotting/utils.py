@@ -349,7 +349,7 @@ def set_arrow_label(
     text and an arrow from the box to a specified position.
     Original code from :user:`Guido Sterbini <sterbini>`.
 
-    
+
     Parameters
     ----------
     label : str
@@ -418,7 +418,7 @@ def draw_confidence_ellipse(x: ArrayLike, y: ArrayLike, n_std: float = 3.0, face
     .. versionadded:: 1.2.0
 
     Plot the covariance confidence ellipse of *x* and *y*. Credits:
-    this code is taken from the examples in the `matplotlib gallery 
+    this code is taken from the examples in the `matplotlib gallery
     <https://matplotlib.org/stable/gallery/statistics/confidence_ellipse.html>`_.
 
     Note
