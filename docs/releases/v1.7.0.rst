@@ -32,6 +32,7 @@ Documentation
 ~~~~~~~~~~~~~
 
 * Fixed various inconsistencies.
+* The docstrings of functions in the `pyhdtoolkit.optics.rdt` module now display the version they were added in, and contain examples.
 * The whole package's docstrings have been migrated to use `numpy` style to better fit their depth. While the build documentation has not changed, users exploring function docstrings will have a better time reading them.
 
 Maintenance
