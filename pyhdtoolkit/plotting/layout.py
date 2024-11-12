@@ -443,15 +443,15 @@ def _ylim_from_input(ylim: tuple[float, float] | float | int, name_for_error: st
     name_for_error : str
         The name of the variable to use in the error message.
 
-    Raises
-    ------
-    TypeError
-        If the input is not a `tuple`, a `float` or an `int`.
-
     Returns
     -------
     tuple[float, float]
         A `tuple` for the ylimits from the input.
+
+    Raises
+    ------
+    TypeError
+        If the input is not a `tuple`, a `float` or an `int`.
     """
     if not isinstance(ylim, tuple | float | int):
         msg = f"Invalid type for '{name_for_error}': {type(ylim)}. "
