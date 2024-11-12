@@ -4,7 +4,8 @@
 Plotting Utility Functions
 --------------------------
 
-Module with functions to used throught the different `~pyhdtoolkit.plotting` modules.
+Module with functions to used throught the different
+`~pyhdtoolkit.plotting` modules.
 """
 
 from __future__ import annotations  # important for Sphinx to generate short type signatures!
@@ -33,20 +34,28 @@ def maybe_get_ax(**kwargs):
     """
     .. versionadded:: 1.0.0
 
-    Convenience function to get the axis, regardless of whether or not it is provided
-    to the plotting function itself. It used to be that the first argument of plotting
-    functions in this package had to be the 'axis' object, but that's no longer the case.
+    Convenience function to get the axis, regardless of whether or
+    not it is provided to the plotting function itself. It used to
+    be that the first argument of plotting functions in this package
+    had to be the 'axis' object, but that's no longer the case.
 
-    Args:
-        *args: the arguments passed to the plotting function.
-        **kwargs: the keyword arguments passed to the plotting function.
+    Parameters
+    ----------
+    *args
+        The arguments passed to the plotting function.
+    **kwargs
+        The keyword arguments passed to the plotting function.
 
-    Returns:
-        The `~matplotlib.axes.Axes` object to plot on, the args and the kwargs (without the
-        'ax' argument if it initially was present). If no axis was provided, then it will be
-        created with a call to `~matplotlib.pyplot.gca`.
+    Returns
+    -------
+    tuple[matplotlib.axes.Axes, tuple, dict]
+        The `~matplotlib.axes.Axes` object to plot on, as well as the args
+        and kwargs (without the 'ax' argument if it initially was present).
+        If no axis was provided, then it will be created with a call to
+        `matplotlib.pyplot.gca`.
 
-    Examples:
+    Example
+    -------
         This is to be called at the beginning of your plotting functions:
 
         .. code-block:: python
@@ -73,17 +82,27 @@ def find_ip_s_from_segment_start(segment_df: TfsDataFrame, model_df: TfsDataFram
     """
     .. versionadded:: 0.19.0
 
-    Finds the S-offset of the IP from the start of segment by comparing the S-values for the elements in the model.
+    Finds the S-offset of the IP from the start of segment by
+    comparing the S-values for the elements in the model.
 
-    Args:
-        segment_df (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment result for the given segment.
-        model_df (tfs.TfsDataFrame): The `~tfs.TfsDataframe` of the model's TWISS, usually **twiss_elements.dat**.
-        ip (int): The ``LHC`` IP number.
+    Parameters
+    ----------
+    segment_df : tfs.TfsDataFrame
+        A `~tfs.TfsDataFrame` of the segment-by-segment result for
+        the given segment.
+    model_df : tfs.TfsDataFrame
+        The `~tfs.TfsDataframe` of the model's TWISS, usually
+        the **twiss_elements.dat** file.
+    ip : int
+        The ``LHC`` IP number.
 
-    Returns:
+    Returns
+    -------
+    float
         The S-offset of the IP from the BPM at the start of segment.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             ip_offset_in_segment = find_ip_s_from_segment_start(
@@ -109,22 +128,30 @@ def get_lhc_ips_positions(dataframe: DataFrame) -> dict[str, float]:
     """
     .. versionadded:: 1.0.0
 
-    Returns a `dict` of LHC IPs and their positions from the provided *dataframe*.
+    Returns a `dict` of LHC IPs and their positions from
+    the provided *dataframe*.
 
-    .. important::
-        This function expects the IP names to be in the dataframe's index,
-        and cased as the longitudinal coordinate column: aka uppercase names
-        (``IP1``, ``IP2``, etc) and ``S`` column; or lowercase names
-        (``ip1``, ``ip2``, etc) and ``s`` column.
+    Important
+    ---------
+        This function expects the IP names to be in the dataframe's
+        index, and cased as the longitudinal coordinate column: aka
+        uppercase names (``IP1``, ``IP2``, etc) and ``S`` column; or
+        lowercase names (``ip1``, ``ip2``, etc) and ``s`` column.
 
-    Args:
-        dataframe (pandas.DataFrame): a `~pandas.DataFrame` containing at least
-            IP positions. A typical example is a ``TWISS`` call output.
+    Parameters
+    ----------
+    dataframe : pandas.DataFrame
+        A `~pandas.DataFrame` containing at least the IP positions.
+        A typical example is a ``TWISS`` call output.
 
-    Returns:
-        A `dict` with IP names as keys and their longitudinal locations as values.
+    Returns
+    -------
+    dict[str, float]
+        A `dict` with IP names as keys and their longitudinal locations
+        as values.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             twiss_df = tfs.read("twiss_output.tfs", index="NAME")
@@ -148,21 +175,33 @@ def make_elements_groups(
     """
     .. versionadded:: 1.0.0
 
-    Provided with an active `cpymad` instance after having ran a script, will returns different portions of
-    the twiss table's dataframe for different magnetic elements.
+    Provided with an active `cpymad` instance after having ran a script,
+    will returns different portions of the twiss table's dataframe for
+    different magnetic elements.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        xoffset (float): An offset applied to the S coordinate before plotting. This is useful is you want
-            to center a plot around a specific point or element, which would then become located at s = 0.
-        xlimits (tuple[float, float]): will only consider elements within xlim (for the s coordinate) if this
-            is not None, using the tuple passed.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    xoffset : float
+        An offset applied to the ``S`` coordinate before plotting. This
+        is useful if you want to center a plot around a specific point
+        or element, which would then become located at :math:`s = 0`.
+        Beware this offset is applied before applying the *xlimits*.
+        Defaults to 0.
+    xlimits : tuple[float, float], optional
+        If given, will be used for the xlim (for the ``s`` coordinate),
+        using the tuple passed.
 
-    Returns:
-        A `dict` containing a `pd.DataFrame` for dipoles, focusing quadrupoles, defocusing
-        quadrupoles, sextupoles and octupoles. The keys are self-explanatory.
+    Returns
+    -------
+    dict[str, DataFrame]
+        A `dict` containing a `pd.DataFrame` for dipoles, focusing quadrupoles,
+        defocusing quadrupoles, sextupoles and octupoles. The keys are quite
+        self-explanatory.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             element_dfs = make_elements_groups(madx)
@@ -187,17 +226,24 @@ def make_survey_groups(madx: Madx, /) -> dict[str, DataFrame]:
     """
     .. versionadded:: 1.0.0
 
-    Provided with an active `cpymad` instance after having ran a script, will returns different portions of
-    the survey table's dataframe for different magnetic elements.
+    Provided with an active `cpymad` instance after having ran a script,
+    will returns different portions of the survey table's dataframe for
+    different magnetic elements.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
 
-    Returns:
-        A `dict` containing a `pd.DataFrame` for dipoles, focusing quadrupoles, defocusing
-        quadrupoles, sextupoles and octupoles. The keys are self-explanatory.
+    Returns
+    -------
+    dict[str, DataFrame]
+        A `dict` containing a `pd.DataFrame` for dipoles, focusing quadrupoles,
+        defocusing quadrupoles, sextupoles and octupoles. The keys are quite
+        self-explanatory.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             survey_dfs = make_survey_groups(madx)
@@ -231,19 +277,28 @@ def draw_ip_locations(
     """
     .. versionadded:: 1.0.0
 
-    Plots the interaction points' locations into the background of your `~matplotlib.axes.Axes`.
+    Plots the interaction points' locations into the background
+    of your `~matplotlib.axes.Axes`.
 
-    Args:
-        ip_positions (dict): a `dict` containing IP names as keys and their longitudinal positions
-            as values, as returned by `~.get_lhc_ips_positions`.
-        lines (bool): whether to also draw vertical lines at the IP positions. Defaults to `True`.
-        location: where to show the IP names on the provided *axis*, either ``inside`` (will draw text
-            at the bottom of the axis) or ``outside`` (will draw text on top of the axis). If `None` is
-            given, then no labels are drawn. Defaults to ``outside``.
-        **kwargs: If either `ax` or `axis` is found in the kwargs, the corresponding value is used as
-            the axis object to plot on.
+    Parameters
+    ----------
+    ip_positions : dict[str, float]
+        A `dict` containing IP names as keys and their longitudinal
+        positions as values, as returned by `~.get_lhc_ips_positions`.
+    lines : bool
+        If `True`, will also draw vertical lines at the IP positions.
+        Defaults to `True`.
+    location : str
+        Where to show the IP names on the provided *axis*, either
+        ``inside`` (will draw text at the bottom of the axis) or
+        ``outside`` (will draw text on top of the axis). If `None`
+        is given, then no labels are drawn. Defaults to ``outside``.
+    **kwargs
+        If either `ax` or `axis` is found in the kwargs, the corresponding
+        value is used as the axis object to plot on.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             twiss_df = tfs.read("twiss_output.tfs", index="NAME")
@@ -290,27 +345,41 @@ def set_arrow_label(
     """
     .. versionadded:: 0.6.0
 
-    Adds on the provided `matplotlib.axes.Axes` a label box with text and an arrow from the box to a specified position.
+    Adds on the provided `matplotlib.axes.Axes` a label box with
+    text and an arrow from the box to a specified position.
     Original code from :user:`Guido Sterbini <sterbini>`.
 
-    Args:
-        axis (matplotlib.axes.Axes): a `matplotlib.axes.Axes` to plot on.
-        label (str): label text to print on the axis.
-        arrow_position (tuple[float, float]): where on the plot to point the tip of the arrow.
-        label_position (tuple[float, float]): where on the plot the text label (and thus start
-            of the arrow) is.
-        color (str): color parameter for your arrow and label. Defaults to "k".
-        arrow_arc_rad (float): angle value defining the upwards / downwards shape of and
-            bending of the arrow.
-        fontsize (int): text size in the box.
-        **kwargs: additional keyword arguments are transmitted to `~matplotlib.axes.Axes.annotate`.
-            If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the
-            axis object to plot on.
+    
+    Parameters
+    ----------
+    label : str
+        The label text to print on the axis.
+    arrow_position : tuple[float, float]
+        Where on the plot to point the tip of the arrow
+    label_position : tuple[float, float]
+        Where on the plot the text label (and thus start of
+        the arrow) is.
+    color : str
+        Color parameter for your arrow and label. Defaults to
+        "k", which is black.
+    arrow_arc_rad : float
+        Angle value defining the upwards / downwards shape of
+        and bending of the arrow. Defaults to -0.2.
+    fontsize : int
+        Text size in the box. Defaults to 20.
+    **kwargs
+        Any additional keyword arguments are transmitted to
+        `~matplotlib.axes.Axes.annotate`. If either `ax` or
+        `axis` is found in the kwargs, the corresponding value
+        is used as the axis object to plot on.
 
-    Returns:
-        A `matploblit.text.Annotation` of the created annotation.
+    Returns
+    -------
+    matplotlib.text.Annotation
+        A `matplotlib.text.Annotation` of the created annotation.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             set_arrow_label(
@@ -348,26 +417,38 @@ def draw_confidence_ellipse(x: ArrayLike, y: ArrayLike, n_std: float = 3.0, face
     """
     .. versionadded:: 1.2.0
 
-    Plot the covariance confidence ellipse of *x* and *y*. This code is taken from the
-    `matplotlib gallery <https://matplotlib.org/stable/gallery/statistics/confidence_ellipse.html>`_.
+    Plot the covariance confidence ellipse of *x* and *y*. Credits:
+    this code is taken from the examples in the `matplotlib gallery 
+    <https://matplotlib.org/stable/gallery/statistics/confidence_ellipse.html>`_.
 
-    .. note::
+    Note
+    ----
         One might want to provide the `edgecolor` to this function.
 
-    Args:
-        x (ArrayLike): array-like, should be of shape (n,).
-        y (ArrayLike): array-like, should be of shape (n,).
-        n_std (float): The number of standard deviations of the data to
-            highlight, to determine the ellipse's radiuses.
-        facecolor (str): The facecolor of the ellipse.
-        **kwargs: Any keyword argument will be forwarded to `~matplotlib.patches.Ellipse`.
-            If either `ax` or `axis` is found in the kwargs, the corresponding value is
-            used as the axis object to plot on.
+    Parameters
+    ----------
+    x : ArrayLike
+        Array-like, should be of shape (n,).
+    y : ArrayLike
+        Array-like, should be of shape (n,).
+    n_std : float
+        The number of standard deviations of the data to highlight,
+        to determine the ellipse's radiuses. Defaults to 3.0.
+    facecolor : str
+        The facecolor of the ellipse. Defaults to "none".
+    **kwargs
+        Any additional keyword arguments are transmitted to
+        `~matplotlib.patches.Ellipse`. If either `ax` or `axis`
+        is found in the kwargs, the corresponding value is used
+        as the axis object to plot on.
 
-    Returns:
+    Returns
+    -------
+    matplotlib.patches.Ellipse
         The corresponding `~matplotlib.patches.Ellipse` object added to the axis.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             x = np.random.normal(size=1000)
@@ -419,18 +500,31 @@ def _get_twiss_table_with_offsets_and_limits(
     """
     .. versionadded:: 1.0.0
 
-    Get the twiss dataframe from madx, only within the provided `xlimits` and with the s axis shifted by
-    the given `xoffset`.
+    Get the twiss dataframe from madx, only within the provided
+    *xlimits* and with the s axis shifted by the given *xoffset*.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        xoffset (float): An offset applied to the S coordinate in the dataframe.
-        xlimits (tuple[float, float]): will only consider elements within xlimits (for the s coordinate) if
-            this is not `None`, using the tuple passed.
-        **kwargs: any keyword argument will be transmitted to the ``MAD-X`` ``TWISS` command.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    xoffset : float
+        An offset applied to the ``S`` coordinate before plotting. This
+        is useful if you want to center a plot around a specific point
+        or element, which would then become located at :math:`s = 0`.
+        Beware this offset is applied before applying the *xlimits*.
+        Defaults to 0.
+    xlimits : tuple[float, float], optional
+        If given, will be used for the xlim (for the ``s`` coordinate),
+        using the tuple passed.
+    **kwargs
+        Any additional keyword arguments are transmitted to the
+        ``MAD-X`` ``TWISS`` command.
 
-    Returns:
-        The ``TWISS`` dataframe from ``MAD-X``, with the limits and offset applied, if any.
+    Returns
+    -------
+    pandas.DataFrame
+        The ``TWISS`` dataframe from ``MAD-X``, with the provided limits
+        and offset applied, if any.
     """
     # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
     logger.trace("Getting TWISS table from MAD-X")
@@ -444,18 +538,31 @@ def _determine_default_sbs_coupling_ylabel(rdt: str, component: str) -> str:
     """
     .. versionadded:: 0.19.0
 
-    Creates the ``LaTeX``-compatible label for the Y-axis based on the given coupling *rdt* and its *component*.
+    Creates the ``LaTeX``-compatible label for the Y-axis based on
+    the given coupling *rdt* and its *component*.
 
-    Args:
-        rdt (str): The name of the coupling resonance driving term, either ``F1001`` or ``F1010``.
-            Case insensitive.
-        component (str): Which component of the RDT is considered, either ``ABS``, ``RE`` or ``IM``,
-            for absolute value or real / imaginary part, respectively. Case insensitive.
+    Parameters
+    ----------
+    rdt : str
+        The name of the coupling resonance driving term to plot, either
+        ``F1001`` or ``F1010``. Case insensitive.
+    component : str
+        Which component of the RDT is considered, either ``ABS``, ``RE`` or
+        ``IM``, for absolute value or real / imaginary part, respectively.
+        Case insensitive.
 
-    Returns:
+    Returns
+    -------
+    str
         The label string.
 
-    Example:
+    Raises
+    ------
+    ValueError
+        If the *rdt* or *component* are not valid.
+
+    Example
+    -------
         .. code-block:: python
 
             coupling_label = _determine_default_sbs_coupling_ylabel(
@@ -485,15 +592,27 @@ def _determine_default_sbs_phase_ylabel(plane: str) -> str:
     """
     .. versionadded:: 0.19.0
 
-    Creates the ``LaTeX``-compatible label for the phase Y-axis based on the given *plane*.
+    Creates the ``LaTeX``-compatible label for the
+    phase Y-axis based on the given *plane*.
 
-    Args:
-        plane (str): The plane of the phase, either ``X`` or ``Y``. Case insensitive.
+    Parameters
+    ----------
+    plane : str
+        The plane of the phase, either ``X`` or ``Y``.
+        Case insensitive.
 
-    Returns:
+    Returns
+    -------
+    str
         The label string.
 
-    Example:
+    Raises
+    ------
+    ValueError
+        If the *plane* is not valid.
+
+    Example
+    -------
         .. code-block:: python
 
             phase_label = _determine_default_sbs_phase_ylabel(plane="X")
@@ -514,6 +633,10 @@ def _determine_default_sbs_phase_ylabel(plane: str) -> str:
 # To use SVG outputs when scraping matplotlib figures for the sphinx-gallery, see:
 # https://sphinx-gallery.github.io/stable/advanced.html#example-3-matplotlib-with-svg-format
 def _matplotlib_svg_scraper(*args, **kwargs):  # pragma: no cover
+    """
+    A dummy scraper to import and set for the sphinx-gallery
+    configuration, in docs/conf.py.
+    """
     from sphinx_gallery.scrapers import matplotlib_scraper
 
     kwargs.pop("format", None)
