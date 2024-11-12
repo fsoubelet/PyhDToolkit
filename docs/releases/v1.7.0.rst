@@ -21,10 +21,11 @@ Enhancements
 Changes
 ~~~~~~~
 
-* The `pyhdtoolkit.cpymadtools.lhc.make_lhc_beams` function no longer accepts ambiguous `emittance_[xy]`` as arguments anymore. Please use the explicit `nemitt_[xy]` parameters introduced in version `1.6.0` instead.
+* The `pyhdtoolkit.cpymadtools.lhc.make_lhc_beams` function no longer accepts ambiguous `emittance_[xy]` parameters anymore. Please use the explicit `nemitt_[xy]` parameters introduced in version `1.6.0` instead.
 * The `pyhdtoolkit.cpymadtools.lhc.make_lhc_beams` function now defaults to a value of `2.5E-6m` for the normalized horizontal and vertical emittances, according to Run 3 operation. Functions that were calling `make_lhc_beams` for the Run 2 configuration explicitely ask for the previous default value of `3.5E-6m`.
-* The `pyhdtoolkit.cpymadtools.lhc.get_sizes_at_ip` function no longer accepts `geom_emit_[xy]` as arguments and requires `gemitt_[xy]` instead.
+* The `pyhdtoolkit.cpymadtools.lhc.get_sizes_at_ip` function no longer accepts `geom_emit_[xy]` parameters and requires `gemitt_[xy]` instead.
 * The `pyhdtoolkit.models.beam.BeamParameters` class attributes were changed for consistency, with changes such as `en_emit_[xy]` becoming `nemitt_[xy]` etc.
+* The `pyhdtoolkit.optics.beam.compute_beam_parameters` function no longer accepts `en_emit_[xy]`  parameters and requires `nemitt_[xy]` instead.
 
 Documentation
 ~~~~~~~~~~~~~
