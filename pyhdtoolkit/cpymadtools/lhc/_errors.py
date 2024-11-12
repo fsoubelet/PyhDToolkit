@@ -92,6 +92,7 @@ def misalign_lhc_ir_quadrupoles(
 ) -> None:
     """
     .. versionadded:: 0.9.0
+
     Apply misalignment errors to IR triplet quadrupoles on a given side of a given
     IP. In case of a sliced lattice, this will misalign all slices of each magnet
     together. According to the `Equipment Codes Main System
