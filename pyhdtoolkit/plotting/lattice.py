@@ -109,7 +109,7 @@ def plot_latwiss(
         to represent Beam Position Monitors. BPMs are plotted in dark grey.
         Defaults to `False`.
     disp_ylim : tuple[float, float] | float, optional
-        If 
+        If
         If given, will be used as vertical axis limits for the dispersion
         values. Can be given as a single value (float, int) or a tuple (in
         which case it should be symmetric). Defaults to `None`, and will be
@@ -148,7 +148,7 @@ def plot_latwiss(
         `~.plotting.utils.plot_machine_layout`, later on to
         `~.plotting.utils._plot_lattice_series`, and then
         `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
-        
+
     Examples
     --------
 

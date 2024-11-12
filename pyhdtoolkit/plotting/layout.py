@@ -78,7 +78,7 @@ def plot_machine_layout(
         the axis limits (through ``k0l_lim``, ``k1l_lim`` and ``k2l_lim``) to
         ensure legend labels and plotted elements don't overlap.
 
-    
+
     Parameters
     ----------
     madx : cpymad.madx.Madx
@@ -132,7 +132,7 @@ def plot_machine_layout(
         symmetric). If `None` is given, then the limits will be determined
         automatically based on the ``k3l`` values of the octupoles.
     **kwargs
-        Any keyword argument will be transmitted to 
+        Any keyword argument will be transmitted to
         `~.plotting.utils._plot_lattice_series`, and then
         `~matplotlib.patches.Rectangle`, such as ``lw`` etc. If either
         `ax` or `axis` is found in the kwargs, the corresponding value
@@ -447,7 +447,7 @@ def _ylim_from_input(ylim: tuple[float, float] | float | int, name_for_error: st
     ------
     TypeError
         If the input is not a `tuple`, a `float` or an `int`.
-    
+
     Returns
     -------
     tuple[float, float]

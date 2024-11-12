@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 
 
 def lebedev_beam_size(
-    beta1_: float | np.ndarray, beta2_: float | np.ndarray, geom_emit_x: float, geom_emit_y: float
+    beta1_: float | np.ndarray, beta2_: float | np.ndarray, gemitt_x: float, gemitt_y: float
 ) -> float | np.ndarray:
     """
     .. versionadded:: 0.8.2
@@ -68,7 +68,7 @@ def lebedev_beam_size(
                 twiss_tfs.beta12, twiss_tfs.beta22, geom_emit_x, geom_emit_y
             )
     """
-    return np.sqrt(geom_emit_x * beta1_ + geom_emit_y * beta2_)
+    return np.sqrt(gemitt_x * beta1_ + gemitt_y * beta2_)
 
 
 # ----- Helpers ----- #

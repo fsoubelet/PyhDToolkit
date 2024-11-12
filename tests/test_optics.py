@@ -81,8 +81,6 @@ def test_gamma_transition_raises():
                 beta_rel=0.8966300434726596,
                 nemitt_x=5e-06,
                 nemitt_y=5e-06,
-                gemitt_x=2.469137056052632e-06,
-                gemitt_y=2.469137056052632e-06,
                 deltap_p=0.002,
             ),
         ),
@@ -101,8 +99,6 @@ def test_gamma_transition_raises():
                 beta_rel=0.9987828980567665,
                 nemitt_x=5e-06,
                 nemitt_y=5e-06,
-                gemitt_x=2.4691370560526314e-07,
-                gemitt_y=2.4691370560526314e-07,
                 deltap_p=0.0002,
             ),
         ),
@@ -127,11 +123,11 @@ def test_beam_size_raises(_fake_coordinates):
 
 @pytest.mark.parametrize("beta11", [0.3312])
 @pytest.mark.parametrize("beta21", [1])
-@pytest.mark.parametrize("emit_x", [5e-6, 2.75e-6, 3.5e-6])
-@pytest.mark.parametrize("emit_y", [5e-6, 2.75e-6, 3.5e-6])
-def test_lebedev_size_floats(beta11, beta21, emit_x, emit_y):
-    assert ripken.lebedev_beam_size(beta1_=beta11, beta2_=beta21, geom_emit_x=emit_x, geom_emit_y=emit_y) == np.sqrt(
-        emit_x * beta11 + emit_y * beta21
+@pytest.mark.parametrize("gemitt_x", [5e-6, 2.75e-6, 3.5e-6])
+@pytest.mark.parametrize("gemitt_y", [5e-6, 2.75e-6, 3.5e-6])
+def test_lebedev_size_floats(beta11, beta21, gemitt_x, gemitt_y):
+    assert ripken.lebedev_beam_size(beta1_=beta11, beta2_=beta21, gemitt_x=gemitt_x, gemitt_y=gemitt_y) == np.sqrt(
+        gemitt_x * beta11 + gemitt_y * beta21
     )
 
 
