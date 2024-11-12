@@ -81,23 +81,29 @@ class Beam:
     """
     .. versionadded:: 0.6.0
 
-    Class to represent most useful particle beam attributes for ``MAD-X`` simulations.
+    Class to represent most useful particle beam
+    attributes for ``MAD-X`` simulations.
     """
 
     def __init__(
         self,
         energy: float,
-        emittance: float,
+        gemitt: float,
         m0: float = constants.physical_constants["proton mass energy equivalent in MeV"][0],
     ) -> None:
         """
-        Args:
-            energy (float): energy of the particles in your beam, in [GeV].
-            emittance (float): beam emittance, in [m].
-            m0 (float): rest mass of the beam's particles in [MeV]. Defaults to that of a proton.
+        Parameters
+        ----------
+        energy : float
+            Energy of the particles in your beam, in [GeV].
+        gemitt : float
+            Geometric beam emittance, in [m].
+        m0 : float
+            Rest mass of the beam's particles in [MeV]. Defaults
+            to that of a proton.
         """
         self.energy = energy
-        self.emittance = emittance
+        self.gemitt = gemitt
         self.rest_mass = m0
 
     @property
@@ -112,28 +118,34 @@ class Beam:
 
     @property
     def brho(self) -> float:
-        """Beam rigidity [T/m]."""
+        """Beam rigidity in [T/m]."""
         return (1 / 0.3) * self.beta_rel * self.energy / constants.c
 
     @property
-    def normalized_emittance(self) -> float:
-        """Normalized emittance [m]."""
-        return self.emittance * self.beta_rel * self.gamma_rel
+    def nemitt(self) -> float:
+        """Normalized emittance in [m]."""
+        return self.gemitt * self.beta_rel * self.gamma_rel
 
     @property
     def rms_emittance(self) -> float:
-        """Rms emittance [m]."""
-        return self.emittance / (self.beta_rel * self.gamma_rel)
+        """Rms emittance in [m]."""
+        return self.gemitt / (self.beta_rel * self.gamma_rel)
 
     def revolution_frequency(self, circumference: float = 26658.8832, speed: float = constants.c) -> float:
         """
-        Returns the revolution frequency of the beam's particles around the accelerator.
+        Returns the revolution frequency of the beam's
+        particles around the accelerator.
 
-        Args:
-            circumference (float): the machine circumference in [m]. Defaults to that of the LHC.
-            speed (float): the particles' speed in the machine, in [m/s]. Defaults to c.
+        Parameters
+        ----------
+        circumference : float
+            The machine circumference in [m]. Defaults to that of the LHC.
+        speed : float
+            The particles' speed in the machine, in [m/s]. Defaults to c.
 
-        Returns:
+        Returns
+        -------
+        float
             The revolution frequency, in [turns/s].
         """
         return self.beta_rel * speed / circumference
@@ -142,13 +154,20 @@ class Beam:
         """
         Returns the slip factor parameter :math:`\\eta`.
 
-        .. note::
-            :math:`\\eta = 0` at transition energy (:math:`\\eta < 0` above transition).
+        Note
+        ----
+            We use the convention according to which
+            :math:`\\eta = 0` at transition energy
+            and :math:`\\eta < 0` above transition.
 
-        Args:
-            alpha_p (float): momentum compaction factor.
+        Parameters
+        ----------
+        alpha_p : float
+            Momentum compaction factor.
 
-        Returns:
+        Returns
+        -------
+        float
             The slip factor.
         """
         return (1 / (self.gamma_rel**2)) - alpha_p
@@ -156,12 +175,18 @@ class Beam:
     @staticmethod
     def gamma_transition(alpha_p: float) -> float:
         """
-        Returns the relativistic :math:`\\gamma` corresponding to the transition energy.
+        Returns the relativistic :math:`\\gamma`
+        corresponding to the transition energy.
 
-        Args:
-            alpha_p (float): momentum compaction factor.
+        Parameters
+        ----------
+        alpha_p : float
+            Momentum compaction factor.
 
-        Returns:
-            The relativistic :math:`\\gamma` value at the transition energy.
+        Returns
+        -------
+        float
+            The relativistic :math:`\\gamma` value
+            at the transition energy.
         """
         return np.sqrt(1 / alpha_p)
