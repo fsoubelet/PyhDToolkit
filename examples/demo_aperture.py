@@ -76,7 +76,7 @@ plot_aperture(
     title="IR5, Collision Optics - Beam 1 Aperture Tolerance",
     plot_bpms=True,
     xlimits=(ip5s - 80, ip5s + 80),
-    aperture_ylim=(0, 25),
+    aperture_ylim=(0, 30),
     k0l_lim=(-4e-4, 4e-4),
     k1l_lim=(-0.08, 0.08),
     color="darkslateblue",
