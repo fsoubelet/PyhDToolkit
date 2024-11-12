@@ -15,7 +15,7 @@ from scipy import constants
 from pyhdtoolkit.models.beam import BeamParameters
 
 
-def compute_beam_parameters(pc_gev: float, en_x_m: float, en_y_m: float, deltap_p: float) -> BeamParameters:
+def compute_beam_parameters(pc_gev: float, nemitt_x: float, nemitt_y: float, deltap_p: float) -> BeamParameters:
     """
     .. versionadded:: 0.12.0
 
@@ -37,7 +37,7 @@ def compute_beam_parameters(pc_gev: float, en_x_m: float, en_y_m: float, deltap_
     Returns
     -------
     BeamParameters
-        A ``BeamParameters`` object with the calculated values.
+        A `BeamParameters` object with the calculated values.
 
     Example:
     --------
@@ -58,7 +58,7 @@ def compute_beam_parameters(pc_gev: float, en_x_m: float, en_y_m: float, deltap_
             # -> Geometrical x emittance = 2.469 mm mrad
             # -> Geometrical y emittance = 2.469 mm mrad
     """
-    e0_gev = 0.9382720813
+    e0_gev = 0.9382720813  # for a proton!
     e_tot_gev = np.sqrt(pc_gev**2 + e0_gev**2)
     gamma_r = e_tot_gev / e0_gev
     beta_r = pc_gev / np.sqrt(pc_gev**2 + e0_gev**2)
@@ -71,10 +71,8 @@ def compute_beam_parameters(pc_gev: float, en_x_m: float, en_y_m: float, deltap_
         E_kin_GeV=e_tot_gev - e0_gev,
         gamma_rel=gamma_r,
         beta_rel=beta_r,
-        nemitt_x=en_x_m,
-        nemitt_y=en_y_m,
-        # gemitt_x=en_x_m / gamma_r / beta_r,
-        # gemitt_y=en_y_m / gamma_r / beta_r,
+        nemitt_x=nemitt_x,
+        nemitt_y=nemitt_y,
         deltap_p=deltap_p,
     )
 
