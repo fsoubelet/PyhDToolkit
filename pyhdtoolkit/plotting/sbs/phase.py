@@ -34,26 +34,38 @@ def plot_phase_segment_one_beam(
     """
     .. versionadded:: 0.19.0
 
-    Plots the propagated measured phase and the propagated corrected phase for the given IP segment, for
-    both planes for a given beam. Optionally highlights the IP location in the segment. One can find an
-    example use of this function in the :ref:`segment-by-segment plotting <demo-sbs-plotting>` example
-    gallery.
+    Plots the propagated measured phase and the propagated corrected phase
+    for the given IP segment, for both planes for a given beam. Optionally
+    highlights the IP location in the segment. One can find an example use
+    of this function in the :ref:`segment-by-segment plotting
+    <demo-sbs-plotting>` example gallery.
 
-    Args:
-        phase_x (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment phase result for
-            the horizontal plane in the given segment.
-        phase_y (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment phase result for
-            the vertical plane in the given segment.
-        model (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the model used in the analysis, optional.
-            If given, then the IP location in the segment will be highlighted by a vertical grey line.
-        ip (int): The IP number of the segment.
-        **kwargs: Keyword arguments will be transmitted to the figure creation call to `~matplotlib.pyplot.subplots`.
-            If ``bbox_to_anchor`` is found, it will be used to position the legend across the whole figure space.
+    Parameters
+    ----------
+    phase_x : tfs.TfsDataFrame
+        A `~tfs.TfsDataFrame` of the segment-by-segment phase result for the
+        horizontal plane in the given segment.
+    phase_y : tfs.TfsDataFrame
+        A `~tfs.TfsDataFrame` of the segment-by-segment phase result for the
+        vertical plane in the given segment.
+    model : tfs.TfsDataFrame, optional
+        A `~tfs.TfsDataFrame` of the model used in the analysis. If given, the
+        IP location in the segment will be highlighted by a vertical grey line.
+    ip : int, optional
+        The IP number of the segment. Used for the label of the vertical
+        grey line. Requires to have provided the model dataframe.
+    **kwargs
+        Keyword arguments will be transmitted to the figure creation call to
+        `~matplotlib.pyplot.subplots`. If ``bbox_to_anchor`` is found, it will
+        be used to position the legend across the whole figure space.
 
-    Returns:
+    Returns
+    -------
+    matplotlib.figure.Figure
         The `~matplotlib.figure.Figure` on which the plot is created.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             fig = plot_phase_segment_one_beam(
@@ -86,32 +98,45 @@ def plot_phase_segment_both_beams(
     """
     .. versionadded:: 0.19.0
 
-    Plots the propagated measured phase and the propagated corrected phase for the given IP segment, for
-    both planes and both beams. Optionally highlights the IP location in the segment. One can find an
-    example use of this function in the :ref:`segment-by-segment plotting <demo-sbs-plotting>` example
-    gallery.
+    Plots the propagated measured phase and the propagated corrected phase
+    for the given IP segment, for both planes and both beams. Optionally
+    highlights the IP location in the segment. One can find an example use
+    of this function in the :ref:`segment-by-segment plotting
+    <demo-sbs-plotting>` example gallery.
 
-    Args:
-        b1_phase_x (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment phase result for
-            the horizontal plane in the given segment, for Beam 1.
-        b1_phase_y (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment phase result for
-            the vertical plane in the given segment, for Beam 1.
-        b2_phase_x (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment phase result for
-            the horizontal plane in the given segment, for Beam 2.
-        b2_phase_x (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment phase result for
-            the vertical plane in the given segment, for Beam 2.
-        b1_model (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the Beam 1 model used in the analysis, optional.
-            If given, then the IP location in the segment will be highlighted by a vertical grey line.
-        b2_model (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the Beam 2 model used in the analysis, optional.
-            If given, then the IP location in the segment will be highlighted by a vertical grey line.
-        ip (int): The IP number of the segment.
-        **kwargs: Keyword arguments will be transmitted to the figure creation call to `~matplotlib.pyplot.subplots`.
-            If ``bbox_to_anchor`` is found, it will be used to position the legend across the whole figure space.
-
-    Returns:
+    Parameters
+    ----------
+    b1_phase_x : tfs.TfsDataFrame
+        A `~tfs.TfsDataFrame` of the segment-by-segment phase result for
+        the horizontal plane in the given segment, for Beam 1.
+    b1_phase_y : tfs.TfsDataFrame
+        A `~tfs.TfsDataFrame` of the segment-by-segment phase result for
+        the vertical plane in the given segment, for Beam 1.
+    b2_phase_x : tfs.TfsDataFrame
+        A `~tfs.TfsDataFrame` of the segment-by-segment phase result for
+        the horizontal plane in the given segment, for Beam 2.
+    b2_phase_x : tfs.TfsDataFrame
+        A `~tfs.TfsDataFrame` of the segment-by-segment phase result for
+        the vertical plane in the given segment, for Beam 2.
+    b1_model : tfs.TfsDataFrame, optional
+        A `~tfs.TfsDataFrame` of the Beam 1 model used in the analysis.
+        If given, then the IP location in the segment will be highlighted
+        by a vertical grey line.
+    b2_model : tfs.TfsDataFrame, optional
+        A `~tfs.TfsDataFrame` of the Beam 2 model used in the analysis.
+        If given, then the IP location in the segment will be highlighted
+        by a vertical grey line.
+    ip : int, optional
+        The IP number of the segment. Used for the label of the vertical
+        grey line. Requires to have provided the model dataframe.
+    
+    Returns
+    -------
+    matplotlib.figure.Figure
         The `~matplotlib.figure.Figure` on which the plot is created.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             fig = plot_phase_segment_both_beams(
@@ -168,23 +193,33 @@ def plot_phase_segment(
     """
     .. versionadded:: 0.19.0
 
-    Plots a the phase for a given plane over the segment, optionally highlighting the IP location. One
-    can find an example use of this function in the :ref:`segment-by-segment plotting <demo-sbs-plotting>`
+    Plots a the phase for a given plane over the segment, optionally
+    highlighting the IP location. One can find an example use of this
+    function in the :ref:`segment-by-segment plotting <demo-sbs-plotting>`
     example gallery.
 
-    Args:
-        ax (matplotlib.axes.Axes): The `~matplotlib.axes.Axes` to plot on. Will get the current axis if no
-            `~matplotlib.axes.Axes` is given.
-        segment_df (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment coupling result for
-            the given segment.
-        model_df (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the model used in the analysis, optional. If
-            given, then the IP location in the segment will be determined from the two dataframes and will
-            be highlighted in the plot by a vertical grey line.
-        plane (str): the plane the data is is for in the provided *segment_df*. Will be used for the ylabel.
-            Should be either "x" or "y", case-insensitive.
-        ip (int): The IP number of the segment.
+    Parameters
+    ----------
+    ax : matplotlib.axes.Axes, optional
+        The `~matplotlib.axes.Axes` to plot on. Will get the current axis
+        if no `~matplotlib.axes.Axes` is given.
+    segment_df : tfs.TfsDataFrame
+        A `~tfs.TfsDataFrame` of the segment-by-segment coupling result for
+        the given segment.
+    model_df : tfs.TfsDataFrame, optional
+        A `~tfs.TfsDataFrame` of the model used in the analysis. If given,
+        then the IP location in the segment will be determined from the two
+        dataframes and will be highlighted in the plot by a vertical grey
+        line.
+    plane : str
+        The plane the data is is for in the provided *segment_df*. Will be
+        used for the ylabel. Should be either "x" or "y", case-insensitive.
+    ip : int, optional
+        The IP number of the segment. Used for the label of the vertical
+        grey line. Requires to have provided the model dataframe.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             plot_phase_segment(ax, segment_df, b1_model_tfs, plane="x", ip=1)
