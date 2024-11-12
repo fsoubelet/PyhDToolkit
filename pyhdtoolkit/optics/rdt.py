@@ -26,7 +26,7 @@ def rdt_to_order_and_type(rdt: int | str) -> str:
     str
         A string with the type and magnet order of
         the provided RDT.
-    
+
     Examples
     --------
 
@@ -34,7 +34,7 @@ def rdt_to_order_and_type(rdt: int | str) -> str:
 
             rdt_to_order_and_type(1001)
             # Output: 'skew_quadrupole'
-        
+
         .. code-block:: python
 
             rdt_to_order_and_type("2002")
@@ -85,7 +85,7 @@ def determine_rdt_line(rdt: int | str, plane: str) -> tuple[int, int, int]:
             determine_rdt_line(1001, "X")
             # Output: (0, 1, 0)
             # Line at 1 * Qy in the X spectrum.
-        
+
         .. code-block:: python
 
             determine_rdt_line("2002", "Y")

@@ -129,7 +129,7 @@ def plot_phase_segment_both_beams(
     ip : int, optional
         The IP number of the segment. Used for the label of the vertical
         grey line. Requires to have provided the model dataframe.
-    
+
     Returns
     -------
     matplotlib.figure.Figure
