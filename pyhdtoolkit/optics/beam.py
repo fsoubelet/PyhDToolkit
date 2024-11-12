@@ -4,7 +4,8 @@
 Beam Optics
 -----------
 
-Module implementing various functionality for simple beam parameter calculations.
+Module implementing various functionality for
+simple beam parameter calculations.
 """
 
 import numpy as np
@@ -18,20 +19,28 @@ def compute_beam_parameters(pc_gev: float, en_x_m: float, en_y_m: float, deltap_
     """
     .. versionadded:: 0.12.0
 
-    Calculates beam parameters from provided values, for *proton* particles. One can find
-    an example use of this function in the :ref:`beam enveloppe <demo-beam-enveloppe>`
-    example gallery.
+    Calculates beam parameters from provided values, for *proton* particles.
+    One can find an example use of this function in the :ref:`beam enveloppe
+    gallery <demo-beam-enveloppe>`.
 
-    Args:
-        pc_gev (float): particle momentum, in [GeV].
-        en_x_m (float): horizontal emittance, in [m].
-        en_y_m (float): vertical emittance, in [m].
-        deltap_p (float): momentum deviation.
+    Parameters
+    ----------
+    pc_gev : float
+        Particle momentum, in [GeV].
+    en_x_m : float
+        Horizontal emittance, in [m].
+    en_y_m : float
+        Vertical emittance, in [m].
+    deltap_p : float
+        Momentum deviation.
 
-    Returns:
-        A `~.optics.beam.BeamParameters` object with the calculated values.
+    Returns
+    -------
+    BeamParameters
+        A ``BeamParameters`` object with the calculated values.
 
     Example:
+    --------
         .. code-block:: python
 
             params = compute_beam_parameters(1.9, 5e-6, 5e-6, 2e-3)
@@ -60,12 +69,12 @@ def compute_beam_parameters(pc_gev: float, en_x_m: float, en_y_m: float, deltap_
         E_0_GeV=e0_gev,
         E_tot_GeV=e_tot_gev,
         E_kin_GeV=e_tot_gev - e0_gev,
-        gamma_r=gamma_r,
-        beta_r=beta_r,
-        en_x_m=en_x_m,
-        en_y_m=en_y_m,
-        eg_x_m=en_x_m / gamma_r / beta_r,
-        eg_y_m=en_y_m / gamma_r / beta_r,
+        gamma_rel=gamma_r,
+        beta_rel=beta_r,
+        nemitt_x=en_x_m,
+        nemitt_y=en_y_m,
+        # gemitt_x=en_x_m / gamma_r / beta_r,
+        # gemitt_y=en_y_m / gamma_r / beta_r,
         deltap_p=deltap_p,
     )
 
