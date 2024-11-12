@@ -26,6 +26,7 @@ Changes
 * The `pyhdtoolkit.cpymadtools.lhc.get_sizes_at_ip` function no longer accepts `geom_emit_[xy]` parameters and requires `gemitt_[xy]` instead.
 * The `pyhdtoolkit.models.beam.BeamParameters` class attributes were changed for consistency, with changes such as `en_emit_[xy]` becoming `nemitt_[xy]` etc.
 * The `pyhdtoolkit.optics.beam.compute_beam_parameters` function no longer accepts `en_emit_[xy]`  parameters and requires `nemitt_[xy]` instead.
+* The `pyhdtoolkit.optics.beam.Beam` class no longer accepts and posseses an `emittance` parameter / attribute, and now uses `gemitt` instead.
 
 Documentation
 ~~~~~~~~~~~~~
