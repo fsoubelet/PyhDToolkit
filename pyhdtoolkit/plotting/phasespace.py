@@ -4,7 +4,8 @@
 Phase Space Plotters
 --------------------
 
-Module with functions to create phase space plots through a `~cpymad.madx.Madx` object.
+Module with functions to create phase space
+plots through a `~cpymad.madx.Madx` object.
 """
 
 from __future__ import annotations
@@ -41,27 +42,40 @@ def plot_courant_snyder_phase_space(
     """
     .. versionadded:: 1.0.0
 
-    Creates a plot representing the normalized Courant-Snyder phase space of a particle distribution
-    when provided by position and momentum coordinates for a specific plane. One can find an example
-    use of this function in the :ref:`phase space <demo-phase-space>` example gallery.
+    Creates a plot representing the normalized Courant-Snyder phase
+    space of a particle distribution when provided by position and
+    momentum coordinates for a specific plane. One can find an example
+    use of this function in the :ref:`phase space <demo-phase-space>`
+    example gallery.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        u_coordinates (np.ndarray): `~numpy.ndarray` of particles' coordinates for the given plane. Here
-            ``u_coordinates[0]`` should be the tracked coordinates for the first particle and so on.
-        pu_coordinates (np.ndarray): `~numpy.ndarray` of particles' momentum coordinates for the
-            given plane. Here ``pu_coordinates[0]`` should be the tracked momenta for the first particle
-            and so on.
-        plane (str): the physical plane to plot, should be either ``Horizontal`` or ``Vertical``, and is
-            case-insensitive. Defaults to ``Horizontal``.
-        title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.
-        **kwargs: If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the
-            axis object to plot on.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    u_coordinates : numpy.ndarray
+        A `~numpy.ndarray` of particles' coordinates for the given plane.
+        Here ``u_coordinates[0]`` should be the tracked coordinates for the
+        first particle and so on.
+    pu_coordinates : numpy.ndarray
+        A `~numpy.ndarray` of particles' momentum coordinates for the given
+        plane. Here ``pu_coordinates[0]`` should be the tracked momenta for
+        the first particle and so on.
+    plane : str
+        The physical plane to plot, should be either ``horizontal`` or 
+        `vertical``, case insensitive. Defaults to ``horizontal``.
+    title : str, optional
+        If provided, is set as title of the plot.
+    **kwargs
+        If either `ax` or `axis` is found in the kwargs, the corresponding
+        value is used as the axis object to plot on.
 
-    Returns:
+    Returns
+    -------
+    matplotlib.axes.Axes
             The `~matplotlib.axes.Axes` on which the phase space is drawn.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             fig, ax = plt.subplots(figsize=(10, 9))
@@ -109,30 +123,43 @@ def plot_courant_snyder_phase_space_colored(
     """
     .. versionadded:: 1.0.0
 
-    Creates a plot representing the normalized Courant-Snyder phase space of a particle distribution
-    when provided by position and momentum coordinates for a specific plane. Each particle trajectory
-    has its own color on the plot, within the limit of `~matplotlib.pyplot`'s 156 named colors, after
-    the function loops back to the first color again. One can find an example use of this function in
-    the :ref:`phase space <demo-phase-space>` example gallery.
+    Creates a plot representing the normalized Courant-Snyder phase
+    space of a particle distribution when provided by position and
+    momentum coordinates for a specific plane. Each single particle
+    trajectory has its own color on the plot, within the limit of
+    `~matplotlib.pyplot`'s 156 named colors, after which the colors
+    loop back to the first entry again. One can find an example use
+    of this function in the :ref:`phase space <demo-phase-space>`
+    example gallery.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        u_coordinates (np.ndarray): `~numpy.ndarray` of particles' coordinates for the given plane. Here
-            ``u_coordinates[0]`` should be the tracked coordinates for the first particle and so on.
-        pu_coordinates (np.ndarray): `~numpy.ndarray` of particles' momentum coordinates for the
-            given plane. Here ``pu_coordinates[0]`` should be the tracked momenta for the first particle
-            and so on.
-        savefig (str): if not `None`, will save the figure to file using the string value passed.
-        plane (str): the physical plane to plot, should be either ``Horizontal`` or ``Vertical``, and is
-            case-insensitive. Defaults to ``Horizontal``.
-        title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.
-        **kwargs: If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the
-            axis object to plot on.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    u_coordinates : numpy.ndarray
+        A `~numpy.ndarray` of particles' coordinates for the given plane.
+        Here ``u_coordinates[0]`` should be the tracked coordinates for the
+        first particle and so on.
+    pu_coordinates : numpy.ndarray
+        A `~numpy.ndarray` of particles' momentum coordinates for the given
+        plane. Here ``pu_coordinates[0]`` should be the tracked momenta for
+        the first particle and so on.
+    plane : str
+        The physical plane to plot, should be either ``horizontal`` or 
+        `vertical``, case insensitive. Defaults to ``horizontal``.
+    title : str, optional
+        If provided, is set as title of the plot.
+    **kwargs
+        If either `ax` or `axis` is found in the kwargs, the corresponding
+        value is used as the axis object to plot on.
 
-    Returns:
+    Returns
+    -------
+    matplotlib.axes.Axes
             The `~matplotlib.axes.Axes` on which the phase space is drawn.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             fig, ax = plt.subplots(figsize=(10, 9))
