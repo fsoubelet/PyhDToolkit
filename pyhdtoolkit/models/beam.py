@@ -4,7 +4,8 @@
 Particle Beam Models
 --------------------
 
-Module with ``pydantic`` models to validate and store data structures relative to particle beams.
+Module with ``pydantic`` models to validate and store
+data structures relative to particle beams.
 """
 
 from math import sqrt
@@ -16,8 +17,9 @@ class BeamParameters(BaseModel):
     """
     .. versionadded:: 0.12.0
 
-    Class to encompass, validate and manipulate properties of a particle beam.
-    One can find a usage example in the :ref:`beam enveloppe demo <demo-beam-enveloppe>`.
+    Class to encompass, validate and manipulate properties of a
+    particle beam. One can find a usage example in the :ref:`beam
+    enveloppe demo <demo-beam-enveloppe>`.
     """
 
     pc_GeV: float | None = None  # Beam momentum [GeV]  # noqa: N815
