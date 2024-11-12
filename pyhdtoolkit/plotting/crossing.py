@@ -4,7 +4,8 @@
 Crossing Scheme Plotters
 ------------------------
 
-Module with functions to plot LHC crossing schemes through a `~cpymad.madx.Madx` object.
+Module with functions to plot LHC crossing schemes
+through a `~cpymad.madx.Madx` object.
 """
 
 from __future__ import annotations

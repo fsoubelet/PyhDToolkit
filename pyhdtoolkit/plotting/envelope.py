@@ -4,7 +4,8 @@
 Beam Enveloppe Plotters
 -----------------------
 
-Module with functions to create beam enveloppe plots through a `~cpymad.madx.Madx` object.
+Module with functions to create beam enveloppe plots
+through a `~cpymad.madx.Madx` object.
 """
 
 from __future__ import annotations
