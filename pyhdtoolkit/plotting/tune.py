@@ -5,7 +5,8 @@ Tune Diagram Plotters
 ---------------------
 
 Module with functions to create tune diagram plots.
-These provide functionality to draw Farey sequences up to a desired order.
+These provide functionality to draw Farey sequences
+up to a desired order.
 """
 
 from __future__ import annotations
@@ -55,14 +56,19 @@ def farey_sequence(order: int) -> list[tuple[int, int]]:
     """
     .. versionadded:: 1.0.0
 
-    Returns the n-th farey_sequence sequence, ascending, where n is the provided *order*.
-    Original code from :user:`Rogelio Tomás <rogeliotomas>` (see Numerical Methods 2018 CAS
+    Returns the n-th farey_sequence sequence, ascending, where
+    n is the provided *order*. Original code from :user:`Rogelio
+    Tomás <rogeliotomas>` (see Numerical Methods 2018 CAS
     proceedings, :cite:t:`Tomas:CASImperfections:2018`).
 
-    Args:
-        order (int): the order up to which we want to calculate the sequence.
+    Parameters
+    ----------
+    order : int
+        The order up to which we want to calculate the sequence.
 
-    Returns:
+    Returns
+    -------
+    list[tuple[int, int]]
         The sequence as a `list` of plottable 2D points.
     """
     seq = [(0, 1)]
@@ -84,33 +90,51 @@ def plot_tune_diagram(
     """
     .. versionadded:: 1.0.0
 
-    Creates a plot representing the tune diagram up to the given *max_order*. One can find an example
-    use of this function in the :ref:`tune diagram <demo-tune-diagram>` example gallery.
+    Creates a plot representing the tune diagram up to the given
+    *max_order*. One can find an example use of this function in
+    the :ref:`tune diagram <demo-tune-diagram>` example gallery.
 
-    .. note::
-        The first order lines make up the [(0, 0), (0, 1), (1, 1), (1, 0)] square and will only be
-        seen when redefining the limits of the figure, which are by default [0, 1] on each axis.
+    Note
+    ----
+        The first order lines make up the
+        [(0, 0), (0, 1), (1, 1), (1, 0)] square and will only be
+        seen when redefining the limits of the figure, which are
+        by default [0, 1] on each axis.
 
-    Args:
-        title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.
-        legend_title (str): if given, will be used as the title of the plot's legend. If set to `None`,
-            then creating a legend for the figure will not be done by this function and left up to the
-            user's care (a call to `~matplotlib.pyplot.legend` will do). Defaults to `None`.
-        max_order (int): the order up to which to plot resonance lines for, should not exceed 6.
-            Defaults to 6.
-        differentiate_orders (bool): if `True`, the lines for each order will be of a different color.
-            When set to `False`, there is still minimal differentation through ``alpha``, ``linewidth``
-            and ``linestyle``. Defaults to `False`.
-        **kwargs: keyword arguments will be transmitted to the `~plot_resonance_lines_for_order` function
-            and later on to `~matplotlib.pyplot.plot`. Be aware that ``alpha``, ``ls``, ``lw``, ``color``
-            and ``label`` are already set by this function and providing them as kwargs might lead to errors.
-            If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the axis object
-            to plot on.
+    Parameters
+    ----------
+    title : str, optional
+        If provided, is set as title of the plot.
+    legend_title : str, optional
+        If given, will be used as the title of the plot's legend.
+    max_order : int
+        The order up to which to plot resonance lines for. This
+        parameter value should not exceed 6. Defaults to 6.
+    differentiate_orders : bool
+        If `True`, the lines for each order will be of a different
+        color. When set to `False`, there is still differentation
+        through ``alpha``, ``linewidth`` and ``linestyle``. Defaults
+        to `False`.
+    **kwargs
+        Any keyword argument is given to `~matplotlib.pyplot.plot`.
+        Be aware that ``alpha``, ``ls``, ``lw``, ``color`` and ``label``
+        are already set by this function and providing them as kwargs
+        might lead to errors. If either `ax` or `axis` is found in the
+        kwargs, the corresponding value is used as the axis object to
+        plot on.
 
-    Returns:
+    Returns
+    -------
+    matplotlib.axes.Axes
             The `~matplotlib.axes.Axes` on which the tune diagram is drawn.
 
-    Example:
+    Raises
+    ------
+    ValueError
+        If the *max_order* is not between 1 and 6, included.
+
+    Example
+    -------
         .. code-block:: python
 
             fig, ax = plt.subplots(figsize=(6, 6))
@@ -149,16 +173,21 @@ def plot_resonance_lines_for_order(order: int, axis: Axes, **kwargs) -> None:
     """
     .. versionadded:: 1.0.0
 
-    Plot resonance lines from farey sequences of the given *order* on the provided
-    `~matplotlib.axes.Axes`.
+    Plot resonance lines from farey sequences of the given
+    *order* on the provided `~matplotlib.axes.Axes`.
 
-    Args:
-        order (int): the order of the resonance.
-        axis (matplotlib.axes.Axes): the `~matplotlib.axes.Axes` on which to plot
-            the resonance lines.
-        **kwargs: any keyword argument is given to `~matplotlib.pyplot.plot`.
+    Parameters
+    ----------
+    order : int
+        The order of the resonance.
+    axis : matplotlib.axes.Axes
+        The `~matplotlib.axes.Axes` on which to plot the resonance
+        lines.
+    **kwargs
+        Any keyword argument is given to `~matplotlib.axes.Axes.plot`.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             fig, ax = plt.subplots(figsize=(6, 6))
