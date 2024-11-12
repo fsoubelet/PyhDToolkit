@@ -4,7 +4,8 @@
 Lattice Plotters
 ----------------
 
-Module with functions to create lattice plots through a `~cpymad.madx.Madx` object.
+Module with functions to create lattice
+plots through a `~cpymad.madx.Madx` object.
 """
 
 from __future__ import annotations
@@ -48,73 +49,109 @@ def plot_latwiss(
     """
     .. versionadded:: 1.0.0
 
-    Creates a plot on the current figure (`~matplotlib.pyplot.gcf`) representing the lattice layout and
-    the :math:`\\beta`-functions along with the horizontal dispertion function. This is a *very, very heavily
-    refactored* version of an initial implementation by :user:`Guido Sterbini <sterbini>`. One can find
-    example uses of this function in the :ref:`machine lattice <demo-accelerator-lattice>` example gallery.
+    Creates a plot on the current figure (`~matplotlib.pyplot.gcf`)
+    representing the lattice layout and the :math:`\\beta`-functions
+    along with the horizontal dispertion function. This is a *very,
+    very heavily refactored* version of an initial implementation by
+    :user:`Guido Sterbini <sterbini>`. One can find example uses of
+    this function in the :ref:`machine lattice
+    <demo-accelerator-lattice>` example gallery.
 
-    .. note::
-        This function has some heavy logic behind it, especially in how it needs to order several axes. The
-        easiest way to go about using it is to manually create and empty figure with the desired properties
-        (size, etc) then call this function. See the example below or the gallery for more details.
+    Note
+    ----
+        This function has some heavy logic behind it, especially in how
+        it needs to order several axes. The easiest way to go about using
+        it is to manually create an empty figure with the desired properties
+        (size, etc) then call this function. See the example below or the
+        gallery for more details.
 
-    .. important::
-        At the moment, it is important to give this function symmetric limits for the ``k0l_lim``, ``k1l_lim``
-        and ``k2l_lim`` arguments. Otherwise the element patches will show up vertically displaced from the
-        axis' center line.
+    Important
+    ---------
+        At the moment, it is important to give this function symmetric limits
+        for the ``k0l_lim``, ``k1l_lim`` and ``k2l_lim`` arguments. Otherwise
+        the element patches will show up vertically displaced from the axis'
+        center line.
 
-    .. warning::
-        Currently the function tries to plot legends for the different layout patches. The position of the
-        different legends has been hardcoded in corners and might require users to tweak the axis limits
-        (through ``k0l_lim``, ``k1l_lim`` and ``k2l_lim``) to ensure legend labels and plotted elements don't
-        overlap.
+    Warning
+    -------
+        Currently the function tries to plot legends for the different layout
+        patches. The position of the different legends has been hardcoded in
+        corners and might require users to tweak the axis limits (through
+        ``k0l_lim``, ``k1l_lim`` and ``k2l_lim``) to ensure legend labels and
+        plotted elements don't overlap.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        title (str | None): if provided, is set as title of the plot. Defaults to `None`.
-        xoffset (float): An offset applied to the ``S`` coordinate before plotting. This is useful if
-            you want to center a plot around a specific point or element, which would then become located
-            at :math:`s = 0`. Beware this offset is applied before applying the *xlimits*. Defaults to 0.
-        xlimits (tuple[float, float]): will implement xlim (for the ``s`` coordinate) if this is
-            not ``None``, using the tuple passed.
-        plot_dipoles (bool): if `True`, dipole patches will be plotted on the layout subplot of
-            the figure. Defaults to `True`. Dipoles are plotted in blue.
-        plot_dipole_k1 (bool): if `True`, dipole elements with a quadrupolar gradient will have this
-            gradient plotted as a quadrupole patch. Defaults to `False`.
-        plot_quadrupoles (bool): if `True`, quadrupole patches will be plotted on the layout
-            subplot of the figure. Defaults to `True`. Quadrupoles are plotted in red.
-        plot_bpms (bool): if `True`, additional patches will be plotted on the layout subplot to
-            represent Beam Position Monitors. BPMs are plotted in dark grey.
-        disp_ylim (tuple[float, float]): vertical axis limits for the dispersion values.
-            Can be given as a single value (float, int) or a tuple (in which case it should be
-            symmetric). Defaults to (-10, 125).
-        beta_ylim (tuple[float, float]): vertical axis limits for the betatron function values.
-            Can be given as a single value (float, int) or a tuple (in which case it should be
-            symmetric). Defaults to `None`, to be determined by `~matplotlib` based on the
-            plotted beta values.
-        k0l_lim (tuple[float, float] | float): vertical axis limits for the ``k0l``
-            values used for the height of dipole patches. Can be given as a single value (float,
-            int) or a tuple (in which case it should be symmetric). If `None` (default) is given,
-            then the limits will be auto-determined based on the ``k0l`` values of the dipoles in
-            the plot.
-        k1l_lim (tuple[float, float] | float): vertical axis limits for the ``k1l``
-            values used for the height of quadrupole patches. Can be given as a single value (float,
-            int) or a tuple (in which case it should be symmetric). If `None` (default) is given,
-            then the limits will be auto-determined based on the ``k0l`` values of the quadrupoles
-            in the plot.
-        k2l_lim (tuple[float, float] | float): if given, sextupole patches will be plotted
-            on the layout subplot of the figure. If given, acts as vertical axis limits for the k2l
-            values used for the height of sextupole patches. Can be given as a single value (float,
-            int) or a tuple (in which case it should be symmetric).
-        k3l_lim (tuple[float, float] | float): if given, octupole patches will be plotted
-            on the layout subplot of the figure. If given, acts as vertical axis limits for the k3l
-            values used for the height of octupole patches. Can be given as a single value (float,
-            int) or a tuple (in which case it should be symmetric).
-        **kwargs: any keyword argument will be transmitted to `~.plotting.utils.plot_machine_layout`,
-            later on to `~.plotting.utils._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`,
-            such as ``lw`` etc.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    title : str, optional
+        If provided, is set as title of the plot.
+    xoffset : float
+        An offset applied to the ``S`` coordinate before plotting. This
+        is useful if you want to center a plot around a specific point
+        or element, which would then become located at :math:`s = 0`.
+        Beware this offset is applied before applying the *xlimits*.
+        Defaults to 0.
+    xlimits : tuple[float, float], optional
+        If given, will be used for the xlim (for the ``s`` coordinate),
+        using the tuple passed.
+    plot_dipoles : bool
+        If `True`, dipole patches will be plotted on the layout subplot
+        of the figure. Defaults to `True`. Dipoles are plotted in blue.
+    plot_dipole_k1 : bool
+        If `True`, dipole elements with a quadrupolar gradient will have
+        this gradient plotted as a quadrupole patch. Defaults to `False`.
+    plot_quadrupoles : bool
+        If `True`, quadrupole patches will be plotted on the layout subplot
+        of the figure. Defaults to `True`. Quadrupoles are plotted in red.
+    plot_bpms : bool
+        If `True`, additional patches will be plotted on the layout subplot
+        to represent Beam Position Monitors. BPMs are plotted in dark grey.
+        Defaults to `False`.
+    disp_ylim : tuple[float, float] | float, optional
+        If 
+        If given, will be used as vertical axis limits for the dispersion
+        values. Can be given as a single value (float, int) or a tuple (in
+        which case it should be symmetric). Defaults to `None`, and will be
+        determined by matplotlib based on the dispersion values.
+    beta_ylim : tuple[float, float] | float, optional
+        If given, will be used as vertical axis limits for the betatron
+        function values. Can be given as a single value (float, int) or a
+        tuple (in which case it should be symmetric). Defaults to `None`,
+        and will be determined by matplotlib based on the beta values.
+    k0l_lim : tuple[float, float] | float, optional
+        If given, will be used as vertical axis limits for the ``k0l``
+        values used for the height of dipole patches. Can be given as a
+        single value (float, int) or a tuple (in which case it should be
+        symmetric). If `None` is given, then the limits will be determined
+        automatically based on the ``k0l`` values of the dipoles.
+    k1l_lim : tuple[float, float] | float, optional
+        If given, will be used as vertical axis limits for the ``k1l``
+        values used for the height of quadrupole patches. Can be given as
+        a single value (float, int) or a tuple (in which case it should be
+        symmetric). If `None` is given, then the limits will be determined
+        automatically based on the ``k1l`` values of the quadrupoles.
+    k2l_lim : tuple[float, float] | float, optional
+        If given, will be used as vertical axis limits for the ``k2l``
+        values used for the height of sextupole patches. Can be given as
+        a single value (float, int) or a tuple (in which case it should be
+        symmetric). If `None` is given, then the limits will be determined
+        automatically based on the ``k2l`` values of the sextupoles.
+    k3l_lim : tuple[float, float] | float, optional
+        If given, will be used as vertical axis limits for the ``k3l``
+        values used for the height of octupole patches. Can be given as
+        a single value (float, int) or a tuple (in which case it should be
+        symmetric). If `None` is given, then the limits will be determined
+        automatically based on the ``k3l`` values of the octupoles.
+    **kwargs
+        Any keyword argument will be transmitted to
+        `~.plotting.utils.plot_machine_layout`, later on to
+        `~.plotting.utils._plot_lattice_series`, and then
+        `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
+        
+    Examples
+    --------
 
-    Example:
         .. code-block:: python
 
             title = "Machine Layout"
@@ -213,26 +250,36 @@ def plot_machine_survey(
     """
     .. versionadded:: 1.0.0
 
-    Creates a plot representing the lattice layout and the machine geometry in 2D. This is a very,
-    very heavily refactored version of an initial implementation by :user:`Guido Sterbini <sterbini>`.
-    One can find an example use of this function in the :ref:`machine survey <demo-machine-survey>`
-    example gallery.
+    Creates a plot representing the lattice layout and the machine geometry
+    in 2D. This is a very, very heavily refactored version of an initial
+    implementation by :user:`Guido Sterbini <sterbini>`. One can find an
+    example use of this function in the :ref:`machine survey
+    <demo-machine-survey>` example gallery.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        title (str | None): if provided, is set as title of the plot. Defaults to `None`.
-        show_elements (bool): if `True`, will try to plot by differentiating elements.
-            Defaults to `False`.
-        high_orders (bool): if `True`, plots sextupoles and octupoles if *show_elements* is `True`,
-            otherwise only up to quadrupoles. Defaults to `False`.
-        **kwargs: any keyword argument will be transmitted to `~matplotlib.pyplot.scatter` calls
-            later on. If either `ax` or `axis` is found in the kwargs, the corresponding value is
-            used as the axis object to plot on.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    title : str, optional
+        If provided, is set as title of the plot.
+    show_elements : bool
+        If `True`, will try to plot by differentiating elements. Defaults
+        to `False`.
+    high_orders : bool
+        If `True`, plots sextupoles and octupoles if *show_elements* is
+        `True`, otherwise only up to quadrupoles. Defaults to `False`.
+    **kwargs
+        Any keyword argument is transmitted to `~matplotlib.pyplot.scatter`
+        If either `ax` or `axis` is found in the kwargs, the corresponding
+        value is used as the axis object to plot on.
 
-    Returns:
+    Returns
+    -------
+    matplotlib.axes.Axes
         The `~matplotlib.axes.Axes` on which the survey is drawn.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             fig, ax = plt.subplots(figsize=(6, 6))
