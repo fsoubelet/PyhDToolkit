@@ -37,31 +37,49 @@ def plot_rdt_component(
     r"""
     .. versionadded:: 0.19.0
 
-    Plots for Beam 1 and Beam 2 vertically a component of the given coupling *rdt* over the segment.
-    Optionally highlights the IP location. One can find an example use of this function in the
-    :ref:`segment-by-segment plotting <demo-sbs-plotting>` example gallery.
+    Plots for Beam 1 and Beam 2 vertically a component of the given coupling
+    *rdt* over the segment. Optionally highlights the IP location. One can find
+    an example use of this function in the :ref:`segment-by-segment plotting
+    <demo-sbs-plotting>` example gallery.
 
-    Args:
-        b1_segment_df (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment coupling result for
-            Beam 1 in the given segment.
-        b2_segment_df (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment coupling result for
-            Beam 2 in the given segment.
-        b1_model (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the Beam 1 model used in the analysis, optional.
-            If given, then the IP location in the segment will be highlighted by a vertical grey line.
-        b2_model (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the Beam 2 model used in the analysis, optional.
-            If given, then the IP location in the segment will be highlighted by a vertical grey line.
-        ip (int): The IP number of the segment.
-        rdt (str): The name of the coupling resonance driving term to plot, either ``F1001`` or ``F1010``.
-            Case insensitive.
-        component (str): Which component of the RDT is considered, either ``ABS``, ``RE`` or ``IM``,
-            for absolute value or real / imaginary part, respectively. Case insensitive.
-        **kwargs: Keyword arguments will be transmitted to the figure creation call to `~matplotlib.pyplot.subplots`.
-            If ``b1_ylabel`` or ``b2_ylabel`` are found, they will be used as y-label for the respective beams axes.
+    Parameters
+    ----------
+    b1_segment_df : tfs.TfsDataFrame
+        A `~tfs.TfsDataFrame` of the segment-by-segment coupling result for
+        Beam 1 in the given segment.
+    b2_segment_df : tfs.TfsDataFrame
+        A `~tfs.TfsDataFrame` of the segment-by-segment coupling result for
+        Beam 2 in the given segment.
+    b1_model : tfs.TfsDataFrame, optional
+        A `~tfs.TfsDataFrame` of the Beam 1 model used in the analysis. If
+        given then the IP location in the segment will be highlighted by a
+        vertical grey line.
+    b2_model : tfs.TfsDataFrame, optional
+        A `~tfs.TfsDataFrame` of the Beam 2 model used in the analysis. If
+        given then the IP location in the segment will be highlighted by a
+        vertical grey line.
+    ip : int, optional
+        The IP number of the segment. Used for the label of the vertical
+        grey line. Requires to have provided the model dataframe.
+    rdt : str
+        The name of the coupling resonance driving term to plot, either
+        ``F1001`` or ``F1010``. Case insensitive.
+    component : str
+        Which component of the RDT is considered, either ``ABS``, ``RE`` or
+        ``IM``, for absolute value or real / imaginary part, respectively.
+        Case insensitive.
+    **kwargs
+        Keyword arguments will be transmitted to the figure creation call to
+        `~matplotlib.pyplot.subplots`. If ``b1_ylabel`` or ``b2_ylabel`` are
+        found, they will be used as y-label for the respective beams axes.
 
-    Returns:
+    Returns
+    -------
+    matplotlib.figure.Figure
         The `~matplotlib.figure.Figure` on which the plot is created.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             fig = plot_rdt_component(
@@ -120,30 +138,47 @@ def plot_full_ip_rdt(
     """
     .. versionadded:: 0.19.0
 
-    Plots all component of the given coupling *rdt* over the segment, for both Beam 1 and Beam 2. Optionally
-    highlights the IP location. One can find an example use of this function in the
-    :ref:`segment-by-segment plotting <demo-sbs-plotting>` example gallery.
+    Plots all component of the given coupling *rdt* over the segment, for
+    both Beam 1 and Beam 2. Optionally highlights the IP location. One can
+    find an example use of this function in the :ref:`segment-by-segment
+    plotting <demo-sbs-plotting>` example gallery.
 
-    Args:
-        b1_segment_df (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment coupling result for
-            Beam 1 in the given segment.
-        b2_segment_df (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment coupling result for
-            Beam 2 in the given segment.
-        b1_model (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the Beam 1 model used in the analysis, optional.
-            If given, then the IP location in the segment will be highlighted by a vertical grey line.
-        b2_model (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the Beam 2 model used in the analysis, optional.
-            If given, then the IP location in the segment will be highlighted by a vertical grey line.
-        ip (int): The IP number of the segment.
-        rdt (str): The name of the coupling resonance driving term to plot, either ``F1001`` or ``F1010``.
-            Case insensitive.
-        **kwargs: Keyword arguments will be transmitted to the figure creation call to `~matplotlib.pyplot.subplots`.
-            If ``b1_ylabel`` or ``b2_ylabel`` are found, they will be used as y-label for the respective beams axes.
-            If ``bbox_to_anchor`` is found, it will be used to position the legend across the whole figure space.
+    Parameters
+    ----------
+    b1_segment_df : tfs.TfsDataFrame
+        A `~tfs.TfsDataFrame` of the segment-by-segment coupling result for
+        Beam 1 in the given segment.
+    b2_segment_df : tfs.TfsDataFrame
+        A `~tfs.TfsDataFrame` of the segment-by-segment coupling result for
+        Beam 2 in the given segment.
+    b1_model : tfs.TfsDataFrame, optional
+        A `~tfs.TfsDataFrame` of the Beam 1 model used in the analysis. If
+        given then the IP location in the segment will be highlighted by a
+        vertical grey line.
+    b2_model : tfs.TfsDataFrame, optional
+        A `~tfs.TfsDataFrame` of the Beam 2 model used in the analysis. If
+        given then the IP location in the segment will be highlighted by a
+        vertical grey line.
+    ip : int, optional
+        The IP number of the segment. Used for the label of the vertical
+        grey line. Requires to have provided the model dataframe.
+    rdt : str
+        The name of the coupling resonance driving term to plot, either
+        ``F1001`` or ``F1010``. Case insensitive.
+    **kwargs
+        Keyword arguments will be transmitted to the figure creation call to
+        `~matplotlib.pyplot.subplots`. If ``b1_ylabel`` or ``b2_ylabel`` are
+        found, they will be used as y-label for the respective beams axes.
+        If ``bbox_to_anchor`` is found, it will be used to position the legend
+        across the whole figure space.
 
-    Returns:
+    Returns
+    -------
+    matplotlib.figure.Figure
         The `~matplotlib.figure.Figure` on which the plot is created.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             fig = plot_full_ip_rdt(
@@ -223,23 +258,35 @@ def _plot_sbs_coupling_rdt_component(
     ylabel: str | None = None,
 ) -> None:
     """
-    Plots a component of the given coupling RDT over the segment, optionally highlighting the IP location.
+    Plots a component of the given coupling RDT over the segment,
+    optionally highlighting the IP location.
 
-    Args:
-        ax (matplotlib.axes.Axes): The `~matplotlib.axes.Axes` to plot on. Will get the current axis if no
-            `~matplotlib.axes.Axes` is given.
-        segment_df (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment coupling result for
-            the given segment.
-        model_df (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the model used in the analysis, optional, If
-            given, then the IP location in the segment will be determined from the two dataframes and will
-            be highlighted in the plot by a vertical grey line.
-        ip (int): The IP number of the segment.
-        rdt (str): The name of the coupling resonance driving term to plot, either ``F1001`` or ``F1010``.
-            Case insensitive.
-        component (str): Which component of the RDT is considered, either ``ABS``, ``RE`` or ``IM``,
-            for absolute value or real / imaginary part, respectively. Case insensitive.
-        ylabel (str): A specific string to use as y-label on the axis, optional. If not given, a default
-            label will be determined from the provided (rdt* and *component*.
+    Parameters
+    ----------
+    ax : Axes
+        The `~matplotlib.axes.Axes` to plot on. Will get the current
+        axis if no `~matplotlib.axes.Axes` is given.
+    segment_df : tfs.TfsDataFrame
+        A `~tfs.TfsDataFrame` of the segment-by-segment coupling result
+        for the given segment.
+    model_df : tfs.TfsDataFrame, optional
+        A `~tfs.TfsDataFrame` of the model used in the analysis. If
+        given, then the IP location in the segment will be determined
+        from the two dataframes and will be highlighted in the plot by
+        a vertical grey line.
+    ip : int, optional
+        The IP number of the segment. Used for the label of the vertical
+        grey line. Requires to have provided the model dataframe.
+    rdt : str
+        The name of the coupling resonance driving term to plot, either
+        ``F1001`` or ``F1010``. Case insensitive.
+    component : str
+        Which component of the RDT is considered, either ``ABS``, ``RE`` or
+        ``IM``, for absolute value or real / imaginary part, respectively.
+        Case insensitive.
+    ylabel : str, optional
+        A specific string to use as y-label on the axis. If not given, a
+        default label will be determined from the provided rdt and component.
     """
     logger.debug(f"Plotting the {component.upper()} component of coupling {rdt.upper()} over the segment.")
     ax = plt.gca() if ax is None else ax
