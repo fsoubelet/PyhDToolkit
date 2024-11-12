@@ -4,7 +4,8 @@
 HTCondor Models
 ---------------
 
-Module with ``pydantic`` models to validate and store data obtained by querying the ``HTCondor`` queue.
+Module with ``pydantic`` models to validate and store
+data obtained by querying the ``HTCondor`` queue.
 """
 
 from pendulum import DateTime
@@ -15,7 +16,8 @@ class BaseSummary(BaseModel):
     """
     .. versionadded:: 0.12.0
 
-    Class to encompass and validate the cluster's summary line in the ``condor_q`` output.
+    Class to encompass and validate the cluster's summary
+    line in the ``condor_q`` output.
     """
 
     jobs: int
@@ -31,7 +33,8 @@ class ClusterSummary(BaseModel):
     """
     .. versionadded:: 0.12.0
 
-    Class to encompass and validate the cluster's info line in the ``condor_q`` output.
+    Class to encompass and validate the cluster's info
+    line in the ``condor_q`` output.
     """
 
     scheduler_id: str
@@ -44,7 +47,8 @@ class HTCTaskSummary(BaseModel):
     """
     .. versionadded:: 0.12.0
 
-    Class to encompass and validate a specific job's line in the ``condor_q`` output.
+    Class to encompass and validate a specific job's line
+    in the ``condor_q`` output.
     """
 
     # This is so pydantic accepts pendulum.DateTime as a validated type
