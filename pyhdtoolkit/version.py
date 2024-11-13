@@ -2,7 +2,16 @@ VERSION = "1.7.0"
 
 
 def version_info() -> str:
-    """Debug convenience function to give version, platform and runtime information."""
+    """
+    Debug convenience function to give version,
+    platform and runtime information.
+
+    Returns
+    -------
+    str
+        A string with platform and runtime information
+        as well as the version of critical dependencies.
+    """
     import platform
     import sys
 
