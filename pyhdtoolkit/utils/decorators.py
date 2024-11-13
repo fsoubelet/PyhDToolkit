@@ -91,6 +91,14 @@ def maybe_jit(func: Callable, **kwargs) -> Callable:
     Callable
         The JIT-decorated function if `numba` is
         installed, the original function otherwise.
+
+    Example
+    -------
+        .. code-block:: python
+
+            @maybe_jit
+            def calculations(x, y):
+                return (x + y) / (x - y)
     """
     try:
         from numba import jit
