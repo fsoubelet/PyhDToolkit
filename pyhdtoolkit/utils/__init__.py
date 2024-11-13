@@ -19,9 +19,29 @@ __all__ = ["cmdline", "contexts", "htc_monitor", "logging"]
 
 def deprecated(message: str = "") -> Callable:
     """
-    Decorator to mark some functions in this module as deprecated, as they will be moved to a new `coupling` module.
-    It will result in an informative `DeprecationWarning` being issued with the provided message when the function
-    is used for the first time.
+    Decorator to mark a function as deprecated. It will result in an
+    informative `DeprecationWarning` being issued with the provided
+    message when the function is used for the first time.
+
+    Parameters
+    ----------
+    message : str, optional
+        Extra information to be displayed after the deprecation
+        notice, when the function is used. Defaults to an empty
+        string (no extra information).
+    
+    Returns
+    -------
+    Callable
+        The decorated function.
+    
+    Example
+    -------
+        .. code-block:: python
+
+            @deprecated("Use 'new_alternative' instead.")
+            def old_function():
+                return "I am old!"
     """
 
     def decorator_wrapper(func):
@@ -30,7 +50,8 @@ def deprecated(message: str = "") -> Callable:
             current_call_source = "|".join(traceback.format_stack(inspect.currentframe()))
             if current_call_source not in function_wrapper.last_call_source:
                 warnings.warn(
-                    f"Function {func.__name__} is now deprecated and will be removed in a future release! {message}",
+                    f"Function {func.__name__} is now deprecated and will be removed in a future release! "
+                    f"{message}",
                     category=DeprecationWarning,
                     stacklevel=2,
                 )
