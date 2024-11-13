@@ -12,31 +12,39 @@ from __future__ import annotations
 import time
 
 from contextlib import contextmanager
+
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from collections.abc import Callable, Iterator
-
+    from collections.abc import Callable
+    from types import NoneType
 
 @contextmanager
-def timeit(function: Callable) -> Iterator[None]:
+def timeit(function: Callable) -> NoneType: # type: ignore
     """
     .. versionadded:: 0.4.0
 
-    Returns the time elapsed when executing code in the context via *function*.
-    Original code from is from :user:`Jaime Coello de Portugal <jaimecp89>`.
+    Returns the time elapsed when executing code in the context
+    via *function*. Original code from is from :user:`Jaime Coello
+    de Portugal <jaimecp89>`.
 
-    Args:
-        function (Callable): any callable taking one argument. This was conceived
-            with a `lambda` in mind.
+    Parameters
+    ----------
+    function : Callable
+        Function to be executed with the elapsed time as argument,
+        this was conceived with a `lambda` in mind. See the example
+        below.
 
-    Returns:
+    Returns
+    -------
+    Iterator[None]
         The elapsed time as an argument for the provided function.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
-            with timeit(lambda x: logger.debug(f"Did some stuff in {x} seconds")):
+            with timeit(lambda x: logger.debug(f"Took {x} seconds")):
                 some_stuff()
                 some_other_stuff()
     """
