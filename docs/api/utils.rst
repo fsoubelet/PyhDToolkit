@@ -15,6 +15,10 @@ Utils
    :members:
    :noindex:
 
+.. automodule:: pyhdtoolkit.utils.jit
+   :members:
+   :noindex:
+
 .. automodule:: pyhdtoolkit.utils.logging
    :members:
    :noindex:
