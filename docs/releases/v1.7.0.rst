@@ -16,7 +16,7 @@ Removals
 Enhancements
 ~~~~~~~~~~~~
 
-* The `pyhdtoolkit.utils` package has a new module, `jit`, with a decorator which will JIT-compile the decorated function if ``numba`` is available in the environment.
+* The `pyhdtoolkit.utils` package has a new module, `decorators`, with two useful decorators: one to JIT-compile the decorated function if ``numba`` is available in the environment, and one to mark a function as deprecated.
 
 Changes
 ~~~~~~~
