@@ -4,13 +4,15 @@
 HTCondor Monitoring
 -------------------
 
-A module with utility to query the HTCondor queue, process the returned data
-and display it nicely.
+A module with utility to query the HTCondor queue, process
+the returned data and display it nicely.
 
-.. note::
-    This module is meant to be called as a script, but some of the individual
-    functionality is made public API and one shoule be able to build a different
-    monitor from the functions in here.
+Note
+----
+    This module is meant to be called as a script, but some
+    of the individual functionality is made public API and
+    one shoule be able to build a different monitor script
+    from the functions in here.
 """
 
 import re
@@ -78,8 +80,15 @@ def query_condor_q() -> str:
     """
     .. versionadded:: 0.9.0
 
-    Returns a decoded string with the result of the ``condor_q`` command,
-    to get the status of the caller' jobs.
+    Returns a decoded string with the result of the
+    ``condor_q`` command, to get the status of the
+    caller' jobs.
+
+    Returns
+    -------
+    str
+        The utf-8 decoded string returned by the
+        ``condor_q`` command.
     """
     return_code, raw_result = CommandLine.run("condor_q")
     condor_status = raw_result.decode().strip()
@@ -95,19 +104,27 @@ def read_condor_q(report: str) -> tuple[list[HTCTaskSummary], ClusterSummary]:
     """
     .. versionadded:: 0.9.0
 
-    Splits information from different parts of the ``condor_q`` command's output
-    into one clean, validated data structure.
+    Splits information from different parts of the ``condor_q``
+    command's output into one clean, validated data structures.
 
-    Args:
-        report (str): the utf-8 decoded string returned by the ``condor_q`` command.
+    Parameters
+    ----------
+    report : str
+        The utf-8 decoded string returned by the ``condor_q``
+        command, as returned by `query_condor_q` .
 
-    Returns:
-        A `tuple`. The first element is a `list` of each task summary given by ``condor_q``,
-        each as a validated `~.models.htc.HTCTaskSummary`` object. The second element is a
-        validated `~.models.htc.ClusterSummary` object with scheduler identification and summaries
-        of the user as well as all users' statistics on this scheduler cluster.
+    Returns
+    -------
+    tuple[list[HTCTaskSummary], ClusterSummary]
+        A tuple with two elements. The first element is a list of
+        each task summary given by ``condor_q``, as a validated
+        `~.models.htc.HTCTaskSummary`. The second element is a
+        validated `~.models.htc.ClusterSummary` object with the
+        scheduler identification and summaries of the user as well
+        as all users' statistics on this scheduler cluster.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             condor_q_output = get_the_string_as_you_wish(...)
@@ -147,6 +164,25 @@ def read_condor_q(report: str) -> tuple[list[HTCTaskSummary], ClusterSummary]:
 
 
 def _make_tasks_table(tasks: list[HTCTaskSummary]) -> Table:
+    """
+    Takes the list of `~.models.htc.HTCTaskSummary` models
+    as returned by `read_condor_q` and from the information
+    within creates a `rich.table.Table`. Each row of the
+    table represents one `HTCTaskSummary` from the input.
+    The returned object is ready to be displayed by `rich`.
+
+    Parameters
+    ----------
+    tasks : list[HTCTaskSummary]
+        A list of `~.models.htc.HTCTaskSummary` models, as
+        parsed from the output of the ``condor_q`` command.
+    
+    Returns
+    -------
+    rich.table.Table
+        A `rich.table.Table` object with the tasks information
+        formatted and ready to be displayed by `rich`.
+    """
     table = _default_tasks_table()
     date_display_format = "dddd, D MMM YY at LT (zz)"  # example: Wednesday, 21 Apr 21 9:04 PM (CEST)
     for task in tasks:
@@ -164,6 +200,26 @@ def _make_tasks_table(tasks: list[HTCTaskSummary]) -> Table:
 
 
 def _make_cluster_table(owner_name: str, cluster: ClusterSummary) -> Table:
+    """
+    Takes a `~.models.htc.ClusterSummary` model as returned by
+    `read_condor_q` and from the information within creates a
+    `rich.table.Table`. The returned object is ready to be
+    displayed by `rich`.
+
+    Parameters
+    ----------
+    owner_name : str
+        The name of the user who queried the HTCondor queue.
+    cluster : ClusterSummary
+        A `~.models.htc.ClusterSummary` model, as parsed from
+        the output of the ``condor_q`` command.
+
+    Returns
+    -------
+    rich.table.Table
+        A `rich.table.Table` object with the cluster information
+        formatted and ready to be displayed by `rich`.
+    """
     table = _default_cluster_table()
     for i, source in enumerate(["query", "user", "cluster"]):
         table.add_row(
@@ -183,15 +239,39 @@ def _make_cluster_table(owner_name: str, cluster: ClusterSummary) -> Table:
 
 
 def _process_scheduler_information_line(line: str) -> str:
-    """Extract only the 'Schedd: <cluster>.cern.ch' part of the scheduler information line"""
+    """
+    Extract only the 'Schedd: <cluster>.cern.ch' part
+    of the scheduler information line.
+
+    Parameters
+    ----------
+    line : str
+        The line containing the scheduler information.
+    
+    Returns
+    -------
+    str
+        The scheduler name extracted from the input line.
+    """
     result = re.search(r"Schedd: (.*).cern.ch", line)
     return result.group(1)
 
 
 def _process_task_summary_line(line: str) -> HTCTaskSummary:
     """
-    Extract the various information in a task summary line, validated and returned as an HTCTaskSummary
-    object.
+    Extract the various information in a task summary line,
+    validated and returned as an `HTCTaskSummary` object.
+
+    Parameters
+    ----------
+    line : str
+        The line containing the task summary information.
+    
+    Returns
+    -------
+    pyhdtoolkit.models.htc.HTCTaskSummary
+        The task summary information as a validated
+        `~.models.htc.HTCTaskSummary` object.
     """
     line_elements = line.split()
     return HTCTaskSummary(
@@ -210,9 +290,29 @@ def _process_task_summary_line(line: str) -> HTCTaskSummary:
 
 def _process_cluster_summary_line(line: str, query: str | None = None) -> BaseSummary:
     r"""
-    Beware if no jobs are running we can't have taken querying_owner info from tasks summaries,
-    so we need to match a wildcard word by giving querying_owner=(\D+). This would add a match to the regex
-    search, and we need to look one match further for the wanted information.
+    Extract the various information in a cluster summary line,
+    validated and returned as a `~.models.htc.BaseSummary`.
+
+    Note
+    ----
+        Beware if no jobs are running we can't have taken the
+        ``querying_owner`` info from tasks summaries, so we need
+        to match a wildcard word by giving querying_owner=(\D+).
+        This would add a match to the regex search, and we need
+        to look one match further for the wanted information.
+
+    Parameters
+    ----------
+    line : str
+        The line containing the cluster summary information.
+    query : str, optional
+        The name of the user who queried the HTCondor queue.
+
+    Returns
+    -------
+    pyhdtoolkit.models.htc.BaseSummary
+        The cluster summary information as a validated
+        `~.models.htc.BaseSummary` object.
     """
     result = re.search(
         rf"Total for {query}: (\d+) jobs; (\d+) completed, "
@@ -232,7 +332,16 @@ def _process_cluster_summary_line(line: str, query: str | None = None) -> BaseSu
 
 
 def _default_tasks_table() -> Table:
-    """Create the default structure for the Tasks Table, hard coded columns and no rows added."""
+    """
+    Create the default structure for the Tasks
+    Table, hard coded columns and no rows added.
+
+    Returns
+    -------
+    rich.table.Table
+        A `rich.table.Table` object with the
+        default structure for the Tasks Table.
+    """
     table = Table(width=120, box=box.SIMPLE_HEAVY)
     for header, header_col_settings in TASK_COLUMNS_SETTINGS.items():
         table.add_column(header, **header_col_settings)
@@ -240,7 +349,16 @@ def _default_tasks_table() -> Table:
 
 
 def _default_cluster_table() -> Table:
-    """Create the default structure for the Cluster Table, hard coded columns and no rows added."""
+    """
+    Create the default structure for the Cluster
+    Table, hard coded columns and no rows added.
+    
+    Returns
+    -------
+    rich.table.Table
+        A `rich.table.Table` object with the
+        default structure for the Cluster Table.
+    """
     table = Table(width=120, box=box.HORIZONTALS)
     for header, header_col_settings in CLUSTER_COLUMNS_SETTINGS.items():
         table.add_column(header, **header_col_settings)
@@ -256,8 +374,17 @@ def main():
         """
         .. versionadded:: 0.9.0
 
-        Function called to update the live display, fetches data from htcondor, does the processing and
-        returns a Group with both Panels.
+        Function called to update the live display,
+        fetches data from htcondor, does the processing
+        and returns a Group with both Panels.
+
+        Returns
+        -------
+        rich.console.Group
+            A `rich.console.Group` object with two
+            `rich.panel.Panel` objects inside, one
+            holding the tasks table and the other
+            holding the cluster information.
         """
         condor_string = query_condor_q()
         user_tasks, cluster_info = read_condor_q(condor_string)
