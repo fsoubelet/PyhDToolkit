@@ -28,7 +28,8 @@ class CommandLine:
     """
     .. versionadded:: 0.2.0
 
-    A high-level object to encapsulate the different methods for interacting with the commandline.
+    A high-level object to encapsulate the different
+    methods for interacting with the commandline.
     """
 
     @staticmethod
@@ -36,19 +37,25 @@ class CommandLine:
         """
         .. versionadded:: 0.2.0
 
-        Check whether the given *PID* exists in the current process table.
+        Check whether the given *PID* exists in the
+        current process table.
 
-        Args:
-            pid (int): the Process ID you want to check.
+        Parameters
+        ----------
+        pid : int
+            The Process ID to check the existence of.
 
-        Returns:
+        Returns
+        -------
+        bool
             A boolean stating the result.
 
-        Example:
+        Example
+        -------
             .. code-block:: python
 
                 CommandLine.check_pid_exists(os.getpid())
-                True
+                # True
         """
         if pid == 0:
             # According to "man 2 kill", PID 0 refers to <<every process in the process group of
@@ -79,35 +86,53 @@ class CommandLine:
         """
         .. versionadded:: 0.2.0
 
-        Runs *command* through `subprocess.Popen` and returns the tuple of `(returncode, stdout)`.
+        Runs *command* through `subprocess.Popen` and
+        returns the tuple of `(returncode, stdout)`.
 
-        .. note::
-            Note that ``stderr`` is redirected to ``stdout``. Here *shell* is identical to the
-            same parameter of `subprocess.Popen`.
+        Note
+        ----
+            Note that ``stderr`` is redirected to ``stdout``.
+            Here *shell* is identical to the same parameter
+            of `subprocess.Popen`.
 
-        Args:
-            command (str): string, the command you want to run.
-            shell (bool): same as `subprocess.Popen` argument. Setting the shell argument to a `True`
-                value causes `subprocess` to spawn an intermediate shell process, and tell it to run
-                the command. In other words, using an intermediate shell means that variables, glob
-                patterns, and other special shell features in the command string are processed
-                before the command is ran. Defaults to `True`.
-            env (Mapping): mapping that defines the environment variables for the new process.
-            timeout (float): same as the `subprocess.Popen.communicate` argument, number of seconds
-                to wait for a response before raising a `TimeoutExpired` exception.
+        Parameters
+        ----------
+        command : str
+            The command to run.
+        shell : bool
+            Same parameter as `subprocess.Popen`. If `True`, the
+            command will be run through an intermediate shell,
+            and variables, glob patterns, and other special shell
+            features in the command string are processed before
+            the command is run. Defaults to `True`.
+        env : Mapping, optional
+            A mapping that defines the environment variables for
+            the new process.
+        timeout : float, optional
+            Same as the `subprocess.Popen.communicate` argument,
+            the number of seconds to wait for a response before
+            raising a `TimeoutExpired` exception.
 
-        Returns:
-            The `tuple` of `(returncode, stdout)`. Beware, the stdout will be a byte array (id est
-            ``b"some returned text"``). This output, returned as stdout, needs to be decoded properly
-            before you do anything with it, especially if you intend to log it into a file. While
-            it will most likely be "utf-8", the encoding can vary from system to system so the
-            standard output is returned in bytes format and should be decoded later on.
+        Returns
+        -------
+        tuple[int | None, bytes]
+            The `tuple` of `(returncode, stdout)`. Beware, the stdout
+            will be a byte array (i.e. ``b"some returned text"``). This
+            output, returned as stdout, needs to be decoded properly
+            before you do anything with it, especially if you intend to
+            log it into a file. While it will most likely be "utf-8", the
+            encoding can vary from system to system so the standard output
+            is returned in bytes format and should be decoded later on.
 
-        Raises:
-            If the process does not terminate after *timeout* seconds, a `TimeoutExpired` exception
-            will be raised.
+        Raises
+        ------
+        TimeoutExpired
+            If a value was provided for *timeout* and the process does not
+            terminate before *timeout* seconds.
 
-        Examples:
+        Examples
+        --------
+
             .. code-block:: python
 
                 CommandLine.run("echo hello")
@@ -136,16 +161,22 @@ class CommandLine:
         """
         .. versionadded:: 0.2.0
 
-        Terminates the process corresponding to the given *PID*. On other platforms,
-        using `os.kill` with `signal.SIGTERM` to kill.
+        Terminates the process corresponding to the given *PID*.
+        On other platforms, uses `os.kill` with `signal.SIGTERM`
+        to kill.
 
-        Args:
-            pid (int): the process ID to kill.
+        Parameters
+        ----------
+        pid : int
+            The ID of the process to kill.
 
-        Returns:
+        Returns
+        -------
+        bool
             A boolean stating the success of the operation.
 
-        Example:
+        Example
+        -------
             .. code-block:: python
 
                 CommandLine.terminate(500_000)  # max PID is 32768 (99999) on linux (macOS).
