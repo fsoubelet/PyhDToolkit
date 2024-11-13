@@ -1,8 +1,10 @@
 """
-pyhdtoolkit Library
-~~~~~~~~~~~~~~~~~~~
-pyhdtoolkit is a utility library, written in Python, for my PhD needs.
-Mainly particle accelerator physics studies and plotting.
+pyhdtoolkit library
+-------------------
+
+pyhdtoolkit is a utility library, written in
+Python, for my PhD needs. Mainly particle
+accelerator physics studies and plotting.
 
 :copyright: (c) 2019 by Felix Soubelet.
 :license: MIT, see LICENSE for more details.
