@@ -7,15 +7,15 @@ Utils
    :members:
    :noindex:
 
+.. automodule:: pyhdtoolkit.utils.decorators
+   :members:
+   :noindex:
+
 .. automodule:: pyhdtoolkit.utils.contexts
    :members:
    :noindex:
 
 .. automodule:: pyhdtoolkit.utils.htc_monitor
-   :members:
-   :noindex:
-
-.. automodule:: pyhdtoolkit.utils.jit
    :members:
    :noindex:
 
