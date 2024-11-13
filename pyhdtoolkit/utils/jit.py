@@ -1,3 +1,12 @@
+"""
+.. _utils-jit:
+
+JIT Compilation
+---------------
+
+Provides a useful decorator to potentially JIT
+compile functions.
+"""
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -8,17 +17,24 @@ if TYPE_CHECKING:
 
 def maybe_jit(func: Callable, **kwargs) -> Callable:
     """
-    .. versionadded:: 0.17.0
+    .. versionadded:: 1.7.0
 
-    A `numba.jit` decorator that does nothing if `numba` is not installed.
+    A `numba.jit` decorator that does nothing if
+    `numba` is not installed.
 
-    Args:
-        func (Callable): The function to be decorated.
-        **kwargs: Additional keyword arguments are passed to `numba.jit`.
+    Parameters
+    ----------
+    func : Callable
+        The function to be decorated.
+    **kwargs
+        Additional keyword arguments are passed to
+        the `numba.jit` decorator.
 
-    Returns:
-        Callable: The JIT-decorated function if `numba` is installed,
-            and the original function otherwise.
+    Returns
+    -------
+    Callable
+        The JIT-decorated function if `numba` is
+        installed, the original function otherwise.
     """
     try:
         from numba import jit
