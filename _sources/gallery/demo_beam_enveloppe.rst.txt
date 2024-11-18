@@ -29,12 +29,14 @@ to visualise the particle beam's enveloppe in your machine.
 
 In this example we will use a very simple lattice, hard-coded below.
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-26
+.. GENERATED FROM PYTHON SOURCE LINES 14-28
 
 .. code-block:: Python
 
+
     import matplotlib.pyplot as plt
     import numpy as np
+
     from cpymad.madx import Madx
 
     from pyhdtoolkit.plotting.envelope import plot_beam_envelope
@@ -52,11 +54,11 @@ In this example we will use a very simple lattice, hard-coded below.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-29
+.. GENERATED FROM PYTHON SOURCE LINES 30-31
 
 Define relevant constants.
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-54
+.. GENERATED FROM PYTHON SOURCE LINES 31-56
 
 .. code-block:: Python
 
@@ -92,11 +94,11 @@ Define relevant constants.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-56
+.. GENERATED FROM PYTHON SOURCE LINES 57-58
 
 Now let's setup ``MAD-X`` and input a very simple lattice.
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-117
+.. GENERATED FROM PYTHON SOURCE LINES 58-119
 
 .. code-block:: Python
 
@@ -168,12 +170,12 @@ Now let's setup ``MAD-X`` and input a very simple lattice.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 118-120
+.. GENERATED FROM PYTHON SOURCE LINES 120-122
 
 Now let's run an interpolation to be able to see the value of the optics functions
 inside the elements, this gives us higher resolution:
 
-.. GENERATED FROM PYTHON SOURCE LINES 120-126
+.. GENERATED FROM PYTHON SOURCE LINES 122-128
 
 .. code-block:: Python
 
@@ -190,13 +192,13 @@ inside the elements, this gives us higher resolution:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 127-130
+.. GENERATED FROM PYTHON SOURCE LINES 129-132
 
 We can now plot the beam enveloppe for the whole machine. Here notice we use
 the *scale* argument to convert the units to mm, this makes for nicer yticks
 values:
 
-.. GENERATED FROM PYTHON SOURCE LINES 130-146
+.. GENERATED FROM PYTHON SOURCE LINES 132-148
 
 .. code-block:: Python
 
@@ -228,14 +230,14 @@ values:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 147-151
+.. GENERATED FROM PYTHON SOURCE LINES 149-153
 
 Notice how the shading automatically adapts based on the *nsigma* argument.
 In order to have a look at the enveloppe in a specific region, we can give the
 *xlimits* argument. Here we will plot the horizontal enveloppe for the first
 5 cells only.
 
-.. GENERATED FROM PYTHON SOURCE LINES 151-159
+.. GENERATED FROM PYTHON SOURCE LINES 153-161
 
 .. code-block:: Python
 
@@ -259,11 +261,11 @@ In order to have a look at the enveloppe in a specific region, we can give the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 160-161
+.. GENERATED FROM PYTHON SOURCE LINES 162-163
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 161-164
+.. GENERATED FROM PYTHON SOURCE LINES 163-166
 
 .. code-block:: Python
 
@@ -277,7 +279,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 165-171
+.. GENERATED FROM PYTHON SOURCE LINES 167-173
 
 .. admonition:: References
 

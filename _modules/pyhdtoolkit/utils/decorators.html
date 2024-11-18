@@ -1,0 +1,538 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyhdtoolkit.utils.decorators &mdash; PyhDToolkit 1.7.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-codeautolink.css?v=125d5c1c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=0a86e678" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=030dc6f6"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#using-with-docker">Using With Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#minutes-to-pyhdtoolkit">5 Minutes to PyhDToolkit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#cpymadtools">Cpymadtools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#plotting">Plotting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#utilities">Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#additional-helpers">Additional Helpers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_tune_diagram.html">Tune Diagram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_crossing_schemes.html">LHC Crossing Schemes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_aperture.html">Accelerator Aperture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_sbs_plotting.html">Segment-by-Segment Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_ir_errors.html">LHC IR Errors Assignments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_track_spectra.html">Free Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lattice.html">Accelerator Lattice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_acd_tracking_spectra.html">AC Dipole Driven Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_phase_space.html">Phase Space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_beam_enveloppe.html">Beam Enveloppe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_stats_fitting.html">Distributions Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_setup.html">Quick LHC Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_setup.html#preparing-the-lhc-setups">Preparing the LHC setups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_setup.html#as-a-context-manager">As a context manager</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cpymadtools.html">Cpymadtools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#useful-constants">Useful Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#beam-parameters">Beam Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#miscellaneous-utilities">Miscellaneous Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/maths.html">Maths</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#stats-fitting">Stats Fitting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/models.html">Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#particle-beam-models">Particle Beam Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#htcondor-models">HTCondor Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#mad-x-models">MAD-X Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/optics.html">Optics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#beam-optics">Beam Optics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#resonance-driving-terms-utilities">Resonance Driving Terms Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#ripken-parameters">Ripken Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#twiss-optics">Twiss Optics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#plotting-styles">Plotting Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#paper-styles">Paper Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#thesis-styles">Thesis Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#lattice-plotters">Lattice Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#layout-plotters">Layout Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#phase-space-plotters">Phase Space Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#tune-diagram-plotters">Tune Diagram Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#segment-by-segment-coupling">Segment-by-Segment Coupling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#segment-by-segment-phase">Segment-by-Segment Phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#plotting-utility-functions">Plotting Utility Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#decorator-utilities">Decorator Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#context-utilities">Context Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#logging-utilities">Logging Utilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#asking-for-help">Asking for Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#bug-reports">Bug Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#enhancement-proposals">Enhancement Proposals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#contributing-code-and-or-documentation">Contributing Code and/or Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#forking-the-repository">Forking the Repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#creating-a-development-environment">Creating a Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#creating-a-branch">Creating a Branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#running-the-test-suite">Running the Test Suite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#code-standards">Code Standards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#documentation">Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-7-0">Version 1.7.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.7.0.html">1.7.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-6-0">Version 1.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.6.0.html">1.6.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-5-0">Version 1.5.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.5.0.html">1.5.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-4-0">Version 1.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.4.0.html">1.4.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-3-2">Version 1.3.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.3.2.html">1.3.2</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-3-1">Version 1.3.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.3.1.html">1.3.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-3-0">Version 1.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.3.0.html">1.3.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-2-0">Version 1.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.2.0.html">1.2.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-1-1">Version 1.1.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.1.1.html">1.1.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-1-0">Version 1.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.1.0.html">1.1.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-0-0">Version 1.0.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.0.0.html">1.0.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-21-0">Version 0.21.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.21.0.html">0.21.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-20-1">Version 0.20.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.20.1.html">0.20.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-20-0">Version 0.20.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.20.0.html">0.20.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-19-1">Version 0.19.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.19.1.html">0.19.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-19-0">Version 0.19.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.19.0.html">0.19.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-18-0">Version 0.18.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.18.0.html">0.18.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-17-0">Version 0.17.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.17.0.html">0.17.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-16-1">Version 0.16.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.16.1.html">0.16.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-16-0">Version 0.16.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.16.0.html">0.16.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-15-1">Version 0.15.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.15.1.html">0.15.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-15-0">Version 0.15.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.15.0.html">0.15.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-14-1">Version 0.14.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.14.1.html">0.14.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-14-0">Version 0.14.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.14.0.html">0.14.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-13-3">Version 0.13.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.13.3.html">0.13.3</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-13-2">Version 0.13.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.13.2.html">0.13.2</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-13-1">Version 0.13.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.13.1.html">0.13.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-13-0">Version 0.13.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.13.0.html">0.13.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-12-0">Version 0.12.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.12.0.html">0.12.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-11-0">Version 0.11.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.11.0.html">0.11.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-10-0">Version 0.10.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.10.0.html">0.10.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-9-2">Version 0.9.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.9.2.html">0.9.2</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-9-1">Version 0.9.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.9.1.html">0.9.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-9-0">Version 0.9.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.9.0.html">0.9.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-8-5">Version 0.8.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.8.5.html">0.8.5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-8-4">Version 0.8.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.8.4.html">0.8.4</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-8-3">Version 0.8.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.8.3.html">0.8.3</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-8-2">Version 0.8.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.8.2.html">0.8.2</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-8-1">Version 0.8.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.8.1.html">0.8.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-8-0">Version 0.8.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.8.0.html">0.8.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-7-0">Version 0.7.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.7.0.html">0.7.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-6-0">Version 0.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.6.0.html">0.6.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-5-0">Version 0.5.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.5.0.html">0.5.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-4-1">Version 0.4.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.4.1.html">0.4.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-4-0">Version 0.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.4.0.html">0.4.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-3-0">Version 0.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.3.0.html">0.3.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-2-1">Version 0.2.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.2.1.html">0.2.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-2-0">Version 0.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.2.0.html">0.2.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">Reference bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyhDToolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pyhdtoolkit.utils.decorators</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pyhdtoolkit.utils.decorators</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. _utils-decorators:</span>
+
+<span class="sd">Decorator Utilities</span>
+<span class="sd">-------------------</span>
+
+<span class="sd">Provides useful decorators.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span>
+
+
+<span class="c1"># ----- Utility deprecation decorator ----- #</span>
+
+
+<div class="viewcode-block" id="deprecated">
+<a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.decorators.deprecated">[docs]</a>
+<span class="k">def</span> <span class="nf">deprecated</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Decorator to mark a function as deprecated. It will result in an</span>
+<span class="sd">    informative `DeprecationWarning` being issued with the provided</span>
+<span class="sd">    message when the function is used for the first time.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    message : str, optional</span>
+<span class="sd">        Extra information to be displayed after the deprecation</span>
+<span class="sd">        notice, when the function is used. Defaults to an empty</span>
+<span class="sd">        string (no extra information).</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Callable</span>
+<span class="sd">        The decorated function.</span>
+<span class="sd">    </span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            @deprecated(&quot;Use &#39;new_alternative&#39; instead.&quot;)</span>
+<span class="sd">            def old_function():</span>
+<span class="sd">                return &quot;I am old!&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">decorator_wrapper</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">function_wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">current_call_source</span> <span class="o">=</span> <span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_stack</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()))</span>
+            <span class="k">if</span> <span class="n">current_call_source</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">function_wrapper</span><span class="o">.</span><span class="n">last_call_source</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Function </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> is now deprecated and will be removed in a future release! &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
+                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">function_wrapper</span><span class="o">.</span><span class="n">last_call_source</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">current_call_source</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">function_wrapper</span><span class="o">.</span><span class="n">last_call_source</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">function_wrapper</span>
+
+    <span class="k">return</span> <span class="n">decorator_wrapper</span></div>
+
+
+
+<span class="c1"># ----- Utility JIT Compilation decorator ----- #</span>
+
+<div class="viewcode-block" id="maybe_jit">
+<a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.decorators.maybe_jit">[docs]</a>
+<span class="k">def</span> <span class="nf">maybe_jit</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    .. versionadded:: 1.7.0</span>
+
+<span class="sd">    A `numba.jit` decorator that does nothing if</span>
+<span class="sd">    `numba` is not installed.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    func : Callable</span>
+<span class="sd">        The function to be decorated.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Additional keyword arguments are passed to</span>
+<span class="sd">        the `numba.jit` decorator.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Callable</span>
+<span class="sd">        The JIT-decorated function if `numba` is</span>
+<span class="sd">        installed, the original function otherwise.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            @maybe_jit</span>
+<span class="sd">            def calculations(x, y):</span>
+<span class="sd">                return (x + y) / (x - y)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">numba</span> <span class="kn">import</span> <span class="n">jit</span>
+
+        <span class="k">return</span> <span class="n">jit</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">func</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Felix Soubelet.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>  
+
+  <style>
+         .wy-nav-content { max-width: 67.5%; }
+  </style>
+
+
+
+</body>
+</html>

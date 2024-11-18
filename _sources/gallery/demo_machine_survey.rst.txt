@@ -27,11 +27,13 @@ Machine Survey
 This example shows how to use the `~.plotting.lattice.plot_machine_survey` function
 to represent your machine geometry in a from-the-top view.
 
-.. GENERATED FROM PYTHON SOURCE LINES 12-23
+.. GENERATED FROM PYTHON SOURCE LINES 12-25
 
 .. code-block:: Python
 
+
     import matplotlib.pyplot as plt
+
     from cpymad.madx import Madx
 
     from pyhdtoolkit.cpymadtools._generators import LatticeGenerator
@@ -49,11 +51,11 @@ to represent your machine geometry in a from-the-top view.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-26
+.. GENERATED FROM PYTHON SOURCE LINES 27-28
 
 Generate a simple lattice and setup your simulation:
 
-.. GENERATED FROM PYTHON SOURCE LINES 26-29
+.. GENERATED FROM PYTHON SOURCE LINES 28-31
 
 .. code-block:: Python
 
@@ -67,11 +69,11 @@ Generate a simple lattice and setup your simulation:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-31
+.. GENERATED FROM PYTHON SOURCE LINES 32-33
 
 Input the lattice into ``MAD-X``, no more needed here
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-35
+.. GENERATED FROM PYTHON SOURCE LINES 33-37
 
 .. code-block:: Python
 
@@ -86,11 +88,11 @@ Input the lattice into ``MAD-X``, no more needed here
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-37
+.. GENERATED FROM PYTHON SOURCE LINES 38-39
 
 Plot the machine survey, as simplistic as possible:
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-42
+.. GENERATED FROM PYTHON SOURCE LINES 39-44
 
 .. code-block:: Python
 
@@ -111,11 +113,11 @@ Plot the machine survey, as simplistic as possible:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 43-44
+.. GENERATED FROM PYTHON SOURCE LINES 45-46
 
 Plot the machine survey, differenciating elements and showing high order magnets:
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-49
+.. GENERATED FROM PYTHON SOURCE LINES 46-51
 
 .. code-block:: Python
 
@@ -136,11 +138,11 @@ Plot the machine survey, differenciating elements and showing high order magnets
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-51
+.. GENERATED FROM PYTHON SOURCE LINES 52-53
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 51-54
+.. GENERATED FROM PYTHON SOURCE LINES 53-56
 
 .. code-block:: Python
 
@@ -154,7 +156,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-62
+.. GENERATED FROM PYTHON SOURCE LINES 57-64
 
 .. admonition:: References
 
@@ -163,6 +165,11 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
    - `~.cpymadtools._generators`: `~._generators.LatticeGenerator`
    - `~.plotting.lattice`: `~.plotting.lattice.plot_machine_survey`
+
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** (0 minutes 3.336 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_machine_survey.py:

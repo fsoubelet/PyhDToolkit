@@ -42,11 +42,13 @@ available at the level of the `pyhdtoolkit.cpymadtools.lhc` module.
     Here I set the 2022 branch for stability and reproducibility of the documentation
     builds, but you can use any branch you want.
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-40
+.. GENERATED FROM PYTHON SOURCE LINES 27-42
 
 .. code-block:: Python
 
+
     import matplotlib.pyplot as plt
+
     from cpymad.madx import Madx
 
     from pyhdtoolkit.cpymadtools import coupling, lhc, twiss
@@ -66,7 +68,7 @@ available at the level of the `pyhdtoolkit.cpymadtools.lhc` module.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-49
+.. GENERATED FROM PYTHON SOURCE LINES 44-51
 
 One might have different ways that the LHC examples in other pages of this
 gallery are set up, for instance in the :ref:`LHC crossing schemes example
@@ -76,7 +78,7 @@ steps every time: calling the sequence, defining beams, calling the optics
 file, potentially slicing the sequence, calling ``use`` on the proper beam
 sequence, etc. See below for a typical B1 example:
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-60
+.. GENERATED FROM PYTHON SOURCE LINES 51-62
 
 .. code-block:: Python
 
@@ -98,13 +100,13 @@ sequence, etc. See below for a typical B1 example:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-64
+.. GENERATED FROM PYTHON SOURCE LINES 63-66
 
 As this is quite repetitive and involves quite a few places in which to write
 "hard-coded" elements (e.g. lhcb1, the re-cycling start point etc) convenience
 functions are provided.
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-78
+.. GENERATED FROM PYTHON SOURCE LINES 68-80
 
 Preparing the LHC setups
 ------------------------
@@ -119,7 +121,7 @@ potentially sliced lattices etc. The very minimum required at function call
 is to provide an opticsfile, other arguments are optional. Keyword arguments
 are passed to the `~cpymad.madx.Madx` creation call. For instance:
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-98
+.. GENERATED FROM PYTHON SOURCE LINES 80-100
 
 .. code-block:: Python
 
@@ -155,11 +157,11 @@ are passed to the `~cpymad.madx.Madx` creation call. For instance:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-100
+.. GENERATED FROM PYTHON SOURCE LINES 101-102
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 100-103
+.. GENERATED FROM PYTHON SOURCE LINES 102-105
 
 .. code-block:: Python
 
@@ -173,7 +175,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 104-111
+.. GENERATED FROM PYTHON SOURCE LINES 106-113
 
 As a context manager
 --------------------
@@ -183,7 +185,7 @@ context manager options from `cpymad`. To apply this to an LHC setup, there is
 It calls the functions seen above internally and works on the same logic. The
 above becomes:
 
-.. GENERATED FROM PYTHON SOURCE LINES 111-126
+.. GENERATED FROM PYTHON SOURCE LINES 113-128
 
 .. code-block:: Python
 
@@ -214,7 +216,7 @@ above becomes:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 127-133
+.. GENERATED FROM PYTHON SOURCE LINES 129-135
 
 Notice we don't need to call ``madx.exit()`` as the context manager takes care
 of that.
@@ -223,7 +225,7 @@ These quick setups, with context manager option, allow to do quick "one-shot"
 simulations. For example, one can very quickly compare beam sizes around say
 IP5 for two different optics. Here below for the 2022 proton injection optics:
 
-.. GENERATED FROM PYTHON SOURCE LINES 133-164
+.. GENERATED FROM PYTHON SOURCE LINES 135-166
 
 .. code-block:: Python
 
@@ -270,13 +272,13 @@ IP5 for two different optics. Here below for the 2022 proton injection optics:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 165-168
+.. GENERATED FROM PYTHON SOURCE LINES 167-170
 
 Now, the same with betastar = 30cm optics. We can also easily add the
 element apertures on top of the plot (notice how we get this result with only
 28 lines of code!):
 
-.. GENERATED FROM PYTHON SOURCE LINES 168-206
+.. GENERATED FROM PYTHON SOURCE LINES 170-208
 
 .. code-block:: Python
 
@@ -327,22 +329,15 @@ element apertures on top of the plot (notice how we get this result with only
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /home/runner/work/PyhDToolkit/PyhDToolkit/examples/demo_lhc_setup.py:203: UserWarning: Creating legend with loc="best" can be slow with large amounts of data.
-      plt.tight_layout()
 
 
 
-
-.. GENERATED FROM PYTHON SOURCE LINES 207-209
+.. GENERATED FROM PYTHON SOURCE LINES 209-211
 
 If one wants to have a look at, say, coupling RDTs throughout the machine, for
 both beams when applying the coupling knob:
 
-.. GENERATED FROM PYTHON SOURCE LINES 209-239
+.. GENERATED FROM PYTHON SOURCE LINES 211-241
 
 .. code-block:: Python
 
@@ -388,7 +383,7 @@ both beams when applying the coupling knob:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 240-252
+.. GENERATED FROM PYTHON SOURCE LINES 242-254
 
 That's it, happy simulations!
 
@@ -406,7 +401,7 @@ That's it, happy simulations!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 24.652 seconds)
+   **Total running time of the script:** (0 minutes 42.074 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lhc_setup.py:

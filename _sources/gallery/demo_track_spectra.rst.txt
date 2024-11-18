@@ -41,9 +41,10 @@ In this example we will use the LHC lattice to illustrate the tracking workflow 
     Here I set the 2022 branch for stability and reproducibility of the documentation
     builds, but you can use any branch you want.
 
-.. GENERATED FROM PYTHON SOURCE LINES 26-36
+.. GENERATED FROM PYTHON SOURCE LINES 26-37
 
 .. code-block:: Python
+
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -62,13 +63,13 @@ In this example we will use the LHC lattice to illustrate the tracking workflow 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-41
+.. GENERATED FROM PYTHON SOURCE LINES 39-42
 
 Let's start by setting up the LHC in ``MAD-X``, in this case at collision
 optics and energy and with a sliced lattice. To understand the function below
 have a look at the :ref:`lhc setup example <demo-lhc-setup>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-46
+.. GENERATED FROM PYTHON SOURCE LINES 42-47
 
 .. code-block:: Python
 
@@ -84,7 +85,7 @@ have a look at the :ref:`lhc setup example <demo-lhc-setup>`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-58
+.. GENERATED FROM PYTHON SOURCE LINES 48-59
 
 Now we can track a particle. By default, the "start of machine" as ``MAD-X`` sees it
 is where coordinates will be registered each turn. It is possible with this function
@@ -98,7 +99,7 @@ please refer to the API reference for more information.
     When providing additional observation points, each element must be a string,
     and be the exact name of the element as given to ``MAD-X``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-71
+.. GENERATED FROM PYTHON SOURCE LINES 59-72
 
 .. code-block:: Python
 
@@ -122,7 +123,7 @@ please refer to the API reference for more information.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-79
+.. GENERATED FROM PYTHON SOURCE LINES 73-80
 
 The function returns a dictionary with an entry per observation point, named
 **observation_point_n** where *n* is the number of the observation point, in the
@@ -132,7 +133,7 @@ start of machine and the two provided BPMs.
 Each key holds as value a `~pandas.DataFrame` with the following columns: *number*, *turn*,
 *x*, *px*, *y*, *py*, *t*, *pt*, *s*, *e*. See for instance below:
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-82
+.. GENERATED FROM PYTHON SOURCE LINES 80-83
 
 .. code-block:: Python
 
@@ -329,13 +330,13 @@ Each key holds as value a `~pandas.DataFrame` with the following columns: *numbe
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 83-86
+.. GENERATED FROM PYTHON SOURCE LINES 84-87
 
 Once tracking data is obtained, one can easily plot the coordinates and spectrum
 using the convenience `~pandas.DataFrame` plotting methods. Here it is for the
 first obeservation BPM we provided above:
 
-.. GENERATED FROM PYTHON SOURCE LINES 86-98
+.. GENERATED FROM PYTHON SOURCE LINES 87-99
 
 .. code-block:: Python
 
@@ -363,12 +364,12 @@ first obeservation BPM we provided above:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-101
+.. GENERATED FROM PYTHON SOURCE LINES 100-102
 
 In order to plot the spectra of the particle motion, one should first compute
 them. This is the matter of a simple fast fourier transform:
 
-.. GENERATED FROM PYTHON SOURCE LINES 101-106
+.. GENERATED FROM PYTHON SOURCE LINES 102-107
 
 .. code-block:: Python
 
@@ -384,7 +385,7 @@ them. This is the matter of a simple fast fourier transform:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 107-116
+.. GENERATED FROM PYTHON SOURCE LINES 108-117
 
 .. tip::
     To get the fractional tunes of the particle, one can find the peak of the spectra.
@@ -396,7 +397,7 @@ them. This is the matter of a simple fast fourier transform:
 
 One can then plot the spectra by plotting the computed values against the tune space:
 
-.. GENERATED FROM PYTHON SOURCE LINES 116-128
+.. GENERATED FROM PYTHON SOURCE LINES 117-129
 
 .. code-block:: Python
 
@@ -424,7 +425,7 @@ One can then plot the spectra by plotting the computed values against the tune s
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-134
+.. GENERATED FROM PYTHON SOURCE LINES 130-135
 
 In case the user provided ``ONETABLE=True`` to the tracking function, then all
 observation points data will be stored in a single `~pandas.DataFrame` that can
@@ -432,7 +433,7 @@ be accessed with the **trackone** key in the returned dictionary. In that case,
 accessing the coordinates at a given observation point is done by making use of
 the DataFrame indexing syntax:
 
-.. GENERATED FROM PYTHON SOURCE LINES 134-147
+.. GENERATED FROM PYTHON SOURCE LINES 135-148
 
 .. code-block:: Python
 
@@ -625,11 +626,11 @@ the DataFrame indexing syntax:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 148-149
+.. GENERATED FROM PYTHON SOURCE LINES 149-150
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 149-152
+.. GENERATED FROM PYTHON SOURCE LINES 150-153
 
 .. code-block:: Python
 
@@ -643,7 +644,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 153-160
+.. GENERATED FROM PYTHON SOURCE LINES 154-161
 
 .. admonition:: References
 
@@ -656,7 +657,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 14.417 seconds)
+   **Total running time of the script:** (0 minutes 32.462 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_track_spectra.py:

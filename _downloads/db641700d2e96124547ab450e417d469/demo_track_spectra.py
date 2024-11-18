@@ -23,6 +23,7 @@ In this example we will use the LHC lattice to illustrate the tracking workflow 
     Here I set the 2022 branch for stability and reproducibility of the documentation
     builds, but you can use any branch you want.
 """
+
 # sphinx_gallery_thumbnail_number = -1
 import matplotlib.pyplot as plt
 import numpy as np

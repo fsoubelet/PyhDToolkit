@@ -9,6 +9,7 @@ Tune Diagram
 This example shows how to use the `~.plotting.tune.plot_tune_diagram` function
 to visualise resonance lines up to certain orders.
 """
+
 # sphinx_gallery_thumbnail_number = -1
 import matplotlib.pyplot as plt
 

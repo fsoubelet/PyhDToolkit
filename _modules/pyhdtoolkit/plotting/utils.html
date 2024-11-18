@@ -1,11 +1,13 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.plotting.utils &mdash; PyhDToolkit 1.6.0 documentation</title>
+  <title>pyhdtoolkit.plotting.utils &mdash; PyhDToolkit 1.7.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-codeautolink.css?v=125d5c1c" />
@@ -17,18 +19,14 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=0a86e678" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=72d88caf"></script>
-        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../../../_static/copybutton.js?v=f281be69"></script>
-        <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=030dc6f6"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -45,9 +43,6 @@
           <a href="../../../index.html">
             
           </a>
-              <div class="version">
-                1.6.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -99,182 +94,56 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api/cpymadtools.html">Cpymadtools</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#useful-constants">Useful Constants</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_closest_tune_approach"><code class="docutils literal notranslate"><span class="pre">get_closest_tune_approach()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_cminus_from_coupling_rdts"><code class="docutils literal notranslate"><span class="pre">get_cminus_from_coupling_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_coupling_rdts"><code class="docutils literal notranslate"><span class="pre">get_coupling_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.match_no_coupling_through_ripkens"><code class="docutils literal notranslate"><span class="pre">match_no_coupling_through_ripkens()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._coupling.correct_lhc_global_coupling"><code class="docutils literal notranslate"><span class="pre">correct_lhc_global_coupling()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._coupling.get_lhc_bpms_twiss_and_rdts"><code class="docutils literal notranslate"><span class="pre">get_lhc_bpms_twiss_and_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._elements.add_markers_around_lhc_ip"><code class="docutils literal notranslate"><span class="pre">add_markers_around_lhc_ip()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._elements.install_ac_dipole_as_kicker"><code class="docutils literal notranslate"><span class="pre">install_ac_dipole_as_kicker()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._elements.install_ac_dipole_as_matrix"><code class="docutils literal notranslate"><span class="pre">install_ac_dipole_as_matrix()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._errors.misalign_lhc_ir_quadrupoles"><code class="docutils literal notranslate"><span class="pre">misalign_lhc_ir_quadrupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._errors.misalign_lhc_triplets"><code class="docutils literal notranslate"><span class="pre">misalign_lhc_triplets()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.get_lhc_bpms_list"><code class="docutils literal notranslate"><span class="pre">get_lhc_bpms_list()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.get_lhc_tune_and_chroma_knobs"><code class="docutils literal notranslate"><span class="pre">get_lhc_tune_and_chroma_knobs()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.get_sizes_at_ip"><code class="docutils literal notranslate"><span class="pre">get_sizes_at_ip()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.make_sixtrack_output"><code class="docutils literal notranslate"><span class="pre">make_sixtrack_output()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.reset_lhc_bump_flags"><code class="docutils literal notranslate"><span class="pre">reset_lhc_bump_flags()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_colinearity_knob"><code class="docutils literal notranslate"><span class="pre">apply_lhc_colinearity_knob()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_colinearity_knob_delta"><code class="docutils literal notranslate"><span class="pre">apply_lhc_colinearity_knob_delta()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_coupling_knob"><code class="docutils literal notranslate"><span class="pre">apply_lhc_coupling_knob()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_rigidity_waist_shift_knob"><code class="docutils literal notranslate"><span class="pre">apply_lhc_rigidity_waist_shift_knob()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.carry_colinearity_knob_over"><code class="docutils literal notranslate"><span class="pre">carry_colinearity_knob_over()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.deactivate_lhc_arc_sextupoles"><code class="docutils literal notranslate"><span class="pre">deactivate_lhc_arc_sextupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.power_landau_octupoles"><code class="docutils literal notranslate"><span class="pre">power_landau_octupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.switch_magnetic_errors"><code class="docutils literal notranslate"><span class="pre">switch_magnetic_errors()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.vary_independent_ir_quadrupoles"><code class="docutils literal notranslate"><span class="pre">vary_independent_ir_quadrupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.get_current_orbit_setup"><code class="docutils literal notranslate"><span class="pre">get_current_orbit_setup()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.get_magnets_powering"><code class="docutils literal notranslate"><span class="pre">get_magnets_powering()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.query_arc_correctors_powering"><code class="docutils literal notranslate"><span class="pre">query_arc_correctors_powering()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.query_triplet_correctors_powering"><code class="docutils literal notranslate"><span class="pre">query_triplet_correctors_powering()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._routines.correct_lhc_global_coupling"><code class="docutils literal notranslate"><span class="pre">correct_lhc_global_coupling()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._routines.correct_lhc_orbit"><code class="docutils literal notranslate"><span class="pre">correct_lhc_orbit()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._routines.do_kmodulation"><code class="docutils literal notranslate"><span class="pre">do_kmodulation()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.LHCSetup"><code class="docutils literal notranslate"><span class="pre">LHCSetup</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.lhc_orbit_variables"><code class="docutils literal notranslate"><span class="pre">lhc_orbit_variables()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_beams"><code class="docutils literal notranslate"><span class="pre">make_lhc_beams()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_thin"><code class="docutils literal notranslate"><span class="pre">make_lhc_thin()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run2"><code class="docutils literal notranslate"><span class="pre">prepare_lhc_run2()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run3"><code class="docutils literal notranslate"><span class="pre">prepare_lhc_run3()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.re_cycle_sequence"><code class="docutils literal notranslate"><span class="pre">re_cycle_sequence()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.setup_lhc_orbit"><code class="docutils literal notranslate"><span class="pre">setup_lhc_orbit()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._twiss.get_ips_twiss"><code class="docutils literal notranslate"><span class="pre">get_ips_twiss()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._twiss.get_ir_twiss"><code class="docutils literal notranslate"><span class="pre">get_ir_twiss()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_chromaticities"><code class="docutils literal notranslate"><span class="pre">match_chromaticities()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes"><code class="docutils literal notranslate"><span class="pre">match_tunes()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities"><code class="docutils literal notranslate"><span class="pre">match_tunes_and_chromaticities()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#parameters">Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.parameters.query_beam_attributes"><code class="docutils literal notranslate"><span class="pre">query_beam_attributes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#beam-parameters">Beam Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.get_amplitude_detuning"><code class="docutils literal notranslate"><span class="pre">get_amplitude_detuning()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.get_rdts"><code class="docutils literal notranslate"><span class="pre">get_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.ptc_track_particle"><code class="docutils literal notranslate"><span class="pre">ptc_track_particle()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.ptc_twiss"><code class="docutils literal notranslate"><span class="pre">ptc_twiss()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.track.track_single_particle"><code class="docutils literal notranslate"><span class="pre">track_single_particle()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.tune.get_footprint_lines"><code class="docutils literal notranslate"><span class="pre">get_footprint_lines()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.tune.get_footprint_patches"><code class="docutils literal notranslate"><span class="pre">get_footprint_patches()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.tune.make_footprint_table"><code class="docutils literal notranslate"><span class="pre">make_footprint_table()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.twiss.get_pattern_twiss"><code class="docutils literal notranslate"><span class="pre">get_pattern_twiss()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.twiss.get_twiss_tfs"><code class="docutils literal notranslate"><span class="pre">get_twiss_tfs()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#miscellaneous-utilities">Miscellaneous Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.utils.export_madx_table"><code class="docutils literal notranslate"><span class="pre">export_madx_table()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.utils.get_table_tfs"><code class="docutils literal notranslate"><span class="pre">get_table_tfs()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/maths.html">Maths</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#stats-fitting">Stats Fitting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#pyhdtoolkit.maths.stats_fitting.best_fit_distribution"><code class="docutils literal notranslate"><span class="pre">best_fit_distribution()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#pyhdtoolkit.maths.stats_fitting.make_pdf"><code class="docutils literal notranslate"><span class="pre">make_pdf()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#pyhdtoolkit.maths.stats_fitting.set_distributions_dict"><code class="docutils literal notranslate"><span class="pre">set_distributions_dict()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#utilities">Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#pyhdtoolkit.maths.utils.get_magnitude"><code class="docutils literal notranslate"><span class="pre">get_magnitude()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#pyhdtoolkit.maths.utils.get_scaled_values_and_magnitude_string"><code class="docutils literal notranslate"><span class="pre">get_scaled_values_and_magnitude_string()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/models.html">Models</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#particle-beam-models">Particle Beam Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#pyhdtoolkit.models.beam.BeamParameters"><code class="docutils literal notranslate"><span class="pre">BeamParameters</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#htcondor-models">HTCondor Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#pyhdtoolkit.models.htc.BaseSummary"><code class="docutils literal notranslate"><span class="pre">BaseSummary</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#pyhdtoolkit.models.htc.ClusterSummary"><code class="docutils literal notranslate"><span class="pre">ClusterSummary</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#pyhdtoolkit.models.htc.HTCTaskSummary"><code class="docutils literal notranslate"><span class="pre">HTCTaskSummary</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#mad-x-models">MAD-X Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#pyhdtoolkit.models.madx.MADXBeam"><code class="docutils literal notranslate"><span class="pre">MADXBeam</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#pyhdtoolkit.models.madx.ParticleEnum"><code class="docutils literal notranslate"><span class="pre">ParticleEnum</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/optics.html">Optics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#beam-optics">Beam Optics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#pyhdtoolkit.optics.beam.Beam"><code class="docutils literal notranslate"><span class="pre">Beam</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#pyhdtoolkit.optics.beam.compute_beam_parameters"><code class="docutils literal notranslate"><span class="pre">compute_beam_parameters()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#resonance-driving-terms-utilities">Resonance Driving Terms Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#pyhdtoolkit.optics.rdt.determine_rdt_line"><code class="docutils literal notranslate"><span class="pre">determine_rdt_line()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#pyhdtoolkit.optics.rdt.rdt_to_order_and_type"><code class="docutils literal notranslate"><span class="pre">rdt_to_order_and_type()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#ripken-parameters">Ripken Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#pyhdtoolkit.optics.ripken.lebedev_beam_size"><code class="docutils literal notranslate"><span class="pre">lebedev_beam_size()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#twiss-optics">Twiss Optics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#pyhdtoolkit.optics.twiss.courant_snyder_transform"><code class="docutils literal notranslate"><span class="pre">courant_snyder_transform()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/plotting.html">Plotting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#plotting-styles">Plotting Styles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.styles.install_mpl_styles"><code class="docutils literal notranslate"><span class="pre">install_mpl_styles()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#paper-styles">Paper Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#thesis-styles">Thesis Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.aperture.plot_aperture"><code class="docutils literal notranslate"><span class="pre">plot_aperture()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.aperture.plot_physical_apertures"><code class="docutils literal notranslate"><span class="pre">plot_physical_apertures()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.crossing.plot_single_ir_crossing"><code class="docutils literal notranslate"><span class="pre">plot_single_ir_crossing()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.crossing.plot_two_lhc_ips_crossings"><code class="docutils literal notranslate"><span class="pre">plot_two_lhc_ips_crossings()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.envelope.plot_beam_envelope"><code class="docutils literal notranslate"><span class="pre">plot_beam_envelope()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#lattice-plotters">Lattice Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.lattice.plot_latwiss"><code class="docutils literal notranslate"><span class="pre">plot_latwiss()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.lattice.plot_machine_survey"><code class="docutils literal notranslate"><span class="pre">plot_machine_survey()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#layout-plotters">Layout Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.layout.plot_machine_layout"><code class="docutils literal notranslate"><span class="pre">plot_machine_layout()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.layout.scale_patches"><code class="docutils literal notranslate"><span class="pre">scale_patches()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#phase-space-plotters">Phase Space Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.phasespace.plot_courant_snyder_phase_space"><code class="docutils literal notranslate"><span class="pre">plot_courant_snyder_phase_space()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.phasespace.plot_courant_snyder_phase_space_colored"><code class="docutils literal notranslate"><span class="pre">plot_courant_snyder_phase_space_colored()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#tune-diagram-plotters">Tune Diagram Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.tune.farey_sequence"><code class="docutils literal notranslate"><span class="pre">farey_sequence()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.tune.plot_resonance_lines_for_order"><code class="docutils literal notranslate"><span class="pre">plot_resonance_lines_for_order()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.tune.plot_tune_diagram"><code class="docutils literal notranslate"><span class="pre">plot_tune_diagram()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#segment-by-segment-coupling">Segment-by-Segment Coupling</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_full_ip_rdt"><code class="docutils literal notranslate"><span class="pre">plot_full_ip_rdt()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_rdt_component"><code class="docutils literal notranslate"><span class="pre">plot_rdt_component()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#segment-by-segment-phase">Segment-by-Segment Phase</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment"><code class="docutils literal notranslate"><span class="pre">plot_phase_segment()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams"><code class="docutils literal notranslate"><span class="pre">plot_phase_segment_both_beams()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_one_beam"><code class="docutils literal notranslate"><span class="pre">plot_phase_segment_one_beam()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#plotting-utility-functions">Plotting Utility Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.draw_confidence_ellipse"><code class="docutils literal notranslate"><span class="pre">draw_confidence_ellipse()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.draw_ip_locations"><code class="docutils literal notranslate"><span class="pre">draw_ip_locations()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.find_ip_s_from_segment_start"><code class="docutils literal notranslate"><span class="pre">find_ip_s_from_segment_start()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.get_lhc_ips_positions"><code class="docutils literal notranslate"><span class="pre">get_lhc_ips_positions()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.make_elements_groups"><code class="docutils literal notranslate"><span class="pre">make_elements_groups()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.make_survey_groups"><code class="docutils literal notranslate"><span class="pre">make_survey_groups()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.maybe_get_ax"><code class="docutils literal notranslate"><span class="pre">maybe_get_ax()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.set_arrow_label"><code class="docutils literal notranslate"><span class="pre">set_arrow_label()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.cmdline.CommandLine"><code class="docutils literal notranslate"><span class="pre">CommandLine</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#decorator-utilities">Decorator Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#context-utilities">Context Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.contexts.timeit"><code class="docutils literal notranslate"><span class="pre">timeit()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#executors-utilities">Executors Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.executors.MultiProcessor"><code class="docutils literal notranslate"><span class="pre">MultiProcessor</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.executors.MultiThreader"><code class="docutils literal notranslate"><span class="pre">MultiThreader</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.htc_monitor.query_condor_q"><code class="docutils literal notranslate"><span class="pre">query_condor_q()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.htc_monitor.read_condor_q"><code class="docutils literal notranslate"><span class="pre">read_condor_q()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#logging-utilities">Logging Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.logging.config_logger"><code class="docutils literal notranslate"><span class="pre">config_logger()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils._misc.add_noise_to_arc_bpms"><code class="docutils literal notranslate"><span class="pre">add_noise_to_arc_bpms()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils._misc.add_noise_to_ir_bpms"><code class="docutils literal notranslate"><span class="pre">add_noise_to_ir_bpms()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils._misc.apply_colin_corrs_balance"><code class="docutils literal notranslate"><span class="pre">apply_colin_corrs_balance()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils._misc.get_betastar_from_opticsfile"><code class="docutils literal notranslate"><span class="pre">get_betastar_from_opticsfile()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils._misc.log_runtime_versions"><code class="docutils literal notranslate"><span class="pre">log_runtime_versions()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils._misc.split_complex_columns"><code class="docutils literal notranslate"><span class="pre">split_complex_columns()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#operations-utilities">Operations Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations"><code class="docutils literal notranslate"><span class="pre">ListOperations</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.operations.MiscellaneousOperations"><code class="docutils literal notranslate"><span class="pre">MiscellaneousOperations</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.operations.NumberOperations"><code class="docutils literal notranslate"><span class="pre">NumberOperations</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.operations.StringOperations"><code class="docutils literal notranslate"><span class="pre">StringOperations</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#printing-utilities">Printing Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.printutil.Background"><code class="docutils literal notranslate"><span class="pre">Background</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.printutil.Foreground"><code class="docutils literal notranslate"><span class="pre">Foreground</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.printutil.Styles"><code class="docutils literal notranslate"><span class="pre">Styles</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -295,6 +164,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-7-0">Version 1.7.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.7.0.html">1.7.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-6-0">Version 1.6.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.6.0.html">1.6.0</a></li>
 </ul>
@@ -519,7 +392,8 @@
 <span class="sd">Plotting Utility Functions</span>
 <span class="sd">--------------------------</span>
 
-<span class="sd">Module with functions to used throught the different `~pyhdtoolkit.plotting` modules.</span>
+<span class="sd">Module with functions to used throught the different</span>
+<span class="sd">`~pyhdtoolkit.plotting` modules.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>  <span class="c1"># important for Sphinx to generate short type signatures!</span>
@@ -529,15 +403,16 @@
 <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">transforms</span>
 <span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Ellipse</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
     <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
     <span class="kn">from</span> <span class="nn">matplotlib.text</span> <span class="kn">import</span> <span class="n">Annotation</span>
     <span class="kn">from</span> <span class="nn">numpy.typing</span> <span class="kn">import</span> <span class="n">ArrayLike</span>
+    <span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
     <span class="kn">from</span> <span class="nn">tfs</span> <span class="kn">import</span> <span class="n">TfsDataFrame</span>
 
 <span class="c1"># ------ General Utilities ----- #</span>
@@ -549,20 +424,28 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
 
-<span class="sd">    Convenience function to get the axis, regardless of whether or not it is provided</span>
-<span class="sd">    to the plotting function itself. It used to be that the first argument of plotting</span>
-<span class="sd">    functions in this package had to be the &#39;axis&#39; object, but that&#39;s no longer the case.</span>
+<span class="sd">    Convenience function to get the axis, regardless of whether or</span>
+<span class="sd">    not it is provided to the plotting function itself. It used to</span>
+<span class="sd">    be that the first argument of plotting functions in this package</span>
+<span class="sd">    had to be the &#39;axis&#39; object, but that&#39;s no longer the case.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        *args: the arguments passed to the plotting function.</span>
-<span class="sd">        **kwargs: the keyword arguments passed to the plotting function.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    *args</span>
+<span class="sd">        The arguments passed to the plotting function.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        The keyword arguments passed to the plotting function.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        The `~matplotlib.axes.Axes` object to plot on, the args and the kwargs (without the</span>
-<span class="sd">        &#39;ax&#39; argument if it initially was present). If no axis was provided, then it will be</span>
-<span class="sd">        created with a call to `~matplotlib.pyplot.gca`.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple[matplotlib.axes.Axes, tuple, dict]</span>
+<span class="sd">        The `~matplotlib.axes.Axes` object to plot on, as well as the args</span>
+<span class="sd">        and kwargs (without the &#39;ax&#39; argument if it initially was present).</span>
+<span class="sd">        If no axis was provided, then it will be created with a call to</span>
+<span class="sd">        `matplotlib.pyplot.gca`.</span>
 
-<span class="sd">    Examples:</span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
 <span class="sd">        This is to be called at the beginning of your plotting functions:</span>
 
 <span class="sd">        .. code-block:: python</span>
@@ -592,17 +475,27 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.19.0</span>
 
-<span class="sd">    Finds the S-offset of the IP from the start of segment by comparing the S-values for the elements in the model.</span>
+<span class="sd">    Finds the S-offset of the IP from the start of segment by</span>
+<span class="sd">    comparing the S-values for the elements in the model.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        segment_df (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment result for the given segment.</span>
-<span class="sd">        model_df (tfs.TfsDataFrame): The `~tfs.TfsDataframe` of the model&#39;s TWISS, usually **twiss_elements.dat**.</span>
-<span class="sd">        ip (int): The ``LHC`` IP number.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    segment_df : tfs.TfsDataFrame</span>
+<span class="sd">        A `~tfs.TfsDataFrame` of the segment-by-segment result for</span>
+<span class="sd">        the given segment.</span>
+<span class="sd">    model_df : tfs.TfsDataFrame</span>
+<span class="sd">        The `~tfs.TfsDataframe` of the model&#39;s TWISS, usually</span>
+<span class="sd">        the **twiss_elements.dat** file.</span>
+<span class="sd">    ip : int</span>
+<span class="sd">        The ``LHC`` IP number.</span>
 
-<span class="sd">    Returns:</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
 <span class="sd">        The S-offset of the IP from the BPM at the start of segment.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            ip_offset_in_segment = find_ip_s_from_segment_start(</span>
@@ -627,26 +520,34 @@
 
 <div class="viewcode-block" id="get_lhc_ips_positions">
 <a class="viewcode-back" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.get_lhc_ips_positions">[docs]</a>
-<span class="k">def</span> <span class="nf">get_lhc_ips_positions</span><span class="p">(</span><span class="n">dataframe</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">get_lhc_ips_positions</span><span class="p">(</span><span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
 
-<span class="sd">    Returns a `dict` of LHC IPs and their positions from the provided *dataframe*.</span>
+<span class="sd">    Returns a `dict` of LHC IPs and their positions from</span>
+<span class="sd">    the provided *dataframe*.</span>
 
-<span class="sd">    .. important::</span>
-<span class="sd">        This function expects the IP names to be in the dataframe&#39;s index,</span>
-<span class="sd">        and cased as the longitudinal coordinate column: aka uppercase names</span>
-<span class="sd">        (``IP1``, ``IP2``, etc) and ``S`` column; or lowercase names</span>
-<span class="sd">        (``ip1``, ``ip2``, etc) and ``s`` column.</span>
+<span class="sd">    Important</span>
+<span class="sd">    ---------</span>
+<span class="sd">        This function expects the IP names to be in the dataframe&#39;s</span>
+<span class="sd">        index, and cased as the longitudinal coordinate column: aka</span>
+<span class="sd">        uppercase names (``IP1``, ``IP2``, etc) and ``S`` column; or</span>
+<span class="sd">        lowercase names (``ip1``, ``ip2``, etc) and ``s`` column.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        dataframe (pandas.DataFrame): a `~pandas.DataFrame` containing at least</span>
-<span class="sd">            IP positions. A typical example is a ``TWISS`` call output.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dataframe : pandas.DataFrame</span>
+<span class="sd">        A `~pandas.DataFrame` containing at least the IP positions.</span>
+<span class="sd">        A typical example is a ``TWISS`` call output.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        A `dict` with IP names as keys and their longitudinal locations as values.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict[str, float]</span>
+<span class="sd">        A `dict` with IP names as keys and their longitudinal locations</span>
+<span class="sd">        as values.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            twiss_df = tfs.read(&quot;twiss_output.tfs&quot;, index=&quot;NAME&quot;)</span>
@@ -669,25 +570,37 @@
 <a class="viewcode-back" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.make_elements_groups">[docs]</a>
 <span class="k">def</span> <span class="nf">make_elements_groups</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">xoffset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xlimits</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DataFrame</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
 
-<span class="sd">    Provided with an active `cpymad` instance after having ran a script, will returns different portions of</span>
-<span class="sd">    the twiss table&#39;s dataframe for different magnetic elements.</span>
+<span class="sd">    Provided with an active `cpymad` instance after having ran a script,</span>
+<span class="sd">    will returns different portions of the twiss table&#39;s dataframe for</span>
+<span class="sd">    different magnetic elements.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.</span>
-<span class="sd">        xoffset (float): An offset applied to the S coordinate before plotting. This is useful is you want</span>
-<span class="sd">            to center a plot around a specific point or element, which would then become located at s = 0.</span>
-<span class="sd">        xlimits (tuple[float, float]): will only consider elements within xlim (for the s coordinate) if this</span>
-<span class="sd">            is not None, using the tuple passed.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    madx : cpymad.madx.Madx</span>
+<span class="sd">        An instanciated `~cpymad.madx.Madx` object. Positional only.</span>
+<span class="sd">    xoffset : float</span>
+<span class="sd">        An offset applied to the ``S`` coordinate before plotting. This</span>
+<span class="sd">        is useful if you want to center a plot around a specific point</span>
+<span class="sd">        or element, which would then become located at :math:`s = 0`.</span>
+<span class="sd">        Beware this offset is applied before applying the *xlimits*.</span>
+<span class="sd">        Defaults to 0.</span>
+<span class="sd">    xlimits : tuple[float, float], optional</span>
+<span class="sd">        If given, will be used for the xlim (for the ``s`` coordinate),</span>
+<span class="sd">        using the tuple passed.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        A `dict` containing a `pd.DataFrame` for dipoles, focusing quadrupoles, defocusing</span>
-<span class="sd">        quadrupoles, sextupoles and octupoles. The keys are self-explanatory.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict[str, DataFrame]</span>
+<span class="sd">        A `dict` containing a `pd.DataFrame` for dipoles, focusing quadrupoles,</span>
+<span class="sd">        defocusing quadrupoles, sextupoles and octupoles. The keys are quite</span>
+<span class="sd">        self-explanatory.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            element_dfs = make_elements_groups(madx)</span>
@@ -711,21 +624,28 @@
 
 <div class="viewcode-block" id="make_survey_groups">
 <a class="viewcode-back" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.make_survey_groups">[docs]</a>
-<span class="k">def</span> <span class="nf">make_survey_groups</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">make_survey_groups</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DataFrame</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
 
-<span class="sd">    Provided with an active `cpymad` instance after having ran a script, will returns different portions of</span>
-<span class="sd">    the survey table&#39;s dataframe for different magnetic elements.</span>
+<span class="sd">    Provided with an active `cpymad` instance after having ran a script,</span>
+<span class="sd">    will returns different portions of the survey table&#39;s dataframe for</span>
+<span class="sd">    different magnetic elements.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    madx : cpymad.madx.Madx</span>
+<span class="sd">        An instanciated `~cpymad.madx.Madx` object. Positional only.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        A `dict` containing a `pd.DataFrame` for dipoles, focusing quadrupoles, defocusing</span>
-<span class="sd">        quadrupoles, sextupoles and octupoles. The keys are self-explanatory.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict[str, DataFrame]</span>
+<span class="sd">        A `dict` containing a `pd.DataFrame` for dipoles, focusing quadrupoles,</span>
+<span class="sd">        defocusing quadrupoles, sextupoles and octupoles. The keys are quite</span>
+<span class="sd">        self-explanatory.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            survey_dfs = make_survey_groups(madx)</span>
@@ -762,19 +682,28 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
 
-<span class="sd">    Plots the interaction points&#39; locations into the background of your `~matplotlib.axes.Axes`.</span>
+<span class="sd">    Plots the interaction points&#39; locations into the background</span>
+<span class="sd">    of your `~matplotlib.axes.Axes`.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        ip_positions (dict): a `dict` containing IP names as keys and their longitudinal positions</span>
-<span class="sd">            as values, as returned by `~.get_lhc_ips_positions`.</span>
-<span class="sd">        lines (bool): whether to also draw vertical lines at the IP positions. Defaults to `True`.</span>
-<span class="sd">        location: where to show the IP names on the provided *axis*, either ``inside`` (will draw text</span>
-<span class="sd">            at the bottom of the axis) or ``outside`` (will draw text on top of the axis). If `None` is</span>
-<span class="sd">            given, then no labels are drawn. Defaults to ``outside``.</span>
-<span class="sd">        **kwargs: If either `ax` or `axis` is found in the kwargs, the corresponding value is used as</span>
-<span class="sd">            the axis object to plot on.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ip_positions : dict[str, float]</span>
+<span class="sd">        A `dict` containing IP names as keys and their longitudinal</span>
+<span class="sd">        positions as values, as returned by `~.get_lhc_ips_positions`.</span>
+<span class="sd">    lines : bool</span>
+<span class="sd">        If `True`, will also draw vertical lines at the IP positions.</span>
+<span class="sd">        Defaults to `True`.</span>
+<span class="sd">    location : str</span>
+<span class="sd">        Where to show the IP names on the provided *axis*, either</span>
+<span class="sd">        ``inside`` (will draw text at the bottom of the axis) or</span>
+<span class="sd">        ``outside`` (will draw text on top of the axis). If `None`</span>
+<span class="sd">        is given, then no labels are drawn. Defaults to ``outside``.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        If either `ax` or `axis` is found in the kwargs, the corresponding</span>
+<span class="sd">        value is used as the axis object to plot on.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            twiss_df = tfs.read(&quot;twiss_output.tfs&quot;, index=&quot;NAME&quot;)</span>
@@ -824,27 +753,41 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.6.0</span>
 
-<span class="sd">    Adds on the provided `matplotlib.axes.Axes` a label box with text and an arrow from the box to a specified position.</span>
+<span class="sd">    Adds on the provided `matplotlib.axes.Axes` a label box with</span>
+<span class="sd">    text and an arrow from the box to a specified position.</span>
 <span class="sd">    Original code from :user:`Guido Sterbini &lt;sterbini&gt;`.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        axis (matplotlib.axes.Axes): a `matplotlib.axes.Axes` to plot on.</span>
-<span class="sd">        label (str): label text to print on the axis.</span>
-<span class="sd">        arrow_position (tuple[float, float]): where on the plot to point the tip of the arrow.</span>
-<span class="sd">        label_position (tuple[float, float]): where on the plot the text label (and thus start</span>
-<span class="sd">            of the arrow) is.</span>
-<span class="sd">        color (str): color parameter for your arrow and label. Defaults to &quot;k&quot;.</span>
-<span class="sd">        arrow_arc_rad (float): angle value defining the upwards / downwards shape of and</span>
-<span class="sd">            bending of the arrow.</span>
-<span class="sd">        fontsize (int): text size in the box.</span>
-<span class="sd">        **kwargs: additional keyword arguments are transmitted to `~matplotlib.axes.Axes.annotate`.</span>
-<span class="sd">            If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the</span>
-<span class="sd">            axis object to plot on.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        A `matploblit.text.Annotation` of the created annotation.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    label : str</span>
+<span class="sd">        The label text to print on the axis.</span>
+<span class="sd">    arrow_position : tuple[float, float]</span>
+<span class="sd">        Where on the plot to point the tip of the arrow</span>
+<span class="sd">    label_position : tuple[float, float]</span>
+<span class="sd">        Where on the plot the text label (and thus start of</span>
+<span class="sd">        the arrow) is.</span>
+<span class="sd">    color : str</span>
+<span class="sd">        Color parameter for your arrow and label. Defaults to</span>
+<span class="sd">        &quot;k&quot;, which is black.</span>
+<span class="sd">    arrow_arc_rad : float</span>
+<span class="sd">        Angle value defining the upwards / downwards shape of</span>
+<span class="sd">        and bending of the arrow. Defaults to -0.2.</span>
+<span class="sd">    fontsize : int</span>
+<span class="sd">        Text size in the box. Defaults to 20.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Any additional keyword arguments are transmitted to</span>
+<span class="sd">        `~matplotlib.axes.Axes.annotate`. If either `ax` or</span>
+<span class="sd">        `axis` is found in the kwargs, the corresponding value</span>
+<span class="sd">        is used as the axis object to plot on.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    matplotlib.text.Annotation</span>
+<span class="sd">        A `matplotlib.text.Annotation` of the created annotation.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            set_arrow_label(</span>
@@ -885,26 +828,38 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.2.0</span>
 
-<span class="sd">    Plot the covariance confidence ellipse of *x* and *y*. This code is taken from the</span>
-<span class="sd">    `matplotlib gallery &lt;https://matplotlib.org/stable/gallery/statistics/confidence_ellipse.html&gt;`_.</span>
+<span class="sd">    Plot the covariance confidence ellipse of *x* and *y*. Credits:</span>
+<span class="sd">    this code is taken from the examples in the `matplotlib gallery</span>
+<span class="sd">    &lt;https://matplotlib.org/stable/gallery/statistics/confidence_ellipse.html&gt;`_.</span>
 
-<span class="sd">    .. note::</span>
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
 <span class="sd">        One might want to provide the `edgecolor` to this function.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        x (ArrayLike): array-like, should be of shape (n,).</span>
-<span class="sd">        y (ArrayLike): array-like, should be of shape (n,).</span>
-<span class="sd">        n_std (float): The number of standard deviations of the data to</span>
-<span class="sd">            highlight, to determine the ellipse&#39;s radiuses.</span>
-<span class="sd">        facecolor (str): The facecolor of the ellipse.</span>
-<span class="sd">        **kwargs: Any keyword argument will be forwarded to `~matplotlib.patches.Ellipse`.</span>
-<span class="sd">            If either `ax` or `axis` is found in the kwargs, the corresponding value is</span>
-<span class="sd">            used as the axis object to plot on.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : ArrayLike</span>
+<span class="sd">        Array-like, should be of shape (n,).</span>
+<span class="sd">    y : ArrayLike</span>
+<span class="sd">        Array-like, should be of shape (n,).</span>
+<span class="sd">    n_std : float</span>
+<span class="sd">        The number of standard deviations of the data to highlight,</span>
+<span class="sd">        to determine the ellipse&#39;s radiuses. Defaults to 3.0.</span>
+<span class="sd">    facecolor : str</span>
+<span class="sd">        The facecolor of the ellipse. Defaults to &quot;none&quot;.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Any additional keyword arguments are transmitted to</span>
+<span class="sd">        `~matplotlib.patches.Ellipse`. If either `ax` or `axis`</span>
+<span class="sd">        is found in the kwargs, the corresponding value is used</span>
+<span class="sd">        as the axis object to plot on.</span>
 
-<span class="sd">    Returns:</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    matplotlib.patches.Ellipse</span>
 <span class="sd">        The corresponding `~matplotlib.patches.Ellipse` object added to the axis.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            x = np.random.normal(size=1000)</span>
@@ -953,22 +908,35 @@
 
 <span class="k">def</span> <span class="nf">_get_twiss_table_with_offsets_and_limits</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">xoffset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xlimits</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
 
-<span class="sd">    Get the twiss dataframe from madx, only within the provided `xlimits` and with the s axis shifted by</span>
-<span class="sd">    the given `xoffset`.</span>
+<span class="sd">    Get the twiss dataframe from madx, only within the provided</span>
+<span class="sd">    *xlimits* and with the s axis shifted by the given *xoffset*.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.</span>
-<span class="sd">        xoffset (float): An offset applied to the S coordinate in the dataframe.</span>
-<span class="sd">        xlimits (tuple[float, float]): will only consider elements within xlimits (for the s coordinate) if</span>
-<span class="sd">            this is not `None`, using the tuple passed.</span>
-<span class="sd">        **kwargs: any keyword argument will be transmitted to the ``MAD-X`` ``TWISS` command.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    madx : cpymad.madx.Madx</span>
+<span class="sd">        An instanciated `~cpymad.madx.Madx` object. Positional only.</span>
+<span class="sd">    xoffset : float</span>
+<span class="sd">        An offset applied to the ``S`` coordinate before plotting. This</span>
+<span class="sd">        is useful if you want to center a plot around a specific point</span>
+<span class="sd">        or element, which would then become located at :math:`s = 0`.</span>
+<span class="sd">        Beware this offset is applied before applying the *xlimits*.</span>
+<span class="sd">        Defaults to 0.</span>
+<span class="sd">    xlimits : tuple[float, float], optional</span>
+<span class="sd">        If given, will be used for the xlim (for the ``s`` coordinate),</span>
+<span class="sd">        using the tuple passed.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Any additional keyword arguments are transmitted to the</span>
+<span class="sd">        ``MAD-X`` ``TWISS`` command.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        The ``TWISS`` dataframe from ``MAD-X``, with the limits and offset applied, if any.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pandas.DataFrame</span>
+<span class="sd">        The ``TWISS`` dataframe from ``MAD-X``, with the provided limits</span>
+<span class="sd">        and offset applied, if any.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Getting TWISS table from MAD-X&quot;</span><span class="p">)</span>
@@ -982,18 +950,31 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.19.0</span>
 
-<span class="sd">    Creates the ``LaTeX``-compatible label for the Y-axis based on the given coupling *rdt* and its *component*.</span>
+<span class="sd">    Creates the ``LaTeX``-compatible label for the Y-axis based on</span>
+<span class="sd">    the given coupling *rdt* and its *component*.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        rdt (str): The name of the coupling resonance driving term, either ``F1001`` or ``F1010``.</span>
-<span class="sd">            Case insensitive.</span>
-<span class="sd">        component (str): Which component of the RDT is considered, either ``ABS``, ``RE`` or ``IM``,</span>
-<span class="sd">            for absolute value or real / imaginary part, respectively. Case insensitive.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    rdt : str</span>
+<span class="sd">        The name of the coupling resonance driving term to plot, either</span>
+<span class="sd">        ``F1001`` or ``F1010``. Case insensitive.</span>
+<span class="sd">    component : str</span>
+<span class="sd">        Which component of the RDT is considered, either ``ABS``, ``RE`` or</span>
+<span class="sd">        ``IM``, for absolute value or real / imaginary part, respectively.</span>
+<span class="sd">        Case insensitive.</span>
 
-<span class="sd">    Returns:</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
 <span class="sd">        The label string.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If the *rdt* or *component* are not valid.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            coupling_label = _determine_default_sbs_coupling_ylabel(</span>
@@ -1023,15 +1004,27 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.19.0</span>
 
-<span class="sd">    Creates the ``LaTeX``-compatible label for the phase Y-axis based on the given *plane*.</span>
+<span class="sd">    Creates the ``LaTeX``-compatible label for the</span>
+<span class="sd">    phase Y-axis based on the given *plane*.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        plane (str): The plane of the phase, either ``X`` or ``Y``. Case insensitive.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    plane : str</span>
+<span class="sd">        The plane of the phase, either ``X`` or ``Y``.</span>
+<span class="sd">        Case insensitive.</span>
 
-<span class="sd">    Returns:</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
 <span class="sd">        The label string.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If the *plane* is not valid.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            phase_label = _determine_default_sbs_phase_ylabel(plane=&quot;X&quot;)</span>
@@ -1051,7 +1044,11 @@
 
 <span class="c1"># To use SVG outputs when scraping matplotlib figures for the sphinx-gallery, see:</span>
 <span class="c1"># https://sphinx-gallery.github.io/stable/advanced.html#example-3-matplotlib-with-svg-format</span>
-<span class="k">def</span> <span class="nf">_matplotlib_svg_scraper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_matplotlib_svg_scraper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A dummy scraper to import and set for the sphinx-gallery</span>
+<span class="sd">    configuration, in docs/conf.py.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">sphinx_gallery.scrapers</span> <span class="kn">import</span> <span class="n">matplotlib_scraper</span>
 
     <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>

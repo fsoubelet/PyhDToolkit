@@ -12,7 +12,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 44
+      "doc_lineno": 45
     },
     {
       "source": "complex_cminus = get_cminus_from_coupling_rdts(madx)",
@@ -26,7 +26,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 43
+      "doc_lineno": 46
     },
     {
       "source": "complex_cminus = get_cminus_from_coupling_rdts(madx, patterns=[\"^BPM.*B[12]$\"])",
@@ -40,7 +40,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 50
+      "doc_lineno": 52
     },
     {
       "source": "twiss_rdts = get_coupling_rdts(madx)",
@@ -55,7 +55,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 15
+      "doc_lineno": 16
     },
     {
       "source": "match_no_coupling_through_ripkens(\n    madx, sequence=\"lhcb1\", location=\"IP5\", vary_knobs=[\"kqsx.3l5\", \"kqsx.3r5\"]\n)",
@@ -71,98 +71,10 @@
           "Example"
         ]
       },
-      "doc_lineno": 17
+      "doc_lineno": 21
     },
     {
       "source": "from pyhdtoolkit.cpymadtools.lhc import LHCSetup\n# use this now",
-      "names": [
-        {
-          "import_components": [
-            "pyhdtoolkit",
-            "cpymadtools",
-            "lhc"
-          ],
-          "code_str": "pyhdtoolkit.cpymadtools.lhc",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "import_from",
-          "resolved_location": "pyhdtoolkit.cpymadtools.lhc"
-        },
-        {
-          "import_components": [
-            "pyhdtoolkit",
-            "cpymadtools",
-            "lhc",
-            "LHCSetup"
-          ],
-          "code_str": "LHCSetup",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "import_target",
-          "resolved_location": "pyhdtoolkit.cpymadtools.lhc._setup.LHCSetup"
-        }
-      ],
-      "example": {
-        "document": "api/cpymadtools",
-        "ref_id": "lhc-specific-utilities",
-        "headings": [
-          "Cpymadtools",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "LHC-Specific Utilities"
-        ]
-      },
-      "doc_lineno": 20
-    },
-    {
-      "source": "from pyhdtoolkit.cpymadtools.lhc._setup import LHCSetup\n# use this now",
-      "names": [
-        {
-          "import_components": [
-            "pyhdtoolkit",
-            "cpymadtools",
-            "lhc",
-            "_setup"
-          ],
-          "code_str": "pyhdtoolkit.cpymadtools.lhc._setup",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "import_from",
-          "resolved_location": "pyhdtoolkit.cpymadtools.lhc._setup"
-        },
-        {
-          "import_components": [
-            "pyhdtoolkit",
-            "cpymadtools",
-            "lhc",
-            "_setup",
-            "LHCSetup"
-          ],
-          "code_str": "LHCSetup",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "import_target",
-          "resolved_location": "pyhdtoolkit.cpymadtools.lhc._setup.LHCSetup"
-        }
-      ],
-      "example": {
-        "document": "api/cpymadtools",
-        "ref_id": "lhc-specific-utilities",
-        "headings": [
-          "Cpymadtools",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "LHC-Specific Utilities"
-        ]
-      },
-      "doc_lineno": 27
-    },
-    {
-      "source": "correct_lhc_global_coupling(madx, sequence=\"lhcb1\", telescopic_squeeze=True)",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -173,10 +85,27 @@
           "Examples",
           "Example",
           "Example",
-          "Example"
+          "LHC-Specific Utilities"
         ]
       },
-      "doc_lineno": 26
+      "doc_lineno": 22
+    },
+    {
+      "source": "from pyhdtoolkit.cpymadtools.lhc._setup import LHCSetup\n# use this now",
+      "names": [],
+      "example": {
+        "document": "api/cpymadtools",
+        "ref_id": "lhc-specific-utilities",
+        "headings": [
+          "Cpymadtools",
+          "Example",
+          "Examples",
+          "Example",
+          "Example",
+          "LHC-Specific Utilities"
+        ]
+      },
+      "doc_lineno": 29
     },
     {
       "source": "twiss_with_rdts = get_lhc_bpms_twiss_and_rdts(madx)",
@@ -190,11 +119,10 @@
           "Examples",
           "Example",
           "Example",
-          "Example",
           "Example"
         ]
       },
-      "doc_lineno": 14
+      "doc_lineno": 16
     },
     {
       "source": "add_markers_around_lhc_ip(\n    madx, sequence=f\"lhcb1\", ip=1, n_markers=1000, interval=0.001\n)",
@@ -209,11 +137,10 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Example"
         ]
       },
-      "doc_lineno": 39
+      "doc_lineno": 38
     },
     {
       "source": "install_ac_dipole_as_kicker(\n    madx,\n    deltaqx=-0.01,  # driven horizontal tune to Qxd = 62.31 - 0.01 = 62.30\n    deltaqy=0.012,  # driven vertical tune to Qyd = 60.32 + 0.012 = 60.332\n    sigma_x=2,  # bunch amplitude kick in the horizontal plane\n    sigma_y=2,  # bunch amplitude kick in the vertical plane\n    beam=1,  # beam for which to install and kick\n    start_turn=100,  # when to turn on the AC Dipole\n    ramp_turns=2000,  # how many turns to ramp up/down the AC Dipole\n    top_turns=6600,  # how many turns to keep the AC Dipole at full kick\n)",
@@ -229,11 +156,10 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Example"
         ]
       },
-      "doc_lineno": 64
+      "doc_lineno": 70
     },
     {
       "source": "install_ac_dipole_as_matrix(madx, deltaqx=-0.01, deltaqy=0.012, beam=1)",
@@ -250,11 +176,10 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Example"
         ]
       },
-      "doc_lineno": 48
+      "doc_lineno": 49
     },
     {
       "source": "misalign_lhc_ir_quadrupoles(\n    madx, ips=[1], quadrupoles=[1, 2, 3, 4, 5, 6], beam=1, sides=\"RL\", dx=\"1E-5\"\n)",
@@ -272,11 +197,10 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples"
         ]
       },
-      "doc_lineno": 42
+      "doc_lineno": 48
     },
     {
       "source": "misalign_lhc_ir_quadrupoles(\n    madx,\n    ips=[5],\n    quadrupoles=[7, 8, 9, 10],\n    beam=1,\n    sides=\"RL\",\n    dpsi=\"1E-3 + 8E-4 * TGAUSS(2.5)\",\n)",
@@ -294,11 +218,10 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples"
         ]
       },
-      "doc_lineno": 50
+      "doc_lineno": 56
     },
     {
       "source": "misalign_lhc_ir_quadrupoles(\n    madx,\n    ips=[1, 5],\n    quadrupoles=list(range(1, 11)),\n    beam=1,\n    sides=\"RL\",\n    dy=1e-5,  # ok too as cpymad converts this to a string first\n    dpsi=\"1E-3 + 8E-4 * TGAUSS(2.5)\",\n)",
@@ -337,11 +260,10 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples"
         ]
       },
-      "doc_lineno": 63
+      "doc_lineno": 69
     },
     {
       "source": "misalign_lhc_triplets(madx, ip=1, sides=\"RL\", dx=\"1E-5 * TGAUSS(2.5)\")",
@@ -359,12 +281,11 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples"
         ]
       },
-      "doc_lineno": 25
+      "doc_lineno": 26
     },
     {
       "source": "misalign_lhc_triplets(madx, ip=5, sides=\"RL\", dpsi=\"0.001 * TGAUSS(2.5)\")",
@@ -382,12 +303,11 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples"
         ]
       },
-      "doc_lineno": 31
+      "doc_lineno": 32
     },
     {
       "source": "observation_bpms = get_lhc_bpms_list(madx)",
@@ -405,13 +325,12 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example"
         ]
       },
-      "doc_lineno": 17
+      "doc_lineno": 18
     },
     {
       "source": "get_lhc_tune_and_chroma_knobs(\"LHC\", beam=1, telescopic_squeeze=False)\n# gives ('dQx.b1', 'dQy.b1', 'dQpx.b1', 'dQpy.b1')",
@@ -429,14 +348,13 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
           "Examples"
         ]
       },
-      "doc_lineno": 22
+      "doc_lineno": 23
     },
     {
       "source": "get_lhc_tune_and_chroma_knobs(\"LHC\", beam=2, run3=True)\n# gives ('dQx.b2_op', 'dQx.b2_op', 'dQpx.b2_op', 'dQpx.b2_op')",
@@ -454,14 +372,13 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
           "Examples"
         ]
       },
-      "doc_lineno": 27
+      "doc_lineno": 28
     },
     {
       "source": "get_lhc_tune_and_chroma_knobs(\"HLLHC\", beam=2)\n# gives ('kqtf.b2_sq', 'kqtd.b2_sq', 'ksf.b2_sq', 'ksd.b2_sq')",
@@ -479,14 +396,13 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
           "Examples"
         ]
       },
-      "doc_lineno": 32
+      "doc_lineno": 33
     },
     {
       "source": "ip5_x, ip5_y = get_size_at_ip(madx, ip=5)",
@@ -498,7 +414,6 @@
           "Cpymadtools",
           "Example",
           "Examples",
-          "Example",
           "Example",
           "Example",
           "Example",
@@ -530,7 +445,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -551,7 +465,6 @@
           "Cpymadtools",
           "Example",
           "Examples",
-          "Example",
           "Example",
           "Example",
           "Example",
@@ -585,7 +498,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -596,7 +508,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 25
+      "doc_lineno": 29
     },
     {
       "source": "apply_lhc_colinearity_knob_delta(madx, colinearity_knob_delta=3.5, ir=1)",
@@ -614,7 +526,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -626,7 +537,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 20
+      "doc_lineno": 24
     },
     {
       "source": "apply_lhc_coupling_knob(madx, coupling_knob=5e-4, beam=1)",
@@ -644,7 +555,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -657,7 +567,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 18
+      "doc_lineno": 20
     },
     {
       "source": "# It is recommended to re-match tunes after this routine\nmatching.match_tunes(madx, \"lhc\", \"lhcb1\", 62.27, 60.36)\napply_lhc_rigidity_waist_shift_knob(madx, rigidty_waist_shift_value=1.5, ir=5)\nmatching.match_tunes(madx, \"lhc\", \"lhcb1\", 62.31, 60.32)",
@@ -675,7 +585,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -689,7 +598,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 32
+      "doc_lineno": 40
     },
     {
       "source": "carry_colinearity_knob_over(madx, ir=5, to_left=True)",
@@ -701,7 +610,6 @@
           "Cpymadtools",
           "Example",
           "Examples",
-          "Example",
           "Example",
           "Example",
           "Example",
@@ -734,7 +642,6 @@
           "Cpymadtools",
           "Example",
           "Examples",
-          "Example",
           "Example",
           "Example",
           "Example",
@@ -774,7 +681,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -791,7 +697,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 15
+      "doc_lineno": 17
     },
     {
       "source": "random_kwargs = {}\nfor order in range(1, 16):\n    for ab in \"AB\":\n        random_kwargs[f\"{ab}{order:d}\"] = random.randint(0, 20)\nswitch_magnetic_errors(madx, **random_kwargs)",
@@ -820,7 +726,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -838,10 +743,10 @@
           "Examples"
         ]
       },
-      "doc_lineno": 19
+      "doc_lineno": 20
     },
     {
-      "source": "switch_magnetic_errors(madx, {\"B6\": 1e-4})",
+      "source": "switch_magnetic_errors(madx, **{\"B6\": 1e-4})",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -856,7 +761,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -874,7 +778,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 29
+      "doc_lineno": 30
     },
     {
       "source": "vary_independent_ir_quadrupoles(\n    madx, quad_numbers=[10, 11, 12, 13], ip=1, sides=(\"r\", \"l\")\n)",
@@ -892,7 +796,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -911,7 +814,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 25
+      "doc_lineno": 28
     },
     {
       "source": "orbit_setup = get_current_orbit_setup(madx)",
@@ -929,7 +832,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -949,7 +851,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 13
+      "doc_lineno": 14
     },
     {
       "source": "sextupoles_powering = get_magnets_powering(madx, patterns=[r\"^ms\\.\"])",
@@ -967,7 +869,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -988,7 +889,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 44
+      "doc_lineno": 45
     },
     {
       "source": "arc_knobs = query_arc_correctors_powering(madx)",
@@ -1000,7 +901,6 @@
           "Cpymadtools",
           "Example",
           "Examples",
-          "Example",
           "Example",
           "Example",
           "Example",
@@ -1046,7 +946,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -1087,7 +986,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -1111,7 +1009,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 26
+      "doc_lineno": 27
     },
     {
       "source": "correct_lhc_orbit(madx, sequence=\"lhcb1\", plane=\"y\")",
@@ -1129,7 +1027,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -1154,7 +1051,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 25
+      "doc_lineno": 24
     },
     {
       "source": "tune_results = do_kmodulation(\n    madx, ir=1, side=\"right\", steps=100, stepsize=3e-8\n)",
@@ -1172,7 +1069,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -1198,7 +1094,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 37
+      "doc_lineno": 39
     },
     {
       "source": "with LHCSetup(run=2, opticsfile=\"2018/PROTON/opticsfile.22\", beam=2) as madx:\n    pass  # do some stuff",
@@ -1216,7 +1112,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -1243,7 +1138,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 46
+      "doc_lineno": 59
     },
     {
       "source": "with LHCSetup(\n    run=3,\n    opticsfile=\"R2022a_A30cmC30cmA10mL200cm.madx\",\n    slicefactor=4,\n    stdout=False,\n) as madx:\n    pass  # do some stuff",
@@ -1261,7 +1156,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -1288,7 +1182,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 53
+      "doc_lineno": 66
     },
     {
       "source": "variables, specials = lhc_orbit_variables()",
@@ -1300,7 +1194,6 @@
           "Cpymadtools",
           "Example",
           "Examples",
-          "Example",
           "Example",
           "Example",
           "Example",
@@ -1334,10 +1227,10 @@
           "Example"
         ]
       },
-      "doc_lineno": 11
+      "doc_lineno": 12
     },
     {
-      "source": "make_lhc_beams(madx, energy=6800, nemitt_x=2.5e-6, nemitt_y=3e-6)",
+      "source": "make_lhc_beams(madx, energy=6800, nemitt_x=2.75e-6, nemitt_y=3e-6)",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -1346,7 +1239,6 @@
           "Cpymadtools",
           "Example",
           "Examples",
-          "Example",
           "Example",
           "Example",
           "Example",
@@ -1384,7 +1276,7 @@
       "doc_lineno": 26
     },
     {
-      "source": "make_lhc_beams(madx, energy=6800, nemitt_x=2.5e-6, nemitt_y=3e-6, b4=True)",
+      "source": "make_lhc_beams(madx, energy=6800, nemitt_x=3e-6, nemitt_y=3e-6, b4=True)",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -1393,7 +1285,6 @@
           "Cpymadtools",
           "Example",
           "Examples",
-          "Example",
           "Example",
           "Example",
           "Example",
@@ -1446,7 +1337,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -1476,7 +1366,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 23
+      "doc_lineno": 25
     },
     {
       "source": "madx = prepare_lhc_run2(\n    \"/afs/cern.ch/eng/lhc/optics/runII/2018/PROTON/opticsfile.22\",\n    beam=2,\n    stdout=True,\n)",
@@ -1494,7 +1384,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -1525,7 +1414,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 39
+      "doc_lineno": 46
     },
     {
       "source": "madx = prepare_lhc_run3(\n    \"R2022a_A30cmC30cmA10mL200cm.madx\", slicefactor=4, stdout=True\n)",
@@ -1543,7 +1432,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -1575,7 +1463,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 35
+      "doc_lineno": 45
     },
     {
       "source": "re_cycle_sequence(madx, sequence=\"lhcb1\", start=\"MSIA.EXIT.B1\")",
@@ -1593,7 +1481,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -1626,7 +1513,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 17
+      "doc_lineno": 19
     },
     {
       "source": "orbit_setup = setup_lhc_orbit(madx, scheme=\"lhc_top\")",
@@ -1644,7 +1531,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -1678,7 +1564,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 20
+      "doc_lineno": 21
     },
     {
       "source": "ips_df = get_ips_twiss(madx, chrom=True, ripken=True)",
@@ -1696,7 +1582,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -1731,7 +1616,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 17
+      "doc_lineno": 20
     },
     {
       "source": "ir_df = get_ir_twiss(madx, chrom=True, ripken=True)",
@@ -1749,7 +1634,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -1785,7 +1669,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 20
+      "doc_lineno": 23
     },
     {
       "source": "matching.match_chromaticities(\n    madx,\n    None,  # this is not LHC or HLLHC\n    sequence=\"CAS3\",\n    dq1_target=100,\n    dq2_target=100,\n    varied_knobs=[\"ksf\", \"ksd\"],  # only chroma knobs\n)",
@@ -1803,7 +1687,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -1840,7 +1723,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 46
+      "doc_lineno": 50
     },
     {
       "source": "matching.match_tunes_and_chromaticities(\n    madx,\n    dq1_target=100,\n    dq2_target=100,\n    varied_knobs=[\"ksf\", \"ksd\"],  # only chroma knobs\n)",
@@ -1858,7 +1741,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -1895,7 +1777,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 61
+      "doc_lineno": 65
     },
     {
       "source": "matching.match_chromaticities(\n    madx,\n    \"lhc\",  # will find the knobs automatically\n    sequence=\"lhcb1\",\n    dq1_target=2.0,\n    dq2_target=2.0,\n)",
@@ -1913,7 +1795,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -1950,7 +1831,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 72
+      "doc_lineno": 77
     },
     {
       "source": "matching.match_tunes(\n    madx,\n    None,  # this is not LHC or HLLHC\n    sequence=\"CAS3\",\n    q1_target=6.335,\n    q2_target=6.29,\n    varied_knobs=[\"kqf\", \"kqd\"],  # only tune knobs\n)",
@@ -1968,7 +1849,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -2006,7 +1886,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 46
+      "doc_lineno": 50
     },
     {
       "source": "matching.match_tunes_and_chromaticities(\n    madx,\n    q1_target=6.335,\n    q2_target=6.29,\n    varied_knobs=[\"kqf\", \"kqd\"],  # only tune knobs\n)",
@@ -2024,7 +1904,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -2062,7 +1941,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 61
+      "doc_lineno": 65
     },
     {
       "source": "matching.match_tunes(\n    madx,\n    \"lhc\",  # will find the knobs automatically\n    sequence=\"lhcb1\",\n    q1_target=62.31,\n    q2_target=60.32,\n)",
@@ -2080,7 +1959,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -2118,7 +1996,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 72
+      "doc_lineno": 77
     },
     {
       "source": "matching.match_tunes_and_chromaticities(\n    madx,\n    None,  # this is not LHC or HLLHC\n    sequence=\"CAS3\",\n    q1_target=6.335,\n    q2_target=6.29,\n    dq1_target=100,\n    dq2_target=100,\n    varied_knobs=[\"kqf\", \"kqd\", \"ksf\", \"ksd\"],\n)",
@@ -2136,7 +2014,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -2175,7 +2052,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 78
+      "doc_lineno": 89
     },
     {
       "source": "matching.match_tunes_and_chromaticities(\n    madx,\n    q1_target=6.335,\n    q2_target=6.29,\n    dq1_target=100,\n    dq2_target=100,\n    varied_knobs=[\"kqf\", \"kqd\", \"ksf\", \"ksd\"],\n)",
@@ -2193,7 +2070,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -2232,7 +2108,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 95
+      "doc_lineno": 106
     },
     {
       "source": "matching.match_tunes_and_chromaticities(\n    madx,\n    \"lhc\",  # will find the knobs automatically\n    sequence=\"lhcb1\",\n    q1_target=62.31,\n    q2_target=60.32,\n    dq1_target=2.0,\n    dq2_target=2.0,\n    run3=True,  # influences the knobs definition\n)",
@@ -2250,7 +2126,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -2289,19 +2164,18 @@
           "Examples"
         ]
       },
-      "doc_lineno": 108
+      "doc_lineno": 120
     },
     {
       "source": "beam_parameters = query_beam_attributes(madx)",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
-        "ref_id": "parameters",
+        "ref_id": "beam-parameters",
         "headings": [
           "Cpymadtools",
           "Example",
           "Examples",
-          "Example",
           "Example",
           "Example",
           "Example",
@@ -2365,7 +2239,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -2403,10 +2276,10 @@
           "Examples",
           "Examples",
           "Example",
-          "Example"
+          "Examples"
         ]
       },
-      "doc_lineno": 45
+      "doc_lineno": 48
     },
     {
       "source": "tracks_dict = get_amplitude_detuning(\n    madx, order=3, model=3, exact=True, icase=5, no=6\n)",
@@ -2424,7 +2297,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -2462,10 +2334,10 @@
           "Examples",
           "Examples",
           "Example",
-          "Example"
+          "Examples"
         ]
       },
-      "doc_lineno": 52
+      "doc_lineno": 55
     },
     {
       "source": "rdts_df = get_rdts(madx, order=3, fringe=True)",
@@ -2483,7 +2355,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -2521,11 +2392,11 @@
           "Examples",
           "Examples",
           "Example",
-          "Example",
-          "Example"
+          "Examples",
+          "Examples"
         ]
       },
-      "doc_lineno": 46
+      "doc_lineno": 47
     },
     {
       "source": "tracks_dict = get_rdts(\n    madx, order=3, model=3, method=6, nst=3, exact=True, icase=5\n)",
@@ -2543,7 +2414,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -2581,11 +2451,11 @@
           "Examples",
           "Examples",
           "Example",
-          "Example",
-          "Example"
+          "Examples",
+          "Examples"
         ]
       },
-      "doc_lineno": 53
+      "doc_lineno": 54
     },
     {
       "source": "tracks_dict = ptc_track_particle(\n    madx, nturns=1023, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0)\n)",
@@ -2603,7 +2473,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -2641,12 +2510,12 @@
           "Examples",
           "Examples",
           "Example",
-          "Example",
-          "Example",
-          "Example"
+          "Examples",
+          "Examples",
+          "Examples"
         ]
       },
-      "doc_lineno": 72
+      "doc_lineno": 71
     },
     {
       "source": "tracks_dict = ptc_track_particle(\n    madx,\n    nturns=10,\n    initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0),\n    model=3,\n    method=6,\n    nst=3,\n    exact=True,\n)",
@@ -2664,7 +2533,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -2702,12 +2570,12 @@
           "Examples",
           "Examples",
           "Example",
-          "Example",
-          "Example",
-          "Example"
+          "Examples",
+          "Examples",
+          "Examples"
         ]
       },
-      "doc_lineno": 80
+      "doc_lineno": 79
     },
     {
       "source": "twiss_ptc_df = ptc_twiss(madx, order=3)",
@@ -2725,7 +2593,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -2763,13 +2630,13 @@
           "Examples",
           "Examples",
           "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
+          "Examples",
+          "Examples",
+          "Examples",
+          "Examples"
         ]
       },
-      "doc_lineno": 52
+      "doc_lineno": 50
     },
     {
       "source": "tracks_dict = ptc_twiss(\n    madx, order=3, model=3, method=6, nst=3, exact=True, icase=5\n)",
@@ -2787,7 +2654,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -2825,13 +2691,13 @@
           "Examples",
           "Examples",
           "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
+          "Examples",
+          "Examples",
+          "Examples",
+          "Examples"
         ]
       },
-      "doc_lineno": 59
+      "doc_lineno": 57
     },
     {
       "source": "tracks_dict = track_single_particle(\n    madx, nturns=1023, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0)\n)",
@@ -2849,7 +2715,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -2887,14 +2752,14 @@
           "Examples",
           "Examples",
           "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
+          "Examples",
+          "Examples",
+          "Examples",
+          "Examples",
           "Example"
         ]
       },
-      "doc_lineno": 43
+      "doc_lineno": 49
     },
     {
       "source": "dynap_tfs = make_footprint_table(madx)\nqxs, qys = get_footprint_lines(dynap_tfs)\nplt.plot(qxs, qys, \"o--\", label=\"Tune Footprint from DYNAP Table\")",
@@ -2912,7 +2777,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -2950,15 +2814,15 @@
           "Examples",
           "Examples",
           "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
+          "Examples",
+          "Examples",
+          "Examples",
+          "Examples",
           "Example",
           "Example"
         ]
       },
-      "doc_lineno": 19
+      "doc_lineno": 24
     },
     {
       "source": "fig, axis = plt.subplots()\ndynap_tfs = make_footprint_table(madx)\nfootprint_polygons = get_footprint_patches(dynap_tfs)\naxis.add_collection(footprint_polygons)",
@@ -2976,7 +2840,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -3014,19 +2877,19 @@
           "Examples",
           "Examples",
           "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
+          "Examples",
+          "Examples",
+          "Examples",
+          "Examples",
           "Example",
           "Example",
           "Example"
         ]
       },
-      "doc_lineno": 23
+      "doc_lineno": 28
     },
     {
-      "source": "dynap_dframe = make_footprint_table(madx)",
+      "source": "dynap_dframe = make_footprint_table(madx, dense=True)",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -3041,7 +2904,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -3079,17 +2941,17 @@
           "Examples",
           "Examples",
           "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
+          "Examples",
+          "Examples",
+          "Examples",
+          "Examples",
           "Example",
           "Example",
           "Example",
           "Example"
         ]
       },
-      "doc_lineno": 29
+      "doc_lineno": 33
     },
     {
       "source": "ips_df = get_pattern_twiss(madx=madx, patterns=[\"IP\"])",
@@ -3107,7 +2969,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -3145,10 +3006,10 @@
           "Examples",
           "Examples",
           "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
+          "Examples",
+          "Examples",
+          "Examples",
+          "Examples",
           "Example",
           "Example",
           "Example",
@@ -3156,7 +3017,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 35
+      "doc_lineno": 38
     },
     {
       "source": "triplets_df = get_pattern_twiss(\n    madx=madx,\n    patterns=[\n        r\"MQXA.[12345][RL]1\",  # Q1 and Q3 LHC\n        r\"MQXB.[AB][12345][RL]1\",  # Q2A and Q2B LHC\n        r\"MQXF[AB].[AB][12345][RL]1\",  # Q1 to Q3 A and B HL-LHC\n    ],\n)",
@@ -3174,7 +3035,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -3212,10 +3072,10 @@
           "Examples",
           "Examples",
           "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
+          "Examples",
+          "Examples",
+          "Examples",
+          "Examples",
           "Example",
           "Example",
           "Example",
@@ -3223,7 +3083,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 41
+      "doc_lineno": 44
     },
     {
       "source": "twiss_df = get_twiss_tfs(madx, chrom=True, ripken=True)",
@@ -3241,7 +3101,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -3279,10 +3138,10 @@
           "Examples",
           "Examples",
           "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
+          "Examples",
+          "Examples",
+          "Examples",
+          "Examples",
           "Example",
           "Example",
           "Example",
@@ -3291,7 +3150,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 17
+      "doc_lineno": 19
     },
     {
       "source": "madx.command.twiss()\nexport_madx_table(madx, table_name=\"TWISS\", file_name=\"twiss.tfs\")",
@@ -3309,7 +3168,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -3347,10 +3205,10 @@
           "Examples",
           "Examples",
           "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
+          "Examples",
+          "Examples",
+          "Examples",
+          "Examples",
           "Example",
           "Example",
           "Example",
@@ -3360,7 +3218,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 28
+      "doc_lineno": 33
     },
     {
       "source": "twiss_tfs = get_table_tfs(madx, table_name=\"TWISS\")",
@@ -3378,7 +3236,6 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Examples",
           "Examples",
           "Example",
@@ -3416,10 +3273,10 @@
           "Examples",
           "Examples",
           "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
+          "Examples",
+          "Examples",
+          "Examples",
+          "Examples",
           "Example",
           "Example",
           "Example",
@@ -3427,10 +3284,10 @@
           "Examples",
           "Example",
           "Example",
-          "Examples"
+          "Example"
         ]
       },
-      "doc_lineno": 18
+      "doc_lineno": 19
     }
   ],
   "api/maths": [
@@ -3445,7 +3302,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 21
+      "doc_lineno": 24
     },
     {
       "source": "best_fit_func, best_fit_params = best_fit_distribution(data, 200, axis)\npdf = fitting.make_pdf(best_fit_func, best_fit_params)",
@@ -3459,7 +3316,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 18
+      "doc_lineno": 21
     },
     {
       "source": "import scipy.stats as st\n\ntested_dists = {st.chi: \"Chi\", st.expon: \"Exponential\", st.laplace: \"Laplace\"}\nset_distributions_dict(tested_dists)",
@@ -3522,7 +3379,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 16
+      "doc_lineno": 21
     },
     {
       "source": "get_magnitude(10)\n# returns 1",
@@ -3538,7 +3395,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 14
+      "doc_lineno": 15
     },
     {
       "source": "get_magnitude(0.0311)\n# returns -2",
@@ -3554,7 +3411,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 19
+      "doc_lineno": 20
     },
     {
       "source": "get_magnitude(1e-7)\n# returns -7",
@@ -3570,7 +3427,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 24
+      "doc_lineno": 25
     },
     {
       "source": "import numpy as np\n\nq = np.array([-330, 230, 430, -720, 750, -110, 410, -340, -950, -630])\nget_scaled_values_and_magnitude_string(q)\n# returns (array([-3.3,  2.3,  4.3, -7.2,  7.5, -1.1,  4.1, -3.4, -9.5, -6.3]), '{-2}')",
@@ -3632,25 +3489,79 @@
         "document": "api/optics",
         "ref_id": "beam-optics",
         "headings": [
-          "Optics",
-          "Example"
+          "Optics"
         ]
       },
       "doc_lineno": 20
     },
     {
-      "source": "geom_emit_x = madx.globals[\"geometric_emit_x\"]\ngeom_emit_y = madx.globals[\"geometric_emit_y\"]\ntwiss_tfs = madx.twiss(ripken=True).dframe()\nhorizontal_size = lebedev_beam_size(\n    twiss_tfs.beta11, twiss_tfs.beta21, geom_emit_x, geom_emit_y\n)\nvertical_size = lebedev_beam_size(\n    twiss_tfs.beta12, twiss_tfs.beta22, geom_emit_x, geom_emit_y\n)",
+      "source": "determine_rdt_line(1001, \"X\")\n# Output: (0, 1, 0)\n# Line at 1 * Qy in the X spectrum.",
+      "names": [],
+      "example": {
+        "document": "api/optics",
+        "ref_id": "resonance-driving-terms-utilities",
+        "headings": [
+          "Optics",
+          "Examples"
+        ]
+      },
+      "doc_lineno": 18
+    },
+    {
+      "source": "determine_rdt_line(\"2002\", \"Y\")\n# Output: (-2, 3, 0)\n# Line at 3 * Qy - 2 * Qx in the Y spectrum.",
+      "names": [],
+      "example": {
+        "document": "api/optics",
+        "ref_id": "resonance-driving-terms-utilities",
+        "headings": [
+          "Optics",
+          "Examples"
+        ]
+      },
+      "doc_lineno": 24
+    },
+    {
+      "source": "rdt_to_order_and_type(1001)\n# Output: 'skew_quadrupole'",
+      "names": [],
+      "example": {
+        "document": "api/optics",
+        "ref_id": "resonance-driving-terms-utilities",
+        "headings": [
+          "Optics",
+          "Examples",
+          "Examples"
+        ]
+      },
+      "doc_lineno": 14
+    },
+    {
+      "source": "rdt_to_order_and_type(\"2002\")\n# Output: 'normal_octupole'",
+      "names": [],
+      "example": {
+        "document": "api/optics",
+        "ref_id": "resonance-driving-terms-utilities",
+        "headings": [
+          "Optics",
+          "Examples",
+          "Examples"
+        ]
+      },
+      "doc_lineno": 19
+    },
+    {
+      "source": "gemitt_x = madx.globals[\"geometric_emit_x\"]\ngemitt_y = madx.globals[\"geometric_emit_y\"]\ntwiss_tfs = madx.twiss(ripken=True).dframe()\nhorizontal_size = lebedev_beam_size(\n    twiss_tfs.beta11, twiss_tfs.beta21, gemitt_x, gemitt_y\n)\nvertical_size = lebedev_beam_size(\n    twiss_tfs.beta12, twiss_tfs.beta22, gemitt_x, gemitt_y\n)",
       "names": [],
       "example": {
         "document": "api/optics",
         "ref_id": "ripken-parameters",
         "headings": [
           "Optics",
-          "Example",
+          "Examples",
+          "Examples",
           "Example"
         ]
       },
-      "doc_lineno": 25
+      "doc_lineno": 27
     },
     {
       "source": "alfx = madx.table.twiss.alfx[0]\nbetx = madx.table.twiss.betx[0]\nu = np.array([x_coords, px_coord])\nu_bar = courant_snyder_transform(u, alfx, betx)",
@@ -3660,12 +3571,13 @@
         "ref_id": "twiss-optics",
         "headings": [
           "Optics",
-          "Example",
+          "Examples",
+          "Examples",
           "Example",
           "Example"
         ]
       },
-      "doc_lineno": 27
+      "doc_lineno": 29
     }
   ],
   "api/plotting": [
@@ -3680,7 +3592,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 98
+      "doc_lineno": 96
     },
     {
       "source": "fig, ax = plt.subplots(figsize=(10, 9))\nplot_physical_apertures(madx, \"x\")\nplt.show()",
@@ -3694,7 +3606,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 45
+      "doc_lineno": 42
     },
     {
       "source": "fig, ax = plt.subplots(figsize=(10, 9))\nplot_physical_apertures(madx, \"x\", scale=1e3)\nplt.setp(ax, xlabel=\"S [m]\", ylabel=\"X [mm]\")\nplt.show()",
@@ -3708,7 +3620,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 53
+      "doc_lineno": 50
     },
     {
       "source": "plot_single_ir_crossing(\n    plt.gca(),\n    b1_df,\n    b2_df,\n    plot_column=\"x\",\n    scaling=1e3,\n    ylabel=\"Orbit X $[mm]$\",\n)",
@@ -3723,7 +3635,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 30
+      "doc_lineno": 34
     },
     {
       "source": "plt.figure(figsize=(18, 12))\nplot_two_lhc_ips_crossings(madx, first_ip=1, second_ip=5)",
@@ -3739,7 +3651,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 39
+      "doc_lineno": 48
     },
     {
       "source": "plt.figure(figsize=(16, 11))\nplot_two_lhc_ips_crossings(\n    madx, first_ip=2, second_ip=8, highlight_mqx_and_mbx=False\n)",
@@ -3755,7 +3667,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 44
+      "doc_lineno": 53
     },
     {
       "source": "fig, ax = plt.subplots(figsize=(10, 9))\nplot_beam_envelope(madx, \"lhcb1\", \"x\", nsigma=3)\nplt.show()",
@@ -3772,7 +3684,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 46
+      "doc_lineno": 44
     },
     {
       "source": "fig, ax = plt.subplots(figsize=(10, 9))\nplot_beam_envelope(madx, \"lhcb1\", \"x\", nsigma=3, scale=1e3)\nplt.setp(ax, xlabel=\"S [m]\", ylabel=\"X [mm]\")\nplt.show()",
@@ -3789,7 +3701,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 54
+      "doc_lineno": 52
     },
     {
       "source": "title = \"Machine Layout\"\nplt.figure(figsize=(16, 11))\nplot_latwiss(\n    madx,\n    title=title,\n    k0l_lim=(-0.15, 0.15),\n    k1l_lim=(-0.08, 0.08),\n    disp_ylim=(-10, 125),\n    lw=3,\n)",
@@ -3804,10 +3716,10 @@
           "Example",
           "Examples",
           "Examples",
-          "Example"
+          "Examples"
         ]
       },
-      "doc_lineno": 84
+      "doc_lineno": 102
     },
     {
       "source": "title = \"Machine Layout\"\nplt.figure(figsize=(16, 11))\nplot_latwiss(\n    madx,\n    title=title,\n    k0l_lim=0.15,  # identical to k0l_lim=(-0.15, 0.15)\n    k1l_lim=0.08,  # identical to k1l_lim=(-0.08, 0.08)\n    disp_ylim=(-10, 125),\n    lw=3,\n)",
@@ -3822,10 +3734,10 @@
           "Example",
           "Examples",
           "Examples",
-          "Example"
+          "Examples"
         ]
       },
-      "doc_lineno": 99
+      "doc_lineno": 117
     },
     {
       "source": "fig, ax = plt.subplots(figsize=(6, 6))\nplot_machine_survey(\n    madx, title=\"Machine Survey\", show_elements=True, high_orders=True\n)",
@@ -3840,11 +3752,11 @@
           "Example",
           "Examples",
           "Examples",
-          "Example",
+          "Examples",
           "Example"
         ]
       },
-      "doc_lineno": 26
+      "doc_lineno": 27
     },
     {
       "source": "fig, ax = plt.subplots(figsize=(6, 2))\nplot_machine_layout(madx, title=\"Machine Elements\", lw=3)",
@@ -3859,12 +3771,12 @@
           "Example",
           "Examples",
           "Examples",
-          "Example",
+          "Examples",
           "Example",
           "Example"
         ]
       },
-      "doc_lineno": 100
+      "doc_lineno": 96
     },
     {
       "source": "fig, ax = plt.subplots(figsize=(6, 2))\nplot_machine_layout(madx, title=\"Machine Elements\", lw=3)\nscale_patches(ax=fig.axes[0], scale=100, ylabel=r\"$K_{1}L$ $[10^{-2} m^{-1}]$\")",
@@ -3879,13 +3791,13 @@
           "Example",
           "Examples",
           "Examples",
-          "Example",
+          "Examples",
           "Example",
           "Example",
           "Example"
         ]
       },
-      "doc_lineno": 17
+      "doc_lineno": 18
     },
     {
       "source": "fig, ax = plt.subplots(figsize=(10, 9))\nplot_courant_snyder_phase_space(madx, x_coords, px_coords, plane=\"Horizontal\")",
@@ -3900,14 +3812,14 @@
           "Example",
           "Examples",
           "Examples",
-          "Example",
+          "Examples",
           "Example",
           "Example",
           "Example",
           "Example"
         ]
       },
-      "doc_lineno": 28
+      "doc_lineno": 31
     },
     {
       "source": "fig, ax = plt.subplots(figsize=(10, 9))\nplot_courant_snyder_phase_space_colored(\n    madx, x_coords, px_coords, plane=\"Horizontal\"\n)",
@@ -3922,7 +3834,7 @@
           "Example",
           "Examples",
           "Examples",
-          "Example",
+          "Examples",
           "Example",
           "Example",
           "Example",
@@ -3930,7 +3842,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 32
+      "doc_lineno": 34
     },
     {
       "source": "fig, ax = plt.subplots(figsize=(6, 6))\nplot_resonance_lines_for_order(order=3, axis=ax, color=\"blue\")",
@@ -3945,7 +3857,7 @@
           "Example",
           "Examples",
           "Examples",
-          "Example",
+          "Examples",
           "Example",
           "Example",
           "Example",
@@ -3969,7 +3881,7 @@
           "Example",
           "Examples",
           "Examples",
-          "Example",
+          "Examples",
           "Example",
           "Example",
           "Example",
@@ -3979,7 +3891,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 33
+      "doc_lineno": 39
     },
     {
       "source": "fig = plot_full_ip_rdt(\n    couple_b1_tfs,\n    couple_b2_tfs,\n    b1_model_tfs,\n    b2_model_tfs,\n    ip=1,\n    figsize=(18, 9),\n    abs_ylimits=(5e-3, 6.5e-2),\n    real_ylimits=(-1e-1, 1e-1),\n    imag_ylimits=(-1e-1, 1e-1),\n)",
@@ -3994,7 +3906,7 @@
           "Example",
           "Examples",
           "Examples",
-          "Example",
+          "Examples",
           "Example",
           "Example",
           "Example",
@@ -4005,7 +3917,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 32
+      "doc_lineno": 38
     },
     {
       "source": "fig = plot_rdt_component(\n    b1_segment_df=tfs.read(\"B1/sbscouple_IP1.out\"),\n    b2_segment_df=tfs.read(\"B2/sbscouple_IP1.out\"),\n    b1_model=b1_model_tfs,\n    b2_model=b2_model_tfs,\n    ip=1,\n    figsize=(8, 8),\n    b1_ylabel=r\"$\\mathrm{Beam\\ 1}$ $|f_{1001}|$\",\n    b2_ylabel=r\"$\\mathrm{Beam\\ 2}$ $|f_{1001}|$\",\n)",
@@ -4020,7 +3932,7 @@
           "Example",
           "Examples",
           "Examples",
-          "Example",
+          "Examples",
           "Example",
           "Example",
           "Example",
@@ -4032,7 +3944,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 34
+      "doc_lineno": 40
     },
     {
       "source": "plot_phase_segment(ax, segment_df, b1_model_tfs, plane=\"x\", ip=1)",
@@ -4047,6 +3959,230 @@
           "Example",
           "Examples",
           "Examples",
+          "Examples",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example"
+        ]
+      },
+      "doc_lineno": 28
+    },
+    {
+      "source": "fig = plot_phase_segment_both_beams(\n    phasex_b1_tfs,\n    phasey_b1_tfs,\n    phasex_b2_tfs,\n    phasey_b2_tfs,\n    b1_model_tfs,\n    b2_model_tfs,\n    ip=1,\n    figsize=(18, 9),\n    bbox_to_anchor=(0.535, 0.94),\n)",
+      "names": [],
+      "example": {
+        "document": "api/plotting",
+        "ref_id": "segment-by-segment-phase",
+        "headings": [
+          "Plotting",
+          "Example",
+          "Examples",
+          "Example",
+          "Examples",
+          "Examples",
+          "Examples",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example"
+        ]
+      },
+      "doc_lineno": 37
+    },
+    {
+      "source": "fig = plot_phase_segment_one_beam(\n    sbs_phasex, sbs_phasey, model=b2_model_tfs, ip=5, figsize=(8, 8)\n)",
+      "names": [],
+      "example": {
+        "document": "api/plotting",
+        "ref_id": "segment-by-segment-phase",
+        "headings": [
+          "Plotting",
+          "Example",
+          "Examples",
+          "Example",
+          "Examples",
+          "Examples",
+          "Examples",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example"
+        ]
+      },
+      "doc_lineno": 29
+    },
+    {
+      "source": "x = np.random.normal(size=1000)\ny = np.random.normal(size=1000)\nplt.plot(x, y, \".\", markersize=0.8)\ndraw_confidence_ellipse(x, y, n_std=2.5, edgecolor=\"red\")",
+      "names": [],
+      "example": {
+        "document": "api/plotting",
+        "ref_id": "plotting-utility-functions",
+        "headings": [
+          "Plotting",
+          "Example",
+          "Examples",
+          "Example",
+          "Examples",
+          "Examples",
+          "Examples",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example"
+        ]
+      },
+      "doc_lineno": 27
+    },
+    {
+      "source": "twiss_df = tfs.read(\"twiss_output.tfs\", index=\"NAME\")\ntwiss_df.plot(x=\"S\", y=[\"BETX\", \"BETY\"])\nips = get_lhc_ips_positions(twiss_df)\ndraw_ip_locations(ip_positions=ips)",
+      "names": [],
+      "example": {
+        "document": "api/plotting",
+        "ref_id": "plotting-utility-functions",
+        "headings": [
+          "Plotting",
+          "Example",
+          "Examples",
+          "Example",
+          "Examples",
+          "Examples",
+          "Examples",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example"
+        ]
+      },
+      "doc_lineno": 22
+    },
+    {
+      "source": "ip_offset_in_segment = find_ip_s_from_segment_start(\n    segment_df=sbsphaseext_IP1, model_df=twiss_elements, ip=1\n)",
+      "names": [],
+      "example": {
+        "document": "api/plotting",
+        "ref_id": "plotting-utility-functions",
+        "headings": [
+          "Plotting",
+          "Example",
+          "Examples",
+          "Example",
+          "Examples",
+          "Examples",
+          "Examples",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example"
+        ]
+      },
+      "doc_lineno": 19
+    },
+    {
+      "source": "twiss_df = tfs.read(\"twiss_output.tfs\", index=\"NAME\")\nips = get_lhc_ips_positions(twiss_df)",
+      "names": [],
+      "example": {
+        "document": "api/plotting",
+        "ref_id": "plotting-utility-functions",
+        "headings": [
+          "Plotting",
+          "Example",
+          "Examples",
+          "Example",
+          "Examples",
+          "Examples",
+          "Examples",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example"
+        ]
+      },
+      "doc_lineno": 22
+    },
+    {
+      "source": "element_dfs = make_elements_groups(madx)",
+      "names": [],
+      "example": {
+        "document": "api/plotting",
+        "ref_id": "plotting-utility-functions",
+        "headings": [
+          "Plotting",
+          "Example",
+          "Examples",
+          "Example",
+          "Examples",
+          "Examples",
+          "Examples",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
           "Example",
           "Example",
           "Example",
@@ -4063,66 +4199,7 @@
       "doc_lineno": 25
     },
     {
-      "source": "fig = plot_phase_segment_both_beams(\n    phasex_b1_tfs,\n    phasey_b1_tfs,\n    phasex_b2_tfs,\n    phasey_b2_tfs,\n    b1_model_tfs,\n    b2_model_tfs,\n    ip=1,\n    figsize=(18, 9),\n    bbox_to_anchor=(0.535, 0.94),\n)",
-      "names": [],
-      "example": {
-        "document": "api/plotting",
-        "ref_id": "segment-by-segment-phase",
-        "headings": [
-          "Plotting",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 35
-    },
-    {
-      "source": "fig = plot_phase_segment_one_beam(\n    sbs_phasex, sbs_phasey, model=b2_model_tfs, ip=5, figsize=(8, 8)\n)",
-      "names": [],
-      "example": {
-        "document": "api/plotting",
-        "ref_id": "segment-by-segment-phase",
-        "headings": [
-          "Plotting",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 26
-    },
-    {
-      "source": "x = np.random.normal(size=1000)\ny = np.random.normal(size=1000)\nplt.plot(x, y, \".\", markersize=0.8)\ndraw_confidence_ellipse(x, y, n_std=2.5, edgecolor=\"red\")",
+      "source": "survey_dfs = make_survey_groups(madx)",
       "names": [],
       "example": {
         "document": "api/plotting",
@@ -4134,69 +4211,9 @@
           "Example",
           "Examples",
           "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 26
-    },
-    {
-      "source": "twiss_df = tfs.read(\"twiss_output.tfs\", index=\"NAME\")\ntwiss_df.plot(x=\"S\", y=[\"BETX\", \"BETY\"])\nips = get_lhc_ips_positions(twiss_df)\ndraw_ip_locations(ip_positions=ips)",
-      "names": [],
-      "example": {
-        "document": "api/plotting",
-        "ref_id": "plotting-utility-functions",
-        "headings": [
-          "Plotting",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
           "Examples",
           "Example",
           "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 18
-    },
-    {
-      "source": "ip_offset_in_segment = find_ip_s_from_segment_start(\n    segment_df=sbsphaseext_IP1, model_df=twiss_elements, ip=1\n)",
-      "names": [],
-      "example": {
-        "document": "api/plotting",
-        "ref_id": "plotting-utility-functions",
-        "headings": [
-          "Plotting",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Examples",
           "Example",
           "Example",
           "Example",
@@ -4218,7 +4235,7 @@
       "doc_lineno": 16
     },
     {
-      "source": "twiss_df = tfs.read(\"twiss_output.tfs\", index=\"NAME\")\nips = get_lhc_ips_positions(twiss_df)",
+      "source": "def my_plotting_function(*args, **kwargs):\n    ax, kwargs = maybe_get_ax(**kwargs)\n    # do stuff with ax\n    ax.plot(*args, **kwargs)",
       "names": [],
       "example": {
         "document": "api/plotting",
@@ -4230,40 +4247,8 @@
           "Example",
           "Examples",
           "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 19
-    },
-    {
-      "source": "element_dfs = make_elements_groups(madx)",
-      "names": [],
-      "example": {
-        "document": "api/plotting",
-        "ref_id": "plotting-utility-functions",
-        "headings": [
-          "Plotting",
-          "Example",
           "Examples",
           "Example",
-          "Examples",
-          "Examples",
           "Example",
           "Example",
           "Example",
@@ -4287,79 +4272,6 @@
       "doc_lineno": 20
     },
     {
-      "source": "survey_dfs = make_survey_groups(madx)",
-      "names": [],
-      "example": {
-        "document": "api/plotting",
-        "ref_id": "plotting-utility-functions",
-        "headings": [
-          "Plotting",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 14
-    },
-    {
-      "source": "def my_plotting_function(*args, **kwargs):\n    ax, kwargs = maybe_get_ax(**kwargs)\n    # do stuff with ax\n    ax.plot(*args, **kwargs)",
-      "names": [],
-      "example": {
-        "document": "api/plotting",
-        "ref_id": "plotting-utility-functions",
-        "headings": [
-          "Plotting",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 18
-    },
-    {
       "source": "set_arrow_label(\n    label=\"Your label\",\n    arrow_position=(1, 2),\n    label_position=(1.1 * some_value, 0.75 * another_value),\n    color=\"indianred\",\n    arrow_arc_rad=0.3,\n    fontsize=25,\n)",
       "names": [],
       "example": {
@@ -4372,35 +4284,35 @@
           "Example",
           "Examples",
           "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
           "Examples",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
+          "Example",
           "Example"
         ]
       },
-      "doc_lineno": 30
+      "doc_lineno": 32
     }
   ],
   "api/utils": [
     {
-      "source": "CommandLine.check_pid_exists(os.getpid())\nTrue",
+      "source": "CommandLine.check_pid_exists(os.getpid())\n# True",
       "names": [],
       "example": {
         "document": "api/utils",
@@ -4410,7 +4322,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 12
+      "doc_lineno": 13
     },
     {
       "source": "CommandLine.run(\"echo hello\")\n# returns (0, b\"hello\\r\\n\")",
@@ -4424,7 +4336,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 34
+      "doc_lineno": 40
     },
     {
       "source": "import os\n\nmodified_env = os.environ.copy()\nmodified_env[\"ENV_VAR\"] = \"new_value\"\nCommandLine.run(\"echo $ENV_VAR\", env=modified_env)\n# returns (0, b\"new_value\")",
@@ -4449,7 +4361,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 39
+      "doc_lineno": 45
     },
     {
       "source": "CommandLine.terminate(500_000)  # max PID is 32768 (99999) on linux (macOS).\n# returns False",
@@ -4464,14 +4376,14 @@
           "Example"
         ]
       },
-      "doc_lineno": 13
+      "doc_lineno": 14
     },
     {
-      "source": "with timeit(\n    lambda spanned: logger.debug(f\"Did some stuff in {spanned} seconds\")\n):\n    some_stuff()\n    some_other_stuff()",
+      "source": "@deprecated(\"Use 'new_alternative' instead.\")\ndef old_function():\n    return \"I am old!\"",
       "names": [],
       "example": {
         "document": "api/utils",
-        "ref_id": "context-utilities",
+        "ref_id": "decorator-utilities",
         "headings": [
           "Utils",
           "Example",
@@ -4483,11 +4395,11 @@
       "doc_lineno": 14
     },
     {
-      "source": "Processor = MultiProcessor()\nresults_one_tuple_per_run = Processor.execute_function(\n    func=your_cpu_heavy_function,\n    func_args=list_of_args_for_each_call,\n    n_processes=some_int_up_to_you,\n)",
+      "source": "@maybe_jit\ndef calculations(x, y):\n    return (x + y) / (x - y)",
       "names": [],
       "example": {
         "document": "api/utils",
-        "ref_id": "executors-utilities",
+        "ref_id": "decorator-utilities",
         "headings": [
           "Utils",
           "Example",
@@ -4497,53 +4409,14 @@
           "Example"
         ]
       },
-      "doc_lineno": 11
+      "doc_lineno": 16
     },
     {
-      "source": "MultiProcessor.execute_function(\n    func=np.square, func_args=list(range(6)), n_processes=2\n)\n# returns [0, 1, 4, 9, 16, 25]",
-      "names": [
-        {
-          "import_components": [
-            "range"
-          ],
-          "code_str": "range",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "range"
-        },
-        {
-          "import_components": [
-            "list"
-          ],
-          "code_str": "list",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "list"
-        }
-      ],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "executors-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 24
-    },
-    {
-      "source": "Threader = MultiThreader()\nresults_one_tuple_per_run = Threader.execute_function(\n    func=your_io_heavy_function,\n    func_args=list_of_args_for_each_call,\n    n_processes=some_int_up_to_you,\n)",
+      "source": "with timeit(lambda x: logger.debug(f\"Took {x} seconds\")):\n    some_stuff()\n    some_other_stuff()",
       "names": [],
       "example": {
         "document": "api/utils",
-        "ref_id": "executors-utilities",
+        "ref_id": "context-utilities",
         "headings": [
           "Utils",
           "Example",
@@ -4551,52 +4424,10 @@
           "Example",
           "Example",
           "Example",
-          "Example",
           "Example"
         ]
       },
-      "doc_lineno": 10
-    },
-    {
-      "source": "MultiThreader.execute_function(\n    func=np.square, func_args=list(range(6)), n_processes=2\n)\n# returns [0, 1, 4, 9, 16, 25]",
-      "names": [
-        {
-          "import_components": [
-            "range"
-          ],
-          "code_str": "range",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "range"
-        },
-        {
-          "import_components": [
-            "list"
-          ],
-          "code_str": "list",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "list"
-        }
-      ],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "executors-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 29
+      "doc_lineno": 16
     },
     {
       "source": "condor_q_output = get_the_string_as_you_wish(...)\ntasks, cluster = read_condor_q(condor_q_output)",
@@ -4612,12 +4443,10 @@
           "Example",
           "Example",
           "Example",
-          "Example",
-          "Example",
           "Example"
         ]
       },
-      "doc_lineno": 16
+      "doc_lineno": 19
     },
     {
       "source": "config_logger(level=\"DEBUG\")",
@@ -4634,55 +4463,14 @@
           "Example",
           "Example",
           "Example",
-          "Example",
-          "Example",
-          "Example"
+          "Examples"
         ]
       },
-      "doc_lineno": 20
+      "doc_lineno": 21
     },
     {
       "source": "from pyhdtoolkit.utils.logging import config_logger, SIMPLE_FORMAT\n\nconfig_logger(level=\"DEBUG\", format=SIMPLE_FORMAT)",
-      "names": [
-        {
-          "import_components": [
-            "pyhdtoolkit",
-            "utils",
-            "logging"
-          ],
-          "code_str": "pyhdtoolkit.utils.logging",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "import_from",
-          "resolved_location": "pyhdtoolkit.utils.logging"
-        },
-        {
-          "import_components": [
-            "pyhdtoolkit",
-            "utils",
-            "logging",
-            "config_logger"
-          ],
-          "code_str": "config_logger",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "import_target",
-          "resolved_location": "pyhdtoolkit.utils.logging.config_logger"
-        },
-        {
-          "import_components": [
-            "pyhdtoolkit",
-            "utils",
-            "logging",
-            "config_logger"
-          ],
-          "code_str": "config_logger",
-          "lineno": 3,
-          "end_lineno": 3,
-          "context": "none",
-          "resolved_location": "pyhdtoolkit.utils.logging.config_logger"
-        }
-      ],
+      "names": [],
       "example": {
         "document": "api/utils",
         "ref_id": "logging-utilities",
@@ -4695,2495 +4483,10 @@
           "Example",
           "Example",
           "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 26
-    },
-    {
-      "source": "df = add_noise_to_arc_bpms(df, min_index=8, stdev=1e-6, columns=[\"DPSI\"])",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "miscellanous-personnal-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 28
-    },
-    {
-      "source": "df = add_noise_to_ir_bpms(df, max_index=5, stdev=1e-6, columns=[\"DPSI\"])",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "miscellanous-personnal-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 24
-    },
-    {
-      "source": "apply_colin_corrs_balance(madx)",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "miscellanous-personnal-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 14
-    },
-    {
-      "source": "get_betastar_from_opticsfile(\n    \"acc-models-lhc/strengths/ATS_Nominal/2022/squeeze/ats_30cm.madx\"\n)\n# returns 0.3",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "miscellanous-personnal-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 22
-    },
-    {
-      "source": "log_runtime_versions()\n# 2022-10-05 15:06:26 | CRITICAL | pyhdtoolkit.utils._misc:39 - Using: pyhdtoolkit 1.0.0rc0 | cpymad 1.10.0  | MAD-X 5.08.01 (2022.02.25)",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "miscellanous-personnal-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 7
-    },
-    {
-      "source": "df = split_complex_columns(df, drop=True)",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "miscellanous-personnal-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 15
-    },
-    {
-      "source": "ListOperations.all_unique([1, 2, 3, 5, 12, 0])\n# returns True",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 12
-    },
-    {
-      "source": "ListOperations.average_by(\n    [{\"n\": 4}, {\"n\": 2}, {\"n\": 8}, {\"n\": 6}], lambda x: x[\"n\"]\n)\n# returns 5.0",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 16
-    },
-    {
-      "source": "ListOperations.bifurcate(\n    [\"beep\", \"boop\", \"foo\", \"bar\"], [True, True, False, True]\n)\n# returns [['beep', 'boop', 'bar'], ['foo']]",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 17
-    },
-    {
-      "source": "ListOperations.bifurcate_by(list(range(5)), lambda x: x % 2 == 0)\n# returns [[0, 2, 4], [1, 3]]",
-      "names": [
-        {
-          "import_components": [
-            "range"
-          ],
-          "code_str": "range",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "range"
-        },
-        {
-          "import_components": [
-            "list"
-          ],
-          "code_str": "list",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "list"
-        }
-      ],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 19
-    },
-    {
-      "source": "ListOperations.chunk_list(list(range(10)), 3)\n# returns [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9]]",
-      "names": [
-        {
-          "import_components": [
-            "range"
-          ],
-          "code_str": "range",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "range"
-        },
-        {
-          "import_components": [
-            "list"
-          ],
-          "code_str": "list",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "list"
-        }
-      ],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 18
-    },
-    {
-      "source": "ListOperations.deep_flatten([[\"a\", \"b\"], [1, 2], None, [True, False]])\n# returns [\"a\", \"b\", 1, 2, None True, False]",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 12
-    },
-    {
-      "source": "ListOperations.eval_none([0, 0, 1, 0], lambda x: x >= 2)\n# returns True",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
           "Examples"
         ]
       },
-      "doc_lineno": 18
-    },
-    {
-      "source": "ListOperations.eval_none([0, 1, 2, 0], lambda x: x >= 2)\n# returns False",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 23
-    },
-    {
-      "source": "ListOperations.eval_some([0, 1, 2, 0], lambda x: x >= 2)\n# returns True",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 17
-    },
-    {
-      "source": "ListOperations.eval_some([0, 0, 1, 0], lambda x: x >= 2)\n# returns False",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 22
-    },
-    {
-      "source": "ListOperations.get_indices(0, [0, 1, 3, 5, 7, 3, 9, 0, 0, 5, 3, 2])\n# returns [0, 7, 8]",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example"
-        ]
-      },
-      "doc_lineno": 16
-    },
-    {
-      "source": "ListOperations.group_by(list(range(5)), lambda x: x % 2 == 0)\n# returns {True: [0, 2, 4], False: [1, 3]}",
-      "names": [
-        {
-          "import_components": [
-            "range"
-          ],
-          "code_str": "range",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "range"
-        },
-        {
-          "import_components": [
-            "list"
-          ],
-          "code_str": "list",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "list"
-        }
-      ],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 18
-    },
-    {
-      "source": "ListOperations.has_duplicates([1, 2, 1])\n# returns True",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 14
-    },
-    {
-      "source": "ListOperations.sample([\"a\", \"b\", 1, 2, False])\n# returns 2",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 13
-    },
-    {
-      "source": "ListOperations.sanitize_list([1, False, \"a\", 2, \"\", None, 6, 0])\n# returns [1, \"a\", 2, 6]",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example"
-        ]
-      },
-      "doc_lineno": 13
-    },
-    {
-      "source": "ListOperations.shuffle([\"a\", \"b\", 1, 2, False])\n# returns ['b', 1, False, 2, 'a']",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 15
-    },
-    {
-      "source": "ListOperations.spread([list(range(5)), list(range(5))])\n# returns [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]",
-      "names": [
-        {
-          "import_components": [
-            "range"
-          ],
-          "code_str": "range",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "range"
-        },
-        {
-          "import_components": [
-            "list"
-          ],
-          "code_str": "list",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "list"
-        },
-        {
-          "import_components": [
-            "range"
-          ],
-          "code_str": "range",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "range"
-        },
-        {
-          "import_components": [
-            "list"
-          ],
-          "code_str": "list",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "list"
-        }
-      ],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example"
-        ]
-      },
-      "doc_lineno": 18
-    },
-    {
-      "source": "ListOperations.symmetric_difference_by([2.1, 1.2], [2.3, 3.4], math.floor)\n# returns [1.2, 3.4]",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 20
-    },
-    {
-      "source": "ListOperations.symmetric_difference_by([2.1, 1.2], [0.5, 1.2], lambda x: x >= 2)\n# returns [2.1]",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 25
-    },
-    {
-      "source": "ListOperations.union_by([2.1], [1.2, 2.3], math.floor)\n# returns [1.2, 2.1]",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example"
-        ]
-      },
-      "doc_lineno": 28
-    },
-    {
-      "source": "ListOperations.zipper([1, 2, 3], [2, 5, 3, 7], [\"a\", \"b\", \"c\"])\n# returns [[1, 2, 'a'], [2, 5, 'b'], [3, 3, 'c'], [None, 7, None]]",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 20
-    },
-    {
-      "source": "MiscellaneousOperations.longest_item(\n    list(range(5)), list(range(100)), list(range(50))\n)\n# returns list(range(100))",
-      "names": [
-        {
-          "import_components": [
-            "range"
-          ],
-          "code_str": "range",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "range"
-        },
-        {
-          "import_components": [
-            "list"
-          ],
-          "code_str": "list",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "list"
-        },
-        {
-          "import_components": [
-            "range"
-          ],
-          "code_str": "range",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "range"
-        },
-        {
-          "import_components": [
-            "list"
-          ],
-          "code_str": "list",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "list"
-        },
-        {
-          "import_components": [
-            "range"
-          ],
-          "code_str": "range",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "range"
-        },
-        {
-          "import_components": [
-            "list"
-          ],
-          "code_str": "list",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "list"
-        }
-      ],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 13
-    },
-    {
-      "source": "MiscellaneousOperations.map_values(\n    {\"a\": list(range(5)), \"b\": list(range(10)), \"c\": list(range(15))},\n    lambda x: len(x),\n)\n# returns {\"a\": 5, \"b\": 10, \"c\": 15}",
-      "names": [
-        {
-          "import_components": [
-            "range"
-          ],
-          "code_str": "range",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "range"
-        },
-        {
-          "import_components": [
-            "list"
-          ],
-          "code_str": "list",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "list"
-        },
-        {
-          "import_components": [
-            "range"
-          ],
-          "code_str": "range",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "range"
-        },
-        {
-          "import_components": [
-            "list"
-          ],
-          "code_str": "list",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "list"
-        },
-        {
-          "import_components": [
-            "range"
-          ],
-          "code_str": "range",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "range"
-        },
-        {
-          "import_components": [
-            "list"
-          ],
-          "code_str": "list",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "list"
-        },
-        {
-          "import_components": [
-            "len"
-          ],
-          "code_str": "len",
-          "lineno": 3,
-          "end_lineno": 3,
-          "context": "none",
-          "resolved_location": "len"
-        }
-      ],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example"
-        ]
-      },
-      "doc_lineno": 17
-    },
-    {
-      "source": "NumberOperations.clamp_number(17, 4, 5)\n# returns 5",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 18
-    },
-    {
-      "source": "NumberOperations.clamp_number(23, 20, 30)\n# returns 23",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 23
-    },
-    {
-      "source": "NumberOperations.degrees_to_radians(160)\n# returns 2.792526803190927",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 15
-    },
-    {
-      "source": "NumberOperations.degrees_to_radians(360, decompose=True)\n# returns (2, \"pi\", \"rad\")",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 20
-    },
-    {
-      "source": "NumberOperations.greatest_common_divisor([54, 24])\n# returns 6",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 14
-    },
-    {
-      "source": "NumberOperations.greatest_common_divisor([30, 132, 378, 582, 738])\n# returns 6",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 19
-    },
-    {
-      "source": "NumberOperations.is_divisible_by(35, 15)\n# returns False",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 15
-    },
-    {
-      "source": "NumberOperations.least_common_multiple(4, 5)\n# returns 20",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 14
-    },
-    {
-      "source": "NumberOperations.least_common_multiple(2, 5, 17, 632)\n# returns 53720",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 19
-    },
-    {
-      "source": "NumberOperations.radians_to_degrees(2 * math.pi)\n# returns 360",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 13
-    },
-    {
-      "source": "NumberOperations.radians_to_degrees(2.710)\n# returns 155.2715624804531",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 18
-    },
-    {
-      "source": "StringOperations.camel_case(\"a_snake_case_name\")\n# returns \"aSnakeCaseName\"",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 13
-    },
-    {
-      "source": "StringOperations.camel_case(\"A Title Case Name\")\n# returns \"aTitleCaseName\"",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 18
-    },
-    {
-      "source": "StringOperations.capitalize(\"astringtocapitalize\")\n# returns \"Astringtocapitalize\"",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 16
-    },
-    {
-      "source": "StringOperations.capitalize(\"astRIngTocApItalizE\", lower_rest=True)\n# returns \"Astringtocapitalize\"",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 21
-    },
-    {
-      "source": "StringOperations.is_anagram(\"Tom Marvolo Riddle\", \"I am Lord Voldemort\")\n# returns True",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 18
-    },
-    {
-      "source": "StringOperations.is_anagram(\"A first string\", \"Definitely not an anagram\")\n# returns False",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 23
-    },
-    {
-      "source": "StringOperations.is_palindrome(\"racecar\")\n# returns True",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 14
-    },
-    {
-      "source": "StringOperations.is_palindrome(\"definitelynot\")\n# returns False",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 19
-    },
-    {
-      "source": "StringOperations.kebab_case(\"camel Case\")\n# returns \"camel-case\"",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 13
-    },
-    {
-      "source": "StringOperations.kebab_case(\"snake_case\")\n# returns \"snake-case\"",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 18
-    },
-    {
-      "source": "StringOperations.snake_case(\"A bunch of words\")\n# returns \"a_bunch_of_words\"",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 13
-    },
-    {
-      "source": "StringOperations.snake_case(\"camelCase\")\n# returns \"camelcase\"",
-      "names": [],
-      "example": {
-        "document": "api/utils",
-        "ref_id": "operations-utilities",
-        "headings": [
-          "Utils",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Examples",
-          "Example",
-          "Example",
-          "Example",
-          "Example",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples",
-          "Examples"
-        ]
-      },
-      "doc_lineno": 18
+      "doc_lineno": 27
     }
   ],
   "bibliography": [],
@@ -7224,7 +4527,7 @@
           "AC Dipole Driven Tracking Spectrum"
         ]
       },
-      "doc_lineno": 253
+      "doc_lineno": 254
     }
   ],
   "gallery/demo_aperture": [],
@@ -7249,12 +4552,11 @@
           "Free Tracking Spectrum"
         ]
       },
-      "doc_lineno": 392
+      "doc_lineno": 393
     }
   ],
   "gallery/demo_tune_diagram": [],
   "gallery/index": [],
-  "gallery/sg_execution_times": [],
   "index": [],
   "quickstart": [],
   "release": [],
@@ -7305,5 +4607,5 @@
   "releases/v1.4.0": [],
   "releases/v1.5.0": [],
   "releases/v1.6.0": [],
-  "sg_execution_times": []
+  "releases/v1.7.0": []
 }

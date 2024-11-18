@@ -5,24 +5,24 @@ Utils
 
 .. automodule:: pyhdtoolkit.utils.cmdline
    :members:
+   :noindex:
+
+.. automodule:: pyhdtoolkit.utils.decorators
+   :members:
+   :noindex:
 
 .. automodule:: pyhdtoolkit.utils.contexts
    :members:
-
-.. automodule:: pyhdtoolkit.utils.executors
-   :members:
+   :noindex:
 
 .. automodule:: pyhdtoolkit.utils.htc_monitor
    :members:
+   :noindex:
 
 .. automodule:: pyhdtoolkit.utils.logging
    :members:
+   :noindex:
 
-.. automodule:: pyhdtoolkit.utils._misc
-   :members:
-
-.. automodule:: pyhdtoolkit.utils.operations
-   :members:
-
-.. automodule:: pyhdtoolkit.utils.printutil
-   :members:
+.. .. automodule:: pyhdtoolkit.utils._misc
+..    :members:
+..    :noindex:

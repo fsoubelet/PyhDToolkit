@@ -27,9 +27,10 @@ Segment-by-Segment Results
 This example shows how to use the modules in `pyhdtoolkit.plotting.sbs` and their various functions
 to easily visualize results of segment-by-segment runs.
 
-.. GENERATED FROM PYTHON SOURCE LINES 12-22
+.. GENERATED FROM PYTHON SOURCE LINES 12-23
 
 .. code-block:: Python
+
 
     import matplotlib.pyplot as plt
     import tfs
@@ -48,7 +49,7 @@ to easily visualize results of segment-by-segment runs.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-29
+.. GENERATED FROM PYTHON SOURCE LINES 25-30
 
 The functions in `.pyhdtoolkit.plotting.sbs` modules usually need to be provided
 different dataframes corresponding to specific components of segment-by-segment
@@ -56,7 +57,7 @@ results, which can be obtained by directly loading the output **TFS** files.
 Let's load below the coupling results of a segment-by-segment run and related
 model files.
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-36
+.. GENERATED FROM PYTHON SOURCE LINES 30-37
 
 .. code-block:: Python
 
@@ -74,7 +75,7 @@ model files.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-45
+.. GENERATED FROM PYTHON SOURCE LINES 38-46
 
 One can now easily plot these results in a few lines with functions from the
 `.plotting.sbs.coupling` module. Here we will plot a single component of a
@@ -85,7 +86,7 @@ given coupling RDT through the segment.
     used to determine the position of the IP point in the segment, and this position
     will then be highlighted in the plot.
 
-.. GENERATED FROM PYTHON SOURCE LINES 45-63
+.. GENERATED FROM PYTHON SOURCE LINES 46-64
 
 .. code-block:: Python
 
@@ -119,7 +120,7 @@ given coupling RDT through the segment.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 64-72
+.. GENERATED FROM PYTHON SOURCE LINES 65-73
 
 One can plot all components of a given coupling RDT for both beams with the
 `~.plotting.sbs.coupling.plot_full_ip_rdt` function.
@@ -130,7 +131,7 @@ One can plot all components of a given coupling RDT for both beams with the
     axis. Keyword arguments can be used to specify properties of the figure and
     set the position of the legend.
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-88
+.. GENERATED FROM PYTHON SOURCE LINES 73-89
 
 .. code-block:: Python
 
@@ -146,7 +147,7 @@ One can plot all components of a given coupling RDT for both beams with the
         abs_ylimits=(5e-3, 6.5e-2),
         real_ylimits=(-1e-1, 1e-1),
         imag_ylimits=(-1e-1, 1e-1),
-        bbox_to_anchor=(0.535, 0.935),
+        bbox_to_anchor=(0.535, 0.945),
     )
     plt.show()
 
@@ -162,14 +163,14 @@ One can plot all components of a given coupling RDT for both beams with the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 89-93
+.. GENERATED FROM PYTHON SOURCE LINES 90-94
 
 Similarly, one can plot the phase results of a segment-by-segment run with the
 functions in `~.plotting.sbs.phase`. The plotting logic is the same as above,
 with the simplification that no component has to be chosen. Let's load data for
 this example: one dataframe for each plane for Beam 2.
 
-.. GENERATED FROM PYTHON SOURCE LINES 93-106
+.. GENERATED FROM PYTHON SOURCE LINES 94-107
 
 .. code-block:: Python
 
@@ -198,13 +199,13 @@ this example: one dataframe for each plane for Beam 2.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 107-110
+.. GENERATED FROM PYTHON SOURCE LINES 108-111
 
 Similarly to the coupling example, one can plot the results for both beams in
 a single call with the `~.plotting.sbs.phase.plot_phase_segment_both_beams`
 function, as demonstrated below.
 
-.. GENERATED FROM PYTHON SOURCE LINES 110-124
+.. GENERATED FROM PYTHON SOURCE LINES 111-125
 
 .. code-block:: Python
 
@@ -218,7 +219,7 @@ function, as demonstrated below.
         b2_model=b2_model_tfs,
         ip=5,
         figsize=(20, 11),
-        bbox_to_anchor=(0.535, 0.935),
+        bbox_to_anchor=(0.535, 0.945),
     )
     plt.show()
 
@@ -234,7 +235,7 @@ function, as demonstrated below.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 125-132
+.. GENERATED FROM PYTHON SOURCE LINES 126-133
 
 .. admonition:: References
 
@@ -247,7 +248,7 @@ function, as demonstrated below.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.777 seconds)
+   **Total running time of the script:** (0 minutes 3.355 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_sbs_plotting.py:

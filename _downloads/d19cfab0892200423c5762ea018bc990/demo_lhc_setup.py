@@ -24,8 +24,10 @@ available at the level of the `pyhdtoolkit.cpymadtools.lhc` module.
     Here I set the 2022 branch for stability and reproducibility of the documentation
     builds, but you can use any branch you want.
 """
+
 # sphinx_gallery_thumbnail_number = 4
 import matplotlib.pyplot as plt
+
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import coupling, lhc, twiss

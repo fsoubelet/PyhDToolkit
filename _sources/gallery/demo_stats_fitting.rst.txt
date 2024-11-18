@@ -34,9 +34,10 @@ it originated from.
 
 .. _chi-square: https://en.wikipedia.org/wiki/Chi-squared_distribution
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-32
+.. GENERATED FROM PYTHON SOURCE LINES 18-33
 
 .. code-block:: Python
+
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -59,7 +60,7 @@ it originated from.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-43
+.. GENERATED FROM PYTHON SOURCE LINES 35-44
 
 We will for this example create a chi-square_ distribution with known parameters. As the
 chisquare distribution is based on deviations of independent, normal distribution variables,
@@ -71,7 +72,7 @@ we will create a normal distribution with K degrees of freedom, and compute the 
 
 By repeating so a few thousand times, we get a chi-square distribution.
 
-.. GENERATED FROM PYTHON SOURCE LINES 43-83
+.. GENERATED FROM PYTHON SOURCE LINES 44-84
 
 .. code-block:: Python
 
@@ -122,7 +123,7 @@ By repeating so a few thousand times, we get a chi-square distribution.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 84-109
+.. GENERATED FROM PYTHON SOURCE LINES 85-110
 
 Now, from this chi-squared distribution of values, how do we find back the standard deviation
 :math:`\sigma_{0}` of the normal (gaussian) distributions it is computed from?
@@ -150,7 +151,7 @@ Since this peak happens at :math:`K - 2`, then we have:
 
 Enough talk, see below an example with :math:`N = 5` measurements.
 
-.. GENERATED FROM PYTHON SOURCE LINES 109-121
+.. GENERATED FROM PYTHON SOURCE LINES 110-122
 
 .. code-block:: Python
 
@@ -173,12 +174,12 @@ Enough talk, see below an example with :math:`N = 5` measurements.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 122-124
+.. GENERATED FROM PYTHON SOURCE LINES 123-125
 
 For the sake of not over-crowding our plot, let's reduce the amount of statistical
 distributions we will try to fit to the data:
 
-.. GENERATED FROM PYTHON SOURCE LINES 124-132
+.. GENERATED FROM PYTHON SOURCE LINES 125-133
 
 .. code-block:: Python
 
@@ -197,12 +198,12 @@ distributions we will try to fit to the data:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 133-135
+.. GENERATED FROM PYTHON SOURCE LINES 134-136
 
 Now we plot our data, and try to fit these three distributions to it, by calling
 the `~.maths.stats_fitting.best_fit_distribution` function:
 
-.. GENERATED FROM PYTHON SOURCE LINES 135-155
+.. GENERATED FROM PYTHON SOURCE LINES 136-156
 
 .. code-block:: Python
 
@@ -238,14 +239,14 @@ the `~.maths.stats_fitting.best_fit_distribution` function:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 156-160
+.. GENERATED FROM PYTHON SOURCE LINES 157-161
 
 That's nice. We can already see that only the chi-squared distrubtion seems to
 be a good fit. Let's do a new plot with only the best fit's probability density
 function (which we get with the `~.maths.stats_fitting.make_pdf` function) added
 onto the data, and determine its mode:
 
-.. GENERATED FROM PYTHON SOURCE LINES 160-196
+.. GENERATED FROM PYTHON SOURCE LINES 161-203
 
 .. code-block:: Python
 
@@ -265,8 +266,14 @@ onto the data, and determine its mode:
         legend=True,
         ax=ax,
     )
-    param_names = (best_fit_func.shapes + ", loc, scale").split(", ") if best_fit_func.shapes else ["loc", "scale"]
-    param_str = ", ".join([f"{k}={v:0.2f}" for k, v in zip(param_names, best_fit_params, strict=False)])
+    param_names = (
+        (best_fit_func.shapes + ", loc, scale").split(", ")
+        if best_fit_func.shapes
+        else ["loc", "scale"]
+    )
+    param_str = ", ".join(
+        [f"{k}={v:0.2f}" for k, v in zip(param_names, best_fit_params, strict=False)]
+    )
     dist_str = f"{fitting.DISTRIBUTIONS[best_fit_func]}({param_str})"
 
     # Let's add to the plot some info on the fit's peak
@@ -289,7 +296,7 @@ onto the data, and determine its mode:
 
 
 .. image-sg:: /gallery/images/sphx_glr_demo_stats_fitting_002.svg
-   :alt: Best fit to distribution: ChiSquared(df=4.03, loc=-0.01, scale=1.00)
+   :alt: Best fit to distribution: ChiSquared(df=4.02, loc=-0.00, scale=1.00)
    :srcset: /gallery/images/sphx_glr_demo_stats_fitting_002.svg, /gallery/images/sphx_glr_demo_stats_fitting_002_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
@@ -297,12 +304,12 @@ onto the data, and determine its mode:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 197-199
+.. GENERATED FROM PYTHON SOURCE LINES 204-206
 
 We expect a mode of 2, we can check that this is indeed the case. Here we leave
 a nice tolerance to ensure the documentation build does not fail.
 
-.. GENERATED FROM PYTHON SOURCE LINES 199-203
+.. GENERATED FROM PYTHON SOURCE LINES 206-210
 
 .. code-block:: Python
 
@@ -317,7 +324,7 @@ a nice tolerance to ensure the documentation build does not fail.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 204-209
+.. GENERATED FROM PYTHON SOURCE LINES 211-216
 
 With this knowledge, we can now determine the standard deviation of the normal
 distribution we've used to create this chi-square distribution. Remember that
@@ -325,12 +332,16 @@ in the `chi_square_dist` function we have called `np.random.default_rng().normal
 with ``loc=0`` and ``scale=1``, so we expect here to find a standard deviation of
 one.
 
-.. GENERATED FROM PYTHON SOURCE LINES 209-215
+.. GENERATED FROM PYTHON SOURCE LINES 216-226
 
 .. code-block:: Python
 
 
-    factor = np.sqrt(2) * scipy.special.gamma((degrees_of_freedom + 1) / 2) / scipy.special.gamma(degrees_of_freedom / 2)
+    factor = (
+        np.sqrt(2)
+        * scipy.special.gamma((degrees_of_freedom + 1) / 2)
+        / scipy.special.gamma(degrees_of_freedom / 2)
+    )
 
     determined_stdev = chi_data.mean() / factor
     assert np.isclose(determined_stdev, 1, rtol=1e-2)  # nice tolerance here too
@@ -342,14 +353,14 @@ one.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 216-220
+.. GENERATED FROM PYTHON SOURCE LINES 227-231
 
 Which we do :)
 
 Bonus: here's a plot of trying to fit all basic distributions to the chi
 distribution generated above.
 
-.. GENERATED FROM PYTHON SOURCE LINES 220-249
+.. GENERATED FROM PYTHON SOURCE LINES 231-260
 
 .. code-block:: Python
 
@@ -394,7 +405,7 @@ distribution generated above.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 250-257
+.. GENERATED FROM PYTHON SOURCE LINES 261-268
 
 .. admonition:: References
 
@@ -407,7 +418,7 @@ distribution generated above.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 9.540 seconds)
+   **Total running time of the script:** (0 minutes 12.872 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_stats_fitting.py:

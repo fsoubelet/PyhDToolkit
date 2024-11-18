@@ -1,11 +1,13 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.cpymadtools.lhc._setup &mdash; PyhDToolkit 1.6.0 documentation</title>
+  <title>pyhdtoolkit.cpymadtools.lhc._setup &mdash; PyhDToolkit 1.7.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-codeautolink.css?v=125d5c1c" />
@@ -17,18 +19,14 @@
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css?v=0a86e678" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=72d88caf"></script>
-        <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../../../../_static/copybutton.js?v=f281be69"></script>
-        <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=030dc6f6"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -45,9 +43,6 @@
           <a href="../../../../index.html">
             
           </a>
-              <div class="version">
-                1.6.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -99,182 +94,56 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/cpymadtools.html">Cpymadtools</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#useful-constants">Useful Constants</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_closest_tune_approach"><code class="docutils literal notranslate"><span class="pre">get_closest_tune_approach()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_cminus_from_coupling_rdts"><code class="docutils literal notranslate"><span class="pre">get_cminus_from_coupling_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_coupling_rdts"><code class="docutils literal notranslate"><span class="pre">get_coupling_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.match_no_coupling_through_ripkens"><code class="docutils literal notranslate"><span class="pre">match_no_coupling_through_ripkens()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._coupling.correct_lhc_global_coupling"><code class="docutils literal notranslate"><span class="pre">correct_lhc_global_coupling()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._coupling.get_lhc_bpms_twiss_and_rdts"><code class="docutils literal notranslate"><span class="pre">get_lhc_bpms_twiss_and_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._elements.add_markers_around_lhc_ip"><code class="docutils literal notranslate"><span class="pre">add_markers_around_lhc_ip()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._elements.install_ac_dipole_as_kicker"><code class="docutils literal notranslate"><span class="pre">install_ac_dipole_as_kicker()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._elements.install_ac_dipole_as_matrix"><code class="docutils literal notranslate"><span class="pre">install_ac_dipole_as_matrix()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._errors.misalign_lhc_ir_quadrupoles"><code class="docutils literal notranslate"><span class="pre">misalign_lhc_ir_quadrupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._errors.misalign_lhc_triplets"><code class="docutils literal notranslate"><span class="pre">misalign_lhc_triplets()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.get_lhc_bpms_list"><code class="docutils literal notranslate"><span class="pre">get_lhc_bpms_list()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.get_lhc_tune_and_chroma_knobs"><code class="docutils literal notranslate"><span class="pre">get_lhc_tune_and_chroma_knobs()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.get_sizes_at_ip"><code class="docutils literal notranslate"><span class="pre">get_sizes_at_ip()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.make_sixtrack_output"><code class="docutils literal notranslate"><span class="pre">make_sixtrack_output()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.reset_lhc_bump_flags"><code class="docutils literal notranslate"><span class="pre">reset_lhc_bump_flags()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_colinearity_knob"><code class="docutils literal notranslate"><span class="pre">apply_lhc_colinearity_knob()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_colinearity_knob_delta"><code class="docutils literal notranslate"><span class="pre">apply_lhc_colinearity_knob_delta()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_coupling_knob"><code class="docutils literal notranslate"><span class="pre">apply_lhc_coupling_knob()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_rigidity_waist_shift_knob"><code class="docutils literal notranslate"><span class="pre">apply_lhc_rigidity_waist_shift_knob()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.carry_colinearity_knob_over"><code class="docutils literal notranslate"><span class="pre">carry_colinearity_knob_over()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.deactivate_lhc_arc_sextupoles"><code class="docutils literal notranslate"><span class="pre">deactivate_lhc_arc_sextupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.power_landau_octupoles"><code class="docutils literal notranslate"><span class="pre">power_landau_octupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.switch_magnetic_errors"><code class="docutils literal notranslate"><span class="pre">switch_magnetic_errors()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.vary_independent_ir_quadrupoles"><code class="docutils literal notranslate"><span class="pre">vary_independent_ir_quadrupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.get_current_orbit_setup"><code class="docutils literal notranslate"><span class="pre">get_current_orbit_setup()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.get_magnets_powering"><code class="docutils literal notranslate"><span class="pre">get_magnets_powering()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.query_arc_correctors_powering"><code class="docutils literal notranslate"><span class="pre">query_arc_correctors_powering()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.query_triplet_correctors_powering"><code class="docutils literal notranslate"><span class="pre">query_triplet_correctors_powering()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._routines.correct_lhc_global_coupling"><code class="docutils literal notranslate"><span class="pre">correct_lhc_global_coupling()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._routines.correct_lhc_orbit"><code class="docutils literal notranslate"><span class="pre">correct_lhc_orbit()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._routines.do_kmodulation"><code class="docutils literal notranslate"><span class="pre">do_kmodulation()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.LHCSetup"><code class="docutils literal notranslate"><span class="pre">LHCSetup</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.lhc_orbit_variables"><code class="docutils literal notranslate"><span class="pre">lhc_orbit_variables()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_beams"><code class="docutils literal notranslate"><span class="pre">make_lhc_beams()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_thin"><code class="docutils literal notranslate"><span class="pre">make_lhc_thin()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run2"><code class="docutils literal notranslate"><span class="pre">prepare_lhc_run2()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run3"><code class="docutils literal notranslate"><span class="pre">prepare_lhc_run3()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.re_cycle_sequence"><code class="docutils literal notranslate"><span class="pre">re_cycle_sequence()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.setup_lhc_orbit"><code class="docutils literal notranslate"><span class="pre">setup_lhc_orbit()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._twiss.get_ips_twiss"><code class="docutils literal notranslate"><span class="pre">get_ips_twiss()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._twiss.get_ir_twiss"><code class="docutils literal notranslate"><span class="pre">get_ir_twiss()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_chromaticities"><code class="docutils literal notranslate"><span class="pre">match_chromaticities()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes"><code class="docutils literal notranslate"><span class="pre">match_tunes()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities"><code class="docutils literal notranslate"><span class="pre">match_tunes_and_chromaticities()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#parameters">Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.parameters.query_beam_attributes"><code class="docutils literal notranslate"><span class="pre">query_beam_attributes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#beam-parameters">Beam Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.get_amplitude_detuning"><code class="docutils literal notranslate"><span class="pre">get_amplitude_detuning()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.get_rdts"><code class="docutils literal notranslate"><span class="pre">get_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.ptc_track_particle"><code class="docutils literal notranslate"><span class="pre">ptc_track_particle()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.ptc_twiss"><code class="docutils literal notranslate"><span class="pre">ptc_twiss()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.track.track_single_particle"><code class="docutils literal notranslate"><span class="pre">track_single_particle()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.tune.get_footprint_lines"><code class="docutils literal notranslate"><span class="pre">get_footprint_lines()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.tune.get_footprint_patches"><code class="docutils literal notranslate"><span class="pre">get_footprint_patches()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.tune.make_footprint_table"><code class="docutils literal notranslate"><span class="pre">make_footprint_table()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.twiss.get_pattern_twiss"><code class="docutils literal notranslate"><span class="pre">get_pattern_twiss()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.twiss.get_twiss_tfs"><code class="docutils literal notranslate"><span class="pre">get_twiss_tfs()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#miscellaneous-utilities">Miscellaneous Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.utils.export_madx_table"><code class="docutils literal notranslate"><span class="pre">export_madx_table()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.utils.get_table_tfs"><code class="docutils literal notranslate"><span class="pre">get_table_tfs()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/maths.html">Maths</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/maths.html#stats-fitting">Stats Fitting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/maths.html#pyhdtoolkit.maths.stats_fitting.best_fit_distribution"><code class="docutils literal notranslate"><span class="pre">best_fit_distribution()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/maths.html#pyhdtoolkit.maths.stats_fitting.make_pdf"><code class="docutils literal notranslate"><span class="pre">make_pdf()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/maths.html#pyhdtoolkit.maths.stats_fitting.set_distributions_dict"><code class="docutils literal notranslate"><span class="pre">set_distributions_dict()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/maths.html#utilities">Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/maths.html#pyhdtoolkit.maths.utils.get_magnitude"><code class="docutils literal notranslate"><span class="pre">get_magnitude()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/maths.html#pyhdtoolkit.maths.utils.get_scaled_values_and_magnitude_string"><code class="docutils literal notranslate"><span class="pre">get_scaled_values_and_magnitude_string()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/models.html">Models</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/models.html#particle-beam-models">Particle Beam Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/models.html#pyhdtoolkit.models.beam.BeamParameters"><code class="docutils literal notranslate"><span class="pre">BeamParameters</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/models.html#htcondor-models">HTCondor Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/models.html#pyhdtoolkit.models.htc.BaseSummary"><code class="docutils literal notranslate"><span class="pre">BaseSummary</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/models.html#pyhdtoolkit.models.htc.ClusterSummary"><code class="docutils literal notranslate"><span class="pre">ClusterSummary</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/models.html#pyhdtoolkit.models.htc.HTCTaskSummary"><code class="docutils literal notranslate"><span class="pre">HTCTaskSummary</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/models.html#mad-x-models">MAD-X Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/models.html#pyhdtoolkit.models.madx.MADXBeam"><code class="docutils literal notranslate"><span class="pre">MADXBeam</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/models.html#pyhdtoolkit.models.madx.ParticleEnum"><code class="docutils literal notranslate"><span class="pre">ParticleEnum</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/optics.html">Optics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/optics.html#beam-optics">Beam Optics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/optics.html#pyhdtoolkit.optics.beam.Beam"><code class="docutils literal notranslate"><span class="pre">Beam</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/optics.html#pyhdtoolkit.optics.beam.compute_beam_parameters"><code class="docutils literal notranslate"><span class="pre">compute_beam_parameters()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/optics.html#resonance-driving-terms-utilities">Resonance Driving Terms Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/optics.html#pyhdtoolkit.optics.rdt.determine_rdt_line"><code class="docutils literal notranslate"><span class="pre">determine_rdt_line()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/optics.html#pyhdtoolkit.optics.rdt.rdt_to_order_and_type"><code class="docutils literal notranslate"><span class="pre">rdt_to_order_and_type()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/optics.html#ripken-parameters">Ripken Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/optics.html#pyhdtoolkit.optics.ripken.lebedev_beam_size"><code class="docutils literal notranslate"><span class="pre">lebedev_beam_size()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/optics.html#twiss-optics">Twiss Optics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/optics.html#pyhdtoolkit.optics.twiss.courant_snyder_transform"><code class="docutils literal notranslate"><span class="pre">courant_snyder_transform()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/plotting.html">Plotting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#plotting-styles">Plotting Styles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.styles.install_mpl_styles"><code class="docutils literal notranslate"><span class="pre">install_mpl_styles()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#paper-styles">Paper Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#thesis-styles">Thesis Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.aperture.plot_aperture"><code class="docutils literal notranslate"><span class="pre">plot_aperture()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.aperture.plot_physical_apertures"><code class="docutils literal notranslate"><span class="pre">plot_physical_apertures()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.crossing.plot_single_ir_crossing"><code class="docutils literal notranslate"><span class="pre">plot_single_ir_crossing()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.crossing.plot_two_lhc_ips_crossings"><code class="docutils literal notranslate"><span class="pre">plot_two_lhc_ips_crossings()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.envelope.plot_beam_envelope"><code class="docutils literal notranslate"><span class="pre">plot_beam_envelope()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#lattice-plotters">Lattice Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.lattice.plot_latwiss"><code class="docutils literal notranslate"><span class="pre">plot_latwiss()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.lattice.plot_machine_survey"><code class="docutils literal notranslate"><span class="pre">plot_machine_survey()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#layout-plotters">Layout Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.layout.plot_machine_layout"><code class="docutils literal notranslate"><span class="pre">plot_machine_layout()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.layout.scale_patches"><code class="docutils literal notranslate"><span class="pre">scale_patches()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#phase-space-plotters">Phase Space Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.phasespace.plot_courant_snyder_phase_space"><code class="docutils literal notranslate"><span class="pre">plot_courant_snyder_phase_space()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.phasespace.plot_courant_snyder_phase_space_colored"><code class="docutils literal notranslate"><span class="pre">plot_courant_snyder_phase_space_colored()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#tune-diagram-plotters">Tune Diagram Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.tune.farey_sequence"><code class="docutils literal notranslate"><span class="pre">farey_sequence()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.tune.plot_resonance_lines_for_order"><code class="docutils literal notranslate"><span class="pre">plot_resonance_lines_for_order()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.tune.plot_tune_diagram"><code class="docutils literal notranslate"><span class="pre">plot_tune_diagram()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#segment-by-segment-coupling">Segment-by-Segment Coupling</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_full_ip_rdt"><code class="docutils literal notranslate"><span class="pre">plot_full_ip_rdt()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_rdt_component"><code class="docutils literal notranslate"><span class="pre">plot_rdt_component()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#segment-by-segment-phase">Segment-by-Segment Phase</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment"><code class="docutils literal notranslate"><span class="pre">plot_phase_segment()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams"><code class="docutils literal notranslate"><span class="pre">plot_phase_segment_both_beams()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_one_beam"><code class="docutils literal notranslate"><span class="pre">plot_phase_segment_one_beam()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#plotting-utility-functions">Plotting Utility Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.utils.draw_confidence_ellipse"><code class="docutils literal notranslate"><span class="pre">draw_confidence_ellipse()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.utils.draw_ip_locations"><code class="docutils literal notranslate"><span class="pre">draw_ip_locations()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.utils.find_ip_s_from_segment_start"><code class="docutils literal notranslate"><span class="pre">find_ip_s_from_segment_start()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.utils.get_lhc_ips_positions"><code class="docutils literal notranslate"><span class="pre">get_lhc_ips_positions()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.utils.make_elements_groups"><code class="docutils literal notranslate"><span class="pre">make_elements_groups()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.utils.make_survey_groups"><code class="docutils literal notranslate"><span class="pre">make_survey_groups()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.utils.maybe_get_ax"><code class="docutils literal notranslate"><span class="pre">maybe_get_ax()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#pyhdtoolkit.plotting.utils.set_arrow_label"><code class="docutils literal notranslate"><span class="pre">set_arrow_label()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils.cmdline.CommandLine"><code class="docutils literal notranslate"><span class="pre">CommandLine</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#decorator-utilities">Decorator Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#context-utilities">Context Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils.contexts.timeit"><code class="docutils literal notranslate"><span class="pre">timeit()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#executors-utilities">Executors Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils.executors.MultiProcessor"><code class="docutils literal notranslate"><span class="pre">MultiProcessor</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils.executors.MultiThreader"><code class="docutils literal notranslate"><span class="pre">MultiThreader</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils.htc_monitor.query_condor_q"><code class="docutils literal notranslate"><span class="pre">query_condor_q()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils.htc_monitor.read_condor_q"><code class="docutils literal notranslate"><span class="pre">read_condor_q()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#logging-utilities">Logging Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils.logging.config_logger"><code class="docutils literal notranslate"><span class="pre">config_logger()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils._misc.add_noise_to_arc_bpms"><code class="docutils literal notranslate"><span class="pre">add_noise_to_arc_bpms()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils._misc.add_noise_to_ir_bpms"><code class="docutils literal notranslate"><span class="pre">add_noise_to_ir_bpms()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils._misc.apply_colin_corrs_balance"><code class="docutils literal notranslate"><span class="pre">apply_colin_corrs_balance()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils._misc.get_betastar_from_opticsfile"><code class="docutils literal notranslate"><span class="pre">get_betastar_from_opticsfile()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils._misc.log_runtime_versions"><code class="docutils literal notranslate"><span class="pre">log_runtime_versions()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils._misc.split_complex_columns"><code class="docutils literal notranslate"><span class="pre">split_complex_columns()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#operations-utilities">Operations Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations"><code class="docutils literal notranslate"><span class="pre">ListOperations</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils.operations.MiscellaneousOperations"><code class="docutils literal notranslate"><span class="pre">MiscellaneousOperations</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils.operations.NumberOperations"><code class="docutils literal notranslate"><span class="pre">NumberOperations</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils.operations.StringOperations"><code class="docutils literal notranslate"><span class="pre">StringOperations</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#printing-utilities">Printing Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils.printutil.Background"><code class="docutils literal notranslate"><span class="pre">Background</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils.printutil.Foreground"><code class="docutils literal notranslate"><span class="pre">Foreground</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#pyhdtoolkit.utils.printutil.Styles"><code class="docutils literal notranslate"><span class="pre">Styles</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -295,6 +164,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-1-7-0">Version 1.7.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v1.7.0.html">1.7.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-1-6-0">Version 1.6.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../releases/v1.6.0.html">1.6.0</a></li>
 </ul>
@@ -518,8 +391,11 @@
 
 <span class="sd">**Setup Utilities**</span>
 
-<span class="sd">The functions below are setup utilities for the ``LHC``, to easily get simulations ready.</span>
+<span class="sd">The functions below are setup utilities for the ``LHC``,</span>
+<span class="sd">to easily get simulations ready.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
@@ -542,38 +418,55 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
 
-<span class="sd">    Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a Run 2 setup. Both beams</span>
-<span class="sd">    are made with a default Run 2 configuration, and the ``lhcb`` sequence for the given beam is re-cycled</span>
-<span class="sd">    from ``MSIA.EXIT.B{beam}`` as in the ``OMC`` model_creator, and then ``USE``-d. Specific variable settings</span>
+<span class="sd">    Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a</span>
+<span class="sd">    Run 2 setup. Both beams are made with a default Run 2 configuration, and the</span>
+<span class="sd">    ``lhcb`` sequence for the given beam is re-cycled from ``MSIA.EXIT.B{beam}``</span>
+<span class="sd">    as in the ``OMC`` model_creator, and then ``USE``-d. Specific variable settings</span>
 <span class="sd">    can be given as keyword arguments.</span>
 
-<span class="sd">    .. important::</span>
-<span class="sd">        As this is a Run 2 setup, it is assumed that files are organised in the typical setup as found on ``AFS``.</span>
-<span class="sd">        The sequence file will be looked for as a relative location from the optics file: it is assumed that next</span>
-<span class="sd">        to the sequence file is a **PROTON** or **ION** folder with the opticsfiles.</span>
+<span class="sd">    Important</span>
+<span class="sd">    ---------</span>
+<span class="sd">        As this is a Run 2 setup, it is assumed that files are organised in the</span>
+<span class="sd">        typical setup as found on ``AFS``. The sequence file will be looked for</span>
+<span class="sd">        as a relative location from the optics file: it is assumed that next to</span>
+<span class="sd">        the sequence file is a **PROTON** or **ION** folder with the opticsfiles.</span>
 
-<span class="sd">    .. note::</span>
-<span class="sd">        Matching is **not** performed by this function and should be taken care of by the user, but the working point</span>
-<span class="sd">        should be set by the definitions in the *opticsfile*. Beware that passing specific variables as keyword arguments</span>
-<span class="sd">        might change that working point.</span>
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">        Matching is **not** performed by this function and should be taken care</span>
+<span class="sd">        of by the user, but the working point should be set by the definitions in</span>
+<span class="sd">        the *opticsfile*.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        opticsfile (str): the relative string path or a `Path` object to the opticsfile location. This will</span>
-<span class="sd">            be used to determine the location of the sequence file, see the admonition above.</span>
-<span class="sd">        beam (int): which beam to set up for. Defaults to beam 1.</span>
-<span class="sd">        use_b4 (bool): if `True`, the lhcb4 sequence file will be used. This is the beam 2 sequence but for tracking</span>
-<span class="sd">            purposes. Defaults to `False`.</span>
-<span class="sd">        energy (float): beam energy to set up for, in GeV. Defaults to 6500.</span>
-<span class="sd">        slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,</span>
-<span class="sd">            which leads to an unsliced sequence.</span>
-<span class="sd">        **kwargs: if `echo` or `warn` are found in the keyword arguments they will be transmitted as options</span>
-<span class="sd">            to ``MAD-X`` (by default they are given as `False`). Any other keyword argument is transmitted to</span>
-<span class="sd">            the `~cpymad.madx.Madx` creation call.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    opticsfile : str</span>
+<span class="sd">        The relative string path or a `Path` object to the opticsfile location.</span>
+<span class="sd">        This will be used to determine the location of the sequence file, see the</span>
+<span class="sd">        admonition above.</span>
+<span class="sd">    beam : int</span>
+<span class="sd">        The beam to set up for. Defaults to beam 1.</span>
+<span class="sd">    use_b4 : bool</span>
+<span class="sd">        If `True`, the lhcb4 sequence file will be used. This is the beam 2</span>
+<span class="sd">        sequence but for tracking purposes. Defaults to `False`.</span>
+<span class="sd">    energy : float</span>
+<span class="sd">        The beam energy to set up for, in [GeV]. Defaults to 6500.</span>
+<span class="sd">    slicefactor : int, optional</span>
+<span class="sd">        If provided, the sequence will be sliced and made thin. Defaults to</span>
+<span class="sd">        `None`, which leads to an unsliced sequence.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        If `echo` or `warn` are found in the keyword arguments they will be</span>
+<span class="sd">        transmitted as options to ``MAD-X`` (by default these two are given</span>
+<span class="sd">        as `False`). Any other keyword argument is transmitted to the</span>
+<span class="sd">        `~cpymad.madx.Madx` creation call.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        An instanciated `~cpymad.madx.Madx` object with the required configuration.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    cpymad.madx.Madx</span>
+<span class="sd">        An instanciated `~cpymad.madx.Madx` object with the required</span>
+<span class="sd">        configuration.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            madx = prepare_lhc_run2(</span>
@@ -603,19 +496,19 @@
     <span class="n">madx</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="n">echo</span><span class="o">=</span><span class="n">echo</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="n">warn</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Calling sequence&quot;</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">_fullpath</span><span class="p">(</span><span class="n">_run2_sequence_from_opticsfile</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">))))</span>
-    <span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">)</span>
+    <span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">,</span> <span class="n">nemitt_x</span><span class="o">=</span><span class="mf">3.75e-6</span><span class="p">,</span> <span class="n">nemitt_y</span><span class="o">=</span><span class="mf">3.75e-6</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">slicefactor</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;A slicefactor was provided, slicing the sequence&quot;</span><span class="p">)</span>
         <span class="n">make_lhc_thin</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">slicefactor</span><span class="o">=</span><span class="n">slicefactor</span><span class="p">)</span>
-        <span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">)</span>
+        <span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">,</span> <span class="n">nemitt_x</span><span class="o">=</span><span class="mf">3.75e-6</span><span class="p">,</span> <span class="n">nemitt_y</span><span class="o">=</span><span class="mf">3.75e-6</span><span class="p">)</span>
 
     <span class="n">re_cycle_sequence</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MSIA.EXIT.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Calling optics file from the &#39;operation/optics&#39; folder&quot;</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">)</span>
 
-    <span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">)</span>
+    <span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">,</span> <span class="n">nemitt_x</span><span class="o">=</span><span class="mf">3.75e-6</span><span class="p">,</span> <span class="n">nemitt_y</span><span class="o">=</span><span class="mf">3.75e-6</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">madx</span></div>
 
@@ -629,34 +522,54 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
 
-<span class="sd">    Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a Run 3 setup. Both beams</span>
-<span class="sd">    are made with a default Run 3 configuration, and the provided sequence is re-cycled from ``MSIA.EXIT.[B12]``</span>
-<span class="sd">    as in the ``OMC`` model_creator, then ``USE``-d. Specific variable settings can be given as keyword arguments.</span>
+<span class="sd">    Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a</span>
+<span class="sd">    Run 3 setup. Both beams are made with a default Run 3 configuration, and the</span>
+<span class="sd">    ``lhcb`` sequence for the given beam is re-cycled from ``MSIA.EXIT.B{beam}``</span>
+<span class="sd">    as in the ``OMC`` model_creator, and then ``USE``-d. Specific variable settings</span>
+<span class="sd">    can be given as keyword arguments.</span>
 
-<span class="sd">    .. important::</span>
-<span class="sd">        As this is a Run 3 setup, it is assumed that the ``acc-models-lhc`` repo is available in the root space,``.</span>
-<span class="sd">        which is needed by the different files in ``acc-models-lhc``.</span>
+<span class="sd">    Important</span>
+<span class="sd">    ---------</span>
+<span class="sd">        As this is a Run 3 setup, it is assumed that the ``acc-models-lhc`` repo is</span>
+<span class="sd">        available in the root space, which is needed by the different files in the</span>
+<span class="sd">        ``acc-models-lhc`` repo itself.</span>
 
-<span class="sd">    .. note::</span>
-<span class="sd">        Matching is **not** performed by this function and should be taken care of by the user, but the working</span>
-<span class="sd">        point should be set by the variable definitions in the *opticsfile*.</span>
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">        Matching is **not** performed by this function and should be taken care</span>
+<span class="sd">        of by the user, but the working point should be set by the definitions in</span>
+<span class="sd">        the *opticsfile*.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        opticsfile (str): name of the optics file to be used. Can be the string path to the file or only the opticsfile</span>
-<span class="sd">            name itself, which would be looked for at the **acc-models-lhc/operation/optics/** path.</span>
-<span class="sd">        beam (int): which beam to set up for. Defaults to beam 1.</span>
-<span class="sd">        use_b4 (bool): if `True`, the lhcb4 sequence file will be used. This is the beam 2 sequence but for tracking</span>
-<span class="sd">            purposes. Defaults to `False`.</span>
-<span class="sd">        energy (float): beam energy to set up for, in GeV. Defaults to 6800.</span>
-<span class="sd">        slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,</span>
-<span class="sd">            which leads to an unsliced sequence.</span>
-<span class="sd">        **kwargs: if `echo` or `warn` are found in the keyword arguments they will be transmitted as options to ``MAD-X``.</span>
-<span class="sd">            Any other keyword argument is transmitted to the `~cpymad.madx.Madx` creation call.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    opticsfile : str</span>
+<span class="sd">        The name of the optics file to be used. Can be the string path to the</span>
+<span class="sd">        file or only the opticsfile name itself, which would be looked for at</span>
+<span class="sd">        the **acc-models-lhc/operation/optics/** path.</span>
+<span class="sd">    beam : int</span>
+<span class="sd">        The beam to set up for. Defaults to beam 1.</span>
+<span class="sd">    use_b4 : bool</span>
+<span class="sd">        If `True`, the lhcb4 sequence file will be used. This is the beam 2</span>
+<span class="sd">        sequence but for tracking purposes. Defaults to `False`.</span>
+<span class="sd">    energy : float</span>
+<span class="sd">        The beam energy to set up for, in [GeV]. Defaults to 6800.</span>
+<span class="sd">    slicefactor : int, optional</span>
+<span class="sd">        If provided, the sequence will be sliced and made thin. Defaults to</span>
+<span class="sd">        `None`, which leads to an unsliced sequence.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        If `echo` or `warn` are found in the keyword arguments they will be</span>
+<span class="sd">        transmitted as options to ``MAD-X`` (by default these two are given</span>
+<span class="sd">        as `False`). Any other keyword argument is transmitted to the</span>
+<span class="sd">        `~cpymad.madx.Madx` creation call.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        An instanciated `~cpymad.madx.Madx` object with the required configuration.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    cpymad.madx.Madx</span>
+<span class="sd">        An instanciated `~cpymad.madx.Madx` object with the required</span>
+<span class="sd">        configuration.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            madx = prepare_lhc_run3(</span>
@@ -704,43 +617,70 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
 
-<span class="sd">    This is a context manager to prepare an LHC Run 2 or Run 3 setup: calling sequences and opticsfile,</span>
-<span class="sd">    re-cycling as is done in the ``OMC`` model creator, making beams, potentially slicing, etc. For details</span>
-<span class="sd">    on the achieved setups, look at the `~prepare_lhc_run2` or `~prepare_lhc_run3` functions.</span>
+<span class="sd">    context manager to prepare an LHC Run 2 or Run 3 setup: calling sequence</span>
+<span class="sd">    and opticsfile, re-cycling as is done in the ``OMC`` model creator, making</span>
+<span class="sd">    beams, potentially slicing, etc. For details on the achieved setups, look</span>
+<span class="sd">    at the `~prepare_lhc_run2` or `~prepare_lhc_run3` functions.</span>
 
-<span class="sd">    .. important::</span>
-<span class="sd">        For the Run 3 setup, it is assumed that the **acc-models-lhc** repo is available in the root space.</span>
+<span class="sd">    Important</span>
+<span class="sd">    ---------</span>
+<span class="sd">        For the Run 3 setup, it is assumed that the **acc-models-lhc** repo is</span>
+<span class="sd">        available in the root space.</span>
 
-<span class="sd">    .. note::</span>
-<span class="sd">        Matching is **not** performed by this setup and should be taken care of by the user, but the working</span>
-<span class="sd">        point should be set by the definitions in the *opticsfile*.</span>
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">        Matching is **not** performed by this function and should be taken care</span>
+<span class="sd">        of by the user, but the working point should be set by the definitions in</span>
+<span class="sd">        the *opticsfile*.</span>
 
-<span class="sd">    .. note::</span>
-<span class="sd">        If you intend to do tracking for beam 2, remember that the ``lhcb4`` sequence needs to be called.</span>
-<span class="sd">        This is handled by giving the ``use_b4`` argument as `True` to the constructor.</span>
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">        To do tracking for beam 2, remember that the ``lhcb4`` sequence needs to</span>
+<span class="sd">        be called. This is handled by giving the ``use_b4`` argument as `True` to</span>
+<span class="sd">        the constructor.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        run (int): which run to set up for, should be 2 or 3. Defaults to run 3.</span>
-<span class="sd">        opticsfile (str): name of the opticsfile to be used. For a Run 2 setup, should be the string path to the file.</span>
-<span class="sd">            For a Run 3 setup, can be the string path to the file or only the opticsfile name itself, which would be</span>
-<span class="sd">            looked for at the **acc-models-lhc/operation/optics/** path. Defaults to `None`, which will raise an error.</span>
-<span class="sd">        beam (int): which beam to set up for. Defaults to beam 1.</span>
-<span class="sd">        use_b4 (bool): if `True`, the lhcb4 sequence file will be used. This is the beam 2 sequence but for tracking</span>
-<span class="sd">            purposes. Defaults to `False`.</span>
-<span class="sd">        energy (float): beam energy to set up for, in GeV. Defaults to 6800, to match the default of run 3.</span>
-<span class="sd">        slicefactor (int): if provided, the sequence will be sliced and &quot;made thin&quot;. Defaults to `None`,</span>
-<span class="sd">            which leads to an unsliced sequence.</span>
-<span class="sd">        **kwargs: if `echo` or `warn` are found in the keyword arguments they will be transmitted as options to ``MAD-X``.</span>
-<span class="sd">            Any other keyword argument is transmitted to the `~cpymad.madx.Madx` creation call.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    run : int</span>
+<span class="sd">        Which run to set up for, should be 2 or 3. Defaults to run 3.</span>
+<span class="sd">    opticsfile : str</span>
+<span class="sd">        The name of the optics file to be used. For a Run 2 setup, should be the</span>
+<span class="sd">        string path to the file. For a Run 3 setup, can be the string path to the</span>
+<span class="sd">        file or only the opticsfile name itself, which would be looked for at the</span>
+<span class="sd">        **acc-models-lhc/operation/optics/** path. Defaults to `None`, which will</span>
+<span class="sd">        raise an error.</span>
+<span class="sd">    beam : int</span>
+<span class="sd">        The beam to set up for. Defaults to beam 1.</span>
+<span class="sd">    use_b4 : bool</span>
+<span class="sd">        If `True`, the lhcb4 sequence file will be used. This is the beam 2</span>
+<span class="sd">        sequence but for tracking purposes. Defaults to `False`.</span>
+<span class="sd">    energy : float</span>
+<span class="sd">        The beam energy to set up for, in [GeV]. Defaults to 6800, to match</span>
+<span class="sd">        the default of Run 3.</span>
+<span class="sd">    slicefactor : int, optional</span>
+<span class="sd">        If provided, the sequence will be sliced and made thin. Defaults to</span>
+<span class="sd">        `None`, which leads to an unsliced sequence.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        If `echo` or `warn` are found in the keyword arguments they will be</span>
+<span class="sd">        transmitted as options to ``MAD-X`` (by default these two are given</span>
+<span class="sd">        as `False`). Any other keyword argument is transmitted to the</span>
+<span class="sd">        `~cpymad.madx.Madx` creation call.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        An instanciated context manager `~cpymad.madx.Madx` object with the required configuration.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    cpymad.madx.Madx</span>
+<span class="sd">        An instanciated context manager `~cpymad.madx.Madx` object with</span>
+<span class="sd">        the required configuration.</span>
 
-<span class="sd">    Raises:</span>
-<span class="sd">        NotImplementedError: if the *run* argument is not 2 or 3.</span>
-<span class="sd">        AssertionError: if the *opticsfile* argument is not provided.</span>
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    NotImplementedError</span>
+<span class="sd">        If the *run* argument is not 2 or 3.</span>
+<span class="sd">    AssertionError</span>
+<span class="sd">        If the *opticsfile* argument is not provided.</span>
 
-<span class="sd">    Examples:</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
 
 <span class="sd">        Get a Run 2 setup for beam 2:</span>
 
@@ -809,55 +749,56 @@
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
     <span class="o">/</span><span class="p">,</span>
     <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">7000</span><span class="p">,</span>
-    <span class="n">nemitt_x</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span>
-    <span class="n">nemitt_y</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span>
+    <span class="n">nemitt_x</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.5e-6</span><span class="p">,</span>
+    <span class="n">nemitt_y</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.5e-6</span><span class="p">,</span>
     <span class="n">b4</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.15.0</span>
 
-<span class="sd">    Defines beams with default configuratons for ``LHCB1`` and ``LHCB2`` sequences.</span>
+<span class="sd">    Defines beams with default configuratons for ``LHCB1`` and</span>
+<span class="sd">    ``LHCB2`` sequences.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
-<span class="sd">            Positional only.</span>
-<span class="sd">        energy (float): beam energy, in [GeV]. Defaults to 6500.</span>
-<span class="sd">        nemitt_x (float): normalized horizontal emittance in [m]. Will</span>
-<span class="sd">            be used to calculate geometric emittance which is then fed to</span>
-<span class="sd">            the ``BEAM`` command.</span>
-<span class="sd">        nemitt_y (float): normalized vertical emittance in [m]. Will be</span>
-<span class="sd">            used to calculate geometric emittance which is then fed to</span>
-<span class="sd">            the ``BEAM`` command.</span>
-<span class="sd">        b4 (bool): if `True`, will consider one is using ``lhb4`` to do tracking on beam 2,</span>
-<span class="sd">            and will properly set the ``bv`` flag to 1. Defaults to `False`.</span>
-<span class="sd">        **kwargs: Old accepted `emittance_x` and `emittance_y` are looked for and used</span>
-<span class="sd">            if provided. Any other keyword argument is given to the ``MAD-X`` ``BEAM`` command.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    madx : cpymad.madx.Madx</span>
+<span class="sd">        An instanciated `~cpymad.madx.Madx` object. Positional only.</span>
+<span class="sd">    energy : float</span>
+<span class="sd">        Beam energy, in [GeV]. Defaults to 7000.</span>
+<span class="sd">    nemitt_x : float</span>
+<span class="sd">        Normalized horizontal emittance in [m]. Will be used to calculate</span>
+<span class="sd">        geometric emittance which is then fed to the ``BEAM`` command.</span>
+<span class="sd">        Defaults to the Run 3 value of 2.5e-6m.</span>
+<span class="sd">    nemitt_y : float</span>
+<span class="sd">        Normalized vertical emittance in [m]. Will be used to calculate</span>
+<span class="sd">        geometric emittance which is then fed to the ``BEAM`` command.</span>
+<span class="sd">        Defaults to the Run 3 value of 2.5e-6m.</span>
+<span class="sd">    b4 : bool</span>
+<span class="sd">        If `True`, will consider one is using ``lhb4`` to do tracking on</span>
+<span class="sd">        beam 2, and will properly set the ``bv`` flag to 1. Defaults to</span>
+<span class="sd">        `False`.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Any other keyword argument is given to the ``MAD-X`` ``BEAM`` command.</span>
 
-<span class="sd">    Examples:</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            make_lhc_beams(madx, energy=6800, nemitt_x=2.5e-6, nemitt_y=3e-6)</span>
+<span class="sd">            make_lhc_beams(madx, energy=6800, nemitt_x=2.75e-6, nemitt_y=3e-6)</span>
 
 <span class="sd">        Setting up in a way compatible for tracking of beam 2 (needs to call ``lhcb4`` and set</span>
 <span class="sd">        ``bv`` to 1):</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            make_lhc_beams(madx, energy=6800, nemitt_x=2.5e-6, nemitt_y=3e-6, b4=True)</span>
+<span class="sd">            make_lhc_beams(madx, energy=6800, nemitt_x=3e-6, nemitt_y=3e-6, b4=True)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Making default beams for &#39;lhcb1&#39; and &#39;lhbc2&#39; sequences&quot;</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;NRJ&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">energy</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;brho&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">energy</span> <span class="o">*</span> <span class="mf">1e9</span> <span class="o">/</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">clight</span>
 
-    <span class="c1"># TODO: remove accepting the old emittance_x and emittance_y args in the future</span>
-    <span class="n">emittance_x</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;emittance_x&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="n">emittance_y</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;emittance_y&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">emittance_x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">emittance_y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Providing ambiguous &#39;emittance_[xy]&#39; is deprecated, use &#39;nemitt_[xy]&#39; instead&quot;</span><span class="p">)</span>
-        <span class="n">nemitt_x</span> <span class="o">=</span> <span class="n">emittance_x</span> <span class="k">if</span> <span class="n">emittance_x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">nemitt_x</span>  <span class="c1"># prioritize old ones if given</span>
-        <span class="n">nemitt_y</span> <span class="o">=</span> <span class="n">emittance_y</span> <span class="k">if</span> <span class="n">emittance_y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">nemitt_y</span>  <span class="c1"># prioritize old ones if given</span>
     <span class="n">geometric_emit_x</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;geometric_emit_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nemitt_x</span> <span class="o">/</span> <span class="p">(</span><span class="n">energy</span> <span class="o">/</span> <span class="mf">0.938</span><span class="p">)</span>
     <span class="n">geometric_emit_y</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;geometric_emit_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nemitt_y</span> <span class="o">/</span> <span class="p">(</span><span class="n">energy</span> <span class="o">/</span> <span class="mf">0.938</span><span class="p">)</span>
 
@@ -887,23 +828,31 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.15.0</span>
 
-<span class="sd">    Executes the ``MAKETHIN`` command for the LHC sequence as previously done in ``MAD-X`` macros.</span>
-<span class="sd">    This will use the ``teapot`` style and will enforce ``makedipedge``.</span>
+<span class="sd">    Executes the ``MAKETHIN`` command for the LHC sequence as previously done</span>
+<span class="sd">    in ``MAD-X`` macros. This will use the ``teapot`` style and will enforce</span>
+<span class="sd">    ``makedipedge``.</span>
 
-<span class="sd">    One can find an exemple use of this function in the :ref:`AC Dipole Tracking &lt;demo-ac-dipole-tracking&gt;`</span>
-<span class="sd">    and :ref:`Free Tracking &lt;demo-free-tracking&gt;` example galleries.</span>
+<span class="sd">    One can find an example use of this function in the :ref:`AC Dipole Tracking</span>
+<span class="sd">    &lt;demo-ac-dipole-tracking&gt;` and :ref:`Free Tracking &lt;demo-free-tracking&gt;`</span>
+<span class="sd">    example galleries.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        madx (cpymad.madx.Madx): an instantiated `~cpymad.madx.Madx` object.</span>
-<span class="sd">        sequence (str): the sequence to use for the ``MAKETHIN`` command.</span>
-<span class="sd">        slicefactor (int): the slice factor to apply in ``MAKETHIN``, which is a factor</span>
-<span class="sd">            applied to default values for different elements, as did the old macro. Defaults</span>
-<span class="sd">            to 1.</span>
-<span class="sd">        **kwargs: any keyword argument will be transmitted to the ``MAD-X`` ``MAKETHN``</span>
-<span class="sd">            command, namely ``style`` (will default to ``teapot``) and the ``makedipedge``</span>
-<span class="sd">            flag (will default to `True`).</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    madx : cpymad.madx.Madx</span>
+<span class="sd">        An instanciated `~cpymad.madx.Madx` object. Positional only.</span>
+<span class="sd">    sequence : str</span>
+<span class="sd">        The sequence to use for the ``MAKETHIN`` command.</span>
+<span class="sd">    slicefactor : int</span>
+<span class="sd">        The slice factor to apply in ``MAKETHIN``, which is a factor applied</span>
+<span class="sd">        to default values for different elements, as did the old macro.</span>
+<span class="sd">        Defaults to 1.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Any keyword argument will be transmitted to the ``MAD-X`` ``MAKETHN``</span>
+<span class="sd">        command, namely ``style`` (will default to ``teapot``) and the</span>
+<span class="sd">        ``makedipedge`` flag (will default to `True`).</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            make_lhc_thin(madx, sequence=&quot;lhcb1&quot;, slicefactor=4)</span>
@@ -952,17 +901,24 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.15.0</span>
 
-<span class="sd">    Re-cycles the provided *sequence* from a different starting point, given as *start*.</span>
+<span class="sd">    Re-cycles the provided *sequence* from a different starting point,</span>
+<span class="sd">    given as *start*.</span>
 
-<span class="sd">    One can find an exemple use of this function in the :ref:`AC Dipole Tracking &lt;demo-ac-dipole-tracking&gt;`</span>
-<span class="sd">    and :ref:`Free Tracking &lt;demo-free-tracking&gt;` example galleries.</span>
+<span class="sd">    One can find an exemple use of this function in the :ref:`AC Dipole</span>
+<span class="sd">    Tracking &lt;demo-ac-dipole-tracking&gt;` and :ref:`Free Tracking</span>
+<span class="sd">    &lt;demo-free-tracking&gt;` example galleries.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        madx (cpymad.madx.Madx): an instantiated `~cpymad.madx.Madx` object.</span>
-<span class="sd">        sequence (str): the sequence to re-cycle.</span>
-<span class="sd">        start (str): element to start the new cycle from.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    madx : cpymad.madx.Madx</span>
+<span class="sd">        An instanciated `~cpymad.madx.Madx` object. Positional only.</span>
+<span class="sd">    sequence : str</span>
+<span class="sd">        The sequence to re-cycle. Defaults to &quot;lhcb1&quot;.</span>
+<span class="sd">    start : str</span>
+<span class="sd">        The element to start the new cycle from. Defaults to &quot;IP3&quot;.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            re_cycle_sequence(madx, sequence=&quot;lhcb1&quot;, start=&quot;MSIA.EXIT.B1&quot;)</span>
@@ -981,14 +937,18 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.8.0</span>
 
-<span class="sd">    Get the variable names used for orbit setup in the (HL)LHC. Initial implementation</span>
-<span class="sd">    credits go to :user:`Joschua Dilly &lt;joschd&gt;`.</span>
+<span class="sd">    Get the variable names used for orbit setup in the (HL)LHC. Initial</span>
+<span class="sd">    implementation credits go to :user:`Joschua Dilly &lt;joschd&gt;`.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        A `tuple` with a `list` of all orbit variables, and a `dict` of additional variables,</span>
-<span class="sd">        that in the default configurations have the same value as another variable.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple[list[str], dict[str, str]]</span>
+<span class="sd">        A `tuple` with a `list` of all orbit variables, and a `dict` of</span>
+<span class="sd">        additional variables, that in the default configurations have the</span>
+<span class="sd">        same value as another variable.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            variables, specials = lhc_orbit_variables()</span>
@@ -1045,22 +1005,30 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.8.0</span>
 
-<span class="sd">    Automated orbit setup for (HL)LHC runs, for some default schemes. It is assumed that at</span>
-<span class="sd">    least sequence and optics files have been called. Initial implementation credits go to</span>
-<span class="sd">    :user:`Joschua Dilly &lt;joschd&gt;`.</span>
+<span class="sd">    Automated orbit setup for (HL)LHC runs, for some default schemes. It is</span>
+<span class="sd">    assumed that at least sequence and optics files have been called. Initial</span>
+<span class="sd">    implementation credits go to :user:`Joschua Dilly &lt;joschd&gt;`.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.</span>
-<span class="sd">        scheme (str): the default scheme to apply, as defined in the ``LHC_CROSSING_SCHEMES``</span>
-<span class="sd">            constant. Accepted values are keys of `LHC_CROSSING_SCHEMES`. Defaults to *flat*</span>
-<span class="sd">            (every orbit variable to 0).</span>
-<span class="sd">        **kwargs: Any standard crossing scheme variables (``on_x1``, ``phi_IR1``, etc). Values</span>
-<span class="sd">            given here override the values in the default scheme configurations.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    madx : cpymad.madx.Madx</span>
+<span class="sd">        An instanciated `~cpymad.madx.Madx` object. Positional only.</span>
+<span class="sd">    scheme : str</span>
+<span class="sd">        The default scheme to apply, as defined in the `LHC_CROSSING_SCHEMES`</span>
+<span class="sd">        constant. Accepted values are keys of `LHC_CROSSING_SCHEMES`. Defaults</span>
+<span class="sd">        to &quot;flat&quot; (every orbit variable to 0).</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Any standard crossing scheme variables (`on_x1`, `phi_IR1`, etc). Values</span>
+<span class="sd">        given here override the values in the default scheme configurations.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        A `dict` of all orbit variables set, and their values as set in the ``MAD-X`` globals.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict[str, float]</span>
+<span class="sd">        A `dict` of all orbit variables set, and their values as set in</span>
+<span class="sd">        the ``MAD-X`` globals.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            orbit_setup = setup_lhc_orbit(madx, scheme=&quot;lhc_top&quot;)</span>
