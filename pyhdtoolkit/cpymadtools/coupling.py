@@ -5,15 +5,17 @@
 Betatron Coupling Utilities
 ---------------------------
 
-Module with functions to perform ``MAD-X`` actions through a `~cpymad.madx.Madx` object, that
-retate to betatron coupling in the machine.
+Module with functions to perform ``MAD-X`` actions through
+a `~cpymad.madx.Madx` object, that retate to betatron coupling
+in the machine.
 """
 
-from collections.abc import Sequence
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 import numpy as np
-import tfs
-from cpymad.madx import Madx
+
 from loguru import logger
 from optics_functions.coupling import check_resonance_relation, closest_tune_approach, coupling_via_cmatrix
 from scipy import stats
@@ -22,6 +24,12 @@ from pyhdtoolkit.cpymadtools.constants import MONITOR_TWISS_COLUMNS
 from pyhdtoolkit.cpymadtools.lhc import get_lhc_tune_and_chroma_knobs
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.cpymadtools.twiss import get_pattern_twiss, get_twiss_tfs
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
+
+    from cpymad.madx import Madx
+    from tfs import TfsDataFrame
 
 # ----- General Use ----- #
 
@@ -42,38 +50,54 @@ def get_closest_tune_approach(
     """
     .. versionadded:: 0.16.0
 
-    Provided with an active `~cpymad.madx.Madx` object, tries to match the tunes to their mid-fractional tunes,
-    a.k.a tries to get them together. The difference between the final reached fractional tunes is the closest
-    tune approach. This should not have any effect on the user's simulation, as the varied knobs are
-    restored to their previous values after performing the CTA. This uses `~.tune.match_tunes_and_chromaticities`
-    under the hood.
+    Provided with an active `~cpymad.madx.Madx` object, tries to match the tunes to their
+    mid-fractional tunes, a.k.a tries to get them together. The difference between the final
+    reached fractional tunes is the closest tune approach. This should not have any effect on
+    the user's simulation, as the varied knobs are restored to their previous values after
+    performing the CTA. This uses `~.tune.match_tunes_and_chromaticities` under the hood.
 
-    .. note::
-        This assumes the sequence has previously been matched to the user's desired working point, as if not
-        explicitely given, the appropriate targets will be determined from the ``MAD-X`` internal tables.
+    Note
+    ----
+        This assumes the sequence has previously been matched to the user's desired working
+        point, as if not explicitely given, the appropriate targets will be determined from
+        the ``MAD-X`` internal tables.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        accelerator (Optional[str]): name of the accelerator, used to determmine knobs if *variables* is not given.
-            Automatic determination will only work for `LHC` and `HLLHC`.
-        sequence (str): name of the sequence you want to activate for the tune matching.
-        varied_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` ``MATCH`` routine. An input
-            could be ``["kqf", "ksd", "kqf", "kqd"]`` as they are common names used for quadrupole and sextupole
-            strengths (focusing / defocusing) in most examples.
-        telescopic_squeeze (bool): ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
-            Squeeze configuration. Defaults to `True` since `v0.9.0`.
-        run3 (bool): if set to `True`, uses the `LHC` Run 3 `*_op` knobs. Defaults to `False`.
-        explicit_targets (tuple[float, float]): if given, will be used as matching targets for `(Qx, Qy)`.
-            Otherwise, the target is determined as the middle of the current fractional tunes. Defaults to
-            `None`.
-        step (float): step size to use when varying knobs.
-        calls (int): max number of varying calls to perform.
-        tolerance (float): tolerance for successfull matching.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    accelerator : str, optional
+        Name of the accelerator, used to determmine knobs if *variables* is not given.
+        Automatic determination will only work for `LHC` and `HLLHC`.
+    sequence : str, optional
+        Name of the sequence to activate for the tune matching.
+    varied_knobs : Sequence[str], optional
+        The variables names to ``VARY`` in the ``MAD-X`` ``MATCH`` routine. An input
+        could be ``["kqf", "ksd", "kqf", "kqd"]`` as they are common names used for
+        quadrupole and sextupole strengths (focusing / defocusing) in most examples.
+    telescopic_squeeze : bool
+        ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
+        Squeeze configuration. Defaults to `True` since `v0.9.0`.
+    run3 : bool
+        If set to `True`, uses the `LHC` Run 3 `*_op` knobs. Defaults to `False`.
+    explicit_targets : tuple[float, float], optional
+        If given, will be used as matching targets for `(Qx, Qy)`. Otherwise, the target
+        is determined as the middle of the current fractional tunes. Defaults to `None`.
+    step : float
+        Step size to use when varying knobs. Defaults to `1e-7`.
+    calls : int
+        Max number of varying calls to perform. Defaults to `100`.
+    tolerance : float
+        Tolerance for successfull matching. Defaults to `1e-21`.
 
-    Returns:
+
+    Returns
+    -------
+    float
         The closest tune approach, in absolute value.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             # Say we have set the LHC coupling knobs to 1e-3
@@ -155,45 +179,57 @@ def get_cminus_from_coupling_rdts(
     .. versionadded:: 0.20.0
 
     Computes and returns the :math:`|C^{-}|` from the machine's coupling RDTs. The
-    closest tune approach is computed thanks to functionality from `optics_functions.coupling`.
+    cminus is computed thanks to functionality from `optics_functions.coupling`.
 
-    .. hint::
-        A quick estimate of the :math:`|C^{-}|` is available in ``MAD-X`` as the ``dqmin``
-        variable in the ``SUMM`` table. However this estimate is not accurate in all situations,
-        and is the norm of a complex vector which is not approriate for comparisons or for
-        normalizations, which is the use-case of this functions.
+    Hint
+    ----
+        A quick estimate of the :math:`|C^{-}|` is available in ``MAD-X`` as the
+        ``dqmin`` variable in the ``SUMM`` table. However, empirically this estimate
+        is not accurate in all situations, and is the norm of a complex vector which
+        is not approriate for comparisons or for normalizations, which is the use-case
+        of this functions.
 
-    .. note::
-        If using the “calaga”, “teapot”, “teapot_franchi” or “franchi” method, then the returned
-        value will be a real number.
+    Note
+    ----
+        If using the `calaga`, `teapot`, `teapot_franchi` or `franchi` method,
+        the returned value will be a real number.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        patterns (Sequence[str]): the different patterns (such as ``MQX`` or ``BPM``) of elements
-            to use when computing the coupling RDTs. Defaults to `[""]` which will select and use
-            all elements in the ``TWISS`` outputs.
-        method (str): the method to use for the calculation of the :math:`C^{-}`. Defaults to
-            `teapot`, which is the default of `~optics_functions.coupling.closest_tune_approach`.
-        qx (float): the horizontal tune. Defaults to `None`, in which case the value will be taken
-            from the ``SUMM`` table.
-        qy (float): the vertical tune. Defaults to `None`, in which case the value will be taken
-            from the ``SUMM`` table.
-        filtering (float): If non-zero value is given, applies outlier filtering of BPMs based on
-            the abs. value of the coupling RTDs before computing the :math:`C^{-}`. The given value
-            corresponds to the std. dev. :math:`\\sigma` outside of which to filter out a BPM.
-            Defaults to 0, which means no filtering.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    patterns : Sequence[str]
+        The different patterns (such as ``MQX`` or ``BPM``) of elements to use when
+        computing the coupling RDTs. Defaults to `[""]` which will select and use all
+        elements in the ``TWISS`` outputs.
+    method : str
+        The method to use for the calculation of the :math:`C^{-}`. Defaults to `teapot`,
+        which is the default of `~optics_functions.coupling.closest_tune_approach`.
+    qx : float, optional
+        The horizontal tune. If this parameters is not provided then the value will be
+        taken from the ``SUMM`` table.
+    qy : float, optional
+        The vertical tune. If this parameters is not provided then the value will be
+        taken from the ``SUMM`` table.
+    filtering : float
+        If a non-zero value is given, applies outlier filtering of BPMs based on the
+        absolute value of the coupling RTDs before computing the :math:`C^{-}`. The
+        given value corresponds to the standard deviation :math:`\\sigma` outside of
+        which to filter out a BPM. Defaults to `0`, which means no filtering.
 
-    Returns:
+    Returns
+    -------
+    float
         The calculated :math:`|C^{-}|` value.
 
-    Examples:
+    Examples
+    --------
 
         To compute the :math:`|C^{-}|` taking in consideration all elements in the sequence:
 
         .. code-block:: python
 
             complex_cminus = get_cminus_from_coupling_rdts(madx)
-
 
         To simulate the calculation from a measurement, with RDTs computed at BPMs only:
 
@@ -233,21 +269,35 @@ def get_cminus_from_coupling_rdts(
 
 
 def match_no_coupling_through_ripkens(
-    madx: Madx, /, sequence: str | None = None, location: str | None = None, vary_knobs: Sequence[str] | None = None
+    madx: Madx,
+    /,
+    sequence: str | None = None,
+    location: str | None = None,
+    vary_knobs: Sequence[str] | None = None,
 ) -> None:
     """
     .. versionadded:: 0.16.0
 
-    Matching routine to get cross-term Ripken parameters :math:`\\beta_{12}` and :math:`\\beta_{21}`
-    to be 0 at a given location.
+    Matching routine to get cross-term Ripken parameters :math:`\\beta_{12}` and
+    :math:`\\beta_{21}` to be 0 at a given location.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        sequence (str): name of the sequence to activate for the matching.
-        location (str): the name of the element at which one wants the cross-term Ripkens to be 0.
-        vary_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` routine.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    sequence : str, optional
+        Name of the sequence to activate for the matching. If not provided
+        the currently active sequence will be used.
+    location : str, optional
+        The name of the element at which to match the cross-term Ripkens to be 0.
+        If not provided, the start of the sequence will be used. Please refer to
+        the `Table Access Functions` section in the ``MAD-X`` documentation for
+        more information on the location string format.
+    vary_knobs : Sequence[str], optional
+        The variables names to ``VARY`` in the ``MAD-X`` routine.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             match_no_coupling_through_ripkens(
@@ -269,22 +319,29 @@ def match_no_coupling_through_ripkens(
     madx.command.endmatch()
 
 
-def get_coupling_rdts(madx: Madx, /, **kwargs) -> tfs.TfsDataFrame:
+def get_coupling_rdts(madx: Madx, /, **kwargs) -> TfsDataFrame:
     """
     .. versionadded:: 0.20.0
 
-    Computed the coupling Resonance Driving Terms (RDTs) :math:`f_{1001}` and :math:`f_{1010}`
-    at all elements in the currently active sequence from a ``TWISS`` call.
+    Computed the coupling Resonance Driving Terms (RDTs) :math:`f_{1001}` and
+    :math:`f_{1010}` at all elements in the currently active sequence from a
+    ``TWISS`` call.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        **kwargs: any keyword argument will be transmitted to the ``TWISS`` command in ``MAD-X``.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    **kwargs
+        All keyword arguments are passed to the ``TWISS`` command in ``MAD-X``.
 
-    Returns:
-        A `~tfs.TfsDataFrame` with columns of the ``TWISS`` table, and two complex columns for the
-        ``F1001`` and ``f1010`` RDTs.
+    Returns
+    -------
+    TfsDataFrame
+        A `~tfs.TfsDataFrame` with columns of the ``TWISS`` table, and two
+        complex columns for the ``F1001`` and ``f1010`` RDTs.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             twiss_rdts = get_coupling_rdts(madx)
@@ -301,13 +358,18 @@ def _fractional_tune(tune: float) -> float:
     """
     Returns only the fractional part *tune*.
 
-    Args:
-        tune (float): tune value.
+    Parameters
+    ----------
+    tune : float
+        The tune value.
 
-    Returns:
-        The fractional part.
+    Returns
+    -------
+    float
+        The fractional part of the tune.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             _fractional_tune(62.31)
@@ -316,11 +378,24 @@ def _fractional_tune(tune: float) -> float:
     return tune - int(tune)  # ok since int truncates to lower integer
 
 
-def _filter_outlier_bpms_from_coupling_rdts(twiss_df: tfs.TfsDataFrame, stdev: float = 3) -> tfs.TfsDataFrame:
-    """Only keep BPMs for which the abs. value of coupling RDTs is no further than `stdev` sigma from its mean.Example:
+def _filter_outlier_bpms_from_coupling_rdts(twiss_df: TfsDataFrame, stdev: float = 3) -> TfsDataFrame:
+    """
+    Only keep BPMs for which the absolute value of coupling RDTs is
+    no further than `stdev` sigma from its mean.
 
-    .. note::
-        This expects the `twiss_df` to have ``F1001`` and ``F1010`` complex columns.
+    Parameters
+    ----------
+    twiss_df : TfsDataFrame
+        The `~tfs.TfsDataFrame` with the coupling RDTs to filter. It is
+        expected to have the ``F1001`` and ``F1010`` complex columns.
+    stdev : float
+        The number of standard deviations to consider as the threshold
+        for filtering. Defaults to `3`.
+
+    Returns
+    -------
+    TfsDataFrame
+        The `~tfs.TfsDataFrame` with the filtered BPMs.
     """
     logger.debug("Filtering out outlier BPMs based on coupling RDTs")
     df = twiss_df.copy(deep=True)

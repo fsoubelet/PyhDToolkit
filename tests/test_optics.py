@@ -33,7 +33,7 @@ def test_brho():
 
 
 def test_normalized_emittance():
-    assert Beam(6500, 2.5e-6).normalized_emittance == 0.01732157020823949
+    assert Beam(6500, 2.5e-6).nemitt == 0.01732157020823949
 
 
 def test_rms_emittance():
@@ -77,12 +77,10 @@ def test_gamma_transition_raises():
                 E_0_GeV=0.9382720813,
                 E_tot_GeV=2.1190456574946737,
                 E_kin_GeV=1.1807735761946736,
-                gamma_r=2.258455409393277,
-                beta_r=0.8966300434726596,
-                en_x_m=5e-06,
-                en_y_m=5e-06,
-                eg_x_m=2.469137056052632e-06,
-                eg_y_m=2.469137056052632e-06,
+                gamma_rel=2.258455409393277,
+                beta_rel=0.8966300434726596,
+                nemitt_x=5e-06,
+                nemitt_y=5e-06,
                 deltap_p=0.002,
             ),
         ),
@@ -97,12 +95,10 @@ def test_gamma_transition_raises():
                 E_0_GeV=0.9382720813,
                 E_tot_GeV=19.023153116624673,
                 E_kin_GeV=18.084881035324674,
-                gamma_r=20.274666054506927,
-                beta_r=0.9987828980567665,
-                en_x_m=5e-06,
-                en_y_m=5e-06,
-                eg_x_m=2.4691370560526314e-07,
-                eg_y_m=2.4691370560526314e-07,
+                gamma_rel=20.274666054506927,
+                beta_rel=0.9987828980567665,
+                nemitt_x=5e-06,
+                nemitt_y=5e-06,
                 deltap_p=0.0002,
             ),
         ),
@@ -127,11 +123,11 @@ def test_beam_size_raises(_fake_coordinates):
 
 @pytest.mark.parametrize("beta11", [0.3312])
 @pytest.mark.parametrize("beta21", [1])
-@pytest.mark.parametrize("emit_x", [5e-6, 2.75e-6, 3.5e-6])
-@pytest.mark.parametrize("emit_y", [5e-6, 2.75e-6, 3.5e-6])
-def test_lebedev_size_floats(beta11, beta21, emit_x, emit_y):
-    assert ripken.lebedev_beam_size(beta1_=beta11, beta2_=beta21, geom_emit_x=emit_x, geom_emit_y=emit_y) == np.sqrt(
-        emit_x * beta11 + emit_y * beta21
+@pytest.mark.parametrize("gemitt_x", [5e-6, 2.75e-6, 3.5e-6])
+@pytest.mark.parametrize("gemitt_y", [5e-6, 2.75e-6, 3.5e-6])
+def test_lebedev_size_floats(beta11, beta21, gemitt_x, gemitt_y):
+    assert ripken.lebedev_beam_size(beta1_=beta11, beta2_=beta21, gemitt_x=gemitt_x, gemitt_y=gemitt_y) == np.sqrt(
+        gemitt_x * beta11 + gemitt_y * beta21
     )
 
 
@@ -163,7 +159,7 @@ def test_rdt_order_and_type():
     assert rdt_to_order_and_type(1020) == "normal_sextupole"
     assert rdt_to_order_and_type(2002) == "normal_octupole"
     assert rdt_to_order_and_type(1003) == "skew_octupole"
-    assert rdt_to_order_and_type(1004) ==  "normal_decapole"
+    assert rdt_to_order_and_type(1004) == "normal_decapole"
     assert rdt_to_order_and_type(3003) == "skew_dodecapole"
     assert rdt_to_order_and_type(4004) == "normal_hexadecapole"
 
@@ -181,7 +177,6 @@ def test_rdt_spectrum_line():
 
     with pytest.raises(KeyError):
         determine_rdt_line("0220", "Z")
-
 
 
 # ----- Fixtures ----- #

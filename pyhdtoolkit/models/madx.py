@@ -4,8 +4,9 @@
 MAD-X Models
 ------------
 
-Module with ``pydantic`` models to validate and store data obtained by interacting
-with the ``MAD-X`` process through `cpymad`.
+Module with ``pydantic`` models to validate and store
+data obtained by interacting with the ``MAD-X`` process
+through `cpymad`.
 """
 
 from enum import Enum
@@ -17,7 +18,8 @@ class ParticleEnum(str, Enum):
     """
     .. versionadded:: 0.12.0
 
-    Validator Enum defining the accepted particle names in ``MAD-X`` beams.
+    Validator Enum defining the accepted particle
+    names in ``MAD-X`` beams.
     """
 
     positron = "positron"
@@ -33,7 +35,8 @@ class MADXBeam(BaseModel):
     """
     .. versionadded:: 0.12.0
 
-    Class to encompass and validate ``BEAM`` attributes from the ``MAD-X`` process.
+    Class to encompass and validate ``BEAM`` attributes
+    from the ``MAD-X`` process.
     """
 
     particle: ParticleEnum  # The name of particles in the beam

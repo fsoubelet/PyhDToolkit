@@ -30,9 +30,11 @@ workflow when using `~pyhdtoolkit.cpymadtools`.
     Here I set the 2022 branch for stability and reproducibility of the documentation
     builds, but you can use any branch you want.
 """
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc, matching, track
@@ -48,8 +50,7 @@ plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 # <demo-lhc-setup>`.
 
 madx: Madx = lhc.prepare_lhc_run3(
-    opticsfile="acc-models-lhc/operation/optics/R2022a_A30cmC30cmA10mL200cm.madx",
-    stdout=False
+    opticsfile="acc-models-lhc/operation/optics/R2022a_A30cmC30cmA10mL200cm.madx", stdout=False
 )
 matching.match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0)
 

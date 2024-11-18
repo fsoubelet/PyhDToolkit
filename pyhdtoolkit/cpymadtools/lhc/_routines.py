@@ -3,15 +3,23 @@
 
 **Routine Utilities**
 
-The functions below are routines mimicking manipulations that would be done in the ``LHC``.
+The functions below are routines mimicking manipulations that
+would be done in the ``LHC``.
 """
+
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 import numpy as np
 import tfs
-from cpymad.madx import Madx
+
 from loguru import logger
 
 from pyhdtoolkit.cpymadtools.lhc._twiss import get_ir_twiss
+
+if TYPE_CHECKING:
+    from cpymad.madx import Madx
 
 
 def do_kmodulation(
@@ -24,32 +32,44 @@ def do_kmodulation(
     right of the IP, and returning the tune variations resulting from this
     modulation.
 
-    .. note::
+    Note
+    ----
         At the end of the simulation, the powering of the quadrupole is reset
         to the value it had at the time of function call.
 
-    .. tip::
-        From these, one can then calculate the :math:`\beta`-functions at the Q1
-        and then at the IP, plus the possible waist shift, according to
+    Hint
+    ----
+        From these, one can then calculate the :math:`\beta`-functions at the
+        Q1 and then at the IP, plus the possible waist shift, according to
         :cite:t:`Carlier:AccuracyFeasibilityMeasurement2017`.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        ir (int): the IR in which to perform the modulation. Defaults to 1.
-        side (str): which side of the IP to use the Q1 to perform the modulation.
-            Should be either ``right`` or ``left``, case-insensitive. Defaults to
-            ``right``.
-        steps (int): the number of steps to perform in the modulations, aka the number
-            of "measurements". Defaults to 100.
-        stepsize (float): the increment in powering for Q1, in direct values of the
-            powering variable used in ``MAD-X``. Defaults to 3e-8.
-        **kwargs: Any additional keyword arguments to pass to down to the ``MAD-X``
-            ``TWISS`` command, such as ``chrom``, ``ripken`` or ``centre``.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    ir : int
+        The IR in which to perform the modulation. Defaults to 1.
+    side : str
+        Side of the IP on which to use the Q1 to perform the modulation.
+        Should be either ``right`` or ``left``, case insensitive. Defaults
+        to ``right``.
+    steps : int
+        The number of steps to perform in the modulation, aka the number of
+        "measurements". Defaults to 100.
+    stepsize : float
+        The increment in powering for Q1, in direct values of the powering
+        variable used in ``MAD-X``. Defaults to 3e-8.
+    **kwargs
+        Any additional keyword arguments to pass to down to the ``MAD-X``
+        ``TWISS`` command, such as `chrom`, `ripken` or `centre`.
 
-    Returns:
+    Returns
+    -------
+    tfs.TfsDataFrame
         A `~tfs.TfsDataFrame` containing the tune values at each powering step.
 
-    Example:
+    Example
+    -------
 
         .. code-block:: python
 
@@ -96,31 +116,38 @@ def do_kmodulation(
     return results
 
 
-# This is a duplicate of the function in _coupling.py, merge at some point
 def correct_lhc_global_coupling(
     madx: Madx, /, beam: int = 1, telescopic_squeeze: bool = True, calls: int = 100, tolerance: float = 1.0e-21
 ) -> None:
     """
     .. versionadded:: 0.20.0
 
-    A littly tricky matching routine to perform a decent global coupling correction using
-    the ``LHC`` coupling knobs.
+    A littly tricky matching routine to perform a decent global coupling
+    correction using the ``LHC`` coupling knobs.
 
-    .. important::
-        This routine makes use of some matching tricks and uses the ``SUMM`` table's
-        ``dqmin`` variable for the matching. It should be considered a helpful little
-        trick, but it is not a perfect solution.
+    Important
+    ---------
+        This routine makes use of some matching tricks and uses the ``SUMM``
+        table's ``dqmin`` variable for the matching. It should be considered
+        a helpful little trick, but it is not a perfect solution.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        beam (int): which beam you want to perform the matching for, should be `1` or
-            `2`. Defaults to `1`.
-        telescopic_squeeze (bool): If set to `True`, uses the coupling knobs
-            for Telescopic Squeeze configuration. Defaults to `True`.
-        calls (int): max number of varying calls to perform when matching. Defaults to 100.
-        tolerance (float): tolerance for successfull matching. Defaults to :math:`10^{-21}`.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    beam : int
+        The beam to perform the matching for. Should be either 1 or 2.
+        Defaults to 1.
+    telescopic_squeeze : bool
+        If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
+        Squeeze configuration. Defaults to `True`.
+    calls : int
+        Max number of varying calls to perform. Defaults to 100.
+    tolerance : float
+        Tolerance for successfull matching. Defaults to :math:`10^{-21}`.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             correct_lhc_global_coupling(madx, sequence="lhcb1", telescopic_squeeze=True)
@@ -152,23 +179,30 @@ def correct_lhc_orbit(
     """
     .. versionadded:: 0.9.0
 
-    Routine for orbit correction using ``MCB.*`` elements in the LHC. This uses the
-    ``CORRECT`` command in ``MAD-X`` behind the scenes, refer to the
-    `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_ for
+    Routine for orbit correction using ``MCB.*`` elements in the LHC. This uses
+    the ``CORRECT`` command in ``MAD-X`` behind the scenes, refer to the `MAD-X
+    manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_ for
     usage information.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        sequence (str): which sequence to use the routine on.
-        orbit_tolerance (float): the tolerance for the correction. Defaults to 1e-14.
-        iterations (int): the number of iterations of the correction to perform.
-            Defaults to 3.
-        mode (str): the method to use for the correction. Defaults to ``micado`` as in
-            the `CORRECT` command.
-        **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``CORRECT``
-            command, such as ``mode``, ``ncorr``, etc.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    sequence : str
+        Which sequence to use the routine on.
+    orbit_tolerance : float
+        The tolerance for the correction. Defaults to 1e-14.
+    iterations : int
+        The number of iterations of the correction to perform. Defaults to 3.
+    mode : str
+        The method to use for the correction. Defaults to ``micado`` as in
+        the ``CORRECT`` command.
+    **kwargs
+        Any keyword argument that can be given to the ``MAD-X`` ``CORRECT``
+        command, such as ``mode``, ``ncorr``, etc.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             correct_lhc_orbit(madx, sequence="lhcb1", plane="y")

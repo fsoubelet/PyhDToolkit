@@ -4,7 +4,8 @@
 Useful Constants
 ----------------
 
-Specific constants to be used in `~.cpymadtools` functions, to help with consistency.
+Specific constants to be used in `~.cpymadtools` functions,
+to help with consistency.
 """
 
 _MAX_SECTOR_VALUE: int = 8

@@ -14,10 +14,11 @@ def courant_snyder_transform(u_vector: np.ndarray, alpha: float, beta: float) ->
     r"""
     .. versionadded:: 0.5.0
 
-    Perform the Courant-Snyder transform on regular (nonchaotic) phase-space coordinates.
-    Specifically, if considering the horizontal plane and noting :math:`U = (x, px)` the
-    phase-space vector, it returns :math:`\bar{U} = (\bar{x}, \bar{px})` according to
-    the transform :math:`\bar{U} = P \cdot U`, where
+    Perform the Courant-Snyder transform on regular (nonchaotic) phase
+    space coordinates. Specifically, if considering the horizontal plane
+    and noting :math:`U = (x, px)` the phase-space vector, it returns
+    :math:`\bar{U} = (\bar{x}, \bar{px})` according to the transform
+    :math:`\bar{U} = P \cdot U`, where
 
     .. math::
 
@@ -26,16 +27,24 @@ def courant_snyder_transform(u_vector: np.ndarray, alpha: float, beta: float) ->
                 \frac{\alpha_x}{\sqrt{\beta_x}}   &  \sqrt{\beta_x}  \\
             \end{pmatrix}
 
-    Args:
-        u_vector (np.ndarray): two-dimentional array of phase-space (spatial and momenta)
-            coordinates, either horizontal or vertical.
-        alpha (float): alpha twiss parameter in the appropriate plane.
-        beta (float): beta twiss parameter in the appropriate plane.
+    Parameters
+    ----------
+    u_vector : numpy.ndarray
+        Two-dimentional array of the phase-space (spatial and momentum)
+        coordinates, either horizontal or vertical.
+    alpha : float
+        Alpha twiss parameter in the appropriate plane.
+    beta : float
+        Beta twiss parameter in the appropriate plane.
 
-    Returns:
-        The normalized phase-space coordinates from the Courant-Snyder transform.
+    Returns
+    -------
+    numpy.ndarray
+        The normalized phase-space coordinates from the Courant-Snyder
+        transform.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             alfx = madx.table.twiss.alfx[0]

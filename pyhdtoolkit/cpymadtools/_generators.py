@@ -4,11 +4,11 @@
 Lattice Generators
 ------------------
 
-Module with a collection of functions generating different lattices for `~cpymad.madx.Madx` input.
-These lattices are quite simple and are meant to be used in the package's documentation and
-:ref:`example gallery <gallery>`.
+Module with a collection of functions generating different lattices
+for `~cpymad.madx.Madx` input. These lattices are quite simple and
+are meant to be used in the package's documentation and :ref:`example
+gallery <gallery>`.
 """
-
 
 # ----- Utlites ----- #
 
@@ -23,11 +23,14 @@ class LatticeGenerator:
     @staticmethod
     def generate_base_cas_lattice() -> str:
         """
-        Generates a simple and robust dummy lattice, initially designed for my
-        CERN Accelerator School optics project.
+        Generates a simple and robust dummy lattice, initially
+        designed for my CERN Accelerator School optics project.
 
-        Returns:
-            A string to directly ``.input()`` into your `~cpymad.madx.Madx` object.
+        Returns
+        -------
+        str
+            A string to directly ``.input()`` into your
+            `~cpymad.madx.Madx` object.
         """
         return """
 option, -info, -warn;
@@ -96,11 +99,14 @@ twiss;
     @staticmethod
     def generate_onesext_cas_lattice() -> str:
         """
-        Generates the dummy lattice with a sextupole added to excite third order
-        resonances.
+        Generates the dummy lattice with a sextupole added
+        to excite third order resonances.
 
-        Returns:
-            A string to directly ``.input()`` into your `~cpymad.madx.Madx` object.
+        Returns
+        -------
+        str
+            A string to directly ``.input()`` into your
+            `~cpymad.madx.Madx` object.
         """
         return """
 option, -info, -warn;
@@ -186,11 +192,15 @@ twiss;
     @staticmethod
     def generate_oneoct_cas_lattice() -> str:
         """
-        Generates the dummy lattice with a sextupole and an octupole added
-        to excite third and fourth order resonances.
+        Generates the dummy lattice with a sextupole and
+        an octupole added to excite third and fourth order
+        resonances.
 
-        Returns:
-            A string to directly ``.input()`` into your `~cpymad.madx.Madx` object.
+        Returns
+        -------
+        str
+            A string to directly ``.input()`` into your
+            `~cpymad.madx.Madx` object.
         """
         return """
 option, -info, -warn;
@@ -276,11 +286,14 @@ twiss;
     @staticmethod
     def _generate_tripleterrors_study_reference() -> str:
         """
-        Generate generic script for reference ``TWISS``, to use in a
-        `~cpymad.madx.Madx` object.
+        Generate generic script for reference ``TWISS``, to
+        use in a `~cpymad.madx.Madx` object.
 
-        Returns:
-            A string you can input into your `~cpymad.madx.Madx` object.
+        Returns
+        -------
+        str
+            A string to directly ``.input()`` into your
+            `~cpymad.madx.Madx` object.
         """
         return """
 !####################### Make macros available #######################
@@ -328,14 +341,22 @@ twiss;
     @staticmethod
     def _generate_tripleterrors_study_tferror_job(rand_seed: str, tf_error: str) -> str:
         """
-        Generate generic script for tf_error ``TWISS``, to use in a `~cpymad.madx.Madx` object.
+        Generate generic script for tf_error ``TWISS``, to use
+        in a `~cpymad.madx.Madx` object.
 
-        Args:
-            rand_seed (str): the random seed to provide ``MAD-X`` for the errors distributions.
-            tf_error (str): the misalignment error value (along the s axis).
+        Parameters
+        ----------
+        rand_seed : str
+            The random seed to provide ``MAD-X`` for the errors
+            distributions.
+        tf_error : str
+            The misalignment error value (along the s axis).
 
-        Returns:
-            A string to directly ``.input()`` into your `~cpymad.madx.Madx` object.
+        Returns
+        -------
+        str
+            A string to directly ``.input()`` into your
+            `~cpymad.madx.Madx` object.
         """
         return f"""
 !####################### Make macros available #######################
@@ -403,14 +424,22 @@ exec, do_twiss_elements(LHCB1, "./twiss_errors.dat", 0.0);
     @staticmethod
     def _generate_tripleterrors_study_mserror_job(rand_seed: str, ms_error: str) -> str:
         """
-        Generate generic script for ms_error ``TWISS``, to use in a `~cpymad.madx.Madx` object.
+        Generate generic script for ms_error ``TWISS``, to use
+        in a `~cpymad.madx.Madx` object.
 
-        Args:
-            rand_seed (str): the random seed to provide ``MAD-X`` for the errors distributions.
-            ms_error (str): the misalignment error value (along the s axis).
+        Parameters
+        ----------
+        rand_seed : str
+            The random seed to provide ``MAD-X`` for the errors
+            distributions.
+        ms_error : str
+            The misalignment error value (along the s axis).
 
-        Returns:
-            A string to directly ``.input()`` into your `~cpymad.madx.Madx` object.
+        Returns
+        -------
+        str
+            A string to directly ``.input()`` into your
+            `~cpymad.madx.Madx` object.
         """
         return f"""
 !####################### Make macros available #######################

@@ -134,7 +134,6 @@ extensions = [
     "sphinx_copybutton",  # Add a "copy" button to code blocks
     "sphinx_gallery.gen_gallery",  # Build an HTML gallery of examples from a set of Python scripts
     "sphinx_issues",  # Link to project's issue tracker
-    # "sphinx_panels",  # Create panels in a grid layout or as drop-downs
     "sphinx_design",  # successor to sphinx_panels, for grid layouts and drop-downs
     "matplotlib.sphinxext.plot_directive",  # Include a Matplotlib plot in a Sphinx document
     "sphinx-prompt",  # prompt symbols will not be copy-pastable
@@ -146,11 +145,11 @@ autosectionlabel_prefix_document = True
 autosectionlabel_maxdepth = 2
 
 # Config for the napoleon extension
-napoleon_numpy_docstring = False
 napoleon_include_init_with_doc = True
 napoleon_use_admonition_for_examples = True
 napoleon_use_admonition_for_notes = True
 napoleon_use_admonition_for_references = True
+napoleon_use_rtype = False
 napoleon_preprocess_types = True
 napoleon_attr_annotations = True
 
@@ -176,6 +175,8 @@ sphinx_gallery_conf = {
     "capture_repr": ("_repr_html_",),
     "compress_images": ("images", "thumbnails", "-o1"),
     "only_warn_on_example_error": True,  # keep the build going if an example fails, important for doc workflow
+    "parallel": -1,  # number of jobs to use to build the gallery
+    "write_computation_times": False,  # do not write time to run example in the output
 }
 
 # Config for the sphinx_panels extension
@@ -197,7 +198,6 @@ html_theme = "sphinx_rtd_theme"
 # documentation.
 html_theme_options = {
     "collapse_navigation": False,
-    "display_version": True,
     "logo_only": True,
     "navigation_depth": 3,
 }
@@ -248,66 +248,6 @@ html_sidebars = {
     ]
 }
 
-# Add any extra paths that contain custom files (such as robots.txt or
-# .htaccess) here, relative to this directory. These files are copied
-# directly to the root of the documentation.
-# html_extra_path = []
-
-# If not None, a 'Last updated on:' timestamp is inserted at every page
-# bottom, using the given strftime format.
-# The empty string is equivalent to '%b %d, %Y'.
-# html_last_updated_fmt = None
-
-# If true, SmartyPants will be used to convert quotes and dashes to
-# typographically correct entities.
-# html_use_smartypants = True
-
-# Additional templates that should be rendered to pages, maps page names to
-# template names.
-# html_additional_pages = {}
-
-# If false, no module index is generated.
-# html_domain_indices = True
-
-# If false, no index is generated.
-# html_use_index = True
-
-# If true, the index is split into individual pages for each letter.
-# html_split_index = False
-
-# If true, links to the reST sources are added to the pages.
-# html_show_sourcelink = True
-
-# If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
-# html_show_sphinx = True
-
-# If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
-# html_show_copyright = True
-
-# If true, an OpenSearch description file will be output, and all pages will
-# contain a <link> tag referring to it.  The value of this option must be the
-# base URL from which the finished HTML is served.
-# html_use_opensearch = ''
-
-# This is the file name suffix for HTML files (e.g. ".xhtml").
-# html_file_suffix = None
-
-# Language to be used for generating the HTML full-text search index.
-# Sphinx supports the following languages:
-#   'da', 'de', 'en', 'es', 'fi', 'fr', 'h', 'it', 'ja'
-#   'nl', 'no', 'pt', 'ro', 'r', 'sv', 'tr', 'zh'
-# html_search_language = 'en'
-
-# A dictionary with options for the search language support, empty by default.
-# 'ja' uses this config value.
-# 'zh' user can custom change `jieba` dictionary path.
-# html_search_options = {'type': 'default'}
-
-# The name of a javascript file (relative to the configuration directory) that
-# implements a search results scorer. If empty, the default will be used.
-# html_search_scorer = 'scorer.js'
-
-
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
@@ -339,7 +279,9 @@ latex_elements["babel"] = r"\usepackage{babel}"
 # Font configuration
 # Fix fontspec converting " into right curly quotes in PDF
 # cf https://github.com/sphinx-doc/sphinx/pull/6888/
-latex_elements["fontenc"] = r"""
+latex_elements[
+    "fontenc"
+] = r"""
 \usepackage{fontspec}
 \defaultfontfeatures[\rmfamily,\sffamily,\ttfamily]{}
 """
@@ -391,7 +333,9 @@ latex_elements["fontpkg"] = fontpkg
 
 
 # Additional stuff for the LaTeX preamble.
-latex_elements["preamble"] = r"""
+latex_elements[
+    "preamble"
+] = r"""
    % Show Parts and Chapters in Table of Contents
    \setcounter{tocdepth}{0}
    % One line per author on title page
@@ -511,7 +455,7 @@ intersphinx_mapping = {
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
     "matplotlib": ("https://matplotlib.org/stable/", None),
     "scipy": ("https://docs.scipy.org/doc/scipy/", None),
-    "tfs-pandas": ("https://pylhc.github.io/tfs/", None),
+    # "tfs-pandas": ("https://pylhc.github.io/tfs/", None),
     "tfs": ("https://pylhc.github.io/tfs/", None),
     "cpymad": ("https://hibtc.github.io/cpymad/", None),
     "optics_functions": ("https://pylhc.github.io/optics_functions/", None),

@@ -9,6 +9,7 @@ Segment-by-Segment Results
 This example shows how to use the modules in `pyhdtoolkit.plotting.sbs` and their various functions
 to easily visualize results of segment-by-segment runs.
 """
+
 # sphinx_gallery_thumbnail_number = 2
 import matplotlib.pyplot as plt
 import tfs
@@ -81,7 +82,7 @@ coupling.plot_full_ip_rdt(
     abs_ylimits=(5e-3, 6.5e-2),
     real_ylimits=(-1e-1, 1e-1),
     imag_ylimits=(-1e-1, 1e-1),
-    bbox_to_anchor=(0.535, 0.935),
+    bbox_to_anchor=(0.535, 0.945),
 )
 plt.show()
 
@@ -117,7 +118,7 @@ phase.plot_phase_segment_both_beams(
     b2_model=b2_model_tfs,
     ip=5,
     figsize=(20, 11),
-    bbox_to_anchor=(0.535, 0.935),
+    bbox_to_anchor=(0.535, 0.945),
 )
 plt.show()
 

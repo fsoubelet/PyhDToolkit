@@ -4,15 +4,17 @@
 LHC-Specific Utilities
 ----------------------
 
-Module with functions to perform ``MAD-X`` actions through a `~cpymad.madx.Madx` object,
-that are specific to LHC and HLLHC machines.
+Module with functions to perform ``MAD-X`` actions through a
+`~cpymad.madx.Madx` object, that are specific to the ``LHC``
+and ``HLLHC`` machines.
 
-.. important::
-   
-    The functions documented below are shown as coming from private modules (**_coupling**,
-    **_misc**, **_setup** etc). They are still all accessible at the `pyhdtoolkit.cpymadtools.lhc`
-    level, but any user is free to import and use them directly from the private modules if they
-    wish to do so. In short, the two options below are both valid:
+Important
+---------
+    The functions documented below are shown as coming from private
+    modules (**_coupling**, **_misc**, **_setup** etc). They are all
+    accessible at the `pyhdtoolkit.cpymadtools.lhc` level, but one is
+    free to import and use them directly from the private modules should
+    they wish to do so. In short, the two options below are both valid:
 
     .. tab-set::
 
@@ -30,6 +32,7 @@ that are specific to LHC and HLLHC machines.
                 from pyhdtoolkit.cpymadtools.lhc._setup import LHCSetup
                 # use this now
 """
+
 from ._coupling import get_lhc_bpms_twiss_and_rdts
 from ._elements import add_markers_around_lhc_ip, install_ac_dipole_as_kicker, install_ac_dipole_as_matrix
 from ._errors import misalign_lhc_ir_quadrupoles, misalign_lhc_triplets

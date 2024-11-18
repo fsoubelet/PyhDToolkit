@@ -3,6 +3,7 @@ import pathlib
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pytest
+
 from cpymad.madx import Madx
 
 from pyhdtoolkit.plotting.envelope import _interpolate_madx, plot_beam_envelope
@@ -21,6 +22,7 @@ def test_plot_enveloppe_raises_on_wrong_plane():
     with pytest.raises(ValueError, match="Invalid 'plane' argument."):
         plot_beam_envelope(madx, "lhcb1", plane="invalid")
 
+
 @pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_envelope_with_xlimits():
     with Madx(stdout=False) as madx:
@@ -30,7 +32,7 @@ def test_plot_envelope_with_xlimits():
         figure, ax = plt.subplots(figsize=(12, 7))
         # Let's plot 1 sigma and 2.5 sigma enveloppes
         plot_beam_envelope(madx, "cas19", "x", nsigma=1, xlimits=(200, 300), centre=True)
-        plot_beam_envelope(madx, "cas19", "horizontal", nsigma=2.5, xlimits=(200, 300),  centre=True)
+        plot_beam_envelope(madx, "cas19", "horizontal", nsigma=2.5, xlimits=(200, 300), centre=True)
         plt.setp(ax, xlabel="S [m]", ylabel="X [m]")
         plt.legend()
         return figure

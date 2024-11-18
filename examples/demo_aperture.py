@@ -23,6 +23,7 @@ available aperture in your machine, with the LHC used for this example.
 """
 
 import matplotlib.pyplot as plt
+
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc
@@ -41,7 +42,7 @@ plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 madx: Madx = lhc.prepare_lhc_run3(
     opticsfile="acc-models-lhc/operation/optics/R2022a_A11mC11mA10mL10m.madx",
     energy=450,  # given in GeV
-    stdout=False
+    stdout=False,
 )
 
 ###############################################################################
@@ -52,7 +53,9 @@ madx.call("lhc/aperture.b1.madx")
 madx.call("lhc/aper_tol.b1.madx")
 
 madx.command.twiss()
-madx.command.aperture(cor=0.002, dp=8.6e-4, halo="{6,6,6,6}", bbeat=1.05, dparx=0.14, dpary=0.14)
+madx.command.aperture(
+    cor=0.002, dp=8.6e-4, halo="{6,6,6,6}", bbeat=1.05, dparx=0.14, dpary=0.14
+)
 
 ###############################################################################
 # The details for the ``MAD-X`` ``aperture`` command can be found in the manual.
@@ -73,7 +76,7 @@ plot_aperture(
     title="IR5, Collision Optics - Beam 1 Aperture Tolerance",
     plot_bpms=True,
     xlimits=(ip5s - 80, ip5s + 80),
-    aperture_ylim=(0, 25),
+    aperture_ylim=(0, 30),
     k0l_lim=(-4e-4, 4e-4),
     k1l_lim=(-0.08, 0.08),
     color="darkslateblue",

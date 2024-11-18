@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pytest
 import tfs
+
 from matplotlib.collections import PatchCollection
 
 from pyhdtoolkit.cpymadtools.lhc import make_lhc_thin, re_cycle_sequence, setup_lhc_orbit

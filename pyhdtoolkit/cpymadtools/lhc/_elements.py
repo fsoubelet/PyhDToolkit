@@ -3,11 +3,19 @@
 
 **Elements Utilities**
 
-The functions below are utilities to install elements or markers in the ``LHC``.
+The functions below are utilities to install elements
+or markers in the ``LHC`` in ``MAD-X``.
 """
 
-from cpymad.madx import Madx
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from loguru import logger
+
+if TYPE_CHECKING:
+    from cpymad.madx import Madx
+
 
 _MAX_TRACKING_TOP_TURNS: int = 6600
 
@@ -28,22 +36,32 @@ def install_ac_dipole_as_kicker(
     .. versionadded:: 0.15.0
 
     Installs an AC dipole as a kicker element in (HL)LHC beam 1 or 2, for
-    tracking. This function assumes that you have already defined lhcb1/lhcb2
-    sequence, made a beam for it (``BEAM`` command or `~lhc.make_lhc_beams`
-    function), matched to your desired working point and made a ``TWISS`` call.
+    tracking. This function makes the assumption that the `lhcb1` / `lhcb2`
+    sequence is already defined, sliced, with an associated beam (``BEAM``
+    command or `~lhc.make_lhc_beams` function), is matched to the desired
+    working point and a ``TWISS`` call has been made.
 
-    .. important::
-        In a real machine, the AC Dipole does impact the orbit as well as
+    Important
+    ---------
+        In a real machine, the AC Dipole **does** impact the orbit as well as
         the betatron functions when turned on (:cite:t:`Miyamoto:ACD:2008`,
         part III). In ``MAD-X`` however, it cannot be modeled to do both at
         the same time. This routine introduces an AC Dipole as a kicker
         element so that its effect can be seen on particle trajectory
         in tracking. It **does not** affect ``TWISS`` functions.
 
+    Note
+    ----
+        The sequence should be sliced before calling this function, as the
+        AC Dipole is installed at the location of ``MKQA.6L4.B[12]``. This
+        is a minor inconvenience as the sequence should be sliced in order
+        to perform tracking anyway.
+
     One can find a full example use of the function for tracking in the
     :ref:`AC Dipole Tracking <demo-ac-dipole-tracking>` example gallery.
 
-    .. warning::
+    Warning
+    -------
         Installing the AC Dipole modifies the sequence, and the ``USE``
         command will be called again at the end of this function. This
         will remove any errors that were installed in the sequence.
@@ -56,29 +74,36 @@ def install_ac_dipole_as_kicker(
         the ``ESAVE`` or ``ETABLE`` command, call this function, then
         re-implement the errors with the ``SETERR`` command.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-            Positional only.
-        deltaqx (float): the deltaQx (horizontal tune excitation) used by the
-            AC dipole.
-        deltaqy (float): the deltaQy (vertical tune excitation) used by the
-            AC dipole.
-        sigma_x (float): the horizontal amplitude to drive the beam to, in
-            bunch sigma.
-        sigma_y (float): the vertical amplitude to drive the beam to, in
-            bunch sigma.
-        beam (int): the LHC beam to install the AC Dipole into, either 1 or 2.
-            Defaults to 1.
-        start_turn (int): the turn at which to start ramping up the AC dipole.
-            Defaults to 100.
-        ramp_turns (int): the number of turns to use for the ramp-up and the
-            ramp-down of the AC dipole. This number is important in order to
-            preserve the adiabaticity of the cycle. Defaults to 2000 as in the
-            LHC.
-        top_turns (int): the number of turns to drive the beam for. Defaults
-            to 6600 as in the LHC.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    deltaqx : float
+        The deltaQx (horizontal tune excitation) used by the AC dipole.
+        This is added on top of the current matched tune.
+    deltaqy : float
+        The deltaQy (vertical tune excitation) used by the AC dipole.
+        This is added on top of the current matched tune.
+    sigma_x : float
+        The horizontal amplitude to drive the beam to, in bunch sigma.
+    sigma_y : float
+        The vertical amplitude to drive the beam to, in bunch sigma.
+    beam : int
+        The LHC beam to install the AC Dipole into, either 1 or 2.
+        Defaults to 1.
+    start_turn : int
+        The turn at which to start ramping up the AC dipole during the
+        tracking. Defaults to 100.
+    ramp_turns : int
+        The number of turns to use for the ramp-up and the ramp-down of
+        the AC dipole. This number is important in order to preserve the
+        adiabaticity of the cycle. Defaults to 2000, as in the LHC.
+    top_turns : int
+        The number of turns to drive the beam for at full amplitude of the
+        exciting oscillations. Defaults to 6600, as in the LHC.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             install_ac_dipole_as_kicker(
@@ -98,8 +123,8 @@ def install_ac_dipole_as_kicker(
 
     if top_turns > _MAX_TRACKING_TOP_TURNS:
         logger.warning(
-            f"Configuring the AC Dipole for {top_turns:d} of driving is fine for MAD-X but is "
-            "higher than what the device can do in the (HL)LHC! Beware."
+            f"Configuring the AC Dipole for {top_turns:d} of driving is fine for MAD-X "
+            "but is higher than what the device can do in the (HL)LHC! Beware."
         )
     ramp1, ramp2 = start_turn, start_turn + ramp_turns
     ramp3 = ramp2 + top_turns
@@ -133,14 +158,14 @@ def install_ac_dipole_as_kicker(
     logger.debug(f"Installing AC Dipole kicker with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}")
     madx.command.seqedit(sequence=f"lhcb{beam:d}")
     madx.command.flatten()
-    # The kicker version is meant for a thin lattice and is installed a right at MKQA.6L4.B[12] (at=0)
+    # The kicker version is meant for a thin lattice and is installed right at MKQA.6L4.B[12] (at=0)
     madx.command.install(element=f"MKACH.6L4.B{beam:d}", at=0, from_=f"MKQA.6L4.B{beam:d}")
     madx.command.install(element=f"MKACV.6L4.B{beam:d}", at=0, from_=f"MKQA.6L4.B{beam:d}")
     madx.command.endedit()
 
     logger.warning(
-        f"Sequence LHCB{beam:d} is now re-USEd for changes to take effect. Beware that this will reset it, "
-        "remove errors etc."
+        f"Sequence LHCB{beam:d} is now re-USEd for changes to take effect. "
+        "Beware that this will reset it, remove errors etc."
     )
     madx.use(sequence=f"lhcb{beam:d}")
 
@@ -150,23 +175,25 @@ def install_ac_dipole_as_matrix(madx: Madx, /, deltaqx: float, deltaqy: float, b
     .. versionadded:: 0.15.0
 
     Installs an AC dipole as a matrix element in (HL)LHC beam 1 or 2, to
-    see its effect on TWISS functions This function assumes that you have
-    already defined lhcb1/lhcb2 sequence, made a beam for it (``BEAM``
-    command or `~lhc.make_lhc_beams` function), matched to your desired
-    working point and made a ``TWISS`` call.
+    see its effect on TWISS functions. This function makes the assumption
+    that the `lhcb1` / `lhcb2` sequence is already defined, sliced, with
+    an associated beam (``BEAM`` command or `~lhc.make_lhc_beams` function),
+    is matched to the desired working point and a ``TWISS`` call has been made.
 
     This function's use is very similar to that of
-    `~.lhc.install_ac_dipole_as_kicker`.
+    :func:`install_ac_dipole_as_kicker`.
 
-    .. important::
-        In a real machine, the AC Dipole does impact the orbit as well as the
-        betatron functions when turned on (:cite:t:`Miyamoto:ACD:2008`, part
-        III). In ``MAD-X`` however, it cannot be modeled to do both at the
-        same time. This routine introduces an AC Dipole as a matrix element
+    Important
+    ---------
+        In a real machine, the AC Dipole **does** impact the orbit as well as
+        the betatron functions when turned on (:cite:t:`Miyamoto:ACD:2008`,
+        part III). In ``MAD-X`` however, it cannot be modeled to do both at
+        the same time. This routine introduces an AC Dipole as a matrix element
         so that its effect can be seen on ``TWISS`` functions. It **does not**
         affect tracking.
 
-    .. warning::
+    Warning
+    -------
         Installing the AC Dipole modifies the sequence, and the ``USE``
         command will be called again at the end of this function. This
         will remove any errors that were installed in the sequence.
@@ -179,17 +206,22 @@ def install_ac_dipole_as_matrix(madx: Madx, /, deltaqx: float, deltaqy: float, b
         the ``ESAVE`` or ``ETABLE`` command, call this function, then
         re-implement the errors with the ``SETERR`` command.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-            Positional only.
-        deltaqx (float): the deltaQx (horizontal tune excitation) used by the
-            AC dipole.
-        deltaqy (float): the deltaQy (vertical tune excitation) used by the
-            AC dipole.
-        beam (int): the LHC beam to install the AC Dipole into, either 1 or 2.
-            Defaults to 1.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    deltaqx : float
+        The deltaQx (horizontal tune excitation) used by the AC dipole.
+        This is added on top of the current matched tune.
+    deltaqy : float
+        The deltaQy (vertical tune excitation) used by the AC dipole.
+        This is added on top of the current matched tune.
+    beam : int
+        The LHC beam to install the AC Dipole into, either 1 or 2.
+        Defaults to 1.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             install_ac_dipole_as_matrix(madx, deltaqx=-0.01, deltaqy=0.012, beam=1)
@@ -234,19 +266,20 @@ def add_markers_around_lhc_ip(madx: Madx, /, sequence: str, ip: int, n_markers: 
     """
     .. versionadded:: 1.0.0
 
-    Adds some simple marker elements left and right of an IP point, to
-    increase the granularity of optics functions returned from a ``TWISS``
-    call.
+    Adds some simple marker elements left and right of an IP, to increase
+    the granularity of optics functions returned from a ``TWISS`` call.
 
-    .. warning::
-        You will most likely need to have sliced the sequence before calling
+    Warning
+    -------
+        It is most likely needed to have sliced the sequence before calling
         this function, as otherwise there is a risk on getting a negative
         drift depending on the affected IP. This would lead to the remote
         ``MAD-X`` process to crash.
 
-    .. warning::
+    Warning
+    -------
         After editing the *sequence* to add markers, the ``USE`` command will
-        be run for the changes to apply. This means the caveats of ``USE``
+        be called for the changes to apply. This means the caveats of ``USE``
         apply, for instance the erasing of previously defined errors, orbits
         corrections etc.
 
@@ -254,17 +287,22 @@ def add_markers_around_lhc_ip(madx: Madx, /, sequence: str, ip: int, n_markers: 
         the ``ESAVE`` or ``ETABLE`` command, call this function, then
         re-implement the errors with the ``SETERR`` command.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-            Positional only.
-        sequence (str): which sequence to use the routine on.
-        ip (int): The interaction point around which to add markers.
-        n_markers (int): how many markers to add on each side of the IP.
-        interval (float): the distance between markers, in [m]. Giving
-            ``interval=0.05`` will place a marker every 5cm (starting 5cm
-            away from the IP on each side).
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    sequence : str
+        Which sequence to use the routine on.
+    ip : int
+        The interaction point around which to add markers.
+    n_markers : int
+        How many markers to add on each side of the IP.
+    interval : float
+        The distance between markers, in [m]. Giving ``interval=0.05`` will
+        place a marker every 5cm (starting 5cm away from the IP) on each side.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             add_markers_around_lhc_ip(

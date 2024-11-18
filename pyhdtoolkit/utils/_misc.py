@@ -4,21 +4,28 @@
 Miscellanous Personnal Utilities
 --------------------------------
 
-Private module that provides miscellaneous personnal utility functions.
+Private module that provides miscellaneous
+personnal utility functions.
 
-.. warning::
-    The functions in here are intented for personal use, and will most likely
-    **not** work on other people's machines.
+Warning
+-------
+    The functions in here are intented for personal
+    use, and will most likely **not** work on other
+    people's machines.
 """
 
+from __future__ import annotations
+
 import shlex
-from collections.abc import Sequence
+
 from multiprocessing import cpu_count
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import cpymad
 import numpy as np
 import pandas as pd
+
 from cpymad.madx import Madx
 from loguru import logger
 
@@ -26,26 +33,31 @@ from pyhdtoolkit import __version__
 from pyhdtoolkit.cpymadtools import lhc
 from pyhdtoolkit.cpymadtools.constants import LHC_IR_BPM_REGEX
 
+if TYPE_CHECKING:
+    from collections.abc import Callable, Sequence
+
 # ----- Constants ----- #
 
-N_CPUS = cpu_count()
-RNG = np.random.default_rng()
+N_CPUS: int = cpu_count()
+RNG: Callable = np.random.default_rng()
 
 
 def log_runtime_versions() -> None:
     """
     .. versionadded:: 0.17.0
 
-    Issues a ``CRITICAL``-level log stating the runtime versions of both `~pyhdtoolkit`, `cpymad` and ``MAD-X``.
+    Issues a ``CRITICAL``-level log stating the runtime versions
+    of both `~pyhdtoolkit`, `cpymad` and ``MAD-X``.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             log_runtime_versions()
             # 2022-10-05 15:06:26 | CRITICAL | pyhdtoolkit.utils._misc:39 - Using: pyhdtoolkit 1.0.0rc0 | cpymad 1.10.0  | MAD-X 5.08.01 (2022.02.25)
     """
-    with Madx(stdout=False) as mad:
-        logger.critical(f"Using: pyhdtoolkit {__version__} | cpymad {cpymad.__version__}  | {mad.version}")
+    with Madx(stdout=False) as madx:
+        logger.critical(f"Using: pyhdtoolkit {__version__} | cpymad {cpymad.__version__}  | {madx.version}")
 
 
 # ----- DataFrames Utilities ----- #
@@ -55,18 +67,29 @@ def split_complex_columns(df: pd.DataFrame, drop: bool = False) -> pd.DataFrame:
     """
     .. versionadded:: 1.2.0
 
-    Find complex valued columns in *df* and split them into a column for the real and imaginary parts each.
-    New columns will be named like the existing ones, with ``_REAL`` or ``_IMAG`` appended.
+    Find complex valued columns in provided dataframe and split them
+    into a column for the real and imaginary parts each. New columns
+    will be named as the existing ones, with either ``_REAL`` or
+    ``_IMAG`` appended to the name depending on which component of
+    the complex value they represent.
 
-    Args:
-        df (tfs.TfsDataFrame): the dataframe to split columns in.
-        drop (bool): whether to drop the original complex columns or not. Defaults to ``False``.
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        The dataframe to split the complex columns in.
+    drop : bool
+        If ``True``, the original complex columns will be dropped.
+        Defaults to ``False``.
 
-    Returns:
-        A new `~pandas.DataFrame` with the complex columns split into real and imaginary parts, and
-        the original complex columns potentially dropped.
+    Returns
+    -------
+    pandas.DataFrame
+        A new dataframe with the complex columns split into real and
+        imaginary parts, and the original complex columns potentially
+        dropped.
 
-    Exemple:
+    Example
+    -------
         .. code-block:: python
 
             df = split_complex_columns(df, drop=True)
@@ -87,24 +110,35 @@ def add_noise_to_ir_bpms(
     """
     .. versionadded:: 1.2.0
 
-    Selects the appropriate IR BPMs according to the max index provided, and adds gaussian noise
-    to each relevant column with the provided standard deviation.
+    Selects the appropriate IR BPMs according to the max index
+    provided, and adds gaussian noise to each relevant column
+    with the provided standard deviation.
 
-    .. important::
-        The BPM names should be in the index of the dataframe. Selection is case-insensitive.
+    Important
+    ---------
+        The BPM names should be in the index of the dataframe.
+        Selection is case insensitive.
 
-    Args:
-        df (pandas.DataFrame): the dataframe to add noise to.
-        max_index (int): the maximum index of the IR BPMs to add noise to. This number is
-            inclusive (i.e. the BPMs with this index will be selected).
-        stdev (float): the standard deviation of the gaussian noise to add.
-        columns (Sequence[str]): the columns to add noise to. If not given, all columns will be used.
-            Defaults to ``None``.
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        The dataframe to add noise to.
+    max_index : int
+        The maximum index of the IR BPMs to add noise to. This number
+        is inclusive (i.e. the BPMs with this index will be selected).
+    stdev : float
+        The standard deviation of the gaussian noise to add.
+    columns : Sequence[str], optional
+        The columns to add noise to. If not given, all columns will be
+        used. Defaults to ``None``.
 
-    Returns:
-        A new `~pandas.DataFrame` with the noise added to the wanted columns.
+    Returns
+    -------
+    pandas.DataFrame
+        A new dataframe with the noise added to the provided columns.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             df = add_noise_to_ir_bpms(df, max_index=5, stdev=1e-6, columns=["DPSI"])
@@ -129,28 +163,42 @@ def add_noise_to_arc_bpms(
     """
     .. versionadded:: 1.2.0
 
-    Selects the appropriate non-IR BPMs according to the min index provided, and adds gaussian noise
-    to each relevant column with the provided standard deviation.
+    Selects the appropriate non-IR BPMs according to the min index
+    provided, and adds gaussian noise to each relevant column with
+    the provided standard deviation.
 
-    .. warning::
-        This selects BPMs by ommission. It will find all IR BPMs up to *min_index* and will excluse
-        these from the selection.
+    Warning
+    -------
+        This selects BPMs by ommission. It will find all IR BPMs up
+        to *min_index* and will excluse these from the selection.
 
-    .. important::
-        The BPM names should be in the index of the dataframe. Selection is case-insensitive.
+    Important
+    ---------
+        The BPM names should be in the index of the dataframe.
+        Selection is case insensitive.
 
-    Args:
-        df (pandas.DataFrame): the dataframe to add noise to.
-        min_index (int): the minimum index of the BPMs to add noise to. See warning caveat right
-            above. This number is inclusive (i.e. the BPMs with this index will be selected).
-        stdev (float): the standard deviation of the gaussian noise to add.
-        columns (Sequence[str]): the columns to add noise to. If not given, all columns will be used.
-            Defaults to ``None``.
+        
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        The dataframe to add noise to.
+    min_index : int
+        The minimum index of the BPMs to add noise to. See warning
+        caveat right above. This number is inclusive (i.e. the BPMs
+        with this index will be selected).
+    stdev : float
+        The standard deviation of the gaussian noise to add.
+    columns : Sequence[str], optional
+        The columns to add noise to. If not given, all columns will be
+        used. Defaults to ``None``.
 
-    Returns:
-        A new `~pandas.DataFrame` with the noise added to the wanted columns.
+    Returns
+    -------
+    pandas.DataFrame
+        A new dataframe with the noise added to the wanted columns.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             df = add_noise_to_arc_bpms(df, min_index=8, stdev=1e-6, columns=["DPSI"])
@@ -172,20 +220,25 @@ def add_noise_to_arc_bpms(
 # ----- MAD-X Setup Utilities ----- #
 
 
-def apply_colin_corrs_balance(madx: Madx) -> None:
+def apply_colin_corrs_balance(madx: Madx, /) -> None:
     """
     .. versionadded:: 0.20.0
 
-    Applies the SbS local coupling correction settings from the 2022 commissioning as
-    they were in the machine, and tilts of Q3s that would compensate for those settings.
-    This way the bump of each corrector is very local to MQSX3 - MQSXQ3 and other effects
-    can be added and studied, *pretending* a perfect local coupling correction.
+    Applies the SbS local coupling correction settings from
+    the 2022 commissioning as they were in the machine, and
+    tilts of Q3s that would compensate for those settings.
+    This way the bump of each corrector is very local to
+    MQSX3 - MQSXQ3 and other effects can be added and studied,
+    *pretending* a perfect local coupling correction.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object with your
-            ``LHC`` setup.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object with your
+        ``LHC`` setup. Positional only.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             apply_colin_corrs_balance(madx)
@@ -220,27 +273,40 @@ def get_betastar_from_opticsfile(opticsfile: Path | str, check_symmetry: bool = 
     """
     .. versionadded:: 0.16.0
 
-    Parses the :math:`\\beta^{*}` value from the *opticsfile* content,
-    which is in the first lines. This contains an optional check to ensure
-    the betastar is the same for IP1 and IP5. The values returned are in meters.
+    Parses the :math:`\\beta^{*}` value from the *opticsfile*
+    content, which is in the first lines. This contains an
+    optional check to ensure the betastar is the same for IP1
+    and IP5. The values returned are in meters.
 
-    .. note::
-        For file in ``acc-models-lhc`` make sure to point to the strength file
-        (see example below) where the :math:`\\beta^{*}` is set, as the opticsfile
-        itself only contains call.
+    Note
+    ----
+        For files in ``acc-models-lhc`` make sure to point
+        to the strength file (see example below) where the
+        :math:`\\beta^{*}` is set, as the opticsfile itself
+        only contains call.
 
-    Args:
-        opticsfile (Union[Path, str]): `pathlib.Path` object to the optics file, or
-            string of the path to the file.
+    Parameters
+    ----------
+    opticsfile : pathlib.Path | str
+        Path object to the optics file.
+    check_symmetry : bool
+        If ``True``, the function will check that the betastar
+        values for IP1 and IP5 are the same. Defaults to `True`.
 
-    Returns:
+    Returns
+    -------
+    float
         The :math:`\\beta^{*}` value parsed from the file.
 
-    Raises:
-        AssertionError: if the :math:`\\beta^{*}` value for IP1 and IP5 is not
-            the same (in both planes too).
+    Raises
+    ------
+    AssertionError
+        If the :math:`\\beta^{*}` value for IP1 and IP5 is
+        not the same (in both planes too). This is only
+        the case if *check_symmetry* is set to ``True``.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             get_betastar_from_opticsfile(

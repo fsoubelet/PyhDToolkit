@@ -1,6 +1,7 @@
 import pathlib
 
 import pytest
+
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc
@@ -96,24 +97,29 @@ def _matched_lhc_madx() -> Madx:
 
 @pytest.fixture
 def _cycled_lhc_sequences() -> Madx:
-    """Important properties & beam for lhcb1 and lhcb1 declared and in use, WITH matching to working point."""
+    """
+    Important properties & beam for lhcb1 and lhcb1 declared and in use,
+    WITH a matching performed to working point.
+    Uses Run 2 normalized emittances values.
+    """
     with Madx(stdout=False) as madx:
         madx.call(str(LHC_SEQUENCE.absolute()))
         madx.call(str(LHC_OPTICS.absolute()))  # opticsfile.22
 
         lhc.re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
         lhc.re_cycle_sequence(madx, sequence="lhcb2", start="IP3")
-        lhc.make_lhc_beams(madx, energy=6500)
+        lhc.make_lhc_beams(madx, nemitt_x=3.75e-6, nemitt_y=3.75e-6, energy=6500)
         yield madx
 
 
 @pytest.fixture
 def _injection_aperture_tolerances_lhc_madx() -> Madx:
+    """Uses Run 2 normalized emittances values."""
     with Madx(stdout=False) as madx:
         madx.call(str(LHC_SEQUENCE.absolute()))
         madx.call(str(LHC_INJ_OPTICS.absolute()))  # opticsfile.1
 
-        lhc.make_lhc_beams(madx, energy=450)  # injection
+        lhc.make_lhc_beams(madx, nemitt_x=3.75e-6, nemitt_y=3.75e-6, energy=450)  # injection
         madx.use(sequence="lhcb1")
 
         madx.call(str(LHC_B1_APERTURE.absolute()))
@@ -126,11 +132,12 @@ def _injection_aperture_tolerances_lhc_madx() -> Madx:
 
 @pytest.fixture
 def _collision_aperture_tolerances_lhc_madx() -> Madx:
+    """Uses Run 2 normalized emittances values."""
     with Madx(stdout=False) as madx:
         madx.call(str(LHC_SEQUENCE.absolute()))
         madx.call(str(LHC_OPTICS.absolute()))  # opticsfile.22
 
-        lhc.make_lhc_beams(madx, energy=6500)  # collision
+        lhc.make_lhc_beams(madx, nemitt_x=3.75e-6, nemitt_y=3.75e-6, energy=6500)  # collision
         madx.use(sequence="lhcb1")
 
         madx.call(str(LHC_B1_APERTURE.absolute()))

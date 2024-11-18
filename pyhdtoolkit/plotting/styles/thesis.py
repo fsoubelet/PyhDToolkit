@@ -4,10 +4,13 @@ r"""
 Thesis Styles
 -------------
 
-This module contains different styles to be used with `~matplotlib`, tailored for figures to be included in my thesis document.
-The end results should insert themselves seamlessly with the rest of the paper.
-All plots are included in a LaTeX figure environment, included with ``[width=0.99\columnwidth]`` (and potentially subfloats inside).
-The text body has a fontsize of 12 points, and the figures should integrate to have roughly the same text size.
+This module contains different styles to be used with `~matplotlib`,
+tailored for figures to be included in my thesis document. The end
+results should insert themselves seamlessly with the rest of the paper.
+All plots are included in a LaTeX figure environment, included with
+``[width=0.99\columnwidth]`` (and potentially subfloats inside). The
+text body has a fontsize of 12 points, and the figures should integrate
+to have roughly the same text size.
 
 The following are available:
 

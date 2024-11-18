@@ -4,19 +4,27 @@
 PTC Routines
 ------------
 
-Module with functions to manipulate ``MAD-X`` ``PTC`` functionality through a
-`~cpymad.madx.Madx` object.
+Module with functions to manipulate ``MAD-X`` ``PTC`` functionality
+through a `~cpymad.madx.Madx` object.
 """
 
-from collections.abc import Sequence
-from pathlib import Path
+from __future__ import annotations
 
-import pandas as pd
+from pathlib import Path
+from typing import TYPE_CHECKING
+
 import tfs
-from cpymad.madx import Madx
+
 from loguru import logger
 
 from pyhdtoolkit.cpymadtools.utils import get_table_tfs
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
+
+    import pandas as pd
+
+    from cpymad.madx import Madx
 
 _MAX_PTC_AMPDET_ORDER: int = 2
 _MIN_PTC_AMPDET_ORDER: int = 1
@@ -34,45 +42,57 @@ def get_amplitude_detuning(
     are the contents of the internal ``SUMM`` table. This is a heavily refactored
     version of an initial implementation by :user:`Joschua Dilly <joschd>`.
 
-    .. important::
-        The default values used for the ``PTC_CREATE_LAYOUT`` command are ``model=3``
-        (``SixTrack`` model), ``method=4`` (integration order), ``nst=3`` (number of
-        integration steps, aka body slices for elements) and ``exact=True`` (use exact
-        Hamiltonian, not an approximated one). These can be provided as keyword
+    Important
+    ---------
+        The default values used for the ``PTC_CREATE_LAYOUT`` command are: `model=3`
+        (``SixTrack`` model), `method=4` (integration order), `nst=3` (number of
+        integration steps, a.k.a body slices for elements) and `exact=True` (use an
+        exact Hamiltonian, not an approximated one). These can be provided as keyword
         arguments to override them.
 
-        The ``PTC_NORMAL`` command is explicitely given ``icase=6`` by default to
-        enforce 6D calculations (see the
-        `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_
-        for details), ``no=5`` (map order for derivative evaluation of Twiss parameters),
-        ``closedorbit=True`` (triggers closed orbit calculation) and ``normal=True``
-        (activate calculation of the Normal Form).
+        The ``PTC_NORMAL`` command is explicitely given `icase=6` by default in order
+        to enforce 6D calculations (see the `MAD-X manual
+        <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_ for details),
+        `no=5` (map order for derivative evaluation of Twiss parameters), `normal=True`
+        (activate calculation of the Normal Form) and `closedorbit=True` (triggers closed
+        orbit calculation). These can also be provided as keyword arguments to override
+        them.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-            Positional only.
-        order (int): maximum derivative order coefficient (only 0, 1 or 2
-            implemented in ``PTC``). Defaults to 2.
-        file (Path | str): path to output file. Defaults to `None`.
-        fringe (bool): boolean flag to include fringe field effects in the
-            calculation. Defaults to ``False``.
-        **kwargs: Some parameters for the ``PTC`` universe creation can be given as
-            keyword arguments. They are `model`, `method`, `nst` and `exact`. The
-            `icase`, `no`, `closed_orbit` and `normal` kwargs can be given for the
-            ``PTC_NORMAL`` command. Their default values are listed higher up in this
-            docstring. Any remaining keyword argument is transmitted to the
-            ``PTC_NORMAL`` command.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    order : int
+        Maximum derivative order coefficient (remember that only 0, 1 or 2
+        are implemented in ``PTC``). Defaults to 2.
+    file : Path | str, optional
+        Path to output file. Defaults to `None`, which will skip writing
+        the resulting table to disk.
+    fringe : bool
+        Boolean flag to include fringe field effects in the calculation.
+        Defaults to `False`.
+    **kwargs
+        Some parameters for the ``PTC`` universe creation can be given as
+        keyword arguments. They are `model`, `method`, `nst` and `exact`
+        (case sensitive). Similarly `icase`, `no`, `closed_orbit` and
+        `normal` can be given (case sensitively) for the ``PTC_NORMAL``
+        command. Any remaining keyword argument is transmitted to the
+        ``PTC_NORMAL`` command as given.
 
-    Returns:
-        A `~tfs.frame.TfsDataframe` with the calculated coefficients.
+    Returns
+    -------
+    tfs.TfsDataFrame
+        A `~tfs.frame.TfsDataFrame` with the calculated RDTs, and the
+        ``SUMM`` table as headers.
 
-    Example:
+    Examples
+    --------
         .. code-block:: python
 
             ampdet_coeffs = get_amplitude_detuning(madx, order=2, closedorbit=True)
 
-        One can also specify parameters for the ``PTC`` universe and the ``PTC_NORMAL``
-        command:
+        One can also specify parameters for the ``PTC`` universe and the
+        ``PTC_NORMAL`` command:
 
         .. code-block:: python
 
@@ -140,7 +160,7 @@ def get_amplitude_detuning(
     dframe = get_table_tfs(madx, table_name="normal_results")
     dframe.index = range(len(dframe.NAME))  # table has a weird index
 
-    if file:
+    if file is not None:
         logger.debug(f"Exporting results to disk at '{Path(file).absolute()}'")
         tfs.write(file, dframe)
 
@@ -159,46 +179,56 @@ def get_rdts(
     the contents of the internal ``SUMM`` table. This is a heavily refactored
     version of an initial implementation by :user:`Joschua Dilly <joschd>`.
 
-    .. important::
-        The default values used for the ``PTC_CREATE_LAYOUT`` command are ``model=3``
-        (``SixTrack`` model), ``method=4`` (integration order), ``nst=3`` (number of
-        integration steps, aka body slices for elements) and ``exact=True`` (use exact
-        Hamiltonian, not an approximated one). These can be provided as keyword
+    Important
+    ---------
+        The default values used for the ``PTC_CREATE_LAYOUT`` command are: `model=3`
+        (``SixTrack`` model), `method=4` (integration order), `nst=3` (number of
+        integration steps, a.k.a body slices for elements) and `exact=True` (use an
+        exact Hamiltonian, not an approximated one). These can be provided as keyword
         arguments to override them.
 
-        The ``PTC_TWISS`` command is given ``icase=6`` by default to enforce 6D
-        calculations (see the
-        `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_
-        for details), and ``normal=True`` to trigger saving the normal form analysis
-        results in a table called ``NONLIN`` which will then be available through the
-        provided `~cpymad.madx.Madx` instance.
+        The ``PTC_TWISS`` command is explicitely given `icase=6` by default in order
+        to enforce 6D calculations (see the `MAD-X manual
+        <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_ for details),
+        and `normal=True` to activate calculation of the Normal Form. The normal form
+        analysis result will be stored in an internal table named ``NONLIN`` which will
+        then be available through the provided `~cpymad.madx.Madx` instance. These can
+        also be provided as keyword arguments to override them.
 
-        These default values can be changed through keyword arguments.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    order : int
+        Maximum derivative order coefficient (remember that only 0, 1 or 2
+        are implemented in ``PTC``). Defaults to 2.
+    file : Path | str, optional
+        Path to output file. Defaults to `None`, which will skip writing
+        the resulting table to disk.
+    fringe : bool
+        Boolean flag to include fringe field effects in the calculation.
+        Defaults to `False`.
+    **kwargs
+        Some parameters for the ``PTC`` universe creation can be given as
+        keyword arguments. They are `model`, `method`, `nst` and `exact`
+        (case sensitive). Similarly `icase` and `normal` can be given (case
+        sensitively) for the ``PTC_TWISS`` command. Any remaining keyword
+        argument is transmitted to the ``PTC_TWISS`` command as given.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-            Positional only.
-        order (int): map order for derivative evaluation of Twiss parameters.
-            Defaults to 4.
-        file (Path | str): path to output file. Default to `None`.
-        fringe (bool): boolean flag to include fringe field effects in the
-            calculation. Defaults to `False`.
-        **kwargs: Some parameters for the ``PTC`` universe creation can be given as
-            keyword arguments. They are `model`, `method`, `nst` and `exact`. The
-            `icase` and `normal` ones can be given for the ``PTC_TWISS`` command.
-            Their default values are listed higher up in this docstring. Any remaining
-            keyword argument is transmitted to the ``PTC_TWISS`` command.
+    Returns
+    -------
+    tfs.TfsDataFrame
+        A `~tfs.frame.TfsDataFrame` with the calculated RDTs, and the
+        ``SUMM`` table as headers.
 
-    Returns:
-        A `~tfs.frame.TfsDataFrame` with the calculated RDTs.
-
-    Example:
+    Examples
+    --------
         .. code-block:: python
 
             rdts_df = get_rdts(madx, order=3, fringe=True)
 
-        One can also specify parameters for the ``PTC`` universe and the ``PTC_TWISS``
-        command:
+        One can also specify parameters for the ``PTC`` universe and the
+        ``PTC_TWISS`` command:
 
         .. code-block:: python
 
@@ -232,7 +262,7 @@ def get_rdts(
 
     dframe = get_table_tfs(madx, table_name="twissrdt", headers_table="ptc_twiss_summary")
 
-    if file:
+    if file is not None:
         logger.debug(f"Exporting results to disk at '{Path(file).absolute()}'")
         tfs.write(file, dframe)
 
@@ -260,48 +290,56 @@ def ptc_twiss(
     internally, however this function does not track RDTs which makes the calculations
     significantly faster.
 
-    .. important::
-        The default values used for the ``PTC_CREATE_LAYOUT`` command are ``model=3``
-        (``SixTrack`` model), ``method=4`` (integration order), ``nst=3`` (number of
-        integration steps, aka body slices for elements) and ``exact=True`` (use exact
-        Hamiltonian, not an approximated one). These can be provided as keyword
+    Important
+    ---------
+        The default values used for the ``PTC_CREATE_LAYOUT`` command are: `model=3`
+        (``SixTrack`` model), `method=4` (integration order), `nst=3` (number of
+        integration steps, a.k.a body slices for elements) and `exact=True` (use an
+        exact Hamiltonian, not an approximated one). These can be provided as keyword
         arguments to override them.
 
-        The ``PTC_TWISS`` command is given ``icase=6`` by default to enforce 6D
-        calculations (see the
-        `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_
-        for details), and ``normal=True`` to trigger saving the normal form analysis
-        results in a table called ``NONLIN`` which will then be available through the
-        provided `~cpymad.madx.Madx` instance.
+        The ``PTC_TWISS`` command is explicitely given `icase=6` by default in order
+        to enforce 6D calculations (see the `MAD-X manual
+        <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_ for details),
+        and `normal=True` to activate calculation of the Normal Form. The normal form
+        analysis result will be stored in an internal table named ``NONLIN`` which will
+        then be available through the provided `~cpymad.madx.Madx` instance. These can
+        also be provided as keyword arguments to override them.
 
-        These default values can be changed through keyword arguments.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    order : int
+        Maximum derivative order coefficient (remember that only 0, 1 or 2
+        are implemented in ``PTC``). Defaults to 2.
+    file : Path | str, optional
+        Path to output file. Defaults to `None`, which will skip writing
+        the resulting table to disk.
+    fringe : bool
+        Boolean flag to include fringe field effects in the calculation.
+        Defaults to `False`.
+    **kwargs
+        Some parameters for the ``PTC`` universe creation can be given as
+        keyword arguments. They are `model`, `method`, `nst` and `exact`
+        (case sensitive). Similarly `icase` and `normal` can be given (case
+        sensitively) for the ``PTC_TWISS`` command. Any remaining keyword
+        argument is transmitted to the ``PTC_TWISS`` command as given.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-            Positional only.
-        order (int): map order for derivative evaluation of ``TWISS`` parameters.
-            Defaults to 4.
-        file (Path | str): path to output file. Default to `None`.
-        fringe (bool): boolean flag to include fringe field effects in the calculation.
-            Defaults to `False`.
-        table (str): the name of the internal table in which to save the results.
-            Defaults to **ptc_twiss**.
-        **kwargs: Some parameters for the ``PTC`` universe creation can be given as
-            keyword arguments. They are `model`, `method`, `nst` and `exact`. The
-            `icase` and `normal` ones can be given for the ``PTC_TWISS`` command.
-            Their default values are listed higher up in this docstring. Any remaining
-            keyword argument is transmitted to the ``PTC_TWISS`` command.
+    Returns
+    -------
+    tfs.TfsDataFrame
+        A `~tfs.frame.TfsDataFrame` with the calculated ``TWISS`` parameters,
+        and the ``SUMM`` table as headers.
 
-    Returns:
-        A `~tfs.frame.TfsDataFrame` with the calculated ``TWISS`` parameters.
-
-    Example:
+    Examples
+    --------
         .. code-block:: python
 
             twiss_ptc_df = ptc_twiss(madx, order=3)
 
-        One can also specify parameters for the ``PTC`` universe and the ``PTC_TWISS``
-        command:
+        One can also specify parameters for the ``PTC`` universe and the
+        ``PTC_TWISS`` command:
 
         .. code-block:: python
 
@@ -335,7 +373,7 @@ def ptc_twiss(
 
     dframe = get_table_tfs(madx, table_name=table, headers_table="ptc_twiss_summary")
 
-    if file:
+    if file is not None:
         logger.debug(f"Exporting results to disk at '{Path(file).absolute()}'")
         tfs.write(file, dframe)
 
@@ -356,69 +394,80 @@ def ptc_track_particle(
     """
     .. versionadded:: 0.12.0
 
-    Tracks a single particle for *nturns* through ``PTC_TRACK``, based on its initial
-    coordinates. The use of this function is similar to that of
+    Tracks a single particle for *nturns* through ``PTC_TRACK``, based on its
+    initial coordinates. The use of this function is similar to that of
     `~.track.track_single_particle`.
 
-    .. important::
-        The default values used for the ``PTC_CREATE_LAYOUT`` command are ``model=3``
-        (``SixTrack`` model), ``method=4`` (integration order), ``nst=3`` (number of
-        integration steps, aka body slices for elements) and ``exact=True`` (use exact
-        Hamiltonian, not an approximated one). These can be provided as keyword
+    Important
+    ---------
+        The default values used for the ``PTC_CREATE_LAYOUT`` command are: `model=3`
+        (``SixTrack`` model), `method=4` (integration order), `nst=3` (number of
+        integration steps, a.k.a body slices for elements) and `exact=True` (use an
+        exact Hamiltonian, not an approximated one). These can be provided as keyword
         arguments to override them.
 
-        The ``PTC_TRACK`` command is given ``ELEMENT_BY_ELEMENT=True`` by default to
-        force element by element tracking mode.
+        The ``PTC_TRACK`` command is explicitely given `ELEMENT_BY_ELEMENT=True` by
+        default to force element by element tracking mode. This can also be provided
+        as keyword argument to override it.
 
-        These default values can be changed through keyword arguments.
+    Warning
+    -------
+        If the *sequence* parameter is given a string value, the ``USE`` command will
+        be ran on the provided sequence name. This means the caveats of ``USE`` apply,
+        for instance the erasing of previously defined errors, orbits corrections etc.
+        In this case a warning will be logged but the function will proceed. If `None`
+        is given (by default) then the sequence already in use will be the one tracking
+        is performed with.
 
-    .. warning::
-        If the *sequence* argument is given a string value, the ``USE`` command will be
-        ran on the provided sequence name. This means the caveats of ``USE`` apply, for
-        instance the erasing of previously defined errors, orbits corrections etc. In
-        this case a warning will be logged but the function will proceed. If `None` is
-        given (by default) then the sequence already in use will be the one tracking is
-        performed on.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    initial_coordinates : tuple[float, float, float, float, float, float]
+        A tuple with the ``X, PX, Y, PY, T, PT`` starting coordinates of the
+        particle to track. Defaults to all 0 if `None` given.
+    nturns : int
+        The number of turns to track for.
+    sequence : str, optional
+        The sequence to use for tracking. If no value is provided, it is assumed
+        that a sequence is already defined and in use, and this one will be picked
+        up by ``MAD-X``. Beware of the dangers of giving a sequence that will be
+        ``use``-d by ``MAD-X``, see the warning above for more information.
+    observation_points : Sequence[str], optional
+        A sequence of element names at which to ``OBSERVE`` during the tracking.
+    onetable : bool
+        Flag to combine all observation points data into a single table. Defaults
+        to `False`.
+    fringe : bool
+        Boolean flag to include fringe field effects in the calculation. Defaults
+        to `False`.
+    **kwargs
+        Some parameters for the ``PTC`` universe creation can be given as
+        keyword arguments. They are `model`, `method`, `nst` and `exact`
+        (case sensitive). Similarly `element_by_element` can be given (case
+        sensitively) for the ``PTC_TRACK`` command. Any remaining keyword
+        argument is transmitted to the ``PTC_TRACK`` command, such as the
+        `closed_orbit` flag to activate closed orbit calculation before any
+        tracking. Refer to the `MAD-X manual
+        <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_
+        for options.
 
-    Args:
-        madx (cpymad.madx.Madx): an instantiated cpymad.madx.Madx object.
-        initial_coordinates (tuple[float, float, float, float, float, float]): a tuple
-            with the ``X, PX, Y, PY, T, PT`` starting coordinates of the particle to
-            track. Defaults to all 0 if `None` given.
-        nturns (int): the number of turns to track for.
-        sequence (str | None): the sequence to use for tracking. If no value is
-            provided, it is assumed that a sequence is already defined and in use,
-            and this one will be picked up by ``MAD-X``. Beware of the dangers of
-            giving a sequence that will be used by ``MAD-X``, see the warning below
-            for more information.
-        observation_points (Sequence[str]): sequence of all element names at which to
-            ``OBSERVE`` during the tracking.
-        onetable (bool): flag to combine all observation points data into a single
-            table. Defaults to `False`.
-        fringe (bool): boolean flag to include fringe field effects in the calculation.
-            Defaults to `False`.
-        **kwargs: Some parameters for the ``PTC`` universe creation can be given as
-            keyword arguments. They are `model`, `method`, `nst`, `exact` and
-            `element_by_element` for the ``PTC_TRACK`` command. Their default values
-            are listed higher up in this docstring. Any remaining keyword argument is
-            transmitted to the ``PTC_TRACK`` command such as the `CLOSED_ORBIT` flag
-            to activate closed orbit calculation before tracking. Refer to the
-            `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_
-            for options.
+    Returns
+    -------
+    dict[str, pd.DataFrame]
+        A `dict` with a copy of the track table's dataframe for each defined
+        observation point, with as columns the coordinates ``x, px, y, py, t,
+        pt, s and e`` (energy). The keys of the dictionary are simply named
+        `observation_point_1`, `observation_point_2` etc. The first observation
+        point always corresponds to the start of machine, the others correspond
+        to the ones manually defined at function call, in the order they are given.
 
-    Returns:
-        A `dict` with a copy of the track table's dataframe for each defined observation
-        point, with as columns the coordinates ``x, px, y, py, t, pt, s and e`` (energy).
-        The keys of the dictionary are simply named ``observation_point_1``,
-        ``observation_point_2`` etc. The first observation point always corresponds to the
-        start of machine, the others correspond to the ones manually defined, in the order
-        they are defined in.
+        If the user has set `onetable=True`, only one entry is in the dictionary
+        under the key ``trackone`` and it has the combined table as a
+        `~pandas.DataFrame` for value.
 
-        If the user has set ``onetable`` to `True`, only one entry is in the dictionary
-        under the key ``trackone`` and it has the combined table as a `~pandas.DataFrame`
-        for value.
-
-    Example:
+    Examples
+    --------
         .. code-block:: python
 
             tracks_dict = ptc_track_particle(
@@ -477,7 +526,7 @@ def ptc_track_particle(
     madx.command.ptc_track(turns=nturns, element_by_element=element_by_element, onetable=onetable, **kwargs)
     madx.ptc_end()
 
-    if onetable:  # user asked for ONETABLE, there will only be one table 'trackone' given back by MAD-X
+    if onetable is True:  # there will only be one table 'trackone' given back by MAD-X
         logger.debug("Because of option ONETABLE only one table 'TRACKONE' exists to be returned.")
         return {"trackone": madx.table.trackone.dframe()}
     return {

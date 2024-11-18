@@ -4,18 +4,25 @@
 Aperture Plotters
 -----------------
 
-Module with functions to create aperture plots through a `~cpymad.madx.Madx`
-object.
+Module with functions to create aperture plots
+through a `~cpymad.madx.Madx` object.
 """
+
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from cpymad.madx import Madx
+
 from loguru import logger
 
 from pyhdtoolkit.plotting.layout import plot_machine_layout
 from pyhdtoolkit.plotting.utils import maybe_get_ax
+
+if TYPE_CHECKING:
+    from cpymad.madx import Madx
 
 
 def plot_aperture(
@@ -39,87 +46,102 @@ def plot_aperture(
     """
     .. versionadded:: 1.0.0
 
-    Creates a plot representing the lattice layout and the aperture tolerance
-    across the machine. The tolerance is based on the ``n1`` values in the
-    aperture table. One can find an example use of this function in the
-    :ref:`machine aperture <demo-accelerator-aperture>` example gallery.
+    Creates a plot representing the lattice layout and the aperture
+    tolerance across the machine. The tolerance is based on the ``n1``
+    values in the aperture table. One can find an example use of this
+    function in the :ref:`machine aperture <demo-accelerator-aperture>`
+    example gallery.
 
-    .. important::
+    Important
+    ---------
         This function assumes the user has previously made a call to the
         ``APERTURE`` command in ``MAD-X``, as it will query relevant values
         from the ``aperture`` table.
 
-    .. note::
+    Note
+    ----
         This function has some heavy logic behind it, especially in how it
         needs to order several axes. The easiest way to go about using it is
         to manually create and empty figure with the desired properties (size,
         etc) then call this function. See the example below or the gallery for
         more details.
 
-    .. warning::
+    Warning
+    -------
         Currently the function tries to plot legends for the different layout
         patches. The position of the different legends has been hardcoded in
         corners and might require users to tweak the axis limits (through
         ``k0l_lim``, ``k1l_lim`` and ``k2l_lim``) to ensure legend labels and
         plotted elements don't overlap.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-            Positional only.
-        title (str | None): title of the figure.
-        xoffset (float): An offset applied to the ``S`` coordinate before
-            plotting. This is useful if you want to center a plot around a
-            specific point or element, which would then become located at
-            :math:`s = 0`. Beware this offset is applied before applying the
-            *xlimits*. Defaults to 0.
-        xlimits (tuple[float, float]): will implement xlim (for the ``s``
-            coordinate) if this is not ``None``, using the tuple passed.
-        plot_dipoles (bool): if `True`, dipole patches will be plotted on
-            the layout subplot of the figure. Defaults to `True`. Dipoles
-            are plotted in blue.
-        plot_dipole_k1 (bool): if `True`, dipole elements with a quadrupolar
-            gradient will have this gradient plotted as a quadrupole patch.
-            Defaults to `False`.
-        plot_quadrupoles (bool): if `True`, quadrupole patches will be plotted
-            on the layout subplot of the figure. Defaults to `True`.
-            Quadrupoles are plotted in red.
-        plot_bpms (bool): if `True`, additional patches will be plotted on the
-            layout subplot to represent Beam Position Monitors. BPMs are
-            plotted in dark grey.
-        aperture_ylim (tuple[float, float]): vertical axis limits for the
-            aperture values. Defaults to `None`, to be determined by matplotlib
-            based on the provided values.
-        k0l_lim (tuple[float, float] | float): vertical axis limits
-            for the ``k0l`` values used for the height of dipole patches. Can
-            be given as a single value (float, int) or a tuple (in which case
-            it should be symmetric). If `None` (default) is given, then the
-            limits will be auto-determined based on the ``k0l`` values of the
-            dipoles in the plot.
-        k1l_lim (tuple[float, float] | float): vertical axis limits
-            for the ``k1l`` values used for the height of quadrupole patches.
-            Can be given as a single value (float, int) or a tuple (in which
-            case it should be symmetric). If `None` (default) is given, then
-            the limits will be auto-determined based on the ``k0l`` values of
-            the quadrupoles in the plot.
-        k2l_lim (tuple[float, float] | float): if given, sextupole
-            patches will be plotted on the layout subplot of the figure. If
-            given, acts as vertical axis limits for the k2l values used for
-            the height of sextupole patches. Can be given as a single value
-            (float, int) or a tuple (in which case it should be symmetric).
-        k3l_lim (tuple[float, float] | float): if given, octupole
-            patches will be plotted on the layout subplot of the figure. If
-            given, acts as vertical axis limits for the k3l values used for
-            the height of octupole patches. Can be given as a single value
-            (float, int) or a tuple (in which case it should be symmetric).
-        color (str): the color argument given to the aperture lines. Defaults
-            to `None`, in which case the first color in your `rcParams`'s
-            cycler will be used.
-        **kwargs: any keyword argument will be transmitted to
-            `~.plotting.utils.plot_machine_layout`, later on to
-            `~.plotting.utils._plot_lattice_series`, and then
-            `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    title : str, optional
+        Title of the figure.
+    xoffset : float
+        An offset applied to the ``S`` coordinate before plotting.
+        This is useful if you want to center a plot around a specific
+        point or element, which would then become located at exactly
+        :math:`s = 0`. Beware this offset is applied before applying
+        the *xlimits*. Defaults to 0.
+    xlimits : tuple[float, float], optional
+        If given, will be used for the xlim (for the ``s`` coordinate),
+        using the tuple passed.
+    plot_dipoles : bool
+        If `True`, dipole patches will be plotted on the layout subplot
+        of the figure. Defaults to `True`. Dipoles are plotted in blue.
+    plot_dipole_k1 : bool
+        If `True`, dipole elements with a quadrupolar gradient will have
+        this gradient plotted as a quadrupole patch. Defaults to `False`.
+    plot_quadrupoles : bool
+        If `True`, quadrupole patches will be plotted on the layout subplot
+        of the figure. Defaults to `True`. Quadrupoles are plotted in red.
+    plot_bpms : bool
+        If `True`, additional patches will be plotted on the layout subplot
+        to represent Beam Position Monitors. BPMs are plotted in dark grey.
+        Defaults to `False`.
+    aperture_ylim : tuple[float, float], optional
+        If given, will be used as vertical axis limits for the aperture
+        values. Defaults to `None`, to be determined by matplotlib based
+        on the provided values.
+    k0l_lim : tuple[float, float] | float, optional
+        If given, will be used as vertical axis limits for the ``k0l``
+        values used for the height of dipole patches. Can be given as a
+        single value (float, int) or a tuple (in which case it should be
+        symmetric). If `None` is given, then the limits will be determined
+        automatically based on the ``k0l`` values of the dipoles.
+    k1l_lim : tuple[float, float] | float, optional
+        If given, will be used as vertical axis limits for the ``k1l``
+        values used for the height of quadrupole patches. Can be given as
+        a single value (float, int) or a tuple (in which case it should be
+        symmetric). If `None` is given, then the limits will be determined
+        automatically based on the ``k1l`` values of the quadrupoles.
+    k2l_lim : tuple[float, float] | float, optional
+        If given, will be used as vertical axis limits for the ``k2l``
+        values used for the height of sextupole patches. Can be given as
+        a single value (float, int) or a tuple (in which case it should be
+        symmetric). If `None` is given, then the limits will be determined
+        automatically based on the ``k2l`` values of the sextupoles.
+    k3l_lim : tuple[float, float] | float, optional
+        If given, will be used as vertical axis limits for the ``k3l``
+        values used for the height of octupole patches. Can be given as
+        a single value (float, int) or a tuple (in which case it should be
+        symmetric). If `None` is given, then the limits will be determined
+        automatically based on the ``k3l`` values of the octupoles.
+    color : str, optional
+        The color argument given to the aperture lines. Defaults to `None`,
+        in which case the first color found in your `rcParams`'s cycler will
+        be used.
+    **kwargs
+        Any keyword argument will be transmitted to
+        `~.plotting.utils.plot_machine_layout`, later on to
+        `~.plotting.utils._plot_lattice_series`, and then
+        `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             plt.figure(figsize=(16, 11))
@@ -203,37 +225,46 @@ def plot_physical_apertures(
     function in the :ref:`machine aperture <demo-accelerator-aperture>`
     example gallery. Original code from :user:`Elias Waagaard <ewaagaard>`.
 
-    .. important::
+    Important
+    ---------
         This function assumes the user has previously made a call to the
         ``APERTURE`` command in ``MAD-X``, as it will query relevant values
         from the ``aperture`` table.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-            Positional only.
-        plane (str): the physical plane to plot for, should be either `x`,
-            `horizontal`, `y` or `vertical`, and is case-insensitive.
-        scale (float): a scaling factor to apply to the beam orbit and beam
-            enveloppe, for the user to adjust to their wanted scale. Defaults
-            to 1 (values in [m]).
-        xoffset (float): An offset applied to the ``S`` coordinate before
-            plotting. This is useful if you want to center a plot around a
-            specific point or element, which would then become located
-            at :math:`s = 0`. Beware this offset is applied before applying
-            the *xlimits*. Defaults to 0.
-        xlimits (tuple[float, float]): will implement xlim (for the ``s``
-            coordinate) if this is not ``None``, using the tuple passed.
-            Defaults to ``None``.
-        **kwargs: any keyword argument that can be given to the ``MAD-X``
-            ``TWISS`` command. If either `ax` or `axis` is found in the
-            kwargs, the corresponding value is used as the axis object to
-            plot on.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    plane : str
+        The physical plane to plot for, Accepted values are either `x`,
+        `horizontal`, `y` or `vertical`. Case insensitive.
+    scale : float
+        A scaling factor to apply to the beam orbit and beam enveloppe,
+        for the user to adjust to their wanted scale. Defaults to 1
+        (meaning values are assumed in [m]).
+    xoffset : float
+        An offset applied to the ``S`` coordinate before plotting.
+        This is useful if you want to center a plot around a specific
+        point or element, which would then become located at exactly
+        :math:`s = 0`. Beware this offset is applied before applying
+        the *xlimits*. Defaults to 0.
+    xlimits : tuple[float, float], optional
+        If given, will be used for the xlim (for the ``s`` coordinate),
+        using the tuple passed.
+    **kwargs
+        Any keyword argument that can be given to the ``MAD-X`` ``TWISS``
+        command. If either `ax` or `axis` is found in the kwargs, the
+        corresponding value is used as the axis object to plot on.
 
-    Raises:
-        ValueError: if the *plane* argument is not one of `x`, `horizontal`,
-        `y` or `vertical`.
+    Raises
+    ------
+    ValueError
+        If the *plane* argument is not one of `x`, `horizontal`, `y` or
+        `vertical`.
 
-    Examples:
+    Examples
+    --------
+
         .. code-block:: python
 
             fig, ax = plt.subplots(figsize=(10, 9))
@@ -258,7 +289,7 @@ def plot_physical_apertures(
     logger.debug("Plotting real element apertures")
     axis, kwargs = maybe_get_ax(**kwargs)
 
-    positions, apertures = _get_positions_and_real_apertures(madx, plane, **kwargs)
+    positions, apertures = _get_positions_and_real_apertures(madx, plane, xlimits=xlimits, **kwargs)
     logger.trace(f"Applying scale ({scale}) and offset ({xoffset})")
     positions = positions - xoffset
     apertures = apertures * scale
@@ -285,36 +316,43 @@ def _get_positions_and_real_apertures(
     .. versionadded:: 1.2.0
 
     Determines the "real" physical apertures of elements in the sequence.
-    This is done by extrapolating a data point at the beginning and the end
-    of each element, with values based on the ``aper_1`` and ``aper_2``
-    columns in the ``TWISS`` table. Original code from
+    This is done by extrapolating a data point at the beginning and the
+    end of each element, with values based on the ``aper_1`` and the
+    ``aper_2`` columns in the ``TWISS`` table. Original code from
     :user:`Elias Waagaard <ewaagaard>`.
 
-    .. important::
-        This function assumes the user has previously made a call to the
-        ``APERTURE`` command in ``MAD-X``, as it will query relevant values
-        from the ``aperture`` table.
+    Important
+    ---------
+        This function assumes the user has previously made a call to
+        the ``APERTURE`` command in ``MAD-X``, as it will query relevant
+        values from the ``aperture`` table.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-            Positional only.
-        plane (str): the physical plane to plot for, should be either `x`,
-            `horizontal`, `y` or `vertical`, and is case-insensitive.
-        xoffset (float): An offset applied to the ``S`` coordinate before
-            plotting. This is useful if you want to center a plot around a
-            specific point or element, which would then become located
-            at :math:`s = 0`. Beware this offset is applied before applying
-            the *xlimits*. Defaults to 0.
-        xlimits (tuple[float, float]): will implement xlim (for the ``s``
-            coordinate) if this is not ``None``, using the tuple passed.
-            Defaults to ``None``.
-        **kwargs: any keyword argument that can be given to the ``MAD-X``
-            ``TWISS`` command.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    plane : str
+        The physical plane to plot for, Accepted values are either `x`,
+        `horizontal`, `y` or `vertical`. Case insensitive.
+    xoffset : float
+        An offset applied to the ``S`` coordinate before plotting.
+        This is useful if you want to center a plot around a specific
+        point or element, which would then become located at exactly
+        :math:`s = 0`. Beware this offset is applied before applying
+        the *xlimits*. Defaults to 0.
+    xlimits : tuple[float, float], optional
+        If given, will be used for the xlim (for the ``s`` coordinate),
+        using the tuple passed.
+    **kwargs
+        Any keyword argument that can be given to the ``MAD-X``
+        ``TWISS`` command.
 
-    Returns:
+    Returns
+    -------
+    tuple[numpy.ndarray, numpy.ndarray]
         A `~numpy.ndarray` of the longitudinal positions for the data
-        points, and another `~numpy.ndarray` with the aperture values
-        at these positions.
+        points, and another `~numpy.ndarray` with the physical aperture
+        values at these positions.
     """
     logger.debug("Getting Twiss dframe from MAD-X")
     madx.command.select(flag="twiss", column=["aper_1", "aper_2"])  # make sure we to get these two

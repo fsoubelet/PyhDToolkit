@@ -12,34 +12,31 @@ D = \033[34m  # dark blue
 E = \033[0m  # end
 P = \033[95m  # pink
 R = \033[31m  # red
-# Y = \033[33m  # yellow
+Y = \033[33m  # yellow
 
-.PHONY : help build clean docker docs format install lines lint typing alltests quicktests slowtests
+.PHONY : help build clean docker docs format install lines lint typing tests
 
 all: install
 
 help:
 	@echo "Please use 'make $(R)<target>$(E)' where $(R)<target>$(E) is one of:"
-	@echo "  $(R) build $(E)  \t  to build wheel and source distribution with $(P)Hatch$(E)."
-	@echo "  $(R) clean $(E)  \t  to recursively remove build, run and bitecode files/dirs."
-	@echo "  $(R) docker $(E)  \t  to build a $(P)Docker$(E) container image replicating said environment (and other goodies)."
-	@echo "  $(R) docs $(E)  \t  to build the documentation for the package with $(P)Sphinx$(E)."
-	@echo "  $(R) format $(E)  \t  to recursively apply PEP8 formatting through the $(P)Black$(E) and $(P)isort$(E) cli tools."
-	@echo "  $(R) install $(E)  \t  to $(C)pip install$(E) this package into the current environment."
-	@echo "  $(R) lines $(E)  \t  to count lines of code with the $(P)tokei$(E) tool."
-	@echo "  $(R) lint $(E)  \t  to lint the code though $(P)Pylint$(E)."
-	@echo "  $(R) typing $(E)  \t  to run type checking on the codebase with $(P)MyPy$(E)."
-	@echo "  $(R) alltests $(E)  \t  to run the full test suite with $(P)pytest$(E)."
-	@echo "  $(R) quicktests $(E) \t  to run tests not involving $(D)pyhdtoolkit.cpymadtools$(E) with $(P)Pytest$(E)."
-	@echo "  $(R) slowtests $(E)  \t  to run tests involving $(D)pyhdtoolkit.cpymadtools$(E) with $(P)Pytest$(E)."
+	@echo "  $(R) build $(E)   to build wheel and source distribution with $(P)uv$(E)."
+	@echo "  $(R) clean $(E)   to recursively remove build, run and bitecode files/dirs."
+	@echo "  $(R) docker $(E)  to build a $(P)Docker$(E) container image replicating said environment (and other goodies)."
+	@echo "  $(R) docs $(E)    to build the documentation for the package with $(P)Sphinx$(E)."
+	@echo "  $(R) format $(E)  to recursively apply PEP8 formatting through the $(P)Black$(E) and $(P)isort$(E) cli tools."
+	@echo "  $(R) install $(E) to install this package into the current environment (editable install)."
+	@echo "  $(R) lines $(E)   to count lines of code with the $(P)tokei$(E) tool."
+	@echo "  $(R) lint $(E)    to lint the code though $(P)Ruff$(E)."
+	@echo "  $(R) tests $(E)   to run the test suite with $(P)pytest$(E) (parallelized)."
 
 
-# ----- Dev Tools Targets ----- #
+# ----- Dev Targets ----- #
 
 build:
 	@echo "Re-building wheel and dist"
 	@rm -rf dist
-	@hatch build --clean
+	@uv build
 	@echo "Created build is located in the $(C)dist$(E) folder."
 
 clean:
@@ -49,7 +46,7 @@ clean:
 	@echo "Cleaning up sphinx-gallery build artifacts."
 	@rm -rf docs/gallery
 	@rm -rf docs/gen_modules
-	@echo "Cleaning up distutils remains."
+	@echo "Cleaning up package build remains."
 	@rm -rf build
 	@rm -rf dist
 	@rm -rf pyhdtoolkit.egg-info
@@ -61,6 +58,7 @@ clean:
 	@echo "Cleaning up pytest cache & test artifacts."
 	@find . -type d -name '*.pytest_cache' -exec rm -rf {} + -o -type f -name '*.pytest_cache' -exec rm -rf {} +
 	@find . -type f -name 'fc.*' -delete -o -type f -name 'fort.*' -delete
+	@find . -type f -name 'checkpoint_restart.*' -delete -o -type f -name 'internal_mag_pot.*' -delete
 	@echo "Cleaning up mypy cache."
 	@find . -type d -name "*.mypy_cache" -exec rm -rf {} +
 	@echo "Cleaning up coverage reports."
@@ -75,41 +73,30 @@ docker:
 
 docs:
 	@echo "Building static pages with $(D)Sphinx$(E)."
-	@python -m sphinx -v -b html docs doc_build -d doc_build
+	@uv run python -m sphinx -v -b html docs doc_build -d doc_build
 
 format:
-	@echo "Formatting code to PEP8 with $(P)isort$(E) and $(P)Black$(E) for $(C)docs$(E), $(C)pyhdtoolkit$(E) and $(C)tests$(E) folders. Max line length is 120 characters."
-	@python -m isort . && black .
-	@echo "Formatting code to PEP8 with $(P)isort$(E) and $(P)Black$(E) for $(C)examples$(E) folder. Max line length is 95 characters."
-	@python -m isort examples && black -l 95 examples
+	@echo "Formatting code in $(C)docs$(E), $(C)tests$(E) and $(C)pyhdtoolkit$(E)."
+	@uvx isort docs && uvx black docs
+	@uvx isort tests && uvx black tests
+	@uvx isort pyhdtoolkit && uvx black pyhdtoolkit
+	@echo "Formatting code to PEP8 with $(P)isort$(E) and $(P)Black$(E) for $(C)examples$(E) folder."
+	@uvx isort examples && uvx black -l 95 examples
 
-install: format clean
-	@echo "Installing (editable) with $(D)pip$(E) in the current environment."
-	@python -m pip install --editable . -v
+install:
+	@echo "Installing (editable) the package in the current environment."
+	@uv pip install --editable .
 
-lines: format
+lines:
+	@echo "Counting lines of code with $(P)tokei$(E)."
 	@tokei .
 
-lint: format
-	@echo "Linting code with $(P)Pylint$(E)."
-	@python -m pylint pyhdtoolkit/
+lint:
+	@echo "Linting code with $(P)Ruff$(E)."
+	@uvx ruff check pyhdtoolkit
 
-typing: format
-	@echo "Checking code typing with $(P)mypy$(E)."
-	@python -m mypy pyhdtoolkit
-	@make clean
-
-
-# ----- Tests Targets ----- #
-
-quicktests:  # all tests not involving pyhdtoolkit.cpymadtools
-	@python -m pytest -k "not test_cpymadtools" -n auto -v
-
-slowtests:  # all tests for pyhdtoolkit.cpymadtools
-	@python -m pytest -k "test_cpymadtools" -n auto -v
-
-alltests:
-	@python -m pytest -n auto -v
+tests:
+	@uv run python -m pytest -n auto -v
 
 # Catch-all unknow targets without returning an error. This is a POSIX-compliant syntax.
 .DEFAULT:

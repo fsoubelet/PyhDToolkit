@@ -1,0 +1,48 @@
+.. _release_1.7.0:
+
+1.7.0
+-----
+
+Release `1.7.0` brings some project maintenance and removes old unused code / modules.
+
+Removals
+~~~~~~~~
+
+* The `pyhdtoolkit.utils.executors` module has been removed, since it was not in used anymore.
+* The `pyhdtoolkit.utils.operations` module has been removed, since it was not in used anymore.
+* The `pyhdtoolkit.utils.printutil` module has been removed, since it was not in used anymore.
+* The `pyhdtoolkit.cpymadtools.lhc._coupling.correct_lhc_global_coupling` function has been deleted as it was replaced by its clone in `pyhdtoolkit.cpymadtools.lhc._routines`. The publicly exported function from the `pyhdtoolkit.cpymadtools.lhc` module is not changed, but users using the old location should either use the public export or update their imports.
+
+Enhancements
+~~~~~~~~~~~~
+
+* The `pyhdtoolkit.utils` package has a new module, `decorators`, with two useful decorators: one to JIT-compile the decorated function if ``numba`` is available in the environment, and one to mark a function as deprecated.
+
+Changes
+~~~~~~~
+
+* The `pyhdtoolkit.cpymadtools.lhc.make_lhc_beams` function no longer accepts ambiguous `emittance_[xy]` parameters anymore. Please use the explicit `nemitt_[xy]` parameters introduced in version `1.6.0` instead.
+* The `pyhdtoolkit.cpymadtools.lhc.make_lhc_beams` function now defaults to a value of `2.5E-6m` for the normalized horizontal and vertical emittances, according to Run 3 operation. Functions that were calling `make_lhc_beams` for the Run 2 configuration explicitely ask for the previous default value of `3.5E-6m`.
+* The `pyhdtoolkit.cpymadtools.lhc.get_sizes_at_ip` function no longer accepts `geom_emit_[xy]` parameters and requires `gemitt_[xy]` instead.
+* The `pyhdtoolkit.models.beam.BeamParameters` class attributes were changed for consistency, with changes such as `en_emit_[xy]` becoming `nemitt_[xy]` etc.
+* The `pyhdtoolkit.optics.beam.compute_beam_parameters` function no longer accepts `en_emit_[xy]`  parameters and requires `nemitt_[xy]` instead.
+* The `pyhdtoolkit.optics.beam.Beam` class no longer accepts and posseses an `emittance` parameter / attribute, and now uses `gemitt` instead.
+
+Documentation
+~~~~~~~~~~~~~
+
+* Fixed various inconsistencies.
+* Fixed all public members being displayed in the sidebar, which should now be readable again.
+* The docstrings of functions in the `pyhdtoolkit.optics.rdt` module now display the version they were added in, and contain examples.
+* The whole package's docstrings have been migrated to use `numpy` style to better fit their depth. While the build documentation has not changed, users exploring function docstrings will have a better time reading them.
+
+Maintenance
+~~~~~~~~~~~
+
+* Updated Continuous Integration workflows to switch to `uv`, speeding up CI runs.
+* Updated the project's support files to switch to `uv`.
+* Updated some configuration parameters to comply with newest versions of documentation build tools.
+* Gated many imports into `TYPE_CHECKING` blocks, which should speedup the import time of the package or its sub-packages.
+* Updated the documentation gallery.
+
+See `v1.7.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/1.7.0>`_ and the `full changes since v1.6.0 <https://github.com/fsoubelet/PyhDToolkit/compare/1.6.0...1.7.0>`_.

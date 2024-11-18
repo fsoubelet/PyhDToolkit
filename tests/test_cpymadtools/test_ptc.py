@@ -2,6 +2,7 @@ import pathlib
 
 import pytest
 import tfs
+
 from cpymad.madx import Madx
 from pandas import DataFrame
 from pandas.testing import assert_frame_equal

@@ -24,9 +24,11 @@ to assign magnet errors in the Insertion Region magnets of the LHC.
     Here I set the 2022 branch for stability and reproducibility of the documentation
     builds, but you can use any branch you want.
 """
+
 # sphinx_gallery_thumbnail_number = 1
 import matplotlib.pyplot as plt
 import numpy as np
+
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc, matching
@@ -44,7 +46,7 @@ plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 madx: Madx = lhc.prepare_lhc_run3(
     opticsfile="acc-models-lhc/operation/optics/R2022a_A11mC11mA10mL10m.madx",
     energy=450,  # given in GeV
-    stdout=False
+    stdout=False,
 )
 
 ###############################################################################

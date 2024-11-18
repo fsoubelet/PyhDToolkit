@@ -6,7 +6,10 @@
 The functions below are miscellaneous utilities for the ``LHC``.
 """
 
-from cpymad.madx import Madx
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from loguru import logger
 
 from pyhdtoolkit.cpymadtools import twiss
@@ -20,6 +23,10 @@ from pyhdtoolkit.cpymadtools.constants import (
 )
 from pyhdtoolkit.optics.ripken import _add_beam_size_to_df
 
+if TYPE_CHECKING:
+    from cpymad.madx import Madx
+
+
 _BEAM4: int = 4  # LHC beam 4 is special case
 _VRF_THRESHOLD: int = 5000
 
@@ -28,14 +35,18 @@ def make_sixtrack_output(madx: Madx, /, energy: int) -> None:
     """
     .. versionadded:: 0.15.0
 
-    Prepare output for a ``SixTrack`` run. Initial implementation credits go to
-    :user:`Joschua Dilly <joschd>`.
+    Prepare output for a ``SixTrack`` run. Initial implementation
+    credits go to :user:`Joschua Dilly <joschd>`.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        energy (float): beam energy, in [GeV].
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    energy : float
+        The beam energy, in [GeV].
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             make_sixtrack_output(madx, energy=6800)
@@ -58,10 +69,13 @@ def reset_lhc_bump_flags(madx: Madx, /) -> None:
 
     Resets all LHC IP bump flags to 0.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             reset_lhc_bump_flags(madx)
@@ -85,22 +99,31 @@ def get_lhc_tune_and_chroma_knobs(
     """
     .. versionadded:: 0.16.0
 
-    Gets names of knobs needed to match tunes and chromaticities as a tuple of strings,
-    for the LHC or HLLHC machines. Initial implementation credits go to
-    :user:`Joschua Dilly <joschd>`.
+    Gets names of knobs needed to match tunes and chromaticities as a tuple
+    of strings, for the LHC or HLLHC machines. Initial implementation credits
+    go to :user:`Joschua Dilly <joschd>`.
 
-    Args:
-        accelerator (str): Accelerator either 'LHC' (dQ[xy], dQp[xy] knobs) or 'HLLHC'
-            (kqt[fd], ks[fd] knobs).
-        beam (int): Beam to use, for the knob names. Defaults to 1.
-        telescopic_squeeze (bool): if set to `True`, returns the knobs for Telescopic
-            Squeeze configuration. Defaults to `True` to reflect run III scenarios.
-        run3 (bool): if set to `True`, returns the Run 3 `*_op` knobs. Defaults to `False`.
+    Parameters
+    ----------
+    accelerator : str
+        The accelerator to get knobs for, either ``LHC`` or ``HLLHC``. Case
+        insensitive.
+    beam : int
+        The beam to get knobs for. Defaults to 1.
+    telescopic_squeeze : bool
+        If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
+        Squeeze configuration. Defaults to `True` to reflect Run 3
+        scenarios.
+    run3 : bool
+        If set to `True`, uses the Run 3 `*_op` knobs. Defaults to `False`.
 
-    Returns:
+    Returns
+    -------
+    tuple[str, str, str, str]
         A `tuple` of strings with knobs for ``(qx, qy, dqx, dqy)``.
 
-    Examples:
+    Examples
+    --------
         .. code-block:: python
 
             get_lhc_tune_and_chroma_knobs("LHC", beam=1, telescopic_squeeze=False)
@@ -152,17 +175,23 @@ def get_lhc_bpms_list(madx: Madx, /) -> list[str]:
     Returns the list of monitoring BPMs for the current LHC sequence in use.
     The BPMs are queried through a regex in the result of a ``TWISS`` command.
 
-    .. note::
-        As this function calls the ``TWISS`` command and requires that ``TWISS`` can
-        succeed on your sequence.
+    Note
+    ----
+        As this function calls the ``TWISS`` command it requires that ``TWISS``
+        can succeed on your sequence.
 
-    Args:
-        madx (cpymad.madx.Madx): an instantiated cpymad.madx.Madx object.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
 
-    Returns:
+    Returns
+    -------
+    list[str]
         The `list` of BPM names.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             observation_bpms = get_lhc_bpms_list(madx)
@@ -173,35 +202,43 @@ def get_lhc_bpms_list(madx: Madx, /) -> list[str]:
 
 
 def get_sizes_at_ip(
-    madx: Madx, /, ip: int, geom_emit_x: float | None = None, geom_emit_y: float | None = None
+    madx: Madx, /, ip: int, gemitt_x: float | None = None, gemitt_y: float | None = None
 ) -> tuple[float, float]:
     """
     .. versionadded:: 1.0.0
 
     Get the Lebedev beam sizes (horizontal and vertical) at the provided LHC *ip*.
 
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        ip (int): the IP to get the sizes at.
-        geom_emit_x (float): the horizontal geometrical emittance to use for the
-            calculation. If not provided, will look for the values of the
-            ``geometric_emit_x`` variable in ``MAD-X``.
-        geom_emit_y (float): the vertical geometrical emittance to use for the
-            calculation. If not provided, will look for the values of the
-            ``geometric_emit_y`` variable in ``MAD-X``.
+    Parameters
+    ----------
+    madx : cpymad.madx.Madx
+        An instanciated `~cpymad.madx.Madx` object. Positional only.
+    ip : int
+        The IP to get the beam sizes at.
+    gemitt_x : float, optional
+        The horizontal geometrical emittance to use for the calculation.
+        If not provided, the value of the ``geometric_emit_x`` variable in
+        ``MAD-X`` will be used.
+    gemitt_y : float, optional
+        The vertical geometrical emittance to use for the calculation.
+        If not provided, the value of the ``geometric_emit_y`` variable in
+        ``MAD-X`` will be used.
 
-    Returns:
+    Returns
+    -------
+    tuple[float, float]
         A tuple of the horizontal and vertical beam sizes at the provided *IP*.
 
-    Example:
+    Example
+    -------
         .. code-block:: python
 
             ip5_x, ip5_y = get_size_at_ip(madx, ip=5)
     """
     logger.debug(f"Getting horizontal and vertical sizes at IP{ip:d} through Ripken parameters")
-    geom_emit_x = geom_emit_x or madx.globals["geometric_emit_x"]
-    geom_emit_y = geom_emit_y or madx.globals["geometric_emit_y"]
+    gemitt_x = gemitt_x or madx.globals["geometric_emit_x"]
+    gemitt_y = gemitt_y or madx.globals["geometric_emit_y"]
 
     twiss_tfs = twiss.get_twiss_tfs(madx, ripken=True)
-    twiss_tfs = _add_beam_size_to_df(twiss_tfs, geom_emit_x, geom_emit_y)
+    twiss_tfs = _add_beam_size_to_df(twiss_tfs, gemitt_x, gemitt_y)
     return twiss_tfs.loc[f"IP{ip:d}"].SIZE_X, twiss_tfs.loc[f"IP{ip:d}"].SIZE_Y

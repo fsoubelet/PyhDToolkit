@@ -35,13 +35,16 @@ itself.
     Here I set the 2022 branch for stability and reproducibility of the documentation
     builds, but you can use any branch you want.
 """
+
 # sphinx_gallery_thumbnail_number = 3
+
+from collections import namedtuple
 from multiprocessing import cpu_count
-from typing import NamedTuple
 
 import matplotlib.pyplot as plt
 import numpy as np
 import tfs
+
 from cpymad.madx import Madx
 from joblib import Parallel, delayed
 
@@ -302,12 +305,13 @@ print(shift)
 # Manipulating the equation to determine the waist yields:
 # :math:`w = L^{*} - \sqrt{\beta_0 \beta_w - \beta_w^2}`
 
-q1_right_s = nominal_df[nominal_df.name.str.contains("mqxa.1r1")].s.iloc[0]  # to calculate from the right Q1
-q1_left_s = nominal_df[nominal_df.name.str.contains("mqxa.1l1")].s.iloc[-1]  # to calculate from the left Q1
+# to calculate from the right Q1 then from the left Q1
+q1_right_s = nominal_df[nominal_df.name.str.contains("mqxa.1r1")].s.iloc[0]
+q1_left_s = nominal_df[nominal_df.name.str.contains("mqxa.1l1")].s.iloc[-1]
 
-L_star = ip_s - q1_left_s  # we calculate from left Q1
-# beta0 = nominal_df[nominal_df.name.str.contains(f"mqxa.1r1")].betx.iloc[0]  # to calculate from the right
-beta0 = nominal_df[nominal_df.name.str.contains("mqxa.1l1")].betx.iloc[-1]  # to calculate from the left
+L_star = ip_s - q1_left_s  # say we calculate from left Q1
+# beta0 = nominal_df[nominal_df.name.str.contains(f"mqxa.1r1")].betx.iloc[0]  # from the right
+beta0 = nominal_df[nominal_df.name.str.contains("mqxa.1l1")].betx.iloc[-1]  # from the left
 betaw = around_ip.betx.min()
 
 ###############################################################################
@@ -324,9 +328,9 @@ print(f"Markers: {shift}")
 # We can use the above to determine these values for different knob settings.
 # First, let's define some structures and functions.
 
-Waist = NamedTuple("Waist", ["x", "y"])
-BetasIP = NamedTuple("Betas", ["x", "y"])
-Result = NamedTuple("Result", ["waists", "betas"])
+Waist = namedtuple("Waist", ["x", "y"])
+BetasIP = namedtuple("Betas", ["x", "y"])
+Result = namedtuple("Result", ["waists", "betas"])
 
 
 def find_waists(current_twiss: tfs.TfsDataFrame, initial_twiss: tfs.TfsDataFrame) -> Waist:
@@ -401,8 +405,24 @@ axis2.yaxis.set_label_position("right")
 axis2.yaxis.label.set_color("C1")
 axis2.yaxis.tick_right()
 axis2.tick_params(axis="y", colors="C1")
-axis2.plot(parameter_space, 1e2 * deltabetx, "C1", marker="o", ls="-", markersize=4, label="Horizontal")
-axis2.plot(parameter_space, 1e2 * deltabety, "C2", marker="o", ls="--", markersize=4, label="Vertical")
+axis2.plot(
+    parameter_space,
+    1e2 * deltabetx,
+    "C1",
+    marker="o",
+    ls="-",
+    markersize=4,
+    label="Horizontal",
+)
+axis2.plot(
+    parameter_space,
+    1e2 * deltabety,
+    "C2",
+    marker="o",
+    ls="--",
+    markersize=4,
+    label="Vertical",
+)
 axis2.legend(loc="lower center", bbox_to_anchor=(0.5, 1), ncols=2)
 
 axis.set_xlabel("Knob Setting")

@@ -10,7 +10,7 @@
 
   <!-- Github Release -->
   <a href="https://github.com/fsoubelet/PyhDToolkit/releases">
-    <img alt="Github Release" src="https://img.shields.io/github/v/release/fsoubelet/PyhDToolkit?color=orange&label=Release&logo=Github">
+    <img alt="Github Release" src="https://img.shields.io/github/v/release/fsoubelet/PyhDToolkit?color=blue&label=Release&logo=Github">
   </a>
 
   <br/>
@@ -20,14 +20,14 @@
     <img alt="Github Actions" src="https://github.com/fsoubelet/PyhDToolkit/workflows/Tests/badge.svg">
   </a>
 
-  <!-- Code Coverage -->
-  <a href="https://codecov.io/gh/fsoubelet/PyhDToolkit">
-    <img src="https://codecov.io/gh/fsoubelet/PyhDToolkit/branch/master/graph/badge.svg?token=6SO90F2MJI"/>
-  </a>
-
   <!-- Docker Image -->
   <a href="https://hub.docker.com/r/fsoubelet/simenv">
     <img alt="Docker Image" src="https://img.shields.io/docker/image-size/fsoubelet/simenv?label=Docker&sort=date">
+  </a>
+
+  <!-- Code Coverage -->
+  <a href="https://codecov.io/gh/fsoubelet/PyhDToolkit">
+    <img src="https://codecov.io/gh/fsoubelet/PyhDToolkit/branch/master/graph/badge.svg?token=6SO90F2MJI"/>
   </a>
 
   <br/>
@@ -38,13 +38,13 @@
   </a>
 
   <!-- Linter -->
-  <a href="https://github.com/PyCQA/pylint">
-    <img alt="Linter" src="https://img.shields.io/badge/Linter-Pylint-ce963f.svg">
+  <a href="https://github.com/astral-sh/ruff">
+    <img alt="Linter" src="https://img.shields.io/badge/Linter-Ruff-ce963f.svg">
   </a>
 
   <!-- Build tool -->
-  <a href="https://github.com/pypa/hatch">
-    <img alt="Build tool" src="https://img.shields.io/badge/Build%20Tool-Hatch-4e5dc8.svg">
+  <a href="https://github.com/astral-sh/uv">
+    <img alt="Build tool" src="https://img.shields.io/badge/Build%20Tool-uv-4e5dc8.svg">
   </a>
 
   <!-- Test runner -->

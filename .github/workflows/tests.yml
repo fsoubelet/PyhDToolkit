@@ -10,7 +10,7 @@ on:  # Runs on any push event to any branch except master (the coverage workflow
       - 'master'
 
 jobs:
-  quick_tests:
+  tests:
     name: ${{ matrix.os }} / ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -22,44 +22,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
         with:
-          python-version: ${{ matrix.python-version }}
-          cache: pip
-          cache-dependency-path: '**/pyproject.toml'
+          enable-cache: true
+          cache-dependency-glob: pyproject.toml
 
+      - name: Set up Python ${{ matrix.python-version }}
+        run: uv python install ${{ matrix.python-version }}
+  
       - name: Install package with test dependencies
-        run: python -m pip install ".[test]"
+        run: uv sync --all-extras --dev
 
       - name: Run Tests
-        run: make quicktests
-
-  cpymad_tests:
-    needs: quick_tests
-    name: ${{ matrix.os }} / ${{ matrix.python-version }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-22.04, ubuntu-24.04, macos-latest, windows-latest]
-        python-version: ["3.10", 3.11, 3.12]
-      fail-fast: false
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-          cache: pip
-          cache-dependency-path: '**/pyproject.toml'
-
-      - name: Install package
-        run: python -m pip install ".[test]"
-
-      - name: Get acc-models-lhc
-        run: git clone -b 2022 https://gitlab.cern.ch/acc-models/acc-models-lhc.git --depth 1
-
-      - name: Run Tests
-        run: make slowtests
+        run: make tests

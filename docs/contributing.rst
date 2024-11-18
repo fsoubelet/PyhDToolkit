@@ -169,7 +169,7 @@ One can run the test suite in the following way:
     A convenient ``make`` target exists for tests, which taps into the power of ``pytest-xdist`` and parallelises tests through your cpu cores.
     If you are ok using this option, which can drastically speed up the runtime of the suite, simply run::
 
-        make alltests
+        make tests
 
 All tests are automatically run via **GitHub Actions** for every push onto the main repository, and in every pull request.
 The test suite **must** pass before code can be accepted.
