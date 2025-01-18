@@ -15,7 +15,7 @@ jobs:
   coverage:
     runs-on: ubuntu-latest
     env:
-        python-version: 3.13
+        python-version: 3.12
 
     steps:
       - uses: actions/checkout@v4
