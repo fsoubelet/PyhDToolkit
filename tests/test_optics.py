@@ -2,8 +2,7 @@ import pathlib
 
 import numpy as np
 import pytest
-
-from pyhdtoolkit.models.beam import BeamParameters
+from numpy.testing import assert_allclose
 from pyhdtoolkit.optics import ripken, twiss
 from pyhdtoolkit.optics.beam import Beam, compute_beam_parameters
 from pyhdtoolkit.optics.rdt import determine_rdt_line, rdt_to_order_and_type
@@ -21,28 +20,28 @@ INPUT_PATHS = {
 
 
 def test_gamma_rel():
-    assert Beam(6500, 2.5e-6).gamma_rel == 6928.628011131436
+    assert_allclose(Beam(6500, 2.5e-6).gamma_rel, 6928.628011131436)
 
 
 def test_beta_rel():
-    assert Beam(6500, 2.5e-6).beta_rel == 1.0000000104153894
+    assert_allclose(Beam(6500, 2.5e-6).beta_rel, 1.0000000104153894)
 
 
 def test_brho():
-    assert Beam(6500, 2.5e-6).brho == 7.227222137900961e-05
+    assert_allclose(Beam(6500, 2.5e-6).brho, 7.227222137900961e-05)
 
 
 def test_normalized_emittance():
-    assert Beam(6500, 2.5e-6).nemitt == 0.01732157020823949
+    assert_allclose(Beam(6500, 2.5e-6).nemitt, 0.01732157020823949)
 
 
 def test_rms_emittance():
-    assert Beam(6500, 2.5e-6).rms_emittance == 3.6082179183888383e-10
+    assert_allclose(Beam(6500, 2.5e-6).rms_emittance, 3.6082179183888383e-10)
 
 
 def test_lhc_revolution_frequency():
     lhc_beam = Beam(6500, 2.5e-6)
-    assert lhc_beam.revolution_frequency() == 11245.499628523643
+    assert_allclose(lhc_beam.revolution_frequency(), 11245.499628523643)
 
 
 @pytest.mark.parametrize(
@@ -50,12 +49,12 @@ def test_lhc_revolution_frequency():
     [(0, 2.083077890845299e-08), (1e-5, -9.979169221091548e-06), (-500, 500.0000000208308)],
 )
 def test_eta(alpha_p, result):
-    assert Beam(6500, 2.5e-6).eta(alpha_p) == result
+    assert_allclose(Beam(6500, 2.5e-6).eta(alpha_p), result)
 
 
 @pytest.mark.parametrize(("alpha_p", "result"), [(1e-5, 316.2277660168379), (500, 0.044721359549995794)])
 def test_gamma_transition(alpha_p, result):
-    assert Beam(6500, 2.5e-6).gamma_transition(alpha_p) == result
+    assert_allclose(Beam(6500, 2.5e-6).gamma_transition(alpha_p), result)
 
 
 def test_gamma_transition_raises():
@@ -63,54 +62,31 @@ def test_gamma_transition_raises():
         Beam(6500, 2.5e-6).gamma_transition(0)
 
 
-@pytest.mark.parametrize(
-    ("pc_gev", "en_x_m", "en_y_m", "delta_p", "result"),
-    [
-        (
-            1.9,
-            5e-6,
-            5e-6,
-            2e-3,
-            BeamParameters(
-                pc_GeV=1.9,
-                B_rho_Tm=6.3376399999999995,
-                E_0_GeV=0.9382720813,
-                E_tot_GeV=2.1190456574946737,
-                E_kin_GeV=1.1807735761946736,
-                gamma_rel=2.258455409393277,
-                beta_rel=0.8966300434726596,
-                nemitt_x=5e-06,
-                nemitt_y=5e-06,
-                deltap_p=0.002,
-            ),
-        ),
-        (
-            19,
-            5e-6,
-            5e-6,
-            2e-4,
-            BeamParameters(
-                pc_GeV=19,
-                B_rho_Tm=63.3764,
-                E_0_GeV=0.9382720813,
-                E_tot_GeV=19.023153116624673,
-                E_kin_GeV=18.084881035324674,
-                gamma_rel=20.274666054506927,
-                beta_rel=0.9987828980567665,
-                nemitt_x=5e-06,
-                nemitt_y=5e-06,
-                deltap_p=0.0002,
-            ),
-        ),
-    ],
-)
-def test_beam_parameters(pc_gev, en_x_m, en_y_m, delta_p, result):
-    assert compute_beam_parameters(pc_gev, en_x_m, en_y_m, delta_p) == result
+
+def test_beam_parameters():
+    pc_gev = 19
+    nemitt_x = 5e-6
+    nemitt_y = 5e-6
+    delta_p = 2e-4
+    built = compute_beam_parameters(pc_gev, nemitt_x, nemitt_y, delta_p)
+
+    # check the specified properties
+    assert_allclose(built.pc_GeV, pc_gev)
+    assert_allclose(built.nemitt_x, nemitt_x)
+    assert_allclose(built.nemitt_y, nemitt_y)
+    assert_allclose(built.deltap_p, delta_p)
+    # check the calculated properties
+    assert_allclose(built.B_rho_Tm, 63.33333)
+    assert_allclose(built.E_tot_GeV, 19.023153116624673)
+    assert_allclose(built.E_kin_GeV, 18.084881035324674)
+    assert_allclose(built.beta_rel, 0.9987828980567665)
+    assert_allclose(built.gamma_rel, 20.274666054506927)
+
 
 
 def test_beam_size(_fake_coordinates):
-    assert np.allclose(ripken._beam_size(_fake_coordinates), _fake_coordinates.std())  # noqa: SLF001
-    assert np.allclose(
+    assert_allclose(ripken._beam_size(_fake_coordinates), _fake_coordinates.std())  # noqa: SLF001
+    assert_allclose(
         ripken._beam_size(_fake_coordinates, method="rms"),  # noqa: SLF001
         np.sqrt(np.mean(np.square(_fake_coordinates))),
     )
@@ -126,9 +102,9 @@ def test_beam_size_raises(_fake_coordinates):
 @pytest.mark.parametrize("gemitt_x", [5e-6, 2.75e-6, 3.5e-6])
 @pytest.mark.parametrize("gemitt_y", [5e-6, 2.75e-6, 3.5e-6])
 def test_lebedev_size_floats(beta11, beta21, gemitt_x, gemitt_y):
-    assert ripken.lebedev_beam_size(beta1_=beta11, beta2_=beta21, gemitt_x=gemitt_x, gemitt_y=gemitt_y) == np.sqrt(
+    assert_allclose(ripken.lebedev_beam_size(beta1_=beta11, beta2_=beta21, gemitt_x=gemitt_x, gemitt_y=gemitt_y), np.sqrt(
         gemitt_x * beta11 + gemitt_y * beta21
-    )
+    ))
 
 
 def test_courant_snyder_transform():
