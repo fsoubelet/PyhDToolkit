@@ -12,15 +12,15 @@ from __future__ import annotations
 import time
 
 from contextlib import contextmanager
-
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from collections.abc import Callable
     from types import NoneType
 
+
 @contextmanager
-def timeit(function: Callable) -> NoneType: # type: ignore
+def timeit(function: Callable) -> NoneType:  # type: ignore
     """
     .. versionadded:: 0.4.0
 

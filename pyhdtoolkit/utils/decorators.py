@@ -6,11 +6,14 @@ Decorator Utilities
 
 Provides useful decorators.
 """
+
 from __future__ import annotations
+
 import functools
 import inspect
 import traceback
 import warnings
+
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -32,12 +35,12 @@ def deprecated(message: str = "") -> Callable:
         Extra information to be displayed after the deprecation
         notice, when the function is used. Defaults to an empty
         string (no extra information).
-    
+
     Returns
     -------
     Callable
         The decorated function.
-    
+
     Example
     -------
         .. code-block:: python
@@ -70,6 +73,7 @@ def deprecated(message: str = "") -> Callable:
 
 
 # ----- Utility JIT Compilation decorator ----- #
+
 
 def maybe_jit(func: Callable, **kwargs) -> Callable:
     """

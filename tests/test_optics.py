@@ -2,7 +2,9 @@ import pathlib
 
 import numpy as np
 import pytest
+
 from numpy.testing import assert_allclose
+
 from pyhdtoolkit.optics import ripken, twiss
 from pyhdtoolkit.optics.beam import Beam, compute_beam_parameters
 from pyhdtoolkit.optics.rdt import determine_rdt_line, rdt_to_order_and_type
@@ -62,7 +64,6 @@ def test_gamma_transition_raises():
         Beam(6500, 2.5e-6).gamma_transition(0)
 
 
-
 def test_beam_parameters():
     pc_gev = 19
     nemitt_x = 5e-6
@@ -83,7 +84,6 @@ def test_beam_parameters():
     assert_allclose(built.gamma_rel, 20.274666054506927)
 
 
-
 def test_beam_size(_fake_coordinates):
     assert_allclose(ripken._beam_size(_fake_coordinates), _fake_coordinates.std())  # noqa: SLF001
     assert_allclose(
@@ -102,9 +102,10 @@ def test_beam_size_raises(_fake_coordinates):
 @pytest.mark.parametrize("gemitt_x", [5e-6, 2.75e-6, 3.5e-6])
 @pytest.mark.parametrize("gemitt_y", [5e-6, 2.75e-6, 3.5e-6])
 def test_lebedev_size_floats(beta11, beta21, gemitt_x, gemitt_y):
-    assert_allclose(ripken.lebedev_beam_size(beta1_=beta11, beta2_=beta21, gemitt_x=gemitt_x, gemitt_y=gemitt_y), np.sqrt(
-        gemitt_x * beta11 + gemitt_y * beta21
-    ))
+    assert_allclose(
+        ripken.lebedev_beam_size(beta1_=beta11, beta2_=beta21, gemitt_x=gemitt_x, gemitt_y=gemitt_y),
+        np.sqrt(gemitt_x * beta11 + gemitt_y * beta21),
+    )
 
 
 def test_courant_snyder_transform():

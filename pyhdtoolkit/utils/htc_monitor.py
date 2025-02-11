@@ -176,7 +176,7 @@ def _make_tasks_table(tasks: list[HTCTaskSummary]) -> Table:
     tasks : list[HTCTaskSummary]
         A list of `~.models.htc.HTCTaskSummary` models, as
         parsed from the output of the ``condor_q`` command.
-    
+
     Returns
     -------
     rich.table.Table
@@ -247,7 +247,7 @@ def _process_scheduler_information_line(line: str) -> str:
     ----------
     line : str
         The line containing the scheduler information.
-    
+
     Returns
     -------
     str
@@ -266,7 +266,7 @@ def _process_task_summary_line(line: str) -> HTCTaskSummary:
     ----------
     line : str
         The line containing the task summary information.
-    
+
     Returns
     -------
     pyhdtoolkit.models.htc.HTCTaskSummary
@@ -352,7 +352,7 @@ def _default_cluster_table() -> Table:
     """
     Create the default structure for the Cluster
     Table, hard coded columns and no rows added.
-    
+
     Returns
     -------
     rich.table.Table

@@ -17,6 +17,7 @@ from rich.table import Table
 
 from pyhdtoolkit.utils import _misc, logging
 from pyhdtoolkit.utils.cmdline import CommandLine
+from pyhdtoolkit.utils.decorators import deprecated, maybe_jit
 from pyhdtoolkit.utils.htc_monitor import (
     ClusterSummary,
     HTCTaskSummary,
@@ -24,7 +25,6 @@ from pyhdtoolkit.utils.htc_monitor import (
     _make_tasks_table,
     read_condor_q,
 )
-from pyhdtoolkit.utils.decorators import deprecated, maybe_jit
 
 CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR / "inputs"

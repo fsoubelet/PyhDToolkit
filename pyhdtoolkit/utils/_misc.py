@@ -177,7 +177,7 @@ def add_noise_to_arc_bpms(
         The BPM names should be in the index of the dataframe.
         Selection is case insensitive.
 
-        
+
     Parameters
     ----------
     df : pandas.DataFrame

@@ -21,14 +21,14 @@ Important
         .. tab-item:: Importing from the lhc module
 
             .. code-block:: python
-        
+
                 from pyhdtoolkit.cpymadtools.lhc import LHCSetup
                 # use this now
 
         .. tab-item:: Importing from the private module
 
             .. code-block:: python
-        
+
                 from pyhdtoolkit.cpymadtools.lhc._setup import LHCSetup
                 # use this now
 """
