@@ -394,11 +394,14 @@
 
 <span class="sd">Provides useful decorators.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
 <span class="kn">import</span><span class="w"> </span><span class="nn">functools</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">traceback</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
@@ -422,12 +425,12 @@
 <span class="sd">        Extra information to be displayed after the deprecation</span>
 <span class="sd">        notice, when the function is used. Defaults to an empty</span>
 <span class="sd">        string (no extra information).</span>
-<span class="sd">    </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    Callable</span>
 <span class="sd">        The decorated function.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
 <span class="sd">        .. code-block:: python</span>
@@ -461,6 +464,7 @@
 
 
 <span class="c1"># ----- Utility JIT Compilation decorator ----- #</span>
+
 
 <div class="viewcode-block" id="maybe_jit">
 <a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.decorators.maybe_jit">[docs]</a>
