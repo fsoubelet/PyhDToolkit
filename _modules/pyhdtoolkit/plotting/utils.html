@@ -6,11 +6,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyhdtoolkit.plotting.utils &mdash; PyhDToolkit 1.7.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-codeautolink.css?v=125d5c1c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-codeautolink.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -396,31 +396,31 @@
 <span class="sd">`~pyhdtoolkit.plotting` modules.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>  <span class="c1"># important for Sphinx to generate short type signatures!</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>  <span class="c1"># important for Sphinx to generate short type signatures!</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">transforms</span>
-<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Ellipse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">loguru</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">transforms</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="kn">import</span> <span class="n">Ellipse</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
-    <span class="kn">from</span> <span class="nn">matplotlib.text</span> <span class="kn">import</span> <span class="n">Annotation</span>
-    <span class="kn">from</span> <span class="nn">numpy.typing</span> <span class="kn">import</span> <span class="n">ArrayLike</span>
-    <span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
-    <span class="kn">from</span> <span class="nn">tfs</span> <span class="kn">import</span> <span class="n">TfsDataFrame</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">cpymad.madx</span><span class="w"> </span><span class="kn">import</span> <span class="n">Madx</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotation</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">numpy.typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArrayLike</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataFrame</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">tfs</span><span class="w"> </span><span class="kn">import</span> <span class="n">TfsDataFrame</span>
 
 <span class="c1"># ------ General Utilities ----- #</span>
 
 
 <div class="viewcode-block" id="maybe_get_ax">
 <a class="viewcode-back" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.maybe_get_ax">[docs]</a>
-<span class="k">def</span> <span class="nf">maybe_get_ax</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">maybe_get_ax</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
 
@@ -471,7 +471,7 @@
 
 <div class="viewcode-block" id="find_ip_s_from_segment_start">
 <a class="viewcode-back" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.find_ip_s_from_segment_start">[docs]</a>
-<span class="k">def</span> <span class="nf">find_ip_s_from_segment_start</span><span class="p">(</span><span class="n">segment_df</span><span class="p">:</span> <span class="n">TfsDataFrame</span><span class="p">,</span> <span class="n">model_df</span><span class="p">:</span> <span class="n">TfsDataFrame</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">find_ip_s_from_segment_start</span><span class="p">(</span><span class="n">segment_df</span><span class="p">:</span> <span class="n">TfsDataFrame</span><span class="p">,</span> <span class="n">model_df</span><span class="p">:</span> <span class="n">TfsDataFrame</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.19.0</span>
 
@@ -520,7 +520,7 @@
 
 <div class="viewcode-block" id="get_lhc_ips_positions">
 <a class="viewcode-back" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.get_lhc_ips_positions">[docs]</a>
-<span class="k">def</span> <span class="nf">get_lhc_ips_positions</span><span class="p">(</span><span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_lhc_ips_positions</span><span class="p">(</span><span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
 
@@ -568,7 +568,7 @@
 
 <div class="viewcode-block" id="make_elements_groups">
 <a class="viewcode-back" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.make_elements_groups">[docs]</a>
-<span class="k">def</span> <span class="nf">make_elements_groups</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_elements_groups</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">xoffset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xlimits</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DataFrame</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -624,7 +624,7 @@
 
 <div class="viewcode-block" id="make_survey_groups">
 <a class="viewcode-back" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.make_survey_groups">[docs]</a>
-<span class="k">def</span> <span class="nf">make_survey_groups</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DataFrame</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_survey_groups</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DataFrame</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
 
@@ -673,7 +673,7 @@
 
 <div class="viewcode-block" id="draw_ip_locations">
 <a class="viewcode-back" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.draw_ip_locations">[docs]</a>
-<span class="k">def</span> <span class="nf">draw_ip_locations</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_ip_locations</span><span class="p">(</span>
     <span class="n">ip_positions</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">lines</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">location</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;outside&quot;</span><span class="p">,</span>
@@ -741,7 +741,7 @@
 
 <div class="viewcode-block" id="set_arrow_label">
 <a class="viewcode-back" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.set_arrow_label">[docs]</a>
-<span class="k">def</span> <span class="nf">set_arrow_label</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_arrow_label</span><span class="p">(</span>
     <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">arrow_position</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="n">label_position</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
@@ -824,7 +824,7 @@
 
 <div class="viewcode-block" id="draw_confidence_ellipse">
 <a class="viewcode-back" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.draw_confidence_ellipse">[docs]</a>
-<span class="k">def</span> <span class="nf">draw_confidence_ellipse</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">n_std</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Ellipse</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_confidence_ellipse</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">n_std</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Ellipse</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.2.0</span>
 
@@ -906,7 +906,7 @@
 <span class="c1"># ----- Private Helpers ----- #</span>
 
 
-<span class="k">def</span> <span class="nf">_get_twiss_table_with_offsets_and_limits</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_twiss_table_with_offsets_and_limits</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">xoffset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xlimits</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -946,7 +946,7 @@
     <span class="k">return</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="o">*</span><span class="n">xlimits</span><span class="p">)]</span> <span class="k">if</span> <span class="n">xlimits</span> <span class="k">else</span> <span class="n">twiss_df</span>
 
 
-<span class="k">def</span> <span class="nf">_determine_default_sbs_coupling_ylabel</span><span class="p">(</span><span class="n">rdt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">component</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_determine_default_sbs_coupling_ylabel</span><span class="p">(</span><span class="n">rdt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">component</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.19.0</span>
 
@@ -1000,7 +1000,7 @@
     <span class="k">return</span> <span class="sa">r</span><span class="s2">&quot;$&quot;</span> <span class="o">+</span> <span class="n">opening</span> <span class="o">+</span> <span class="n">rdt_latex</span> <span class="o">+</span> <span class="n">closing</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;$&quot;</span>
 
 
-<span class="k">def</span> <span class="nf">_determine_default_sbs_phase_ylabel</span><span class="p">(</span><span class="n">plane</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_determine_default_sbs_phase_ylabel</span><span class="p">(</span><span class="n">plane</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.19.0</span>
 
@@ -1044,12 +1044,12 @@
 
 <span class="c1"># To use SVG outputs when scraping matplotlib figures for the sphinx-gallery, see:</span>
 <span class="c1"># https://sphinx-gallery.github.io/stable/advanced.html#example-3-matplotlib-with-svg-format</span>
-<span class="k">def</span> <span class="nf">_matplotlib_svg_scraper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_matplotlib_svg_scraper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A dummy scraper to import and set for the sphinx-gallery</span>
 <span class="sd">    configuration, in docs/conf.py.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">sphinx_gallery.scrapers</span> <span class="kn">import</span> <span class="n">matplotlib_scraper</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sphinx_gallery.scrapers</span><span class="w"> </span><span class="kn">import</span> <span class="n">matplotlib_scraper</span>
 
     <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">matplotlib_scraper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;svg&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>

@@ -6,11 +6,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyhdtoolkit.cpymadtools.lhc._powering &mdash; PyhDToolkit 1.7.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/plot_directive.css" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-codeautolink.css?v=125d5c1c" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-codeautolink.css" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -394,16 +394,16 @@
 <span class="sd">The functions below are magnets or knobs powering utilities for the ``LHC``.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">loguru</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
 
-    <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">cpymad.madx</span><span class="w"> </span><span class="kn">import</span> <span class="n">Madx</span>
 
 <span class="n">_BEAM4</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># LHC beam 4 is special case</span>
 <span class="n">_QUAD_CIRCUIT_HAS_B</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">7</span>  <span class="c1"># Q7 has a .b in the circuit name</span>
@@ -412,7 +412,7 @@
 
 <div class="viewcode-block" id="apply_lhc_colinearity_knob">
 <a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_colinearity_knob">[docs]</a>
-<span class="k">def</span> <span class="nf">apply_lhc_colinearity_knob</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">colinearity_knob_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">apply_lhc_colinearity_knob</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">colinearity_knob_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.15.0</span>
 
@@ -467,7 +467,7 @@
 
 <div class="viewcode-block" id="apply_lhc_colinearity_knob_delta">
 <a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_colinearity_knob_delta">[docs]</a>
-<span class="k">def</span> <span class="nf">apply_lhc_colinearity_knob_delta</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">colinearity_knob_delta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">apply_lhc_colinearity_knob_delta</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">colinearity_knob_delta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.21.0</span>
 
@@ -523,7 +523,7 @@
 
 <div class="viewcode-block" id="apply_lhc_rigidity_waist_shift_knob">
 <a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_rigidity_waist_shift_knob">[docs]</a>
-<span class="k">def</span> <span class="nf">apply_lhc_rigidity_waist_shift_knob</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">apply_lhc_rigidity_waist_shift_knob</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">rigidty_waist_shift_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">side</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -605,7 +605,7 @@
 
 <div class="viewcode-block" id="apply_lhc_coupling_knob">
 <a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_coupling_knob">[docs]</a>
-<span class="k">def</span> <span class="nf">apply_lhc_coupling_knob</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">apply_lhc_coupling_knob</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">coupling_knob</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">telescopic_squeeze</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -650,7 +650,7 @@
 
 <div class="viewcode-block" id="carry_colinearity_knob_over">
 <a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.carry_colinearity_knob_over">[docs]</a>
-<span class="k">def</span> <span class="nf">carry_colinearity_knob_over</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">to_left</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">carry_colinearity_knob_over</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">to_left</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.20.0</span>
 
@@ -693,7 +693,7 @@
 
 <div class="viewcode-block" id="power_landau_octupoles">
 <a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.power_landau_octupoles">[docs]</a>
-<span class="k">def</span> <span class="nf">power_landau_octupoles</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mo_current</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">defective_arc</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">power_landau_octupoles</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mo_current</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">defective_arc</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.15.0</span>
 
@@ -722,7 +722,7 @@
     <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">madx_error</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;The global MAD-X variable &#39;NRJ&#39; should have been set in the optics files but is not defined.&quot;</span><span class="p">)</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No &#39;NRJ&#39; variable found in scripts&quot;</span>
-        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">madx_error</span>
+        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">madx_error</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Powering Landau Octupoles, beam </span><span class="si">{</span><span class="n">beam</span><span class="si">}</span><span class="s2"> @ </span><span class="si">{</span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">nrj</span><span class="si">}</span><span class="s2"> GeV with </span><span class="si">{</span><span class="n">mo_current</span><span class="si">}</span><span class="s2"> A.&quot;</span><span class="p">)</span>
     <span class="n">strength</span> <span class="o">=</span> <span class="n">mo_current</span> <span class="o">/</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Imax_MO</span> <span class="o">*</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Kmax_MO</span> <span class="o">/</span> <span class="n">brho</span>
@@ -741,7 +741,7 @@
 
 <div class="viewcode-block" id="deactivate_lhc_arc_sextupoles">
 <a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.deactivate_lhc_arc_sextupoles">[docs]</a>
-<span class="k">def</span> <span class="nf">deactivate_lhc_arc_sextupoles</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">deactivate_lhc_arc_sextupoles</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.15.0</span>
 
@@ -777,7 +777,7 @@
 
 <div class="viewcode-block" id="vary_independent_ir_quadrupoles">
 <a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.vary_independent_ir_quadrupoles">[docs]</a>
-<span class="k">def</span> <span class="nf">vary_independent_ir_quadrupoles</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">vary_independent_ir_quadrupoles</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">quad_numbers</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sides</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;l&quot;</span><span class="p">),</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -854,7 +854,7 @@
 
 <div class="viewcode-block" id="switch_magnetic_errors">
 <a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.switch_magnetic_errors">[docs]</a>
-<span class="k">def</span> <span class="nf">switch_magnetic_errors</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">switch_magnetic_errors</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.7.0</span>
 
@@ -913,7 +913,7 @@
 <span class="c1"># ----- Helpers ----- #</span>
 
 
-<span class="k">def</span> <span class="nf">_all_lhc_arcs</span><span class="p">(</span><span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_all_lhc_arcs</span><span class="p">(</span><span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generates and returns the names of all LHC arcs for a given beam.</span>
 <span class="sd">    Initial implementation credits go to :user:`Joschua Dilly &lt;joschd&gt;`.</span>

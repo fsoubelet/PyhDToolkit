@@ -6,11 +6,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyhdtoolkit.cpymadtools.lhc._queries &mdash; PyhDToolkit 1.7.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/plot_directive.css" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-codeautolink.css?v=125d5c1c" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-codeautolink.css" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -394,14 +394,14 @@
 <span class="sd">The functions below are settings query utilities for the ``LHC``.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">loguru</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
 
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools</span> <span class="kn">import</span> <span class="n">twiss</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.constants</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.cpymadtools</span><span class="w"> </span><span class="kn">import</span> <span class="n">twiss</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.cpymadtools.constants</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">LHC_KCD_KNOBS</span><span class="p">,</span>
     <span class="n">LHC_KCO_KNOBS</span><span class="p">,</span>
     <span class="n">LHC_KCOSX_KNOBS</span><span class="p">,</span>
@@ -417,19 +417,19 @@
     <span class="n">LHC_KSF_KNOBS</span><span class="p">,</span>
     <span class="n">LHC_KSS_KNOBS</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.lhc._setup</span> <span class="kn">import</span> <span class="n">lhc_orbit_variables</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.utils</span> <span class="kn">import</span> <span class="n">_get_k_strings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.cpymadtools.lhc._setup</span><span class="w"> </span><span class="kn">import</span> <span class="n">lhc_orbit_variables</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.cpymadtools.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">_get_k_strings</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
 
-    <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
-    <span class="kn">from</span> <span class="nn">tfs</span> <span class="kn">import</span> <span class="n">TfsDataFrame</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">cpymad.madx</span><span class="w"> </span><span class="kn">import</span> <span class="n">Madx</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">tfs</span><span class="w"> </span><span class="kn">import</span> <span class="n">TfsDataFrame</span>
 
 
 <div class="viewcode-block" id="get_magnets_powering">
 <a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.get_magnets_powering">[docs]</a>
-<span class="k">def</span> <span class="nf">get_magnets_powering</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_magnets_powering</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">patterns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s2">&quot;^mb\.&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;^mq\.&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;^ms\.&quot;</span><span class="p">],</span> <span class="n">brho</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TfsDataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -499,7 +499,7 @@
 
 <div class="viewcode-block" id="query_arc_correctors_powering">
 <a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.query_arc_correctors_powering">[docs]</a>
-<span class="k">def</span> <span class="nf">query_arc_correctors_powering</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">query_arc_correctors_powering</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.15.0</span>
 
@@ -563,7 +563,7 @@
 
 <div class="viewcode-block" id="query_triplet_correctors_powering">
 <a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.query_triplet_correctors_powering">[docs]</a>
-<span class="k">def</span> <span class="nf">query_triplet_correctors_powering</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">query_triplet_correctors_powering</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.15.0</span>
 
@@ -619,7 +619,7 @@
 
 <div class="viewcode-block" id="get_current_orbit_setup">
 <a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.get_current_orbit_setup">[docs]</a>
-<span class="k">def</span> <span class="nf">get_current_orbit_setup</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_current_orbit_setup</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.8.0</span>
 
@@ -652,7 +652,7 @@
 <span class="c1"># ----- Helpers ----- #</span>
 
 
-<span class="k">def</span> <span class="nf">_list_field_currents</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">brho</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_list_field_currents</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">brho</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates additional columns for the ``TWISS`` table with the magnets&#39; total</span>
 <span class="sd">    fields and currents, to help later on determine which proportion of their</span>
@@ -703,7 +703,7 @@
     <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;integrated_field&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;field * length&quot;</span>
 
 
-<span class="k">def</span> <span class="nf">_knob_value</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">knob</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_knob_value</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">knob</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Queryies the current value of a given *knob* name in the ``MAD-X`` process,</span>
 <span class="sd">    and defaults to 0 (as ``MAD-X`` does) in case that knob has not been defined</span>

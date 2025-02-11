@@ -6,11 +6,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyhdtoolkit.optics.beam &mdash; PyhDToolkit 1.7.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-codeautolink.css?v=125d5c1c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-codeautolink.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -396,16 +396,16 @@
 <span class="sd">simple beam parameter calculations.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">constants</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">constants</span>
 
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.models.beam</span> <span class="kn">import</span> <span class="n">BeamParameters</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.models.beam</span><span class="w"> </span><span class="kn">import</span> <span class="n">BeamParameters</span>
 
 
 <div class="viewcode-block" id="compute_beam_parameters">
 <a class="viewcode-back" href="../../../api/optics.html#pyhdtoolkit.optics.beam.compute_beam_parameters">[docs]</a>
-<span class="k">def</span> <span class="nf">compute_beam_parameters</span><span class="p">(</span><span class="n">pc_gev</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">nemitt_x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">nemitt_y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">deltap_p</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BeamParameters</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_beam_parameters</span><span class="p">(</span><span class="n">pc_gev</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">nemitt_x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">nemitt_y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">deltap_p</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BeamParameters</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.12.0</span>
 
@@ -470,7 +470,7 @@
 
 <div class="viewcode-block" id="Beam">
 <a class="viewcode-back" href="../../../api/optics.html#pyhdtoolkit.optics.beam.Beam">[docs]</a>
-<span class="k">class</span> <span class="nc">Beam</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Beam</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.6.0</span>
 
@@ -480,7 +480,7 @@
 
 <div class="viewcode-block" id="Beam.__init__">
 <a class="viewcode-back" href="../../../api/optics.html#pyhdtoolkit.optics.beam.Beam.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
         <span class="n">gemitt</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -503,33 +503,33 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">gamma_rel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">gamma_rel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Relativistic gamma.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="mf">1e3</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">energy</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">rest_mass</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">rest_mass</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">beta_rel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">beta_rel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Relativistic beta.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_rel</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">brho</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">brho</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Beam rigidity in [T/m].&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mf">0.3</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_rel</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">energy</span> <span class="o">/</span> <span class="n">constants</span><span class="o">.</span><span class="n">c</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">nemitt</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">nemitt</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Normalized emittance in [m].&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gemitt</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_rel</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma_rel</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">rms_emittance</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rms_emittance</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Rms emittance in [m].&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gemitt</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_rel</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma_rel</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Beam.revolution_frequency">
 <a class="viewcode-back" href="../../../api/optics.html#pyhdtoolkit.optics.beam.Beam.revolution_frequency">[docs]</a>
-    <span class="k">def</span> <span class="nf">revolution_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">circumference</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">26658.8832</span><span class="p">,</span> <span class="n">speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">c</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">revolution_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">circumference</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">26658.8832</span><span class="p">,</span> <span class="n">speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">c</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the revolution frequency of the beam&#39;s</span>
 <span class="sd">        particles around the accelerator.</span>
@@ -551,7 +551,7 @@
 
 <div class="viewcode-block" id="Beam.eta">
 <a class="viewcode-back" href="../../../api/optics.html#pyhdtoolkit.optics.beam.Beam.eta">[docs]</a>
-    <span class="k">def</span> <span class="nf">eta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha_p</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">eta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha_p</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the slip factor parameter :math:`\\eta`.</span>
 
@@ -577,7 +577,7 @@
 <div class="viewcode-block" id="Beam.gamma_transition">
 <a class="viewcode-back" href="../../../api/optics.html#pyhdtoolkit.optics.beam.Beam.gamma_transition">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">gamma_transition</span><span class="p">(</span><span class="n">alpha_p</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">gamma_transition</span><span class="p">(</span><span class="n">alpha_p</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the relativistic :math:`\\gamma`</span>
 <span class="sd">        corresponding to the transition energy.</span>

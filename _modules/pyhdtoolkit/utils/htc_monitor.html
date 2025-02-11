@@ -6,11 +6,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyhdtoolkit.utils.htc_monitor &mdash; PyhDToolkit 1.7.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-codeautolink.css?v=125d5c1c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-codeautolink.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -403,21 +403,21 @@
 <span class="sd">    from the functions in here.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
-<span class="kn">import</span> <span class="nn">pendulum</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pendulum</span>
 
-<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="n">box</span>
-<span class="kn">from</span> <span class="nn">rich.console</span> <span class="kn">import</span> <span class="n">Group</span>
-<span class="kn">from</span> <span class="nn">rich.live</span> <span class="kn">import</span> <span class="n">Live</span>
-<span class="kn">from</span> <span class="nn">rich.panel</span> <span class="kn">import</span> <span class="n">Panel</span>
-<span class="kn">from</span> <span class="nn">rich.table</span> <span class="kn">import</span> <span class="n">Table</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">loguru</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich</span><span class="w"> </span><span class="kn">import</span> <span class="n">box</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich.console</span><span class="w"> </span><span class="kn">import</span> <span class="n">Group</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich.live</span><span class="w"> </span><span class="kn">import</span> <span class="n">Live</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich.panel</span><span class="w"> </span><span class="kn">import</span> <span class="n">Panel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich.table</span><span class="w"> </span><span class="kn">import</span> <span class="n">Table</span>
 
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.models.htc</span> <span class="kn">import</span> <span class="n">BaseSummary</span><span class="p">,</span> <span class="n">ClusterSummary</span><span class="p">,</span> <span class="n">HTCTaskSummary</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils.cmdline</span> <span class="kn">import</span> <span class="n">CommandLine</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils.logging</span> <span class="kn">import</span> <span class="n">config_logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.models.htc</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseSummary</span><span class="p">,</span> <span class="n">ClusterSummary</span><span class="p">,</span> <span class="n">HTCTaskSummary</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.utils.cmdline</span><span class="w"> </span><span class="kn">import</span> <span class="n">CommandLine</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.utils.logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">config_logger</span>
 
 <span class="n">config_logger</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;ERROR&quot;</span><span class="p">)</span>
 
@@ -466,7 +466,7 @@
 
 <div class="viewcode-block" id="query_condor_q">
 <a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.htc_monitor.query_condor_q">[docs]</a>
-<span class="k">def</span> <span class="nf">query_condor_q</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">query_condor_q</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.9.0</span>
 
@@ -493,7 +493,7 @@
 
 <div class="viewcode-block" id="read_condor_q">
 <a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.htc_monitor.read_condor_q">[docs]</a>
-<span class="k">def</span> <span class="nf">read_condor_q</span><span class="p">(</span><span class="n">report</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">HTCTaskSummary</span><span class="p">],</span> <span class="n">ClusterSummary</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_condor_q</span><span class="p">(</span><span class="n">report</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">HTCTaskSummary</span><span class="p">],</span> <span class="n">ClusterSummary</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.9.0</span>
 
@@ -557,7 +557,7 @@
 <span class="c1"># ----- Output Formating ----- #</span>
 
 
-<span class="k">def</span> <span class="nf">_make_tasks_table</span><span class="p">(</span><span class="n">tasks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">HTCTaskSummary</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Table</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_make_tasks_table</span><span class="p">(</span><span class="n">tasks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">HTCTaskSummary</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Table</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Takes the list of `~.models.htc.HTCTaskSummary` models</span>
 <span class="sd">    as returned by `read_condor_q` and from the information</span>
@@ -593,7 +593,7 @@
     <span class="k">return</span> <span class="n">table</span>
 
 
-<span class="k">def</span> <span class="nf">_make_cluster_table</span><span class="p">(</span><span class="n">owner_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cluster</span><span class="p">:</span> <span class="n">ClusterSummary</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Table</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_make_cluster_table</span><span class="p">(</span><span class="n">owner_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cluster</span><span class="p">:</span> <span class="n">ClusterSummary</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Table</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Takes a `~.models.htc.ClusterSummary` model as returned by</span>
 <span class="sd">    `read_condor_q` and from the information within creates a</span>
@@ -632,7 +632,7 @@
 <span class="c1"># ----- Helpers ----- #</span>
 
 
-<span class="k">def</span> <span class="nf">_process_scheduler_information_line</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_process_scheduler_information_line</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Extract only the &#39;Schedd: &lt;cluster&gt;.cern.ch&#39; part</span>
 <span class="sd">    of the scheduler information line.</span>
@@ -651,7 +651,7 @@
     <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_process_task_summary_line</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HTCTaskSummary</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_process_task_summary_line</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HTCTaskSummary</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Extract the various information in a task summary line,</span>
 <span class="sd">    validated and returned as an `HTCTaskSummary` object.</span>
@@ -682,7 +682,7 @@
     <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_process_cluster_summary_line</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseSummary</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_process_cluster_summary_line</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseSummary</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Extract the various information in a cluster summary line,</span>
 <span class="sd">    validated and returned as a `~.models.htc.BaseSummary`.</span>
@@ -725,7 +725,7 @@
     <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_default_tasks_table</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Table</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_default_tasks_table</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Table</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create the default structure for the Tasks</span>
 <span class="sd">    Table, hard coded columns and no rows added.</span>
@@ -742,7 +742,7 @@
     <span class="k">return</span> <span class="n">table</span>
 
 
-<span class="k">def</span> <span class="nf">_default_cluster_table</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Table</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_default_cluster_table</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Table</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create the default structure for the Cluster</span>
 <span class="sd">    Table, hard coded columns and no rows added.</span>
@@ -763,8 +763,8 @@
 
 
 <span class="nd">@logger</span><span class="o">.</span><span class="n">catch</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="k">def</span> <span class="nf">generate_renderable</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Group</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_renderable</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Group</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        .. versionadded:: 0.9.0</span>
 

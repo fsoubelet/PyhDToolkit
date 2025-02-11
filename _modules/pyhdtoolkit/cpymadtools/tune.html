@@ -6,11 +6,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyhdtoolkit.cpymadtools.tune &mdash; PyhDToolkit 1.7.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-codeautolink.css?v=125d5c1c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-codeautolink.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -396,28 +396,28 @@
 <span class="sd">around the tune through a `~cpymad.madx.Madx` object.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib.collections</span>
-<span class="kn">import</span> <span class="nn">matplotlib.patches</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">tfs</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.collections</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patches</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tfs</span>
 
-<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">loguru</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">cpymad.madx</span><span class="w"> </span><span class="kn">import</span> <span class="n">Madx</span>
 
 
 <div class="viewcode-block" id="make_footprint_table">
 <a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.tune.make_footprint_table">[docs]</a>
-<span class="k">def</span> <span class="nf">make_footprint_table</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_footprint_table</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">dense</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">cleanup</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -493,7 +493,7 @@
             <span class="s2">&quot;before running DYNAP. Restart and slice before calling this function.&quot;</span>
         <span class="p">)</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;DYNAP command crashed the MAD-X process&quot;</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">madx_crash</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">madx_crash</span>
 
     <span class="k">if</span> <span class="n">cleanup</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;win32&quot;</span><span class="p">,</span> <span class="s2">&quot;cygwin&quot;</span><span class="p">):</span>
         <span class="c1"># fails on Windows due to its I/O system, since MAD-X still has &quot;control&quot; of the files</span>
@@ -531,7 +531,7 @@
 
 <div class="viewcode-block" id="get_footprint_lines">
 <a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.tune.get_footprint_lines">[docs]</a>
-<span class="k">def</span> <span class="nf">get_footprint_lines</span><span class="p">(</span><span class="n">dynap_dframe</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_footprint_lines</span><span class="p">(</span><span class="n">dynap_dframe</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.12.0</span>
 
@@ -582,7 +582,7 @@
 
 <div class="viewcode-block" id="get_footprint_patches">
 <a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.tune.get_footprint_patches">[docs]</a>
-<span class="k">def</span> <span class="nf">get_footprint_patches</span><span class="p">(</span><span class="n">dynap_dframe</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">collections</span><span class="o">.</span><span class="n">PatchCollection</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_footprint_patches</span><span class="p">(</span><span class="n">dynap_dframe</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">collections</span><span class="o">.</span><span class="n">PatchCollection</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.12.0</span>
 
@@ -640,7 +640,7 @@
             <span class="s2">&quot;the &#39;AMPLITUDE&#39; value in the provided TfsDataFrame&#39;s headers.&quot;</span>
         <span class="p">)</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid AMPLITUDE value in the provided TfsDataFrame headers&quot;</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">dynap_error</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">dynap_error</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Determining polygon vertices&quot;</span><span class="p">)</span>
     <span class="n">sx</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
@@ -664,7 +664,7 @@
 <span class="c1"># ----- Arcane Private Utilities ----- #</span>
 
 
-<span class="k">def</span> <span class="nf">_get_dynap_string_rep</span><span class="p">(</span><span class="n">dynap_dframe</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_dynap_string_rep</span><span class="p">(</span><span class="n">dynap_dframe</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is a weird dusty function to get a specific useful string</span>
 <span class="sd">    representation from the `~tfs.frame.TfsDataFrame` returned by</span>
@@ -696,7 +696,7 @@
     <span class="k">return</span> <span class="n">string_rep</span>
 
 
-<span class="k">def</span> <span class="nf">_make_tune_groups</span><span class="p">(</span><span class="n">dynap_string_rep</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dsigma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]:</span>  <span class="c1"># noqa: ARG001</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_make_tune_groups</span><span class="p">(</span><span class="n">dynap_string_rep</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dsigma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]:</span>  <span class="c1"># noqa: ARG001</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates appropriate tune points groups from the arcane string representation</span>
 <span class="sd">    returned by `~.tune._get_dynap_string_rep` based on starting amplitude and</span>
@@ -738,26 +738,26 @@
     <span class="k">return</span> <span class="n">tune_groups</span>
 
 
-<span class="k">class</span> <span class="nc">_Footprint</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">_Footprint</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;More dark magic from the past here, close your eyes my friends.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tune_groups</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]],</span> <span class="n">amplitude</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dsigma</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tune_groups</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]],</span> <span class="n">amplitude</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dsigma</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span> <span class="o">=</span> <span class="n">tune_groups</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_maxnangl</span> <span class="o">=</span> <span class="n">angle</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_nampl</span> <span class="o">=</span> <span class="n">amplitude</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dSigma</span> <span class="o">=</span> <span class="n">dsigma</span>
 
-    <span class="k">def</span> <span class="nf">get_h_tune</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ampl</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">angl</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_h_tune</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ampl</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">angl</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span><span class="p">[</span><span class="n">ampl</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="n">angl</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxnangl</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span><span class="p">[</span><span class="n">ampl</span><span class="p">][</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span><span class="p">[</span><span class="n">ampl</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="s2">&quot;H&quot;</span><span class="p">]</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span><span class="p">[</span><span class="n">ampl</span><span class="p">][</span><span class="n">angl</span><span class="p">][</span><span class="s2">&quot;H&quot;</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">get_v_tune</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ampl</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">angl</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_v_tune</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ampl</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">angl</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span><span class="p">[</span><span class="n">ampl</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="n">angl</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxnangl</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span><span class="p">[</span><span class="n">ampl</span><span class="p">][</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span><span class="p">[</span><span class="n">ampl</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="s2">&quot;V&quot;</span><span class="p">]</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span><span class="p">[</span><span class="n">ampl</span><span class="p">][</span><span class="n">angl</span><span class="p">][</span><span class="s2">&quot;V&quot;</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">get_plottable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_plottable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
         <span class="n">qxs</span><span class="p">,</span> <span class="n">qys</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nampl</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_maxnangl</span><span class="p">):</span>

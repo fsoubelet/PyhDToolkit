@@ -6,11 +6,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyhdtoolkit.plotting.sbs.coupling &mdash; PyhDToolkit 1.7.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/plot_directive.css" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-codeautolink.css?v=125d5c1c" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-codeautolink.css" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -395,26 +395,26 @@
 <span class="sd">Functions to plot coupling components of Segment-by-Segment results.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">tfs</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tfs</span>
 
-<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">matplotlib.legend</span> <span class="kn">import</span> <span class="n">_get_legend_handles_labels</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">loguru</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.legend</span><span class="w"> </span><span class="kn">import</span> <span class="n">_get_legend_handles_labels</span>
 
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.utils</span> <span class="kn">import</span> <span class="n">_determine_default_sbs_coupling_ylabel</span><span class="p">,</span> <span class="n">find_ip_s_from_segment_start</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.plotting.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">_determine_default_sbs_coupling_ylabel</span><span class="p">,</span> <span class="n">find_ip_s_from_segment_start</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">matplotlib.axes</span> <span class="kn">import</span> <span class="n">Axes</span>
-    <span class="kn">from</span> <span class="nn">matplotlib.figure</span> <span class="kn">import</span> <span class="n">Figure</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.axes</span><span class="w"> </span><span class="kn">import</span> <span class="n">Axes</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.figure</span><span class="w"> </span><span class="kn">import</span> <span class="n">Figure</span>
 
 
 <div class="viewcode-block" id="plot_rdt_component">
 <a class="viewcode-back" href="../../../../api/plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_rdt_component">[docs]</a>
-<span class="k">def</span> <span class="nf">plot_rdt_component</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_rdt_component</span><span class="p">(</span>
     <span class="n">b1_segment_df</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">,</span>
     <span class="n">b2_segment_df</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">,</span>
     <span class="n">b1_model</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -516,7 +516,7 @@
 
 <div class="viewcode-block" id="plot_full_ip_rdt">
 <a class="viewcode-back" href="../../../../api/plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_full_ip_rdt">[docs]</a>
-<span class="k">def</span> <span class="nf">plot_full_ip_rdt</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_full_ip_rdt</span><span class="p">(</span>
     <span class="n">b1_segment_df</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">,</span>
     <span class="n">b2_segment_df</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">,</span>
     <span class="n">b1_model</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -642,7 +642,7 @@
 <span class="c1"># ----- Workhorse ----- #</span>
 
 
-<span class="k">def</span> <span class="nf">_plot_sbs_coupling_rdt_component</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_plot_sbs_coupling_rdt_component</span><span class="p">(</span>
     <span class="n">ax</span><span class="p">:</span> <span class="n">Axes</span><span class="p">,</span>
     <span class="n">segment_df</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">,</span>
     <span class="n">model_df</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>

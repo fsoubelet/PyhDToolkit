@@ -7,11 +7,11 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quickstart &mdash; PyhDToolkit 1.7.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
-      <link rel="stylesheet" type="text/css" href="_static/sphinx-codeautolink.css?v=125d5c1c" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx-codeautolink.css" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -424,15 +424,15 @@ Assuming the command above has beem ran and the image pulled from Dockerhub, one
 span.prompt2:before {
   content: " ";
 }
-</style><span class="prompt2"><span class="kn">import</span> <span class="nn">pyhdtoolkit</span></span>
+</style><span class="prompt2"><span class="kn">import</span><span class="w"> </span><span class="nn">pyhdtoolkit</span></span>
 </pre></div></div><p>This will include only the core components of <code class="docutils literal notranslate"><span class="pre">PyhDToolkit</span></code>.
 The different sub-packages must be imported separately, depending on your needs:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">import</span> <span class="nn">pyhdtoolkit.cpymadtools</span></span>
-<span class="prompt2"><span class="kn">import</span> <span class="nn">pyhdtoolkit.maths</span></span>
-<span class="prompt2"><span class="kn">import</span> <span class="nn">pyhdtoolkit.models</span></span>
-<span class="prompt2"><span class="kn">import</span> <span class="nn">pyhdtoolkit.optics</span></span>
-<span class="prompt2"><span class="kn">import</span> <span class="nn">pyhdtoolkit.plotting</span></span>
-<span class="prompt2"><span class="kn">import</span> <span class="nn">pyhdtoolkit.utils</span></span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">import</span><span class="w"> </span><span class="nn">pyhdtoolkit.cpymadtools</span></span>
+<span class="prompt2"><span class="kn">import</span><span class="w"> </span><span class="nn">pyhdtoolkit.maths</span></span>
+<span class="prompt2"><span class="kn">import</span><span class="w"> </span><span class="nn">pyhdtoolkit.models</span></span>
+<span class="prompt2"><span class="kn">import</span><span class="w"> </span><span class="nn">pyhdtoolkit.optics</span></span>
+<span class="prompt2"><span class="kn">import</span><span class="w"> </span><span class="nn">pyhdtoolkit.plotting</span></span>
+<span class="prompt2"><span class="kn">import</span><span class="w"> </span><span class="nn">pyhdtoolkit.utils</span></span>
 </pre></div></div><section id="cpymadtools">
 <h3>Cpymadtools<a class="headerlink" href="#cpymadtools" title="Link to this heading"></a></h3>
 <p>The core of <code class="docutils literal notranslate"><span class="pre">PyhDToolkit</span></code> is the <a class="reference internal" href="api/cpymadtools.html#pyhdtoolkit-cpymadtools"><span class="std std-ref">cpymadtools</span></a> sub-package.
@@ -441,10 +441,10 @@ and conveniently setup, run and analyze <code class="docutils literal notranslat
 <p>All the public apis in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">cpymadtools</span></code> work in the same fashion: call them with as first argument your
 <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.17)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> instance, and then any <code class="xref py py-obj docutils literal notranslate"><span class="pre">args</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">kwargs</span></code> relevant to the functionality at hand.
 Let’s say one has initiated their <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> simulation through <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.17)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span></span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span><span class="w"> </span><span class="nn">cpymad.madx</span><span class="w"> </span><span class="kn">import</span> <span class="n">Madx</span></span>
 <span class="prompt2"><span class="n">madx</span> <span class="o">=</span> <span class="n">Madx</span><span class="p">()</span></span>
 </pre></div></div><p>Then using the <code class="xref py py-obj docutils literal notranslate"><span class="pre">cpymadtools</span></code> apis goes as:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools</span> <span class="kn">import</span> <span class="n">super_cool_function</span>  <span class="c1"># pretend it exists ;)</span></span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.cpymadtools</span><span class="w"> </span><span class="kn">import</span> <span class="n">super_cool_function</span>  <span class="c1"># pretend it exists ;)</span></span>
 <span class="prompt2"><span class="n">super_cool_function</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></span>
 </pre></div></div><p>In the <code class="xref py py-obj docutils literal notranslate"><span class="pre">cpymadtools</span></code> one will find modules to:</p>
 <ul class="simple">
@@ -465,18 +465,18 @@ In the second case, relevant data for the plotting is directly queried and compu
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-0">
 Standalone</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.tune</span> <span class="kn">import</span> <span class="n">plot_tune_diagram</span>  <span class="c1"># for instance</span></span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.plotting.tune</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_tune_diagram</span>  <span class="c1"># for instance</span></span>
 <span class="prompt2"><span class="n">plot_tune_diagram</span><span class="p">(</span><span class="n">max_order</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">differentiate_orders</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># and enjoy the result!</span></span>
 </pre></div></div></div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-1">
 Interacting with MAD-X</label><div class="sd-tab-content docutils">
 <p>Let’s say one has initiated their <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> simulation through <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.17)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span></span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span><span class="w"> </span><span class="nn">cpymad.madx</span><span class="w"> </span><span class="kn">import</span> <span class="n">Madx</span></span>
 <span class="prompt2"><span class="n">madx</span> <span class="o">=</span> <span class="n">Madx</span><span class="p">()</span></span>
 <span class="prompt2"><span class="c1"># do some simulation with this instance</span></span>
 </pre></div></div><p>Then using the api goes as:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.aperture</span> <span class="kn">import</span> <span class="n">plot_aperture</span>  <span class="c1"># for instance</span></span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.plotting.aperture</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_aperture</span>  <span class="c1"># for instance</span></span>
 <span class="prompt2"><span class="n">plot_aperture</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># and enjoy the result!</span></span>
 </pre></div></div></div>
 </div>
@@ -487,17 +487,17 @@ Interacting with MAD-X</label><div class="sd-tab-content docutils">
 <p>The <a class="reference internal" href="api/utils.html#pyhdtoolkit-utils"><span class="std std-ref">utils</span></a> module contains useful functions to set up <a class="reference internal" href="api/utils.html#utils-logging"><span class="std std-ref">logging</span></a>, run external programs through the <a class="reference internal" href="api/utils.html#utils-cmdline"><span class="std std-ref">command line</span></a>, or to decorate functions through <a class="reference internal" href="api/utils.html#utils-contexts"><span class="std std-ref">useful contexts</span></a>.</p>
 <p>For instance, one can safely run an input at the commandline with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="c1"># Let&#39;s get the status and raw output of condor_q</span></span>
-<span class="prompt2"><span class="kn">from</span> <span class="nn">pyhdtoolkit.utils.cmdline</span> <span class="kn">import</span> <span class="n">CommandLine</span></span>
+<span class="prompt2"><span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.utils.cmdline</span><span class="w"> </span><span class="kn">import</span> <span class="n">CommandLine</span></span>
 <span class="prompt2"><span class="n">return_code</span><span class="p">,</span> <span class="n">raw_result</span> <span class="o">=</span> <span class="n">CommandLine</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;condor_q&quot;</span><span class="p">)</span></span>
 </pre></div></div><p>It is also simple to log the timing of a function, or a whole code block with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span> <span class="nn">pyhdtoolkit.utils.contexts</span> <span class="kn">import</span> <span class="n">timeit</span></span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.utils.contexts</span><span class="w"> </span><span class="kn">import</span> <span class="n">timeit</span></span>
 <span class="prompt2"><span class="k">with</span> <span class="n">timeit</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Did some stuff in </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)):</span></span>
 <span class="prompt2">    <span class="n">some_stuff</span><span class="p">()</span></span>
 <span class="prompt2">    <span class="n">some_other_stuff</span><span class="p">()</span></span>
 </pre></div></div><div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>A useful tidbit is the following which sets up the logging level for functions in the package:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">logging</span></span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">logging</span></span>
 <span class="prompt2"><span class="n">logging</span><span class="o">.</span><span class="n">config_logger</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;trace&quot;</span><span class="p">)</span>  <span class="c1"># the lowest level used, will give ALL logging</span></span>
 </pre></div></div></div>
 </section>

@@ -7,11 +7,11 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Beam Enveloppe &mdash; PyhDToolkit 1.7.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/sphinx-codeautolink.css?v=125d5c1c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-codeautolink.css" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -400,14 +400,14 @@ to download the full example code.</p>
 <p>This example shows how to use the <code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_envelope</span></code> function
 to visualise the particle beam’s enveloppe in your machine.</p>
 <p>In this example we will use a very simple lattice, hard-coded below.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class"><span class="n">Madx</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cpymad.madx</span><span class="w"> </span><span class="kn">import</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class"><span class="n">Madx</span></a>
 
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.envelope</span> <span class="kn">import</span> <span class="n">plot_beam_envelope</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.styles</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.plotting.envelope</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_beam_envelope</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.plotting.styles</span><span class="w"> </span><span class="kn">import</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">logging</span>
 
 <span class="n">logging</span><span class="o">.</span><span class="n">config_logger</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">)</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#dict.update" title="builtins.dict.update" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-method"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a><span class="p">)</span>  <span class="c1"># for readability of this tutorial</span>
@@ -552,7 +552,7 @@ in this example:</p>
 <li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">envelope</span></code>: <code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_beam_envelope</span></code></p></li>
 </ul>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.055 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.445 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-beam-enveloppe-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/367dfd0c77b4dfc6444c8f91af0c58c5/demo_beam_enveloppe.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">demo_beam_enveloppe.ipynb</span></code></a></p>

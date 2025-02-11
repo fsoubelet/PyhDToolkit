@@ -7,11 +7,11 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Accelerator Lattice &mdash; PyhDToolkit 1.7.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/sphinx-codeautolink.css?v=125d5c1c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-codeautolink.css" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -401,15 +401,15 @@ to download the full example code.</p>
 to represent your machine’s layout and optics functions in a double-axis plot.</p>
 <p>In this example, we will showcase the functionality on a simple lattice, and then demonstrate the use
 of several parameters to control the plot on the example case of the LHC.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class"><span class="n">Madx</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cpymad.madx</span><span class="w"> </span><span class="kn">import</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class"><span class="n">Madx</span></a>
 
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools</span> <span class="kn">import</span> <span class="n">lhc</span><span class="p">,</span> <span class="n">matching</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools._generators</span> <span class="kn">import</span> <span class="n">LatticeGenerator</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.lattice</span> <span class="kn">import</span> <span class="n">plot_latwiss</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.styles</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.cpymadtools</span><span class="w"> </span><span class="kn">import</span> <span class="n">lhc</span><span class="p">,</span> <span class="n">matching</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.cpymadtools._generators</span><span class="w"> </span><span class="kn">import</span> <span class="n">LatticeGenerator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.plotting.lattice</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_latwiss</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.plotting.styles</span><span class="w"> </span><span class="kn">import</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">logging</span>
 
 <span class="n">logging</span><span class="o">.</span><span class="n">config_logger</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">)</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#dict.update" title="builtins.dict.update" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-method"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a><span class="p">)</span>  <span class="c1"># for readability of this tutorial</span>
@@ -473,9 +473,9 @@ builds, but you can use any branch you want.</p>
 a region by providing the <em>xlimits</em> parameter. Let’s first determine the position
 of points of interest through the <code class="docutils literal notranslate"><span class="pre">TWISS</span></code> table:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Command.html#cpymad.madx.Command" title="cpymad.madx.Command" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">lhc_madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span></a><span class="p">()</span>
-<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">twiss_df</span></a> <span class="o">=</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.TableMap.html#cpymad.madx.TableMap" title="cpymad.madx.TableMap" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">lhc_madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">dframe</span></a><span class="p">()</span>
-<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">twiss_df</span><span class="o">.</span><span class="n">name</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.apply.html#pandas.Series.apply" title="pandas.Series.apply" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">twiss_df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">apply</span></a><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
-<a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">ip1s</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">twiss_df</span><span class="o">.</span><span class="n">s</span></a><span class="p">[</span><span class="s2">&quot;ip1&quot;</span><span class="p">]</span>
+<span class="n">twiss_df</span> <span class="o">=</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.TableMap.html#cpymad.madx.TableMap" title="cpymad.madx.TableMap" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">lhc_madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">dframe</span></a><span class="p">()</span>
+<span class="n">twiss_df</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+<a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">ip1s</span></a> <span class="o">=</span> <span class="n">twiss_df</span><span class="o">.</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;ip1&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>We can now focus the plot in the Interaction Region 1 by providing the <em>xlimits</em>
@@ -563,7 +563,7 @@ in this example:</p>
 <li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">lattice</span></code>: <code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_latwiss</span></code></p></li>
 </ul>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 17.156 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 14.978 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-lattice-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/466c4ace11096429fa788f3332b96944/demo_lattice.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">demo_lattice.ipynb</span></code></a></p>

@@ -6,11 +6,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyhdtoolkit.cpymadtools.coupling &mdash; PyhDToolkit 1.7.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-codeautolink.css?v=125d5c1c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-codeautolink.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -398,33 +398,33 @@
 <span class="sd">in the machine.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">optics_functions.coupling</span> <span class="kn">import</span> <span class="n">check_resonance_relation</span><span class="p">,</span> <span class="n">closest_tune_approach</span><span class="p">,</span> <span class="n">coupling_via_cmatrix</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">loguru</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">optics_functions.coupling</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_resonance_relation</span><span class="p">,</span> <span class="n">closest_tune_approach</span><span class="p">,</span> <span class="n">coupling_via_cmatrix</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
 
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.constants</span> <span class="kn">import</span> <span class="n">MONITOR_TWISS_COLUMNS</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.lhc</span> <span class="kn">import</span> <span class="n">get_lhc_tune_and_chroma_knobs</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.matching</span> <span class="kn">import</span> <span class="n">match_tunes_and_chromaticities</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.twiss</span> <span class="kn">import</span> <span class="n">get_pattern_twiss</span><span class="p">,</span> <span class="n">get_twiss_tfs</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.cpymadtools.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">MONITOR_TWISS_COLUMNS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.cpymadtools.lhc</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_lhc_tune_and_chroma_knobs</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.cpymadtools.matching</span><span class="w"> </span><span class="kn">import</span> <span class="n">match_tunes_and_chromaticities</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.cpymadtools.twiss</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_pattern_twiss</span><span class="p">,</span> <span class="n">get_twiss_tfs</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
 
-    <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
-    <span class="kn">from</span> <span class="nn">tfs</span> <span class="kn">import</span> <span class="n">TfsDataFrame</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">cpymad.madx</span><span class="w"> </span><span class="kn">import</span> <span class="n">Madx</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">tfs</span><span class="w"> </span><span class="kn">import</span> <span class="n">TfsDataFrame</span>
 
 <span class="c1"># ----- General Use ----- #</span>
 
 
 <div class="viewcode-block" id="get_closest_tune_approach">
 <a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_closest_tune_approach">[docs]</a>
-<span class="k">def</span> <span class="nf">get_closest_tune_approach</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_closest_tune_approach</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
     <span class="o">/</span><span class="p">,</span>
     <span class="n">accelerator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -559,7 +559,7 @@
 
 <div class="viewcode-block" id="get_cminus_from_coupling_rdts">
 <a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_cminus_from_coupling_rdts">[docs]</a>
-<span class="k">def</span> <span class="nf">get_cminus_from_coupling_rdts</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_cminus_from_coupling_rdts</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
     <span class="o">/</span><span class="p">,</span>
     <span class="n">patterns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">],</span>
@@ -664,7 +664,7 @@
 
 <div class="viewcode-block" id="match_no_coupling_through_ripkens">
 <a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.match_no_coupling_through_ripkens">[docs]</a>
-<span class="k">def</span> <span class="nf">match_no_coupling_through_ripkens</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">match_no_coupling_through_ripkens</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
     <span class="o">/</span><span class="p">,</span>
     <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -718,7 +718,7 @@
 
 <div class="viewcode-block" id="get_coupling_rdts">
 <a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_coupling_rdts">[docs]</a>
-<span class="k">def</span> <span class="nf">get_coupling_rdts</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TfsDataFrame</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_coupling_rdts</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TfsDataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.20.0</span>
 
@@ -754,7 +754,7 @@
 <span class="c1"># ----- Helpers ----- #</span>
 
 
-<span class="k">def</span> <span class="nf">_fractional_tune</span><span class="p">(</span><span class="n">tune</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_fractional_tune</span><span class="p">(</span><span class="n">tune</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns only the fractional part *tune*.</span>
 
@@ -778,7 +778,7 @@
     <span class="k">return</span> <span class="n">tune</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">tune</span><span class="p">)</span>  <span class="c1"># ok since int truncates to lower integer</span>
 
 
-<span class="k">def</span> <span class="nf">_filter_outlier_bpms_from_coupling_rdts</span><span class="p">(</span><span class="n">twiss_df</span><span class="p">:</span> <span class="n">TfsDataFrame</span><span class="p">,</span> <span class="n">stdev</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TfsDataFrame</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_filter_outlier_bpms_from_coupling_rdts</span><span class="p">(</span><span class="n">twiss_df</span><span class="p">:</span> <span class="n">TfsDataFrame</span><span class="p">,</span> <span class="n">stdev</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TfsDataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Only keep BPMs for which the absolute value of coupling RDTs is</span>
 <span class="sd">    no further than `stdev` sigma from its mean.</span>

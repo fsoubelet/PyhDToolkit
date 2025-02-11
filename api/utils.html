@@ -6,11 +6,11 @@
 <meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Utils — PyhDToolkit 1.7.0 documentation</title>
-<link href="../_static/pygments.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css?v=03e43079" rel="stylesheet" type="text/css"/>
 <link href="../_static/css/theme.css?v=e59714d7" rel="stylesheet" type="text/css"/>
 <link href="../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
 <link href="../_static/plot_directive.css" rel="stylesheet" type="text/css"/>
-<link href="../_static/sphinx-codeautolink.css?v=125d5c1c" rel="stylesheet" type="text/css"/>
+<link href="../_static/sphinx-codeautolink.css" rel="stylesheet" type="text/css"/>
 <link href="../_static/sg_gallery.css?v=d2d258e8" rel="stylesheet" type="text/css"/>
 <link href="../_static/sg_gallery-binder.css?v=f4aeca0c" rel="stylesheet" type="text/css"/>
 <link href="../_static/sg_gallery-dataframe.css?v=2082cf3c" rel="stylesheet" type="text/css"/>
@@ -466,7 +466,7 @@ is returned in bytes format and should be decoded later on.</p>
 <span class="c1"># returns (0, b"hello\r\n")</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/os.html#module-os" title="os"><span class="nn">os</span></a>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/os.html#module-os" title="os"><span class="nn">os</span></a>
 
 <span class="n">modified_env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">modified_env</span><span class="p">[</span><span class="s2">"ENV_VAR"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"new_value"</span>
@@ -525,7 +525,7 @@ string (no extra information).</p>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@deprecated</span><span class="p">(</span><span class="s2">"Use 'new_alternative' instead."</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">old_function</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">old_function</span><span class="p">():</span>
     <span class="k">return</span> <span class="s2">"I am old!"</span>
 </pre></div>
 </div>
@@ -555,7 +555,7 @@ installed, the original function otherwise.</p>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@maybe_jit</span>
-<span class="k">def</span> <span class="nf">calculations</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculations</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -694,7 +694,7 @@ Defaults to a pre-defined format in this module.</p></li>
 </pre></div>
 </div>
 <p>Specifying a custom format and setting the logging level:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyhdtoolkit.utils.logging</span> <span class="kn">import</span> <span class="n">config_logger</span><span class="p">,</span> <span class="n">SIMPLE_FORMAT</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.utils.logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">config_logger</span><span class="p">,</span> <span class="n">SIMPLE_FORMAT</span>
 
 <span class="n">config_logger</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">"DEBUG"</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">SIMPLE_FORMAT</span><span class="p">)</span>
 </pre></div>

@@ -7,11 +7,11 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gallery &mdash; PyhDToolkit 1.7.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/sphinx-codeautolink.css?v=125d5c1c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-codeautolink.css" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -415,16 +415,16 @@ Import and Set the Style</label><div class="sd-tab-content docutils">
 span.prompt1:before {
   content: " ";
 }
-</style><span class="prompt1"><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span></span>
-<span class="prompt1"><span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.styles.thesis</span> <span class="kn">import</span> <span class="n">MEDIUM</span></span>
+</style><span class="prompt1"><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span></span>
+<span class="prompt1"><span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.plotting.styles.thesis</span><span class="w"> </span><span class="kn">import</span> <span class="n">MEDIUM</span></span>
 <span class="prompt1"></span>
 <span class="prompt1"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">MEDIUM</span><span class="p">)</span></span>
 <span class="prompt1"><span class="c1"># plotting code here</span></span>
 </pre></div></div></div></blockquote>
 <p>Or, for a temporary update of the <code class="docutils literal notranslate"><span class="pre">rcParams</span></code>:</p>
 <blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span></span>
-<span class="prompt1"><span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.styles.thesis</span> <span class="kn">import</span> <span class="n">MEDIUM</span></span>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span></span>
+<span class="prompt1"><span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.plotting.styles.thesis</span><span class="w"> </span><span class="kn">import</span> <span class="n">MEDIUM</span></span>
 <span class="prompt1"></span>
 <span class="prompt1"><span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">rc_context</span><span class="p">(</span><span class="n">MEDIUM</span><span class="p">):</span></span>
 <span class="prompt1">    <span class="c1"># Plotting code here</span></span>
@@ -435,8 +435,8 @@ span.prompt1:before {
 Install the Styles and Load One</label><div class="sd-tab-content docutils">
 <p>Do a one-time install of the styles as <strong>.mplstyle</strong> files to use in <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.10.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code></a>:</p>
 <blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span></span>
-<span class="prompt1"><span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.styles</span> <span class="kn">import</span> <span class="n">install_mpl_styles</span></span>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span></span>
+<span class="prompt1"><span class="kn">from</span><span class="w"> </span><span class="nn">pyhdtoolkit.plotting.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">install_mpl_styles</span></span>
 <span class="prompt1"></span>
 <span class="prompt1"><span class="n">install_mpl_styles</span><span class="p">()</span>  <span class="c1"># only run this once</span></span>
 <span class="prompt1"><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;thesis-medium&quot;</span><span class="p">)</span>  <span class="c1"># loaded from created file &#39;thesis-medium.mplstyle&#39;</span></span>
