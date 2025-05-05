@@ -15,7 +15,6 @@ from typing import TYPE_CHECKING
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
-
 from loguru import logger
 from matplotlib import transforms
 from matplotlib.patches import Ellipse
@@ -26,6 +25,7 @@ if TYPE_CHECKING:
     from numpy.typing import ArrayLike
     from pandas import DataFrame
     from tfs import TfsDataFrame
+    from xtrack import Line
 
 # ------ General Utilities ----- #
 
@@ -216,8 +216,8 @@ def make_elements_groups(
             "k0l != 0 or k0sl != 0 or angle != 0"
         ),
         "quadrupoles": twiss_df[twiss_df.keyword.isin(["multipole", "quadrupole"])].query("k1l != 0 or k1sl != 0"),
-        "sextupoles": twiss_df[twiss_df.keyword.isin(["multipole", "sextupole"])].query("k2l != 0 or k2sl " "!= 0"),
-        "octupoles": twiss_df[twiss_df.keyword.isin(["multipole", "octupole"])].query("k3l != 0 or k3sl != " "0"),
+        "sextupoles": twiss_df[twiss_df.keyword.isin(["multipole", "sextupole"])].query("k2l != 0 or k2sl != 0"),
+        "octupoles": twiss_df[twiss_df.keyword.isin(["multipole", "octupole"])].query("k3l != 0 or k3sl != 0"),
         "bpms": twiss_df[(twiss_df.keyword.isin(["monitor"])) & (twiss_df.name.str.contains("BPM", case=False))],
     }
 
@@ -530,6 +530,47 @@ def _get_twiss_table_with_offsets_and_limits(
     logger.trace("Getting TWISS table from MAD-X")
     madx.command.twiss(**kwargs)
     twiss_df = madx.table.twiss.dframe()
+    twiss_df.s = twiss_df.s - xoffset
+    return twiss_df[twiss_df.s.between(*xlimits)] if xlimits else twiss_df
+
+
+def _get_xsuite_twiss_table_with_offsets_and_limits(
+    line: Line, /, xoffset: float = 0, xlimits: tuple[float, float] | None = None, **kwargs
+) -> DataFrame:
+    """
+    .. versionadded:: 1.0.0
+
+    Get the twiss dataframe from the `xtrack.Line`, only within the
+    provided *xlimits* and with the s axis shifted by the given *xoffset*.
+
+    Parameters
+    ----------
+    line : xtrack.Line
+        An `~xtrack.Line` object, assuming the reference particle is
+        properly set. Positional only.
+    xoffset : float
+        An offset applied to the ``S`` coordinate before plotting. This
+        is useful if you want to center a plot around a specific point
+        or element, which would then become located at :math:`s = 0`.
+        Beware this offset is applied before applying the *xlimits*.
+        Defaults to 0.
+    xlimits : tuple[float, float], optional
+        If given, will be used for the xlim (for the ``s`` coordinate),
+        using the tuple passed.
+    **kwargs
+        Any additional keyword arguments are transmitted to the
+        `line.twiss` call.
+
+    Returns
+    -------
+    pandas.DataFrame
+        The ``TWISS`` dataframe from ``xtrack``, with the provided limits
+        and offset applied, if any.
+    """
+    # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
+    logger.trace("Getting TWISS table from MAD-X")
+    twiss = line.twiss(**kwargs)
+    twiss_df = twiss_df = twiss.to_pandas()
     twiss_df.s = twiss_df.s - xoffset
     return twiss_df[twiss_df.s.between(*xlimits)] if xlimits else twiss_df
 
