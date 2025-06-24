@@ -15,19 +15,17 @@ jobs:
   coverage:
     runs-on: ubuntu-latest
     env:
-        python-version: 3.12
+        python-version: "3.13"
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v3
+      - name: Install uv and Python ${{ env.python-version }}
+        uses: astral-sh/setup-uv@v5
         with:
+          python-version: ${{ env.python-version }}
           enable-cache: true
           cache-dependency-glob: pyproject.toml
-
-      - name: Set up Python ${{ env.python-version }}
-        run: uv python install ${{ env.python-version }}
 
       - name: Install package with test dependencies
         run: uv sync --all-extras --dev
