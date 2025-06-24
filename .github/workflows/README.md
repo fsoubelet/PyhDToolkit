@@ -23,7 +23,6 @@ It runs on `ubuntu-latest` and our latest supported Python version, and reports 
 ## Regular Testing
 
 A `cron` workflow triggers every Saturday at 12:00 (UTC time) and runs the full testing suite, on all supported operating systems and supported Python versions.
-It is very similar to the normal Testing Suite, but in addition also runs on `Python 3.x` so that newly released Python versions that would break tests are automatically included.
 
 ## Publishing
 
