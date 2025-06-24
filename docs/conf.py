@@ -136,7 +136,7 @@ extensions = [
     "sphinx_issues",  # Link to project's issue tracker
     "sphinx_design",  # successor to sphinx_panels, for grid layouts and drop-downs
     "matplotlib.sphinxext.plot_directive",  # Include a Matplotlib plot in a Sphinx document
-    "sphinx-prompt",  # prompt symbols will not be copy-pastable
+    "sphinx_prompt",  # prompt symbols will not be copy-pastable
     "sphinx_codeautolink",  # Automatically link example code to documentation source
 ]
 
