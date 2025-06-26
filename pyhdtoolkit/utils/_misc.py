@@ -23,7 +23,6 @@ from typing import TYPE_CHECKING
 
 import cpymad
 import numpy as np
-import pandas as pd
 from cpymad.madx import Madx
 from loguru import logger
 
@@ -33,6 +32,8 @@ from pyhdtoolkit.cpymadtools.constants import LHC_IR_BPM_REGEX
 
 if TYPE_CHECKING:
     from collections.abc import Callable, Sequence
+
+    import pandas as pd
 
 # ----- Constants ----- #
 
