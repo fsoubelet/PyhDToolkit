@@ -15,7 +15,6 @@ from typing import TYPE_CHECKING
 
 import pandas as pd
 import tfs
-
 from loguru import logger
 
 if TYPE_CHECKING:

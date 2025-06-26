@@ -10,7 +10,6 @@ Provides useful contexts to use functions in.
 from __future__ import annotations
 
 import time
-
 from contextlib import contextmanager
 from typing import TYPE_CHECKING
 

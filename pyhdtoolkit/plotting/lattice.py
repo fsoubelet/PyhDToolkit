@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import matplotlib.pyplot as plt
-
 from loguru import logger
 
 from pyhdtoolkit.plotting.layout import _ylim_from_input, plot_machine_layout

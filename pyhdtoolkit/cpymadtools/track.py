@@ -18,7 +18,6 @@ if TYPE_CHECKING:
     from collections.abc import Sequence
 
     import pandas as pd
-
     from cpymad.madx import Madx
 
 # ----- Utlites ----- #

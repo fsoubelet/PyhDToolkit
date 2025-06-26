@@ -17,7 +17,6 @@ Warning
 from __future__ import annotations
 
 import shlex
-
 from multiprocessing import cpu_count
 from pathlib import Path
 from typing import TYPE_CHECKING
@@ -25,7 +24,6 @@ from typing import TYPE_CHECKING
 import cpymad
 import numpy as np
 import pandas as pd
-
 from cpymad.madx import Madx
 from loguru import logger
 

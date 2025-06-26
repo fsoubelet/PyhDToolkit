@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import numpy as np
-
 from loguru import logger
 
 from pyhdtoolkit.plotting.utils import maybe_get_ax
