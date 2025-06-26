@@ -90,7 +90,7 @@ def reset_lhc_bump_flags(madx: Madx, /) -> None:
         + LHC_PARALLEL_SEPARATION_FLAGS
     )
     with madx.batch():
-        madx.globals.update({bump: 0 for bump in all_bumps})
+        madx.globals.update(dict.fromkeys(all_bumps, 0))
 
 
 def get_lhc_tune_and_chroma_knobs(
