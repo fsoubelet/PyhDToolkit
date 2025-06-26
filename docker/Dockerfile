@@ -3,7 +3,7 @@
 # docker run --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v <host_dir_to_mount>:/home/jovyan/work <container_name>
 
 # STEP 1 - Base image
-FROM jupyter/base-notebook
+FROM quay.io/jupyter/base-notebook
 
 # STEP 2 - Label
 LABEL maintainer="Felix Soubelet <felix.soubelet@cern.ch>"
