@@ -572,7 +572,7 @@ onto the data, and determine its mode:</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.legend.html#matplotlib.axes.Axes.legend" title="matplotlib.axes.Axes.legend" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">legend</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_demo_stats_fitting_002.svg" srcset="../_images/sphx_glr_demo_stats_fitting_002.svg, ../_images/sphx_glr_demo_stats_fitting_002_2_00x.svg 2.00x" alt="Best fit to distribution: ChiSquared(df=3.98, loc=0.00, scale=1.00)" class = "sphx-glr-single-img"/><p>We expect a mode of 2, we can check that this is indeed the case. Here we leave
+<img src="../_images/sphx_glr_demo_stats_fitting_002.svg" srcset="../_images/sphx_glr_demo_stats_fitting_002.svg, ../_images/sphx_glr_demo_stats_fitting_002_2_00x.svg 2.00x" alt="Best fit to distribution: ChiSquared(df=3.95, loc=0.00, scale=1.02)" class = "sphx-glr-single-img"/><p>We expect a mode of 2, we can check that this is indeed the case. Here we leave
 a nice tolerance to ensure the documentation build does not fail.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.isclose.html#numpy.isclose" title="numpy.isclose" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">isclose</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.idxmax.html#pandas.Series.idxmax" title="pandas.Series.idxmax" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">pdf</span><span class="o">.</span><span class="n">idxmax</span></a><span class="p">(),</span> <span class="mi">2</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">2e-2</span><span class="p">)</span>
 </pre></div>
@@ -633,7 +633,7 @@ in this example:</p>
 <li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">utils</span></code>: <code class="xref py py-obj docutils literal notranslate"><span class="pre">set_arrow_label</span></code></p></li>
 </ul>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 11.828 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 11.723 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-stats-fitting-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/430c307b3f50d69cc7583fe9f78940eb/demo_stats_fitting.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">demo_stats_fitting.ipynb</span></code></a></p>
