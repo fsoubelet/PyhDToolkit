@@ -222,7 +222,7 @@ def plot_latwiss(
     dispertion_axis.legend(loc=1)
     dispertion_axis.set_ylabel("$D_{x,y}$ $[m]$", color="brown")
     dispertion_axis.tick_params(axis="y", labelcolor="brown")
-    dispertion_axis.grid(False)
+    dispertion_axis.grid(visible=False)
 
     if beta_ylim:
         logger.debug("Setting ylim for betatron functions plot")
