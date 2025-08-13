@@ -103,7 +103,6 @@ def test_ip_locations_with_xlimits(_non_matched_lhc_madx):
 @pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_confidence_ellipse_subplots():
     """Confidence ellipse on three correlated datasets in subplots."""
-    np.random.seed(0)
     parameters = {
         "Positive correlation": [[0.85, 0.35], [0.15, -0.65]],
         "Negative correlation": [[0.9, -0.4], [0.1, -0.6]],
@@ -129,7 +128,6 @@ def test_confidence_ellipse_subplots():
 
 @pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_confidence_ellipse_several_stds():
-    np.random.seed(0)
     figure, ax_nstd = plt.subplots(figsize=(6, 6))
     dependency_nstd = [[0.8, 0.75], [-0.2, 0.35]]
     mu = 0, 0
@@ -153,7 +151,8 @@ def test_confidence_ellipse_several_stds():
 
 def get_correlated_dataset(n, dependency, mu, scale):
     """This one is from the matplotlib doc."""
-    latent = np.random.randn(n, 2)
+    rng = np.random.default_rng(seed=0)  # for tests reproducibility
+    latent = rng.standard_normal(size=(n, 2))
     dependent = latent.dot(dependency)
     scaled = dependent * scale
     scaled_with_offset = scaled + mu
