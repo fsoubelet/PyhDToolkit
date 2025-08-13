@@ -23,7 +23,6 @@ available aperture in your machine, with the LHC used for this example.
 """
 
 import matplotlib.pyplot as plt
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc

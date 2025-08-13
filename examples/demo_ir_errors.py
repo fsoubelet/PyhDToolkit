@@ -28,7 +28,6 @@ to assign magnet errors in the Insertion Region magnets of the LHC.
 # sphinx_gallery_thumbnail_number = 1
 import matplotlib.pyplot as plt
 import numpy as np
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc, matching

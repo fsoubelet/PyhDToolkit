@@ -3,7 +3,6 @@ import pathlib
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pytest
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools._generators import LatticeGenerator

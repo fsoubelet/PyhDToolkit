@@ -10,7 +10,6 @@ import numpy as np
 import pandas as pd
 import pytest
 import tfs
-
 from loguru import logger
 from numpy.testing import assert_array_equal
 from rich.table import Table

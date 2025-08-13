@@ -27,7 +27,6 @@ available at the level of the `pyhdtoolkit.cpymadtools.lhc` module.
 
 # sphinx_gallery_thumbnail_number = 4
 import matplotlib.pyplot as plt
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import coupling, lhc, twiss

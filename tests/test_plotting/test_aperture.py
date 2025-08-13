@@ -1,7 +1,6 @@
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pytest
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.plotting.aperture import plot_aperture, plot_physical_apertures
