@@ -28,7 +28,7 @@ plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 ###############################################################################
 # Define relevant constants.
 
-pc_GeV = 19  # Beam momentum [GeV]
+pc_GeV = 19  # Beam momentum [GeV]  # noqa: N816
 B_rho_Tm = pc_GeV / 0.3  # Magnetic rigidity [Tm]
 E_0_GeV = 0.9382720813  # proton rest mass [GeV]
 E_tot_GeV = np.sqrt(pc_GeV**2 + E_0_GeV**2)
