@@ -42,7 +42,7 @@ autodoc_type_aliases = {"ArrayLike": "ArrayLike"}
 # -- Project information -----------------------------------------------------
 
 project = "PyhDToolkit"
-copyright = f"2019, {pyhdtoolkit.__author__}"
+copyright_ = f"2019, {pyhdtoolkit.__author__}"
 author = pyhdtoolkit.__author__
 
 rst_prolog = f""":github_url: {pyhdtoolkit.__url__}"""
