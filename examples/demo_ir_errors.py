@@ -50,10 +50,11 @@ madx: Madx = lhc.prepare_lhc_run3(
 
 ###############################################################################
 # Importantly in ``MAD-X``, when dealing with RNG one should set a generator and
-# seed, which we do below:
+# seed, which we will do below. Make sure to respect numpy's RNG recommendations
 
-madx.option(rand="best", randid=np.random.randint(1, 11))  # random number generator
-madx.eoption(seed=np.random.randint(1, 999999999))  # not using default seed
+rng = np.random.default_rng()
+madx.option(rand="best", randid=rng.integers(1, 11))  # random number generator
+madx.eoption(seed=rng.integers(1, 999999999))  # not using default seed
 
 ###############################################################################
 # We can now install errors in the IR quadrupoles. Note that this function accepts
