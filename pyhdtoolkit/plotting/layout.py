@@ -14,7 +14,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import numpy as np
-
 from loguru import logger
 from matplotlib import patches
 
@@ -187,14 +186,14 @@ def plot_machine_layout(
         axis.set_xlim(xlimits)
     axis.set_title(title)
     axis.plot(twiss_df.s, 0 * twiss_df.s, "k")  # 0-level line
-    axis.grid(False)
+    axis.grid(visible=False)
 
     dipole_patches_axis = axis.twinx()
     dipole_patches_axis.set_ylabel("$\\theta=K_{0}L$ $[rad]$", color="royalblue")  # dipoles in blue
     dipole_patches_axis.tick_params(axis="y", labelcolor="royalblue")
     if np.nan not in k0l_lim:
         dipole_patches_axis.set_ylim(k0l_lim)
-    dipole_patches_axis.grid(False)
+    dipole_patches_axis.grid(visible=False)
 
     if plot_dipoles:  # beware 'sbend' and 'rbend' have an 'angle' value and not a 'k0l'
         logger.trace("Plotting dipole patches")
@@ -271,7 +270,7 @@ def plot_machine_layout(
             )
             plotted_elements += 1
         logger.debug(f"Plotted {plotted_elements} sextupole elements")
-        sextupoles_patches_axis.grid(False)
+        sextupoles_patches_axis.grid(visible=False)
         if plotted_elements > 0:  # If we plotted at least one sextupole, we need to plot the legend
             sextupoles_patches_axis.legend(loc=3)
 
@@ -301,7 +300,7 @@ def plot_machine_layout(
             )
             plotted_elements += 1
         logger.debug(f"Plotted {plotted_elements} octupole elements")
-        octupoles_patches_axis.grid(False)
+        octupoles_patches_axis.grid(visible=False)
         if plotted_elements > 0:  # If we plotted at least one octupole, we need to plot the legend
             octupoles_patches_axis.legend(loc=4)
 
@@ -336,7 +335,7 @@ def plot_machine_layout(
                 bpm_legend_loc = "best"  # can't easily determine the best position, go automatic and leave to the user
             if plotted_elements > 0:  # If we plotted at least one BPM, we need to plot the legend
                 bpm_patches_axis.legend(loc=bpm_legend_loc)
-        bpm_patches_axis.grid(False)
+        bpm_patches_axis.grid(visible=False)
 
 
 def scale_patches(scale: float, ylabel: str, **kwargs) -> None:

@@ -44,7 +44,6 @@ from multiprocessing import cpu_count
 import matplotlib.pyplot as plt
 import numpy as np
 import tfs
-
 from cpymad.madx import Madx
 from joblib import Parallel, delayed
 

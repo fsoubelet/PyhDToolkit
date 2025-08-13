@@ -12,7 +12,6 @@ from pathlib import Path
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-
 from loguru import logger
 
 from . import paper, thesis  # noqa: TID252

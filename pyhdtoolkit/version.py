@@ -14,7 +14,6 @@ def version_info() -> str:
     """
     import platform
     import sys
-
     from pathlib import Path
 
     info = {

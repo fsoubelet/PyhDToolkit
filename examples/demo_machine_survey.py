@@ -12,7 +12,6 @@ to represent your machine geometry in a from-the-top view.
 
 # sphinx_gallery_thumbnail_number = 2
 import matplotlib.pyplot as plt
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools._generators import LatticeGenerator

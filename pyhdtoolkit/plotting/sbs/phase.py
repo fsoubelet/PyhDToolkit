@@ -13,7 +13,6 @@ from typing import TYPE_CHECKING
 
 import matplotlib.pyplot as plt
 import tfs
-
 from loguru import logger
 from matplotlib.legend import _get_legend_handles_labels
 

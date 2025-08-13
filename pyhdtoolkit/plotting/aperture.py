@@ -15,7 +15,6 @@ from typing import TYPE_CHECKING
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-
 from loguru import logger
 
 from pyhdtoolkit.plotting.layout import plot_machine_layout

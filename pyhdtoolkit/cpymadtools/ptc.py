@@ -14,7 +14,6 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 import tfs
-
 from loguru import logger
 
 from pyhdtoolkit.cpymadtools.utils import get_table_tfs
@@ -23,7 +22,6 @@ if TYPE_CHECKING:
     from collections.abc import Sequence
 
     import pandas as pd
-
     from cpymad.madx import Madx
 
 _MAX_PTC_AMPDET_ORDER: int = 2

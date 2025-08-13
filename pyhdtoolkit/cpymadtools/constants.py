@@ -127,7 +127,7 @@ LHC_KQS_KNOBS: list[str] = [f"kqs.r{ip}b1" for ip in [1, 3, 5, 7]] + \
     [f"kqs.l{ip}b1" for ip in [2, 4, 6, 8]] + \
     [f"kqs.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b1" for sector in [2, 4, 6, 8]] + \
     [f"kqs.r{ip}b2" for ip in [2, 4, 6, 8]] + \
-    [f"kqs.l" f"{ip}b2" for ip in [3, 5, 7, 1]] + \
+    [f"kqs.l{ip}b2" for ip in [3, 5, 7, 1]] + \
     [f"kqs.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b2" for sector in [1, 3, 5, 7]]
 # fmt: on
 LHC_KSF_KNOBS: list[str] = [  # sextupole correctors

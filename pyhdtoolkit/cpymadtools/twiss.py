@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import tfs
-
 from loguru import logger
 
 from pyhdtoolkit.cpymadtools.constants import DEFAULT_TWISS_COLUMNS

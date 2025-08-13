@@ -4,7 +4,6 @@ import pathlib
 import numpy as np
 import pytest
 import tfs
-
 from optics_functions.constants import F1001, F1010
 from optics_functions.coupling import split_complex_columns
 from pandas.testing import assert_frame_equal

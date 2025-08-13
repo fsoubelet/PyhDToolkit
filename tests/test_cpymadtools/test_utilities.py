@@ -1,6 +1,5 @@
 import pytest
 import tfs
-
 from pandas.testing import assert_frame_equal
 
 from pyhdtoolkit.cpymadtools.utils import _get_k_strings, export_madx_table, get_table_tfs

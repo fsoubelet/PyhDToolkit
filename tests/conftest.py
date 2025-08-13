@@ -1,7 +1,6 @@
 import pathlib
 
 import pytest
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc

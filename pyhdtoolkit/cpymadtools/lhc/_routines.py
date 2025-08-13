@@ -13,7 +13,6 @@ from typing import TYPE_CHECKING
 
 import numpy as np
 import tfs
-
 from loguru import logger
 
 from pyhdtoolkit.cpymadtools.lhc._twiss import get_ir_twiss

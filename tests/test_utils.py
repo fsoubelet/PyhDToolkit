@@ -10,7 +10,6 @@ import numpy as np
 import pandas as pd
 import pytest
 import tfs
-
 from loguru import logger
 from numpy.testing import assert_array_equal
 from rich.table import Table
@@ -254,7 +253,8 @@ def _correct_cluster_summary() -> ClusterSummary:
 
 @pytest.fixture
 def _complex_columns_df() -> pd.DataFrame:
-    array = np.random.rand(50, 5) + 1j * np.random.rand(50, 5)
+    rng = np.random.default_rng()
+    array = rng.random(size=(50, 5)) + 1j * rng.random(size=(50, 5))
     return pd.DataFrame(data=array, columns=["A", "B", "C", "D", "E"])
 
 

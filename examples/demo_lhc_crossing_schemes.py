@@ -14,7 +14,6 @@ function to visualise the crossing schemes setup at the LHC IRs.
 """
 
 import matplotlib.pyplot as plt
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc

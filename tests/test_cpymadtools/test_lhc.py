@@ -6,11 +6,9 @@ import random
 import numpy as np
 import pytest
 import tfs
-
 from cpymad.madx import Madx
 from pandas.testing import assert_frame_equal
 
-from pyhdtoolkit.cpymadtools.constants import LHC_TRIPLETS_REGEX  # noqa: F401  |  for coverage
 from pyhdtoolkit.cpymadtools.constants import (
     DEFAULT_TWISS_COLUMNS,
     LHC_ANGLE_FLAGS,
@@ -34,6 +32,7 @@ from pyhdtoolkit.cpymadtools.constants import (
     LHC_KSF_KNOBS,
     LHC_KSS_KNOBS,
     LHC_PARALLEL_SEPARATION_FLAGS,
+    LHC_TRIPLETS_REGEX,  # noqa: F401  |  for coverage
 )
 from pyhdtoolkit.cpymadtools.lhc import (
     LHCSetup,
@@ -822,24 +821,24 @@ def test_lhc_run3_setup_context_manager_fullpath_to_opticsfile():
 
 @pytest.mark.skipif(not (TESTS_DIR.parent / "acc-models-lhc").is_dir(), reason="acc-models-lhc not found")
 def test_lhc_run3_setup_context_manager_raises_on_wrong_b4_conditions():
-    with pytest.raises(
+    with pytest.raises(  # noqa: SIM117
         ValueError, match="Cannot use beam 4 sequence file for beam 1"
-    ):  # using b4 with beam1 setup crashes  # noqa: SIM117
+    ):  # using b4 with beam1 setup crashes
         with LHCSetup(opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", beam=1, use_b4=True) as madx:  # noqa: F841
             pass
 
 
 @pytest.mark.skipif(not (TESTS_DIR.parent / "acc-models-lhc").is_dir(), reason="acc-models-lhc not found")
 def test_lhc_run3_setup_context_manager_raises_on_wrong_run_value():
-    with pytest.raises(
+    with pytest.raises(  # noqa: SIM117
         NotImplementedError, match="This setup is only possible for Run 2 and Run 3 configurations."
-    ):  # using b4 with beam1 setup crashes  # noqa: SIM117
+    ):  # using b4 with beam1 setup crashes
         with LHCSetup(run=1, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx") as madx:  # noqa: F841
             pass
 
 
 def test_lhcsetup_raises_on_no_opticsfile():
-    with pytest.raises(ValueError, match="An opticsfile must be provided"):
+    with pytest.raises(ValueError, match="An opticsfile must be provided"):  # noqa: SIM117
         with LHCSetup(run=2, beam=2) as madx:  # didn't provide opticsfile
             madx.option(echo=False, warn=False)  # dummy statement
 

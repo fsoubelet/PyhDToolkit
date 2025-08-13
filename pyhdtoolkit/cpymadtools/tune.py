@@ -12,7 +12,6 @@ from __future__ import annotations
 
 import math
 import sys
-
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -20,7 +19,6 @@ import matplotlib.collections
 import matplotlib.patches
 import numpy as np
 import tfs
-
 from loguru import logger
 
 if TYPE_CHECKING:
