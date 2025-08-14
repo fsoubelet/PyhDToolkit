@@ -377,7 +377,7 @@ def _get_positions_and_real_apertures(
         if twiss_df[apercol].iloc[i] != 0:
             new_aper.insert(i, twiss_df[apercol].iloc[i])
             indices.append(i)
-    indices = list(reversed(indices))
+    indices.reverse()
 
     logger.trace("Extrapolating data at beginning of elements")
     # counter keeps track of exact position in new array with counter

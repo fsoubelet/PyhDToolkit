@@ -122,7 +122,7 @@ def test_query_undefined_arc_corrector_knobs(_bare_lhc_madx):
     make_lhc_beams(madx)  # parameters don't matter, just need beams and brho defined
     arc_knobs = query_arc_correctors_powering(madx)
     assert all(knob in arc_knobs for knob in ALL_ARC_CORRECTOR_KNOBS)
-    assert all(abs(knob_value) < 115 for knob_value in arc_knobs.values())  # set in opticsfile
+    assert all(abs(knob_value) < 115 for knob_value in arc_knobs.values())  # set in opticsfile  # noqa: PLR2004
 
 
 def test_query_defined_arc_corrector_knobs(_bare_lhc_madx):
@@ -186,7 +186,8 @@ def test_misalign_lhc_ir_quadrupoles_specific_value(_non_matched_lhc_madx):
     madx = _non_matched_lhc_madx
     misalign_lhc_ir_quadrupoles(madx, ips=[1, 5], quadrupoles=list(range(1, 11)), beam=1, sides="RL", dy="0.001")
     error_table = madx.table["ir_quads_errors"].dframe()
-    assert all(error_table["dy"] == 0.001)
+    expected_dy = 0.001
+    assert all(error_table["dy"] == expected_dy)
 
 
 def test_misalign_lhc_ir_quadrupoles_raises_on_wrong_side(_non_matched_lhc_madx, caplog):
@@ -316,7 +317,8 @@ def test_orbit_correction(_bare_lhc_madx):
     madx.select(flag="error", pattern="MQ.13R3.B1")  # arc quad in sector 34
     madx.command.ealign(dx="1E-3")
     madx.twiss()
-    assert madx.table.summ["xcorms"][0] > 1e-3
+    max_orbit_tolerance = 1e-3
+    assert madx.table.summ["xcorms"][0] > max_orbit_tolerance
 
     correct_lhc_orbit(madx, sequence="lhcb1")
     assert math.isclose(madx.table.summ["xcorms"][0], 0, abs_tol=1e-5)
@@ -386,9 +388,12 @@ def test_prepare_sixtrack_output(_non_matched_lhc_madx):
     madx = _non_matched_lhc_madx
     make_sixtrack_output(madx, energy=6500)
 
-    assert madx.globals["VRF400"] == 16
-    assert madx.globals["LAGRF400.B1"] == 0.5
-    assert madx.globals["LAGRF400.B2"] == 0.0
+    expected_voltage = 16  # hard-coded in the function
+    expected_phase_b1 = 0.5  # hard-coded in the function
+    expected_phase_b2 = 0.0  # hard-coded in the function
+    assert madx.globals["VRF400"] == expected_voltage
+    assert madx.globals["LAGRF400.B1"] == expected_phase_b1
+    assert madx.globals["LAGRF400.B2"] == expected_phase_b2
 
 
 def test_get_lhc_bpms_list(_non_matched_lhc_madx, _correct_bpms_list):
@@ -517,13 +522,15 @@ def test_install_ac_dipole_as_kicker(top_turns, _matched_lhc_madx):
     madx = _matched_lhc_madx
     make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
     install_ac_dipole_as_kicker(madx, deltaqx=-0.01, deltaqy=0.012, sigma_x=1, sigma_y=1, top_turns=top_turns)
-    ramp3 = 2100 + top_turns
+    ramp1 = 100  # default for AC Dipole kicker
+    ramp2 = 2100  # default for AC Dipole kicker
+    ramp3 = ramp2 + top_turns
     ramp4 = ramp3 + 2000
 
     assert "MKACH.6L4.B1" in madx.elements
     assert madx.elements["MKACH.6L4.B1"].l == 0
-    assert madx.elements["MKACH.6L4.B1"].ramp1 == 100
-    assert madx.elements["MKACH.6L4.B1"].ramp2 == 2100
+    assert madx.elements["MKACH.6L4.B1"].ramp1 == ramp1
+    assert madx.elements["MKACH.6L4.B1"].ramp2 == ramp2
     assert madx.elements["MKACH.6L4.B1"].ramp3 == ramp3
     assert madx.elements["MKACH.6L4.B1"].ramp4 == ramp4
     assert math.isclose(madx.elements["MKACH.6L4.B1"].at, 9846.0765, rel_tol=1e-2)
@@ -558,7 +565,8 @@ def test_makethin_lhc(_matched_lhc_madx):
     tracks_dict = track_single_particle(madx, initial_coordinates=(1e-4, 0, 1e-4, 0, 0, 0), nturns=10, sequence="lhcb1")
     assert isinstance(tracks_dict, dict)
     tracks = tracks_dict["observation_point_1"]
-    assert len(tracks) == 11  # nturns + 1 because $start coordinates also given by MAD-X
+    expected_n_tracks = 11  # nturns + 1 because $start coordinates also given by MAD-X
+    assert len(tracks) == expected_n_tracks
     assert all(coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e"))
 
 
@@ -647,7 +655,7 @@ def test_vary_independent_ir_quads_raises_on_wrong_quads(_non_matched_lhc_madx, 
 @pytest.mark.parametrize("telescopic_squeeze", [False, True])
 @pytest.mark.parametrize("run3", [False, True])
 def test_lhc_tune_and_chroma_knobs(beam, telescopic_squeeze, run3):
-    expected_beam = 2 if beam == 4 else beam
+    expected_beam = 2 if beam == 4 else beam  # noqa: PLR2004
     if run3:
         expected_suffix = "_op"
     elif telescopic_squeeze:
@@ -665,7 +673,7 @@ def test_lhc_tune_and_chroma_knobs(beam, telescopic_squeeze, run3):
 @pytest.mark.parametrize("beam", [1, 2, 3, 4])
 @pytest.mark.parametrize("telescopic_squeeze", [False, True])
 def test_hllhc_tune_and_chroma_knobs(beam, telescopic_squeeze):
-    expected_beam = 2 if beam == 4 else beam
+    expected_beam = 2 if beam == 4 else beam  # noqa: PLR2004
     expected_suffix = "_sq" if telescopic_squeeze else ""
     assert get_lhc_tune_and_chroma_knobs("HLLHC", beam, telescopic_squeeze) == (
         f"kqtf.b{expected_beam}{expected_suffix}",
@@ -734,7 +742,8 @@ def test_carry_colinearity_knob_over(_non_matched_lhc_madx, ir):
 
     # Carry to left
     carry_colinearity_knob_over(madx, ir=ir, to_left=True)
-    assert madx.globals[f"kqsx3.l{ir:d}"] == 0.002
+    expected_left = 0.002  # full load to left MQSX
+    assert madx.globals[f"kqsx3.l{ir:d}"] == expected_left
     assert madx.globals[f"kqsx3.r{ir:d}"] == 0
 
     # Reset
@@ -743,8 +752,9 @@ def test_carry_colinearity_knob_over(_non_matched_lhc_madx, ir):
 
     # Carry to right
     carry_colinearity_knob_over(madx, ir=ir, to_left=False)
+    expected_right = 0.002  # full load to right MQSX
     assert madx.globals[f"kqsx3.l{ir:d}"] == 0
-    assert madx.globals[f"kqsx3.r{ir:d}"] == 0.002
+    assert madx.globals[f"kqsx3.r{ir:d}"] == expected_right
 
 
 @pytest.mark.parametrize("telesqueeze", [True, False])

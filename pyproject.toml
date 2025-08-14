@@ -181,10 +181,13 @@ exclude = ["pyhdtoolkit/cpymadtools/lhc/__init__.py"]
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 ignore = [
-  "E501",  # line-too-long
-  "FBT001",  # boolean-type-hint-positional-argument
-  "FBT002",  # boolean-default-value-positional-argument
-  "PT019",  # pytest-fixture-param-without-value (but suggested solution fails)
+  "E501",     # line-too-long
+  "FBT001",   # boolean-type-hint-positional-argument
+  "FBT002",   # boolean-default-value-positional-argument
+  "PT019",    # pytest-fixture-param-without-value (but suggested solution fails)
+  "RUF100",   # detects unused noqa but is wrong
+  "PLR0913",  # Expects no more than 5 arguments per function, too low
+  "PLR0915",  # Expects no more than 50 statements per function, too low
 ]
 
 extend-select = [
@@ -194,20 +197,31 @@ extend-select = [
     "I",        # Sort imports properly
     "N",        # enforce naming conventions, e.g. ClassName vs function_name
     "W",        # PyCodeStyle warnings
-    "UP",       # Warn if certain things can changed due to newer Python versions
     "C4",       # Catch incorrect use of comprehensions, dict, list, etc
     "FA",       # Enforce from __future__ import annotations
+    "PD",       # Good pandas practices
+    "PL",       # Pylint rules
+    "PT",       # Enforce pytest conventions
     "TC",       # Enforce importing certain types in a TYPE_CHECKING block
+    "UP",       # Warn if certain things can changed due to newer Python versions
+    "ARG",      # Detect unused arguments
     "BLE",      # disallow catch-all exceptions
     "DTZ",      # Good datetime practices
     "FBT",      # detect boolean traps
+    "FLY",      # Prefer idiomatic expressions over string joins
     "ICN",      # Use common import conventions
     "ISC",      # Good use of string concatenation
+    "LOG",      # Good logging practices
     "NPY",      # Some numpy-specific things
+    "PIE",      # No pointless statements
     "PTH",      # Use pathlib instead of os.path
     "RET",      # Good return practices
+    "RUF",      # Ruff specific rules
     "SIM",      # Common simplification rules
     "TID",      # Some good import practices
+    "TRY",      # Good try/except practices
+    "FURB",     # Refurbishing rules
+    "PERF",     # Good performance practices
 ]
 # Allow fix for all enabled rules (when `--fix`) is provided.
 fixable = ["ALL"]

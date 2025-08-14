@@ -8,25 +8,25 @@ from pyhdtoolkit.cpymadtools._generators import LatticeGenerator
 def test_base_cas_lattice_generation():
     base_cas_lattice = LatticeGenerator.generate_base_cas_lattice()
     assert isinstance(base_cas_lattice, str)
-    assert len(base_cas_lattice) == 1493
+    assert len(base_cas_lattice) == 1493  # noqa: PLR2004
 
 
 def test_onesext_cas_lattice():
     onesext_cas_lattice = LatticeGenerator.generate_onesext_cas_lattice()
     assert isinstance(onesext_cas_lattice, str)
-    assert len(onesext_cas_lattice) == 2051
+    assert len(onesext_cas_lattice) == 2051  # noqa: PLR2004
 
 
 def test_oneoct_cas_lattice():
     oneoct_cas_lattice = LatticeGenerator.generate_oneoct_cas_lattice()
     assert isinstance(oneoct_cas_lattice, str)
-    assert len(oneoct_cas_lattice) == 2050
+    assert len(oneoct_cas_lattice) == 2050  # noqa: PLR2004
 
 
 def test_tripleterrors_study_reference():
     tripleterrors_study_reference = LatticeGenerator._generate_tripleterrors_study_reference()  # noqa: SLF001
     assert isinstance(tripleterrors_study_reference, str)
-    assert len(tripleterrors_study_reference) == 1617
+    assert len(tripleterrors_study_reference) == 1617  # noqa: PLR2004
 
 
 @pytest.mark.parametrize(

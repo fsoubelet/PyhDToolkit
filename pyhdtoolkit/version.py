@@ -1,3 +1,7 @@
+import platform
+import sys
+from pathlib import Path
+
 VERSION = "1.7.0"
 
 
@@ -12,10 +16,6 @@ def version_info() -> str:
         A string with platform and runtime information
         as well as the version of critical dependencies.
     """
-    import platform
-    import sys
-    from pathlib import Path
-
     info = {
         "PyhDToolkit version": VERSION,
         "Install path": Path(__file__).resolve().parent,

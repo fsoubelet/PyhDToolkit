@@ -103,7 +103,7 @@ def maybe_jit(func: Callable, **kwargs) -> Callable:
                 return (x + y) / (x - y)
     """
     try:
-        from numba import jit
+        from numba import jit  # noqa: PLC0415
 
         return jit(func, **kwargs)
     except ImportError:

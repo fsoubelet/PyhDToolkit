@@ -118,15 +118,15 @@ def test_courant_snyder_transform():
 def test_add_beam_size_to_df(_non_matched_lhc_madx):
     madx = _non_matched_lhc_madx
     madx.command.twiss(ripken=True)
-    df = madx.table.twiss.dframe()
-    df["BETA11"] = df.beta11
-    df["BETA12"] = df.beta12
-    df["BETA21"] = df.beta21
-    df["BETA22"] = df.beta22
+    twiss_df = madx.table.twiss.dframe()
+    twiss_df["BETA11"] = twiss_df.beta11
+    twiss_df["BETA12"] = twiss_df.beta12
+    twiss_df["BETA21"] = twiss_df.beta21
+    twiss_df["BETA22"] = twiss_df.beta22
 
-    df = ripken._add_beam_size_to_df(df, 1e-6, 1e-6)  # noqa: SLF001
-    assert "SIZE_X" in df.columns
-    assert "SIZE_Y" in df.columns
+    twiss_df = ripken._add_beam_size_to_df(twiss_df, 1e-6, 1e-6)  # noqa: SLF001
+    assert "SIZE_X" in twiss_df.columns
+    assert "SIZE_Y" in twiss_df.columns
 
 
 def test_rdt_order_and_type():

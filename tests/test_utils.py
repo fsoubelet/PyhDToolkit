@@ -34,7 +34,7 @@ def test_deprecation_decorator():
     def some_func(a, b):
         return a + b
 
-    with pytest.warns(DeprecationWarning):
+    with pytest.warns(DeprecationWarning, match="This is a test"):
         some_func(1, 2)
 
 
@@ -128,7 +128,8 @@ class TestMisc:
         _misc.log_runtime_versions()
 
     def test_query_betastar_from_opticsfile(self):
-        assert _misc.get_betastar_from_opticsfile(INPUTS_DIR / "madx" / "opticsfile.22") == 0.3
+        expected_betastar = 0.3
+        assert _misc.get_betastar_from_opticsfile(INPUTS_DIR / "madx" / "opticsfile.22") == expected_betastar
 
     def test_query_betastar_from_opticsfile_raises_on_invalid_symmetry_if_required(self):
         with pytest.raises(

@@ -397,10 +397,10 @@ def _filter_outlier_bpms_from_coupling_rdts(twiss_df: TfsDataFrame, stdev: float
         The `~tfs.TfsDataFrame` with the filtered BPMs.
     """
     logger.debug("Filtering out outlier BPMs based on coupling RDTs")
-    df = twiss_df.copy(deep=True)
-    df = df[np.abs(stats.zscore(df.F1001.abs())) < stdev]
-    df = df[np.abs(stats.zscore(df.F1010.abs())) < stdev]
-    removed = len(twiss_df) - len(df)
+    twiss_df = twiss_df.copy(deep=True)
+    twiss_df = twiss_df[np.abs(stats.zscore(twiss_df.F1001.abs())) < stdev]
+    twiss_df = twiss_df[np.abs(stats.zscore(twiss_df.F1010.abs())) < stdev]
+    removed = len(twiss_df) - len(twiss_df)
     if removed > 0:
         logger.debug(f"{removed} BPMs removed due to outlier coupling RDTs")
-    return df
+    return twiss_df

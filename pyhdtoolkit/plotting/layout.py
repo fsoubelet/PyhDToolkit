@@ -29,7 +29,7 @@ if TYPE_CHECKING:
     from pandas import DataFrame
 
 
-def plot_machine_layout(
+def plot_machine_layout(  # noqa: PLR0912 (function branches justified)
     madx: Madx,
     /,
     title: str | None = None,
@@ -191,7 +191,7 @@ def plot_machine_layout(
     dipole_patches_axis = axis.twinx()
     dipole_patches_axis.set_ylabel("$\\theta=K_{0}L$ $[rad]$", color="royalblue")  # dipoles in blue
     dipole_patches_axis.tick_params(axis="y", labelcolor="royalblue")
-    if np.nan not in k0l_lim:
+    if np.nan not in k0l_lim:  # noqa: PLW0177 (not a comparison to NaN)
         dipole_patches_axis.set_ylim(k0l_lim)
     dipole_patches_axis.grid(visible=False)
 

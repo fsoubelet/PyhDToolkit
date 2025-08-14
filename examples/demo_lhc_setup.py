@@ -83,13 +83,13 @@ madx = lhc.prepare_lhc_run3(
     opticsfile="acc-models-lhc/operation/optics/R2022a_A30cmC30cmA10mL200cm.madx",
     stdout=False,
 )
-df = twiss.get_twiss_tfs(madx)
-ips = get_lhc_ips_positions(df)
+twiss_df = twiss.get_twiss_tfs(madx)
+ips = get_lhc_ips_positions(twiss_df)
 
 with plt.rc_context(_SPHINX_GALLERY_PARAMS):
     fig, ax = plt.subplots(figsize=(18, 10))
-    ax.plot(df.S, df.BETX / 1e3, label=r"$\beta_x$")
-    ax.plot(df.S, df.BETY / 1e3, label=r"$\beta_y$")
+    ax.plot(twiss_df.S, twiss_df.BETX / 1e3, label=r"$\beta_x$")
+    ax.plot(twiss_df.S, twiss_df.BETY / 1e3, label=r"$\beta_y$")
     draw_ip_locations(ips)
     ax.set_xlabel("Longitudinal location [m]")
     ax.set_ylabel(r"$\beta_{x,y}$ [km]")
@@ -111,13 +111,13 @@ madx.exit()
 # above becomes:
 
 with lhc.LHCSetup(run=3, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", stdout=False) as madx:
-    df = twiss.get_twiss_tfs(madx)
-    ips = get_lhc_ips_positions(df)
+    twiss_df = twiss.get_twiss_tfs(madx)
+    ips = get_lhc_ips_positions(twiss_df)
 
     with plt.rc_context(_SPHINX_GALLERY_PARAMS):
         fig, ax = plt.subplots(figsize=(18, 10))
-        ax.plot(df.S, df.BETX / 1e3, label=r"$\beta_x$")
-        ax.plot(df.S, df.BETY / 1e3, label=r"$\beta_y$")
+        ax.plot(twiss_df.S, twiss_df.BETX / 1e3, label=r"$\beta_x$")
+        ax.plot(twiss_df.S, twiss_df.BETY / 1e3, label=r"$\beta_y$")
         draw_ip_locations(ips)
         ax.set_xlabel("Longitudinal location [m]")
         ax.set_ylabel(r"$\beta_{x,y}$ [km]")
@@ -133,8 +133,8 @@ with lhc.LHCSetup(run=3, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", stdout=F
 # IP5 for two different optics. Here below for the 2022 proton injection optics:
 
 with lhc.LHCSetup(run=3, opticsfile="R2022a_A11mC11mA10mL10m.madx", stdout=False) as madx:
-    df = twiss.get_twiss_tfs(madx)
-    ips = get_lhc_ips_positions(df)
+    twiss_df = twiss.get_twiss_tfs(madx)
+    ips = get_lhc_ips_positions(twiss_df)
     limits = (ips["IP5"] - 500, ips["IP5"] + 500)
 
     with plt.rc_context(_SPHINX_GALLERY_PARAMS):
@@ -172,8 +172,8 @@ with lhc.LHCSetup(opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", stdout=False) a
     madx.call("lhc/aperture.b1.madx")
     madx.call("lhc/aper_tol.b1.madx")
 
-    df = twiss.get_twiss_tfs(madx)
-    ips = get_lhc_ips_positions(df)
+    twiss_df = twiss.get_twiss_tfs(madx)
+    ips = get_lhc_ips_positions(twiss_df)
     limits = (ips["IP5"] - 350, ips["IP5"] + 350)
 
     with plt.rc_context(_SPHINX_GALLERY_PARAMS):

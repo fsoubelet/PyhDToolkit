@@ -636,7 +636,7 @@ def _matplotlib_svg_scraper(*args, **kwargs):  # pragma: no cover
     A dummy scraper to import and set for the sphinx-gallery
     configuration, in docs/conf.py.
     """
-    from sphinx_gallery.scrapers import matplotlib_scraper
+    from sphinx_gallery.scrapers import matplotlib_scraper  # noqa: PLC0415
 
     kwargs.pop("format", None)
     return matplotlib_scraper(*args, format="svg", **kwargs)

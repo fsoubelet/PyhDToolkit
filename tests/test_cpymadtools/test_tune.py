@@ -47,7 +47,8 @@ def test_make_footprint_table(_non_matched_lhc_madx, tmp_path, sigma, dense):
     foot = make_footprint_table(madx, sigma=sigma, file=str(export_file))
     assert isinstance(foot, tfs.TfsDataFrame)
     assert all(header in foot.headers for header in expected_headers)
-    assert foot.headers["ANGLE"] == 7  # hard-coded in the function
+    expected_angle = 7  # hard-coded in the function
+    assert foot.headers["ANGLE"] == expected_angle
     assert foot.headers["AMPLITUDE"] == sigma
     assert foot.headers["DSIGMA"] == 1 if not dense else 0.5
     assert export_file.exists()

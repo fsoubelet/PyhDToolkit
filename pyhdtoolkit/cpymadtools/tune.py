@@ -358,7 +358,7 @@ class _Footprint:
             return self._tunes[ampl][len(self._tunes[ampl]) - 1]["V"]
         return self._tunes[ampl][angl]["V"]
 
-    def get_plottable(self) -> tuple[list[float], list[float]]:
+    def get_plottable(self) -> tuple[list[float], list[float]]:  # noqa: PLR0912
         qxs, qys = [], []
         for i in np.arange(0, self._nampl - 1, 2):
             for j in np.arange(self._maxnangl):
