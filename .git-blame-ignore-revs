@@ -1,8 +1,9 @@
-# Run this command to always ignore formatting commits in `git blame`
+# Run this command to always ignore formatting commits in `git blame`:
 # git config blame.ignoreRevsFile .git-blame-ignore-revs
 
-# Ruff rules refactoring, part 1
-# insert_commit_sha_and_uncomment
-
-# Ruff rules refactoring, part 1
-# insert_commit_sha_and_uncomment
+# Add below, one per line, SHAs of commits corresponding to "formatting" / "revisions"
+47e5c2bef578eef5fcaaca0d2177461a08cee714
+65c7dd3623df8ec182b335fe062a0aad10dc85f5
+2e677a53dfe9a18a6886583455ef5b898756ba14
+7521c99e36c2e9f06993c97929a663860b76bca9
+143224331f9e953951208cfadb934958b40055d8
