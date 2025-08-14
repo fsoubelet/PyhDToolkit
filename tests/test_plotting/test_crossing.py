@@ -10,7 +10,6 @@ mpl.use("Agg")
 
 @pytest.mark.mpl_image_compare(tolerance=35, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_crossing_schemes_ip15(_cycled_lhc_sequences):
-
     madx = _cycled_lhc_sequences
     figure = plt.figure(figsize=(18, 11))
     plot_two_lhc_ips_crossings(madx, first_ip=1, second_ip=5)
@@ -19,7 +18,6 @@ def test_plot_crossing_schemes_ip15(_cycled_lhc_sequences):
 
 @pytest.mark.mpl_image_compare(tolerance=35, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_crossing_schemes_ip28_no_highlight(_cycled_lhc_sequences):
-
     madx = _cycled_lhc_sequences
     figure = plt.figure(figsize=(18, 11))
     plot_two_lhc_ips_crossings(madx, first_ip=2, second_ip=8, highlight_mqx_and_mbx=False)
