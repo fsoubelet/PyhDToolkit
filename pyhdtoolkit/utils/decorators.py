@@ -55,8 +55,7 @@ def deprecated(message: str = "") -> Callable:
             current_call_source = "|".join(traceback.format_stack(inspect.currentframe()))
             if current_call_source not in function_wrapper.last_call_source:
                 warnings.warn(
-                    f"Function {func.__name__} is now deprecated and will be removed in a future release! "
-                    f"{message}",
+                    f"Function {func.__name__} is now deprecated and will be removed in a future release! {message}",
                     category=DeprecationWarning,
                     stacklevel=2,
                 )

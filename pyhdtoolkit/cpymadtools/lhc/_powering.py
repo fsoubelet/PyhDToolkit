@@ -513,4 +513,4 @@ def _all_lhc_arcs(beam: int) -> list[str]:
     list[str]
         The list of arc names.
     """
-    return [f"A{i+1}{(i+1)%8+1}B{beam:d}" for i in range(8)]
+    return [f"A{i + 1}{(i + 1) % 8 + 1}B{beam:d}" for i in range(8)]
