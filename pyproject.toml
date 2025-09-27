@@ -80,8 +80,6 @@ test = [
   "pytest-mpl >= 0.14",
 ]
 dev = [
-  "black >= 24.0",
-  "isort >= 5.10",
   "ruff >= 0.5",
 ]
 docs = [
