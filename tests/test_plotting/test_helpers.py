@@ -40,5 +40,5 @@ def test_confidence_ellipse_fails_on_mismatched_dimensions():
 
 
 def test_default_sbs_coupling_label_raises_on_wrong_component():
-    with pytest.raises(ValueError, match="Invalid component for coupling RDT."):
+    with pytest.raises(ValueError, match=r"Invalid component for coupling RDT."):
         _determine_default_sbs_coupling_ylabel(rdt="f1001", component="NONEXISTANT")

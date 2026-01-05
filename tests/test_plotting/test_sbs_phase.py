@@ -42,7 +42,7 @@ def test_plot_both_beams(sbs_phasex, sbs_phasey, sbs_model_b2):
 
 @pytest.mark.parametrize("wrongplane", ["not", "accepted", "incorrect", ""])
 def test_plot_phase_segment_raises_on_wrong_plane(wrongplane, sbs_phasex, sbs_model_b2):
-    with pytest.raises(ValueError, match="Invalid 'plane' argument."):
+    with pytest.raises(ValueError, match=r"Invalid 'plane' argument."):
         plot_phase_segment(segment_df=sbs_phasex, model_df=sbs_model_b2, plane=wrongplane)
 
 

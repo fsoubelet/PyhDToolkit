@@ -487,7 +487,7 @@ def test_rigidity_knob_fails_on_invalid_ir(_non_matched_lhc_madx, caplog):
 def test_rigidity_knob_fails_on_invalid_side(caplog, _non_matched_lhc_madx):
     madx = _non_matched_lhc_madx
 
-    with pytest.raises(ValueError, match="Invalid value for parameter 'side'."):
+    with pytest.raises(ValueError, match=r"Invalid value for parameter 'side'."):
         apply_lhc_rigidity_waist_shift_knob(madx, 1, 1, "invalid")
 
     for record in caplog.records:
@@ -841,7 +841,7 @@ def test_lhc_run3_setup_context_manager_raises_on_wrong_b4_conditions():
 @pytest.mark.skipif(not (TESTS_DIR.parent / "acc-models-lhc").is_dir(), reason="acc-models-lhc not found")
 def test_lhc_run3_setup_context_manager_raises_on_wrong_run_value():
     with pytest.raises(  # noqa: SIM117
-        NotImplementedError, match="This setup is only possible for Run 2 and Run 3 configurations."
+        NotImplementedError, match=r"This setup is only possible for Run 2 and Run 3 configurations."
     ):  # using b4 with beam1 setup crashes
         with LHCSetup(run=1, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx") as madx:  # noqa: F841
             pass

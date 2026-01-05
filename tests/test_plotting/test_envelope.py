@@ -18,7 +18,7 @@ GUIDO_LATTICE = INPUTS_DIR / "madx" / "guido_lattice.madx"
 def test_plot_enveloppe_raises_on_wrong_plane():
     madx = Madx(stdout=False)
 
-    with pytest.raises(ValueError, match="Invalid 'plane' argument."):
+    with pytest.raises(ValueError, match=r"Invalid 'plane' argument."):
         plot_beam_envelope(madx, "lhcb1", plane="invalid")
 
 
