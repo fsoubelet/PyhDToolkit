@@ -5,6 +5,7 @@ import random
 import subprocess
 import sys
 import time
+from collections.abc import Iterator
 
 import numpy as np
 import pandas as pd
@@ -45,7 +46,7 @@ class TestCommandLine:
         assert CommandLine.check_pid_exists(0) is True
         assert CommandLine.check_pid_exists(int(1e6)) is False  # default max PID is 32768 on linux, 99999 on macOS
         with pytest.raises(TypeError):
-            CommandLine.check_pid_exists("not_an_integer")
+            CommandLine.check_pid_exists("not_an_integer")  # ty:ignore[invalid-argument-type]
 
     def test_run_cmd(self):
         assert isinstance(CommandLine.run("echo hello"), tuple)
@@ -70,7 +71,10 @@ class TestCommandLine:
     @pytest.mark.parametrize("sleep_time", list(range(10, 60)))  # each one will spawn a different process
     def test_terminate_pid(self, sleep_time):
         sacrificed_process = subprocess.Popen(f"sleep {sleep_time}", shell=True)
-        assert CommandLine.terminate(sacrificed_process.pid) is True
+        try:
+            assert CommandLine.terminate(sacrificed_process.pid) is True
+        finally:  # the process would hang, we make sure to cleanup
+            sacrificed_process.wait()
 
 
 class TestHTCMonitor:
@@ -101,11 +105,11 @@ class TestHTCMonitor:
         assert isinstance(cluster_table, Table)
 
     def test_tasks_table_creation(self, _condor_q_output, _taskless_condor_q_output):
-        user_tasks, cluster_info = read_condor_q(_condor_q_output)
+        user_tasks, _ = read_condor_q(_condor_q_output)
         tasks_table = _make_tasks_table(user_tasks)
         assert isinstance(tasks_table, Table)
 
-        user_tasks, cluster_info = read_condor_q(_taskless_condor_q_output)
+        user_tasks, _ = read_condor_q(_taskless_condor_q_output)
         tasks_table = _make_tasks_table(user_tasks)
         assert isinstance(tasks_table, Table)
 
@@ -133,7 +137,7 @@ class TestMisc:
 
     def test_query_betastar_from_opticsfile_raises_on_invalid_symmetry_if_required(self):
         with pytest.raises(
-            AssertionError, match="The betastar values for IP1 and IP5 are not the same in both planes."
+            AssertionError, match=r"The betastar values for IP1 and IP5 are not the same in both planes."
         ):
             _misc.get_betastar_from_opticsfile(INPUTS_DIR / "madx" / "opticsfile.asymmetric", check_symmetry=True)
 
@@ -239,24 +243,24 @@ Total for all users: 7279 jobs; 1 completed, 1 removed, 3351 idle, 3724 running,
 
 
 @pytest.fixture
-def _correct_user_tasks() -> list[HTCTaskSummary]:
+def _correct_user_tasks() -> Iterator[list[HTCTaskSummary]]:
     pickle_file_path = INPUTS_DIR / "utils" / "correct_user_tasks.pkl"
     with pickle_file_path.open("rb") as file:
-        return pickle.load(file)
+        yield pickle.load(file)
 
 
 @pytest.fixture
-def _correct_cluster_summary() -> ClusterSummary:
+def _correct_cluster_summary() -> Iterator[ClusterSummary]:
     pickle_file_path = INPUTS_DIR / "utils" / "correct_cluster_summary.pkl"
     with pickle_file_path.open("rb") as file:
-        return pickle.load(file)
+        yield pickle.load(file)
 
 
 @pytest.fixture
 def _complex_columns_df() -> pd.DataFrame:
     rng = np.random.default_rng()
     array = rng.random(size=(50, 5)) + 1j * rng.random(size=(50, 5))
-    return pd.DataFrame(data=array, columns=["A", "B", "C", "D", "E"])
+    return pd.DataFrame(data=array, columns=["A", "B", "C", "D", "E"])  # ty:ignore[invalid-argument-type]
 
 
 @pytest.fixture

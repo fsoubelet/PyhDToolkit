@@ -38,7 +38,7 @@ def test_plot_tune_diagram_colored_by_resonance_order():
 @pytest.mark.parametrize("max_order", [2, 3, 4, 5])
 @pytest.mark.parametrize("differentiate", [False, True])
 def test_plot_tune_diagram_arguments(figure_title, legend_title, max_order, differentiate):
-    figure, ax = plt.subplots(figsize=(10, 10))
+    _figure, ax = plt.subplots(figsize=(10, 10))
     plot_tune_diagram(
         title=figure_title,
         legend_title=legend_title,

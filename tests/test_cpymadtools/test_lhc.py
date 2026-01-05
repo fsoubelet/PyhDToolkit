@@ -487,7 +487,7 @@ def test_rigidity_knob_fails_on_invalid_ir(_non_matched_lhc_madx, caplog):
 def test_rigidity_knob_fails_on_invalid_side(caplog, _non_matched_lhc_madx):
     madx = _non_matched_lhc_madx
 
-    with pytest.raises(ValueError, match="Invalid value for parameter 'side'."):
+    with pytest.raises(ValueError, match=r"Invalid value for parameter 'side'."):
         apply_lhc_rigidity_waist_shift_knob(madx, 1, 1, "invalid")
 
     for record in caplog.records:
@@ -712,10 +712,10 @@ def test_get_bpms_coupling_rdts(_non_matched_lhc_madx, _reference_twiss_rdts):
 
     twiss_with_rdts = get_lhc_bpms_twiss_and_rdts(madx)
     # We separate the complex components to compare to the reference
-    twiss_with_rdts["F1001R"] = twiss_with_rdts.F1001.apply(np.real)
-    twiss_with_rdts["F1001I"] = twiss_with_rdts.F1001.apply(np.imag)
-    twiss_with_rdts["F1010R"] = twiss_with_rdts.F1010.apply(np.real)
-    twiss_with_rdts["F1010I"] = twiss_with_rdts.F1010.apply(np.imag)
+    twiss_with_rdts["F1001R"] = twiss_with_rdts.F1001.apply(np.real)  # ty:ignore[unresolved-attribute]
+    twiss_with_rdts["F1001I"] = twiss_with_rdts.F1001.apply(np.imag)  # ty:ignore[unresolved-attribute]
+    twiss_with_rdts["F1010R"] = twiss_with_rdts.F1010.apply(np.real)  # ty:ignore[unresolved-attribute]
+    twiss_with_rdts["F1010I"] = twiss_with_rdts.F1010.apply(np.imag)  # ty:ignore[unresolved-attribute]
     twiss_with_rdts = twiss_with_rdts.drop(columns=["F1001", "F1010"]).set_index("NAME")
     # Only care to compare the coupling RDTs columns
     twiss_with_rdts = twiss_with_rdts.loc[:, ["F1001R", "F1001I", "F1010R", "F1010I"]]
@@ -727,8 +727,8 @@ def test_get_bpms_coupling_rdts(_non_matched_lhc_madx, _reference_twiss_rdts):
 def test_k_modulation(_non_matched_lhc_madx, _reference_kmodulation):
     madx = _non_matched_lhc_madx
     results = do_kmodulation(madx)
-    assert all(var == 0 for var in results.ERRTUNEX)
-    assert all(var == 0 for var in results.ERRTUNEY)
+    assert np.all(results.ERRTUNEX.to_numpy() == 0)  # ty:ignore[unresolved-attribute]
+    assert np.all(results.ERRTUNEY.to_numpy() == 0)  # ty:ignore[unresolved-attribute]
 
     reference = tfs.read(_reference_kmodulation)
     assert_frame_equal(results.convert_dtypes(), reference.convert_dtypes())  # avoid dtype comparison error on 0 cols
@@ -841,7 +841,7 @@ def test_lhc_run3_setup_context_manager_raises_on_wrong_b4_conditions():
 @pytest.mark.skipif(not (TESTS_DIR.parent / "acc-models-lhc").is_dir(), reason="acc-models-lhc not found")
 def test_lhc_run3_setup_context_manager_raises_on_wrong_run_value():
     with pytest.raises(  # noqa: SIM117
-        NotImplementedError, match="This setup is only possible for Run 2 and Run 3 configurations."
+        NotImplementedError, match=r"This setup is only possible for Run 2 and Run 3 configurations."
     ):  # using b4 with beam1 setup crashes
         with LHCSetup(run=1, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx") as madx:  # noqa: F841
             pass

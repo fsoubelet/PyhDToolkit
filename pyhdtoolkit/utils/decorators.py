@@ -13,16 +13,19 @@ import functools
 import inspect
 import traceback
 import warnings
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, ParamSpec, TypeVar
 
 if TYPE_CHECKING:
     from collections.abc import Callable
 
 
+P = ParamSpec("P")  # for params
+R = TypeVar("R")  # for returns
+
 # ----- Utility deprecation decorator ----- #
 
 
-def deprecated(message: str = "") -> Callable:
+def deprecated(message: str = "") -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     Decorator to mark a function as deprecated. It will result in an
     informative `DeprecationWarning` being issued with the provided
@@ -49,21 +52,22 @@ def deprecated(message: str = "") -> Callable:
                 return "I am old!"
     """
 
-    def decorator_wrapper(func):
+    def decorator_wrapper(func: Callable[P, R]) -> Callable[P, R]:
+        last_call_sources: set[str] = set()
+
         @functools.wraps(func)
-        def function_wrapper(*args, **kwargs):
+        def function_wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             current_call_source = "|".join(traceback.format_stack(inspect.currentframe()))
-            if current_call_source not in function_wrapper.last_call_source:
+
+            if current_call_source not in last_call_sources:
                 warnings.warn(
-                    f"Function {func.__name__} is now deprecated and will be removed in a future release! {message}",
+                    f"Function {func.__name__} is now deprecated and will be removed in a future release! {message}",  # ty:ignore[unresolved-attribute]
                     category=DeprecationWarning,
                     stacklevel=2,
                 )
-                function_wrapper.last_call_source.add(current_call_source)
+                last_call_sources.add(current_call_source)
 
             return func(*args, **kwargs)
-
-        function_wrapper.last_call_source = set()
 
         return function_wrapper
 
@@ -73,7 +77,9 @@ def deprecated(message: str = "") -> Callable:
 # ----- Utility JIT Compilation decorator ----- #
 
 
-def maybe_jit(func: Callable, **kwargs) -> Callable:
+# We type hint to specify we return a function with the same
+# signature as the input function.
+def maybe_jit(func: Callable[P, R], **kwargs) -> Callable[P, R]:
     """
     .. versionadded:: 1.7.0
 
