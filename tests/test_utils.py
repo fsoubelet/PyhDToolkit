@@ -71,7 +71,10 @@ class TestCommandLine:
     @pytest.mark.parametrize("sleep_time", list(range(10, 60)))  # each one will spawn a different process
     def test_terminate_pid(self, sleep_time):
         sacrificed_process = subprocess.Popen(f"sleep {sleep_time}", shell=True)
-        assert CommandLine.terminate(sacrificed_process.pid) is True
+        try:
+            assert CommandLine.terminate(sacrificed_process.pid) is True
+        finally:  # the process would hang, we make sure to cleanup
+            sacrificed_process.wait()
 
 
 class TestHTCMonitor:
