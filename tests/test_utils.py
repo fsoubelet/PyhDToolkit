@@ -5,6 +5,7 @@ import random
 import subprocess
 import sys
 import time
+from collections.abc import Iterator
 
 import numpy as np
 import pandas as pd
@@ -239,17 +240,17 @@ Total for all users: 7279 jobs; 1 completed, 1 removed, 3351 idle, 3724 running,
 
 
 @pytest.fixture
-def _correct_user_tasks() -> list[HTCTaskSummary]:
+def _correct_user_tasks() -> Iterator[list[HTCTaskSummary]]:
     pickle_file_path = INPUTS_DIR / "utils" / "correct_user_tasks.pkl"
     with pickle_file_path.open("rb") as file:
-        return pickle.load(file)
+        yield pickle.load(file)
 
 
 @pytest.fixture
-def _correct_cluster_summary() -> ClusterSummary:
+def _correct_cluster_summary() -> Iterator[ClusterSummary]:
     pickle_file_path = INPUTS_DIR / "utils" / "correct_cluster_summary.pkl"
     with pickle_file_path.open("rb") as file:
-        return pickle.load(file)
+        yield pickle.load(file)
 
 
 @pytest.fixture
