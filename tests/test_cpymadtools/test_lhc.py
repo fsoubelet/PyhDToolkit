@@ -7,7 +7,7 @@ import numpy as np
 import pytest
 import tfs
 from cpymad.madx import Madx
-from pandas.testing import assert_frame_equal
+from pandas.testing import assert_frame_equal, assert_series_equal
 
 from pyhdtoolkit.cpymadtools.constants import (
     DEFAULT_TWISS_COLUMNS,
@@ -727,8 +727,8 @@ def test_get_bpms_coupling_rdts(_non_matched_lhc_madx, _reference_twiss_rdts):
 def test_k_modulation(_non_matched_lhc_madx, _reference_kmodulation):
     madx = _non_matched_lhc_madx
     results = do_kmodulation(madx)
-    assert all(var == 0 for var in results.ERRTUNEX)
-    assert all(var == 0 for var in results.ERRTUNEY)
+    assert np.all(results.ERRTUNEX.to_numpy() == 0)  # ty:ignore[unresolved-attribute]
+    assert np.all(results.ERRTUNEY.to_numpy() == 0)  # ty:ignore[unresolved-attribute]
 
     reference = tfs.read(_reference_kmodulation)
     assert_frame_equal(results.convert_dtypes(), reference.convert_dtypes())  # avoid dtype comparison error on 0 cols
