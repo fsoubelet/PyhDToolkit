@@ -105,7 +105,7 @@ class TestHTCMonitor:
         assert isinstance(cluster_table, Table)
 
     def test_tasks_table_creation(self, _condor_q_output, _taskless_condor_q_output):
-        user_tasks, cluster_info = read_condor_q(_condor_q_output)
+        user_tasks, _ = read_condor_q(_condor_q_output)
         tasks_table = _make_tasks_table(user_tasks)
         assert isinstance(tasks_table, Table)
 

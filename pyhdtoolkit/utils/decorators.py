@@ -13,7 +13,7 @@ import functools
 import inspect
 import traceback
 import warnings
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, ParamSpec, TypeVar
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -72,8 +72,12 @@ def deprecated(message: str = "") -> Callable:
 
 # ----- Utility JIT Compilation decorator ----- #
 
+P = ParamSpec("P")  # for params
+R = TypeVar("R")  # for returns
 
-def maybe_jit(func: Callable, **kwargs) -> Callable:
+# We type hint to specify we return a function with the same
+# signature as the input function.
+def maybe_jit(func: Callable[P, R], **kwargs) -> Callable[P, R]:
     """
     .. versionadded:: 1.7.0
 
