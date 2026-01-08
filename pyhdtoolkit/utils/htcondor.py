@@ -22,7 +22,7 @@ from pyhdtoolkit.utils.cmdline import CommandLine
 # ----- Caching ------ #
 
 # We compile regex patterns once only
-_SCHEDD_RE: re.Pattern[str] = re.compile(r"Schedd:\s+([^.]+)\.cern\.ch")
+_SCHEDD_RE: re.Pattern[str] = re.compile(r"Schedd:\s+(?P<cluster>[^.]+)\.cern\.ch")
 
 # This one needs to be formatted with the
 # querying owner before it can be compiled
@@ -290,7 +290,7 @@ def _process_scheduler_information_line(line: str) -> str:
     match: re.Match[str] | None = _SCHEDD_RE.search(line)
     if match is None:
         raise SchedulerInformationParseError(line)
-    return match.group(1)
+    return match["cluster"]
 
 
 def _process_task_summary_line(line: str) -> HTCTaskSummary:
