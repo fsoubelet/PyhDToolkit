@@ -107,7 +107,8 @@ def main(
     # Directly use Live to update the display. The display build itself
     # is defined in the function above and takes care of the query etc.
     with Live(generate_renderable(), refresh_per_second=refresh) as live:
-        live.console.log(f"Querying HTCondor Queue - Refreshed Every {wait:d} Seconds\n")
+        live.console.log(f"Querying HTCondor Queue - Every {wait:d} Seconds\n")
+        live.console.log(f"Display refresh rate: {refresh:.2f} per second")
         while True:
             try:  # query HTCondor queue, process, update display
                 live.update(generate_renderable())
