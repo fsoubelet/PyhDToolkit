@@ -72,6 +72,7 @@ dependencies = [
 
 [project.optional-dependencies]
 monitor = [
+  "typer > 0.20",
   "rich >= 13.0",
   "pendulum >= 3.0",
 ]
