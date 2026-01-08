@@ -10,6 +10,10 @@ Note
     functionality is provided in `pyhdtoolkit.utils.htcondor`.
     Some of it is made public API and one should be able to
     build a different monitor script from the functions there.
+
+
+
+TODO: document more this script.
 """
 
 from __future__ import annotations
@@ -17,6 +21,7 @@ from __future__ import annotations
 import time
 from typing import TYPE_CHECKING
 
+import typer
 from loguru import logger
 from rich.console import Group
 from rich.live import Live
@@ -28,11 +33,15 @@ from pyhdtoolkit.utils.logging import config_logger
 if TYPE_CHECKING:
     from rich.table import Table
 
-config_logger(level="ERROR")
+
+# ----- CLI App ----- #
+
+app: typer.Typer = typer.Typer(help="A script to monitor HTCondor queue status.")
 
 # ----- Bread and Butter ----- #
 
 
+@logger.catch()
 def generate_renderable() -> Group:
     """
     .. versionadded:: 0.9.0
@@ -76,8 +85,18 @@ def generate_renderable() -> Group:
 # ----- Entrypoint ----- #
 
 
-@logger.catch()
-def main():
+@app.command()
+def main(
+    log_level: str = typer.Option(
+        "ERROR", help="Console logging level. Can be 'DEBUG', 'INFO', 'WARNING' and 'ERROR'."
+    ),
+):
+    """
+    Parse the HTCondor queue and display
+    the status in a nice way using `rich`.
+    """
+    config_logger(level=log_level)
+
     with Live(generate_renderable(), refresh_per_second=0.25) as live:
         live.console.log("Querying HTCondor Queue - Refreshed Every 5 Minutes\n")
         while True:
@@ -92,4 +111,4 @@ def main():
 # ----- Script Mode ----- #
 
 if __name__ == "__main__":
-    main()
+    app()
