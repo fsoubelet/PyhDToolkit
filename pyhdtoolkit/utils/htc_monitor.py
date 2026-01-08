@@ -34,7 +34,7 @@ config_logger(level="ERROR")
 
 # ----- Data ----- #
 
-TASK_COLUMNS_SETTINGS = {
+TASK_COLUMNS_SETTINGS: dict[str, dict[str, str | bool]] = {
     "OWNER": {"justify": "left", "header_style": "bold", "style": "bold", "no_wrap": True},
     "BATCH_NAME": {"justify": "center", "header_style": "magenta", "style": "magenta", "no_wrap": True},
     "SUBMITTED": {
@@ -55,7 +55,7 @@ TASK_COLUMNS_SETTINGS = {
     "JOB_IDS": {"justify": "right", "no_wrap": True},
 }
 
-CLUSTER_COLUMNS_SETTINGS = {
+CLUSTER_COLUMNS_SETTINGS: dict[str, dict[str, str | bool]] = {
     "SOURCE": {"justify": "left", "header_style": "bold", "style": "bold", "no_wrap": True},
     "JOBS": {"justify": "right", "header_style": "bold", "style": "bold", "no_wrap": True},
     "COMPLETED": {"justify": "right", "header_style": "bold green3", "style": "bold green3", "no_wrap": True},
