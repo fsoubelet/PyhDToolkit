@@ -12,8 +12,70 @@ Note
     build a different monitor script from the functions there.
 
 
+The is registered as a console script called `htc-monitor` in the
+environment in which PyhDToolkit is installed.
 
-TODO: document more this script.
+It is possible to pass a few options, such as the wait time
+between calls to `condor_q`, the refresh rate of the table
+display and the logging level for console messages.
+
+Usage goes as:
+
+.. code-block:: console
+
+    Usage: python -m pyhdtoolkit.scripts.htc_monitor [OPTIONS]
+
+    Parse the HTCondor queue and display the status in a nice way using `rich`.
+
+    ╭─ Options ───────────────────────────────────────────────────────────────────────────────────────────╮
+    │ --wait                -w      INTEGER RANGE [x>=1]  Seconds to wait between calls to `condor_q`.    │
+    │                                                     [default: 300]                                  │
+    │ --refresh             -r      FLOAT RANGE [x>=0.1]  Table display refreshes per second.             │
+    │                                                     [default: 1]                                    │
+    │ --log-level                   TEXT                  Console logging level. Can be 'debug', 'info',  │
+    │                                                     'warning' and 'error'.                          │
+    │                                                     [default: warning]                              │
+    │ --install-completion                                Install completion for the current shell.       │
+    │ --show-completion                                   Show completion for the current shell, to copy  │
+    │                                                     it or customize the installation.               │
+    │ --help                                              Show this message and exit.                     │
+    ╰─────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+The script will periodically query HTCondor via `condor_q`, process the output and
+display its contents in a nice way using `rich`.
+A progress bar will show the time remaining until the next query.
+
+A typical output (default parameters) looks like:
+
+.. code-block:: console
+
+    Querying HTCondor queue every 300 seconds (table display refreshes 1.00 times/second)
+
+    Time to next HTCondor query:  ━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━ 0:02:27
+
+    ╭────────────────────────────────────────────── Scheduler: bigbird12.cern.ch ──────────────────────────────────────────────╮
+    │                                                                                                                          │
+    │   OWNER        BATCH_NAME                   SUBMITTED                   DONE    RUNNING    IDLE   TOTAL        JOB_IDS   │
+    │  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  │
+    │   fesoubel      14729581      Thursday, 8 Jan 26 at 10:35 AM (CET)         1          5       _       6   14729581.1-5   │
+    │   fesoubel      14729582      Thursday, 8 Jan 26 at 10:35 AM (CET)         _          6       _       6   14729582.0-5   │
+    │   fesoubel      14729583      Thursday, 8 Jan 26 at 10:36 AM (CET)         _          5       _       5   14729583.0-4   │
+    │   fesoubel      14729584      Thursday, 8 Jan 26 at 10:36 AM (CET)         _          5       _       5   14729584.0-4   │
+    │                                                                                                                          │
+    ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+    ╭────────────────────────────────────────────────── bigbird12 Statistics ──────────────────────────────────────────────────╮
+    │  ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  │
+    │   SOURCE                  JOBS          COMPLETED        RUNNING        IDLE      HELD         SUSPENDED       REMOVED   │
+    │  ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  │
+    │   Query                     21                  0             21           0         0                 0             0   │
+    │   fesoubel                  21                  0             21           0         0                 0             0   │
+    │   All Users              23387                  0           9834       13284       269                 0             0   │
+    │  ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  │
+    ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+The script is hardcoded to expect outputs from CERN's HTCondor setup.
+In case you would like to adapt it to your own HTCondor installation,
+or request new features, please open an issue on the GitHub repository.
 """
 
 from __future__ import annotations
