@@ -22,6 +22,7 @@ import time
 from typing import TYPE_CHECKING
 
 from rich.console import Console, Group
+from rich.layout import Layout
 from rich.live import Live
 from rich.panel import Panel
 from rich.progress import BarColumn, Progress, TextColumn, TimeRemainingColumn
@@ -117,6 +118,21 @@ def wait_with_progress(console: Console, wait: int) -> None:
             elapsed: float = time.monotonic() - start
             progress.update(task, completed=min(elapsed, wait))
             time.sleep(refresh_interval)
+
+
+# ----- Progress + Layout helpers ----- #
+
+
+def make_layout(progress: Progress, table_renderable) -> Layout:
+    """
+    Create the main UI layout with the progress bar above the table.
+    """
+    layout = Layout()
+    layout.split_column(
+        Layout(Panel(progress, title="Next HTCondor query", padding=(0, 1)), size=3),
+        Layout(table_renderable, ratio=1),
+    )
+    return layout
 
 
 # ----- Entrypoint ----- #
