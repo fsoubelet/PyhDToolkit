@@ -123,14 +123,21 @@ def wait_with_progress(console: Console, wait: int) -> None:
 # ----- Progress + Layout helpers ----- #
 
 
-def make_layout(progress: Progress, table_renderable) -> Layout:
+def make_layout(progress: Progress, tables: Group) -> Layout:
     """
-    Create the main UI layout with the progress bar above the table.
+    Create the main UI layout with the progress bar above the table,
+    matching to the table width dynamically.
     """
+    # Compute max width among all panels in the Group
+    table_width = max(
+        getattr(panel.renderable, "width", 0) + 2  # +2 for panel padding/borders
+        for panel in tables.renderables
+    )
+
     layout = Layout()
     layout.split_column(
-        Layout(Panel(progress, title="Next HTCondor query", padding=(0, 1)), size=3),
-        Layout(table_renderable, ratio=1),
+        Layout(Panel(progress, title="Next HTCondor query", padding=(0, 1), width=table_width)),
+        Layout(tables, ratio=1),
     )
     return layout
 
@@ -173,14 +180,14 @@ def main(
             try:
                 # Once per cycle, query HTCondor the process its output
                 # and generate the table to be displayed
-                table: Group = generate_renderable()
+                tables: Group = generate_renderable()
 
                 # Reset the progress bar (we just queried HTCondor)
                 progress.reset(task_id)
                 progress.update(task_id, total=wait, completed=0)
 
                 # We start rendering our layout with progress + table
-                layout: Layout = make_layout(progress, table)
+                layout: Layout = make_layout(progress, tables)
                 live.update(layout)
 
                 # Now we need to update the progress bar until we have
