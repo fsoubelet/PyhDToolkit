@@ -54,20 +54,25 @@ classifiers = [
 ]
 
 dependencies = [
+  # -- Core scientific -- #
   "numpy >= 2.0",
   "pandas >= 2.0",
   "matplotlib >=3.7",
   "scipy >= 1.10",
-  "tfs-pandas >= 3.8",
-  "loguru < 1.0",
+  # -- Domain specific -- #
   "cpymad >= 1.16",
-  "rich >= 13.0",
-  "pydantic >= 2.0",
-  "pendulum >= 3.0",
+  "tfs-pandas >= 3.8",
   "optics-functions >= 0.1",
+  # -- Utilities -- #
+  "loguru < 1.0",
+  "pydantic >= 2.0",
 ]
 
 [project.optional-dependencies]
+monitor = [
+  "rich >= 13.0",
+  "pendulum >= 3.0",
+]
 test = [
   "pytest >= 8.0",
   "pytest-cov >= 6.0",
@@ -77,6 +82,7 @@ test = [
   "pytest-randomly >= 3.10",
   "coverage[toml] >= 7.0",
   "pytest-mpl >= 0.14",
+  "pyhdtoolkit[monitor]",
 ]
 dev = [
   "ruff >= 0.12",
@@ -98,6 +104,7 @@ all = [
   "pyhdtoolkit[dev]",
   "pyhdtoolkit[docs]",
   "pyhdtoolkit[test]",
+  "pyhdtoolkit[monitor]",
 ]
 
 [project.urls]
