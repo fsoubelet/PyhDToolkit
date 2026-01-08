@@ -136,6 +136,7 @@ source = ["pyhdtoolkit/"]
 ignore_errors = true
 omit = [
   "pyhdtoolkit/cpymadtools/setup.py",
+  "pyhdtoolkit/utils/htcondor.py",
   "pyhdtoolkit/scripts/htc_monitor.py",
 ]
 exclude_also = [
