@@ -181,7 +181,21 @@ def main(
                 progress.reset(task_id)
                 progress.update(task_id, total=wait, completed=0)
 
-                # We start rendering
+                # We start rendering our layout with progress + table
+                live.update(make_layout(progress, table))
+
+                # Now we need to update the progress bar until we have
+                # waited long enough for the next query
+                start: float = time.monotonic()
+                while not progress.finished:
+                    elapsed: float = time.monotonic() - start
+                    progress.update(task_id, completed=min(elapsed, wait))
+
+                    # Refresh the live display for the progress bar
+                    live.update(make_layout(progress, table))
+
+                    # And sleep a little
+                    time.sleep(refresh)
 
             # In case the 'condor_q' command failed
             except CondorQError as err:
