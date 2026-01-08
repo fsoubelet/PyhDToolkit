@@ -51,7 +51,7 @@ app: Typer = Typer(help="A script to monitor HTCondor queue status.")
 # ----- Bread and Butter ----- #
 
 
-def generate_renderable() -> Group:
+def generate_tables_renderable() -> Group:
     """
     .. versionadded:: 0.9.0
 
@@ -193,7 +193,7 @@ def main(
             try:
                 # Once per cycle, query HTCondor the process its output
                 # and generate the table to be displayed
-                tables: Group = generate_renderable()
+                tables: Group = generate_tables_renderable()
 
                 # Reset the progress bar (we just queried HTCondor)
                 progress.reset(task_id)
