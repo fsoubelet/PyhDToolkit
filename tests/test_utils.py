@@ -18,7 +18,7 @@ from rich.table import Table
 from pyhdtoolkit.utils import _misc, logging
 from pyhdtoolkit.utils.cmdline import CommandLine
 from pyhdtoolkit.utils.decorators import deprecated, maybe_jit
-from pyhdtoolkit.utils.htc_monitor import (
+from pyhdtoolkit.utils.htcondor import (
     ClusterSummary,
     HTCTaskSummary,
     _make_cluster_table,
