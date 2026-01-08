@@ -8,8 +8,14 @@ Module with ``pydantic`` models to validate and store
 data obtained by querying the ``HTCondor`` queue.
 """
 
-from pendulum import DateTime
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from pydantic import BaseModel, ConfigDict
+
+if TYPE_CHECKING:
+    from pendulum import DateTime
 
 
 class BaseSummary(BaseModel):

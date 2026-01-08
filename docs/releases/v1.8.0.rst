@@ -18,6 +18,7 @@ Enhancements
 ~~~~~~~~~~~~
 
 * The regex parsing in the `HTCondor` utilities has been made more robust.
+* The whole package now consistently makes use of postponed evaluations of annotations (see PEP 563).
 
 Documentation
 ~~~~~~~~~~~~~

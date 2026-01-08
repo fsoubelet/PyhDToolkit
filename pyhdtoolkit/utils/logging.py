@@ -17,6 +17,8 @@ from:
 - ``SIMPLE_FORMAT``: minimal, displays the local time, the level and the message.
 """
 
+from __future__ import annotations
+
 import sys
 
 from loguru import logger

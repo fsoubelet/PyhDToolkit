@@ -10,6 +10,8 @@ the utility functions are included here, a callable script
 is provided in `pyhdtoolkit.scripts.htc_monitor`.
 """
 
+from __future__ import annotations
+
 import re
 
 import pendulum
