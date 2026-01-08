@@ -94,7 +94,7 @@ def generate_renderable() -> Group:
 @app.command()
 def main(
     wait: int = Option(300, "-w", "--wait", help="Seconds to wait between calls to `condor_q`."),
-    refresh: float = Option(0.25, "-r", "--refresh", help="Display refreshes per second (higher means more CPU usage)."),
+    refresh: float = Option(0.25, "-r", "--refresh", help="Table display refreshes per second."),
     log_level: str = Option("warning", help="Console logging level. Can be 'DEBUG', 'INFO', 'WARNING' and 'ERROR'."),
 ):
     """
@@ -107,8 +107,7 @@ def main(
     # Directly use Live to update the display. The display build itself
     # is defined in the function above and takes care of the query etc.
     with Live(generate_renderable(), refresh_per_second=refresh) as live:
-        live.console.log(f"Querying HTCondor Queue - Every {wait:d} Seconds\n")
-        live.console.log(f"Display refresh rate: {refresh:.2f} per second")
+        live.console.log(f"Querying HTCondor every {wait:d} seconds (display refreshes {refresh:.2f} times/second).\n")
         while True:
             try:  # query HTCondor queue, process, update display
                 live.update(generate_renderable())
