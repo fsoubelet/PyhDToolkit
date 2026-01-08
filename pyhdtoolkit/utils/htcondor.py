@@ -21,8 +21,21 @@ from pyhdtoolkit.utils.cmdline import CommandLine
 
 # ----- Caching ------ #
 
-# We compile our regex pattern once only
+# We compile regex patterns once only
 _SCHEDD_RE: re.Pattern[str] = re.compile(r"Schedd:\s+([^.]+)\.cern\.ch")
+
+# This one needs to be formatted with the
+# querying owner before it can be compiled
+_CLUSTER_SUMMARY_RE_TEMPLATE: str = (
+    r"Total for {query}: "
+    r"(?P<jobs>\d+) jobs; "
+    r"(?P<completed>\d+) completed, "
+    r"(?P<removed>\d+) removed, "
+    r"(?P<idle>\d+) idle, "
+    r"(?P<running>\d+) running, "
+    r"(?P<held>\d+) held, "
+    r"(?P<suspended>\d+) suspended"
+)
 
 # ----- Settings ----- #
 
