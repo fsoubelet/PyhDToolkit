@@ -1,0 +1,32 @@
+.. _release_1.8.0:
+
+Release `1.8.0` brings some project maintenance and a complete refactor of the `HTCondor`-related utilities from the package.
+
+Removals
+~~~~~~~~
+
+* The `pyhdtoolkit.utils.htc_monitor` module has been removed, and its functionality split.
+
+Additions
+~~~~~~~~~
+
+* A new module, `pyhdtoolkit.utils.htcondor`, has been created to host all `HTCondor`-related utilities. The previous `htc_monitor` module's functionality has been moved here, with some improvements.
+* A new command-line script, `htcondor-monitor`, has been added to provide an easy way to monitor `HTCondor` clusters from the terminal. It contains the entrypoint from the previous `pyhdtoolkit.utils.htc_monitor` module, adapted to the new module structure.
+* The new script is declared as `htc-monitor` in the project metadata. It can be called simply as `htc-monitor` at the command line in an environment where `PyhDToolkit` is installed.
+
+Enhancements
+~~~~~~~~~~~~
+
+* The regex parsing in the `HTCondor` utilities has been made more robust.
+
+Documentation
+~~~~~~~~~~~~~
+
+* The documentation has been adapted to reflect the new module structure and command-line script.
+
+Maintenance
+~~~~~~~~~~~
+
+* Updated Continuous Integration workflows to switch to `uv`, speeding up CI runs.
+
+See `v1.8.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/1.8.0>`_ and the `full changes since v1.7.0 <https://github.com/fsoubelet/PyhDToolkit/compare/1.7.0...1.8.0>`_.

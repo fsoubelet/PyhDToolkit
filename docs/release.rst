@@ -3,6 +3,14 @@ Release Notes
 
 The full list of releases can be found in the GitHub repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`_.
 
+Version 1.8.0
+-------------
+
+.. toctree::
+    :maxdepth: 2
+
+    releases/v1.8.0
+
 Version 1.7.0
 -------------
 
