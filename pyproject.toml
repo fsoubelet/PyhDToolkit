@@ -111,7 +111,7 @@ all = [
 ]
 
 [project.scripts]
-htc-monitor = "pyhdtoolkit.scripts.htc_monitor:main"
+htc-monitor = "pyhdtoolkit.scripts.htc_monitor:app"
 
 [project.urls]
 homepage = "https://github.com/fsoubelet/PyhDToolkit"
