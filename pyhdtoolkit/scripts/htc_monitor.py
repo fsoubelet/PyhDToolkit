@@ -151,10 +151,20 @@ def main(
     # Configure our logger and level (only for functions, not rich Console)
     config_logger(level=log_level)
 
-    # Directly use Live to update the display. The display build itself
-    # is defined in the function above and takes care of the query etc.
+    # Create re-usable console and progress bar
+    console: Console = Console()
+    progress: Progress = Progress(
+        TextColumn("Next HTCondor query"),
+        BarColumn(),
+        TimeRemainingColumn(),
+        console=console,
+        transient=True,
+    )
+    task_id: TaskID = progress.add_task("waiting", total=wait)
+
+    # Use an auto-updating live display. The display builds itself
+    # from the created layout we will pass to it.
     with Live(generate_renderable(), refresh_per_second=refresh) as live:
-        # live.console.log(f"Querying HTCondor every {wait:d} seconds (display refreshes {refresh:.2f} times/second).\n")
         live.console.log(f"Querying HTCondor every {wait:d} seconds (display refreshes {refresh:.2f} times/second).\n")
 
         while True:
