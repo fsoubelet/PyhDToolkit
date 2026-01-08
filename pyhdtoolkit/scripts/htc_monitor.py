@@ -1,5 +1,5 @@
 """
-.. _utils-htcondor:
+.. _script-htcmonitor:
 
 HTCondor Monitoring Utilities
 -----------------------------
