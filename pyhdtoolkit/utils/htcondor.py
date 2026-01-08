@@ -9,6 +9,7 @@ the returned data and display it nicely with rich. Only
 the utility functions are included here, a callable script
 is provided in `pyhdtoolkit.scripts.htc_monitor`.
 """
+
 import re
 
 import pendulum
@@ -61,6 +62,16 @@ CLUSTER_COLUMNS_SETTINGS: dict[str, dict[str, str | bool]] = {
     "SUSPENDED": {"justify": "right", "header_style": "bold slate_blue1", "style": "bold slate_blue1", "no_wrap": True},
     "REMOVED": {"justify": "right", "header_style": "bold red3", "style": "bold red3", "no_wrap": True},
 }
+
+# ----- Exceptions ----- #
+
+
+class SchedulerInformationError(ValueError):
+    """Raised when scheduler information cannot be extracted."""
+
+    def __init__(self, line: str) -> None:
+        errmsg = f"Could not extract scheduler information from HTCondor output: {line!r}"
+        super().__init__(errmsg)
 
 
 # ----- HTCondor Querying / Processing ----- #
@@ -144,6 +155,7 @@ def read_condor_q(report: str) -> tuple[list[HTCTaskSummary], ClusterSummary]:
                 full_summary = _process_cluster_summary_line(line, "all users")
             elif line not in ("\n", ""):  # user line, whoever the user is
                 owner_summary = _process_cluster_summary_line(line, querying_owner)
+
     cluster_summary = ClusterSummary(
         scheduler_id=scheduler_id, query=query_summary, user=owner_summary, cluster=full_summary
     )
@@ -245,7 +257,7 @@ def _process_scheduler_information_line(line: str) -> str:
 
     Raises
     ------
-    ValueError
+    SchedulerInformationError
         If the scheduler information could not be extracted
         from the input line. This typically happens when no
         jobs are present in the HTCondor queue and condor_q
@@ -253,7 +265,7 @@ def _process_scheduler_information_line(line: str) -> str:
     """
     match: re.Match[str] | None = _SCHEDD_RE.search(line)
     if match is None:
-        raise ValueError("Could not extract scheduler information from HTCondor output.")
+        raise SchedulerInformationError(line)
     return match.group(1)
 
 
