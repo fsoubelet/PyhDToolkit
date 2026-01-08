@@ -24,6 +24,7 @@ from typing import TYPE_CHECKING
 from rich.console import Console, Group
 from rich.layout import Layout
 from rich.live import Live
+from rich.measure import Measurement
 from rich.panel import Panel
 from rich.progress import BarColumn, Progress, TextColumn, TimeRemainingColumn
 from typer import Option, Typer
@@ -110,12 +111,12 @@ def make_layout(progress: Progress, tables: Group, console: Console) -> Layout:
     """
     # Compute max width among all panels in the Group
     table_width: int = max(  # we add +2 for panel padding/borders
-        getattr(panel.renderable, "width", 0) + 2  # ty:ignore[unresolved-attribute]
+        Measurement.get(console, console.options, panel.renderable).maximum  # ty:ignore[unresolved-attribute]
         for panel in tables.renderables
     )
 
-    # Ensure the panel doesn't exceed the console width
-    panel_width: int = min(table_width, console.width - 2)
+    # Add panel borders and padding (2 for border + 2 for padding)
+    panel_width: int = min(table_width + 4, console.width)
 
     layout = Layout()
     layout.split_column(
