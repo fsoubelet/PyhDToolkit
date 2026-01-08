@@ -13,7 +13,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-        python-version: "3.13"
+        python-version: "3.14"
 
 
     steps:
