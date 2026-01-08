@@ -91,35 +91,6 @@ def generate_tables_renderable() -> Group:
     )
 
 
-def wait_with_progress(console: Console, wait: int) -> None:
-    """
-    Display a transient progress bar counting down to the next HTCondor query.
-
-    Parameters
-    ----------
-    console : Console
-        The `rich.console.Console` object to use for rendering.
-    wait : int
-        The number of seconds to wait for.
-    """
-    refresh_interval = 0.1  # seconds
-
-    with Progress(
-        TextColumn("Next HTCondor query"),
-        BarColumn(),
-        TimeRemainingColumn(),
-        console=console,
-        transient=True,
-    ) as progress:
-        task: TaskID = progress.add_task("waiting", total=wait)
-
-        start: float = time.monotonic()
-        while not progress.finished:
-            elapsed: float = time.monotonic() - start
-            progress.update(task, completed=min(elapsed, wait))
-            time.sleep(refresh_interval)
-
-
 # ----- Progress + Layout helpers ----- #
 
 
@@ -145,7 +116,6 @@ def make_layout(progress: Progress, tables: Group, console: Console) -> Layout:
 
     # Ensure the panel doesn't exceed the console width
     panel_width: int = min(table_width, console.width - 2)
-
 
     layout = Layout()
     layout.split_column(
