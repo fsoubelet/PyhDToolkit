@@ -21,6 +21,7 @@ from __future__ import annotations
 import time
 from typing import TYPE_CHECKING
 
+from rich.align import Align
 from rich.console import Console, Group
 from rich.layout import Layout
 from rich.live import Live
@@ -94,7 +95,7 @@ def generate_tables_renderable() -> Group:
 # ----- Progress + Layout helpers ----- #
 
 
-def make_layout(progress: Progress, tables: Group) -> Layout:
+def make_layout(progress: Progress, tables: Group, message: str = "") -> Layout:
     """
     Create the main UI layout with the progress bar above the table,
     dynamically matching the table width (or console width if resized).
@@ -108,9 +109,14 @@ def make_layout(progress: Progress, tables: Group) -> Layout:
     """
     layout = Layout()
     layout.split_column(
-        Layout(progress, size=3),
-        Layout(tables, ratio=1),
+        Layout(name="header", size=2),  # status message
+        Layout(progress, size=2),  # Progress bar
+        Layout(tables, ratio=1),  # Table panels
     )
+
+    if message:
+        layout["header"].update(Align.center(message))
+
     return layout
 
 
@@ -134,7 +140,7 @@ def main(
     # Create re-usable console and progress bar
     console: Console = Console()
     progress: Progress = Progress(
-        TextColumn("[bold]Next HTCondor query[/bold]"),
+        TextColumn("Time to next HTCondor query: "),
         BarColumn(),
         TimeRemainingColumn(),
         console=console,
@@ -144,9 +150,7 @@ def main(
     # Use an auto-updating live display. The display builds itself
     # from the created layout we will pass to it.
     with Live(console=console, refresh_per_second=refresh) as live:
-        console.log(
-            f"Querying HTCondor queue every {wait:d} seconds (table display refreshes {refresh:.2f} times/second).\n"
-        )
+        msg = f"[bold]Querying HTCondor queue every {wait:d} seconds (table display refreshes {refresh:.2f} times/second)[/bold]"
 
         while True:
             try:
@@ -159,7 +163,7 @@ def main(
                 progress.update(task_id, total=wait, completed=0)
 
                 # We start rendering our layout with progress + table
-                layout: Layout = make_layout(progress, tables)
+                layout: Layout = make_layout(progress, tables, message=msg)
                 live.update(layout)
 
                 # Now we need to update the progress bar until
