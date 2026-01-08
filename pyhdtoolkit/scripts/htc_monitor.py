@@ -21,11 +21,11 @@ from __future__ import annotations
 import time
 from typing import TYPE_CHECKING
 
-import typer
 from loguru import logger
 from rich.console import Group
 from rich.live import Live
 from rich.panel import Panel
+from typer import Option, Typer
 
 from pyhdtoolkit.utils.htcondor import _make_cluster_table, _make_tasks_table, query_condor_q, read_condor_q
 from pyhdtoolkit.utils.logging import config_logger
@@ -36,7 +36,7 @@ if TYPE_CHECKING:
 
 # ----- CLI App ----- #
 
-app: typer.Typer = typer.Typer(help="A script to monitor HTCondor queue status.")
+app: Typer = Typer(help="A script to monitor HTCondor queue status.")
 
 # ----- Bread and Butter ----- #
 
@@ -87,22 +87,25 @@ def generate_renderable() -> Group:
 
 @app.command()
 def main(
-    log_level: str = typer.Option(
-        "ERROR", help="Console logging level. Can be 'DEBUG', 'INFO', 'WARNING' and 'ERROR'."
-    ),
+    wait: int = Option(300, "-w", "--wait", help="Seconds to wait between calls to `condor_q`."),
+    refresh: float = Option(0.25, "-r", "--refresh", help="Display refreshes per second (higher means more CPU usage)."),
+    log_level: str = Option("info", help="Console logging level. Can be 'DEBUG', 'INFO', 'WARNING' and 'ERROR'."),
 ):
     """
     Parse the HTCondor queue and display
     the status in a nice way using `rich`.
     """
+    # Configure our logger and level (only for functions, not rich Console)
     config_logger(level=log_level)
 
-    with Live(generate_renderable(), refresh_per_second=0.25) as live:
+    # Directly use Live to update the display. The display build itself
+    # is defined in the function above and takes care of the query etc.
+    with Live(generate_renderable(), refresh_per_second=refresh) as live:
         live.console.log("Querying HTCondor Queue - Refreshed Every 5 Minutes\n")
         while True:
             try:
                 live.update(generate_renderable())
-                time.sleep(300)
+                time.sleep(wait)
             except KeyboardInterrupt:
                 live.console.log("Exiting Program")
                 break
