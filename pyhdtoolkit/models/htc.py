@@ -55,10 +55,10 @@ class HTCTaskSummary(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     owner: str
-    batch_name: int
+    batch_name: int  # only keep the part after 'ID:'
     submitted: DateTime
-    done: int | str
-    run: int | str
-    idle: int | str
+    done: int | str  # can be "-" if jobs in other state
+    run: int | str  # can be "-" if jobs in other state
+    idle: int | str  # can be "-" if jobs in other state
     total: int
     job_ids: str

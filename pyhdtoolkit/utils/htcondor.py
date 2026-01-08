@@ -288,14 +288,14 @@ def _process_task_summary_line(line: str) -> HTCTaskSummary:
     line_elements = line.split()
     return HTCTaskSummary(
         owner=line_elements[0],
-        batch_name=line_elements[2],  # line_elements[1] is the 'ID:' part, we don't need it
+        batch_name=int(line_elements[2]),  # line_elements[1] is the 'ID:' part, we don't need it
         submitted=pendulum.from_format(
             f"{line_elements[3]} {line_elements[4]}", fmt="MM/D HH:mm", tz="Europe/Paris"
         ),  # Geneva timezone is Paris timezone,
         done=line_elements[5],
         run=line_elements[6],
         idle=line_elements[7],
-        total=line_elements[8],
+        total=int(line_elements[8]),
         job_ids=line_elements[9],
     )
 
