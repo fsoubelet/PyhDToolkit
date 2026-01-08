@@ -123,20 +123,33 @@ def wait_with_progress(console: Console, wait: int) -> None:
 # ----- Progress + Layout helpers ----- #
 
 
-def make_layout(progress: Progress, tables: Group) -> Layout:
+def make_layout(progress: Progress, tables: Group, console: Console) -> Layout:
     """
     Create the main UI layout with the progress bar above the table,
-    matching to the table width dynamically.
+    dynamically matching the table width (or console width if resized).
+
+    Parameters
+    ----------
+    progress : Progress
+        The Rich Progress instance for the countdown.
+    table_renderable : Group
+        The Group containing the task and cluster panels.
+    console : Console
+        The console, used for width fallback.
     """
     # Compute max width among all panels in the Group
-    table_width = max(
-        getattr(panel.renderable, "width", 0) + 2  # +2 for panel padding/borders
+    table_width: int = max(  # we add +2 for panel padding/borders
+        getattr(panel.renderable, "width", 0) + 2  # ty:ignore[unresolved-attribute]
         for panel in tables.renderables
     )
 
+    # Ensure the panel doesn't exceed the console width
+    panel_width: int = min(table_width, console.width - 2)
+
+
     layout = Layout()
     layout.split_column(
-        Layout(Panel(progress, title="Next HTCondor query", padding=(0, 1), width=table_width)),
+        Layout(Panel(progress, title="time to Next HTCondor Query", padding=(0, 1), width=panel_width), size=3),
         Layout(tables, ratio=1),
     )
     return layout
