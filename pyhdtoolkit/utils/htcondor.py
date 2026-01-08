@@ -169,13 +169,16 @@ def read_condor_q(report: str) -> tuple[list[HTCTaskSummary], ClusterSummary]:
                 next_line_is_task_report = False
 
         else:  # extract cluster information, only 3 lines here
-            querying_owner = tasks[0].owner if tasks else r"(\D+)"
+            # Try to see if we get the owner from the tasks
+            querying_owner: str | None = tasks[0].owner if tasks else None
             if "query" in line:  # first line
-                query_summary = _process_cluster_summary_line(line, "query")
+                query_summary: BaseSummary = _process_cluster_summary_line(line, "query")
             elif "all users" in line:  # last line
-                full_summary = _process_cluster_summary_line(line, "all users")
-            elif line not in ("\n", ""):  # user line, whoever the user is
-                owner_summary = _process_cluster_summary_line(line, querying_owner)
+                full_summary: BaseSummary = _process_cluster_summary_line(line, "all users")
+            elif line not in ("\n", ""):  # user line, whoever the user is (e.g. me, fesoubel)
+                # If there were no tasks, we provide None and let the function default to
+                # a wildcard in the regex which will match anything up to the colon
+                owner_summary: BaseSummary = _process_cluster_summary_line(line, querying_owner)
 
     cluster_summary = ClusterSummary(
         scheduler_id=scheduler_id, query=query_summary, user=owner_summary, cluster=full_summary
@@ -328,11 +331,20 @@ def _process_cluster_summary_line(line: str, query: str | None = None) -> BaseSu
 
     Note
     ----
-        Beware if no jobs are running we can't have taken the
-        ``querying_owner`` info from tasks summaries, so we need
-        to match a wildcard word by giving querying_owner=(\D+).
-        This would add a match to the regex search, and we need
-        to look one match further for the wanted information.
+        A typical block to parse lines from looks like this:
+
+        .. code-block:: bash
+
+            Total for query: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
+            Total for fesoubel: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
+            Total for all users: 7279 jobs; 1 completed, 1 removed, 3351 idle, 3724 running, 202 held, 0 suspended
+
+        Beware that if no jobs are running for the querying user (calling
+        'condor_q') the calling function (read_condor_q) will not have been
+        able to determine the `owner` info from the tasks summaries. In this
+        case, the line for the user (i.e. fesoubel in the example above) will
+        need to be parsed with a wildcard instead of the actual user name. For
+        this we use r"[^:]+" which will match anything up to the colon.
 
     Parameters
     ----------
@@ -347,20 +359,24 @@ def _process_cluster_summary_line(line: str, query: str | None = None) -> BaseSu
         The cluster summary information as a validated
         `~.models.htc.BaseSummary` object.
     """
-    result: re.Match[str] | None = re.search(
-        rf"Total for {query}: (\d+) jobs; (\d+) completed, "
-        r"(\d+) removed, (\d+) idle, (\d+) running, (\d+) held, (\d+) suspended",
-        line,
-    )
-    first_interesting_match_index = 1 if query != r"(\D+)" else 2
+    # We prepare the regex pattern with the proper query - if no query is given
+    # by caller (i.e. read_condor_q), we use a wildcard (see docstring note)
+    query_pattern: str = re.escape(query) if query is not None else r"[^:]+"
+    pattern: re.Pattern[str] = re.compile(_CLUSTER_SUMMARY_RE_TEMPLATE.format(query=query_pattern))
+
+    # Parse and search the line, exit early if no match
+    match: re.Match[str] | None = pattern.search(line)
+    if match is None:
+        raise ClusterSummaryParseError(line)
+
     return BaseSummary(
-        jobs=result.group(first_interesting_match_index),
-        completed=result.group(first_interesting_match_index + 1),
-        removed=result.group(first_interesting_match_index + 2),
-        idle=result.group(first_interesting_match_index + 3),
-        running=result.group(first_interesting_match_index + 4),
-        held=result.group(first_interesting_match_index + 5),
-        suspended=result.group(first_interesting_match_index + 6),
+        jobs=int(match["jobs"]),
+        completed=int(match["completed"]),
+        removed=int(match["removed"]),
+        idle=int(match["idle"]),
+        running=int(match["running"]),
+        held=int(match["held"]),
+        suspended=int(match["suspended"]),
     )
 
 
