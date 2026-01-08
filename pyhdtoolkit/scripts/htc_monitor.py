@@ -14,7 +14,9 @@ Note
     Some of it is made public API and one should be able to
     build a different monitor script from the functions there.
 """
+
 import time
+from typing import TYPE_CHECKING
 
 from loguru import logger
 from rich.console import Group
@@ -24,9 +26,13 @@ from rich.panel import Panel
 from pyhdtoolkit.utils.htcondor import _make_cluster_table, _make_tasks_table, query_condor_q, read_condor_q
 from pyhdtoolkit.utils.logging import config_logger
 
+if TYPE_CHECKING:
+    from rich.table import Table
+
 config_logger(level="ERROR")
 
 # ----- Bread and Butter ----- #
+
 
 def generate_renderable() -> Group:
     """
@@ -46,12 +52,12 @@ def generate_renderable() -> Group:
         holding the tasks table and the other
         holding the cluster information.
     """
-    condor_string = query_condor_q()
+    condor_string: str = query_condor_q()
     user_tasks, cluster_info = read_condor_q(condor_string)
-    owner = user_tasks[0].owner if user_tasks else "User"
+    owner: str = user_tasks[0].owner if user_tasks else "User"
 
-    tasks_table = _make_tasks_table(user_tasks)
-    cluster_table = _make_cluster_table(owner, cluster_info)
+    tasks_table: Table = _make_tasks_table(user_tasks)
+    cluster_table: Table = _make_cluster_table(owner, cluster_info)
     return Group(
         Panel(
             tasks_table,
@@ -67,7 +73,9 @@ def generate_renderable() -> Group:
         ),
     )
 
+
 # ----- Entrypoint ----- #
+
 
 @logger.catch()
 def main():
@@ -80,6 +88,7 @@ def main():
             except KeyboardInterrupt:
                 live.console.log("Exiting Program")
                 break
+
 
 # ----- Script Mode ----- #
 
