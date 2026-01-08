@@ -115,7 +115,7 @@ def make_layout(progress: Progress, tables: Group, message: str = "") -> Layout:
     )
 
     if message:
-        layout["header"].update(Align.center(message))
+        layout["header"].update(Align.left(message))
 
     return layout
 
