@@ -66,11 +66,19 @@ CLUSTER_COLUMNS_SETTINGS: dict[str, dict[str, str | bool]] = {
 # ----- Exceptions ----- #
 
 
-class SchedulerInformationError(ValueError):
-    """Raised when scheduler information cannot be extracted."""
+class SchedulerInformationParseError(ValueError):
+    """Raised when scheduler information line cannot be parsed properly."""
 
     def __init__(self, line: str) -> None:
         errmsg = f"Could not extract scheduler information from HTCondor output: {line!r}"
+        super().__init__(errmsg)
+
+
+class ClusterSummaryParseError(ValueError):
+    """Raised when cluster summary line cannot be parsed properly."""
+
+    def __init__(self, line: str) -> None:
+        errmsg = f"Could not extract cluster summary information from HTCondor output: {line!r}"
         super().__init__(errmsg)
 
 
@@ -265,7 +273,7 @@ def _process_scheduler_information_line(line: str) -> str:
     """
     match: re.Match[str] | None = _SCHEDD_RE.search(line)
     if match is None:
-        raise SchedulerInformationError(line)
+        raise SchedulerInformationParseError(line)
     return match.group(1)
 
 
@@ -326,7 +334,7 @@ def _process_cluster_summary_line(line: str, query: str | None = None) -> BaseSu
         The cluster summary information as a validated
         `~.models.htc.BaseSummary` object.
     """
-    result = re.search(
+    result: re.Match[str] | None = re.search(
         rf"Total for {query}: (\d+) jobs; (\d+) completed, "
         r"(\d+) removed, (\d+) idle, (\d+) running, (\d+) held, (\d+) suspended",
         line,
