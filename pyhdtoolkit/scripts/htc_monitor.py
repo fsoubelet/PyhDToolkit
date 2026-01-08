@@ -164,17 +164,24 @@ def main(
 
     # Use an auto-updating live display. The display builds itself
     # from the created layout we will pass to it.
-    with Live(generate_renderable(), refresh_per_second=refresh) as live:
-        live.console.log(f"Querying HTCondor every {wait:d} seconds (display refreshes {refresh:.2f} times/second).\n")
+    with Live(console=console, refresh_per_second=refresh) as live:
+        console.log(
+            f"Querying HTCondor queue every {wait:d} seconds "
+            f"(table display refreshes {refresh:.2f} times/second).\n"
+        )
+        # live.console.log(f"Querying HTCondor every {wait:d} seconds (display refreshes {refresh:.2f} times/second).\n")
 
         while True:
             try:
-                # query HTCondor queue, process, update display
-                live.update(generate_renderable())
+                # Once per cycle, query HTCondor the process its output
+                # and generate the table to be displayed
+                table: Group = generate_renderable()
 
-                # Show countdown until next query
-                wait_with_progress(live.console, wait)
-                # time.sleep(wait)
+                # Reset the progress bar (we just queried HTCondor)
+                progress.reset(task_id)
+                progress.update(task_id, total=wait, completed=0)
+
+                # We start rendering
 
             # In case the 'condor_q' command failed
             except CondorQError as err:
