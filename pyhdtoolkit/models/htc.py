@@ -10,12 +10,11 @@ data obtained by querying the ``HTCondor`` queue.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
+# Do not move DateTime import into a TYPE_CHECKING block, since
+# we need it defined to rebuild the pydantic model for validation
+# (this is required when using from __future__ import annotations)
+from pendulum import DateTime  # noqa: TC002
 from pydantic import BaseModel, ConfigDict
-
-if TYPE_CHECKING:
-    from pendulum import DateTime
 
 
 class BaseSummary(BaseModel):
@@ -68,3 +67,8 @@ class HTCTaskSummary(BaseModel):
     idle: int | str  # can be "-" if jobs in other state
     total: int
     job_ids: str
+
+
+# This is necessary to make pydantic recognize the DateTime type
+# from pendulum when using from __future__ import annotations
+HTCTaskSummary.model_rebuild()
