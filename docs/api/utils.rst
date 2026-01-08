@@ -22,7 +22,3 @@ Utils
 .. automodule:: pyhdtoolkit.utils.logging
    :members:
    :noindex:
-
-.. .. automodule:: pyhdtoolkit.utils._misc
-..    :members:
-..    :noindex:
