@@ -17,7 +17,7 @@ exclude = [
 [tool.hatch.build.targets.wheel]
 packages = ["pyhdtoolkit"]
 
-# -- Project Metadata -- #
+# ----- Project Metadata ----- #
 
 [project]
 name = "pyhdtoolkit"
@@ -76,15 +76,15 @@ monitor = [
   "pendulum >= 3.0",
 ]
 test = [
+  "pyhdtoolkit[monitor]",  # htc stuff is tested
   "pytest >= 8.0",
   "pytest-cov >= 6.0",
   "pytest-xdist >= 3.0",
-  "numba >= 0.60.0",
+  "numba >= 0.60.0",  # for @maybe_jit
   "flaky >= 3.5",
   "pytest-randomly >= 3.10",
   "coverage[toml] >= 7.0",
   "pytest-mpl >= 0.14",
-  "pyhdtoolkit[monitor]",
 ]
 dev = [
   "ruff >= 0.12",
@@ -145,41 +145,6 @@ exclude_also = [
 precision = 2
 
 # ----- Dev Tools Configuration ----- #
-
-[tool.isort]
-atomic = true
-ensure_newline_before_comments = true
-filter_files = true
-force_grid_wrap = 0
-force_single_line = false
-include_trailing_comma = true
-known_first_party = "pyhdtoolkit"
-known_third_party = "pytest"
-line_length = 110
-lines_between_types = 1
-multi_line_output = 3
-use_parentheses = true
-profile = "black"
-
-[tool.black]
-line-length = 120
-include = '\.pyi?$'
-exclude = '''
-/(
-    \.eggs
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-  | tests/.*/setup.py
-  | acc-models-lhc
-)/
-'''
 
 [tool.ruff]
 target-version = "py311"  # Assume Python 3.11+.
