@@ -1,9 +1,6 @@
 """
 .. _script-htcmonitor:
 
-HTCondor Monitoring Utilities
------------------------------
-
 A script to query the HTCondor queue and display
 the status nicely with rich.
 
