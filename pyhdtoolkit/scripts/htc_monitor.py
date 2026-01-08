@@ -24,7 +24,6 @@ from typing import TYPE_CHECKING
 from rich.console import Console, Group
 from rich.layout import Layout
 from rich.live import Live
-from rich.measure import Measurement
 from rich.panel import Panel
 from rich.progress import BarColumn, Progress, TextColumn, TimeRemainingColumn
 from typer import Option, Typer
@@ -95,7 +94,7 @@ def generate_tables_renderable() -> Group:
 # ----- Progress + Layout helpers ----- #
 
 
-def make_layout(progress: Progress, tables: Group, console: Console) -> Layout:
+def make_layout(progress: Progress, tables: Group) -> Layout:
     """
     Create the main UI layout with the progress bar above the table,
     dynamically matching the table width (or console width if resized).
@@ -106,21 +105,10 @@ def make_layout(progress: Progress, tables: Group, console: Console) -> Layout:
         The Rich Progress instance for the countdown.
     table_renderable : Group
         The Group containing the task and cluster panels.
-    console : Console
-        The console, used for width fallback.
     """
-    # Compute max width among all panels in the Group
-    table_width: int = max(  # we add +2 for panel padding/borders
-        Measurement.get(console, console.options, panel.renderable).maximum  # ty:ignore[unresolved-attribute]
-        for panel in tables.renderables
-    )
-
-    # Add panel borders and padding (2 for border + 2 for padding)
-    panel_width: int = min(table_width + 4, console.width)
-
     layout = Layout()
     layout.split_column(
-        Layout(Panel(progress, title="time to Next HTCondor Query", padding=(0, 1), width=panel_width), size=3),
+        Layout(progress, size=3),
         Layout(tables, ratio=1),
     )
     return layout
@@ -171,7 +159,7 @@ def main(
                 progress.update(task_id, total=wait, completed=0)
 
                 # We start rendering our layout with progress + table
-                layout: Layout = make_layout(progress, tables, console)
+                layout: Layout = make_layout(progress, tables)
                 live.update(layout)
 
                 # Now we need to update the progress bar until
