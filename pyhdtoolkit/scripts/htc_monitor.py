@@ -150,7 +150,7 @@ def main(
     """
     # Configure our logger and level (only for functions, not rich Console)
     config_logger(level=log_level)
-    sleep_interval = float(min(0.1, 1 / refresh))
+    sleep_interval = float(max(0.1, 1 / refresh))
 
     # Create re-usable console and progress bar
     console: Console = Console()
