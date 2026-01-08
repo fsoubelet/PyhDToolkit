@@ -17,6 +17,8 @@ exclude = [
 [tool.hatch.build.targets.wheel]
 packages = ["pyhdtoolkit"]
 
+# -- Project Metadata -- #
+
 [project]
 name = "pyhdtoolkit"
 readme = "README.md"
@@ -106,6 +108,9 @@ all = [
   "pyhdtoolkit[test]",
   "pyhdtoolkit[monitor]",
 ]
+
+[project.scripts]
+htc-monitor = "pyhdtoolkit.utils.htc_monitor:main"
 
 [project.urls]
 homepage = "https://github.com/fsoubelet/PyhDToolkit"
