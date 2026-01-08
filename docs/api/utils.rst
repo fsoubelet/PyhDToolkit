@@ -15,7 +15,7 @@ Utils
    :members:
    :noindex:
 
-.. automodule:: pyhdtoolkit.utils.htc_monitor
+.. automodule:: pyhdtoolkit.utils.htcondor
    :members:
    :noindex:
 
