@@ -166,10 +166,8 @@ def main(
     # from the created layout we will pass to it.
     with Live(console=console, refresh_per_second=refresh) as live:
         console.log(
-            f"Querying HTCondor queue every {wait:d} seconds "
-            f"(table display refreshes {refresh:.2f} times/second).\n"
+            f"Querying HTCondor queue every {wait:d} seconds (table display refreshes {refresh:.2f} times/second).\n"
         )
-        # live.console.log(f"Querying HTCondor every {wait:d} seconds (display refreshes {refresh:.2f} times/second).\n")
 
         while True:
             try:
