@@ -15,7 +15,7 @@ jobs:
   documentation:
     runs-on: ubuntu-latest
     env:
-        python-version: "3.14"
+        python-version: "3.13"
 
     steps:
       - uses: actions/checkout@v5
