@@ -21,9 +21,10 @@ from __future__ import annotations
 import time
 from typing import TYPE_CHECKING
 
-from rich.console import Group
+from rich.console import Console, Group
 from rich.live import Live
 from rich.panel import Panel
+from rich.progress import BarColumn, Progress, TextColumn, TimeRemainingColumn
 from typer import Option, Typer
 
 from pyhdtoolkit.utils.htcondor import (
@@ -38,6 +39,7 @@ from pyhdtoolkit.utils.htcondor import (
 from pyhdtoolkit.utils.logging import config_logger
 
 if TYPE_CHECKING:
+    from rich.progress import TaskID
     from rich.table import Table
 
 
@@ -88,14 +90,43 @@ def generate_renderable() -> Group:
     )
 
 
+def wait_with_progress(console: Console, wait: int) -> None:
+    """
+    Display a transient progress bar counting down to the next HTCondor query.
+
+    Parameters
+    ----------
+    console : Console
+        The `rich.console.Console` object to use for rendering.
+    wait : int
+        The number of seconds to wait for.
+    """
+    refresh_interval = 0.1  # seconds
+
+    with Progress(
+        TextColumn("Next HTCondor query"),
+        BarColumn(),
+        TimeRemainingColumn(),
+        console=console,
+        transient=True,
+    ) as progress:
+        task: TaskID = progress.add_task("waiting", total=wait)
+
+        start: float = time.monotonic()
+        while not progress.finished:
+            elapsed: float = time.monotonic() - start
+            progress.update(task, completed=min(elapsed, wait))
+            time.sleep(refresh_interval)
+
+
 # ----- Entrypoint ----- #
 
 
 @app.command()
 def main(
-    wait: int = Option(300, "-w", "--wait", help="Seconds to wait between calls to `condor_q`."),
-    refresh: float = Option(0.25, "-r", "--refresh", help="Table display refreshes per second."),
-    log_level: str = Option("warning", help="Console logging level. Can be 'DEBUG', 'INFO', 'WARNING' and 'ERROR'."),
+    wait: int = Option(300, "-w", "--wait", min=0, help="Seconds to wait between calls to `condor_q`."),
+    refresh: float = Option(1, "-r", "--refresh", min=0, help="Table display refreshes per second."),
+    log_level: str = Option("warning", help="Console logging level. Can be 'debug', 'info', 'warning' and 'error'."),
 ):
     """
     Parse the HTCondor queue and display
@@ -107,21 +138,33 @@ def main(
     # Directly use Live to update the display. The display build itself
     # is defined in the function above and takes care of the query etc.
     with Live(generate_renderable(), refresh_per_second=refresh) as live:
-        live.console.log(f"Querying HTCondor every {wait:d} seconds (display refreshes {refresh:.2f} times/second).\n")
+        # live.console.log(f"Querying HTCondor every {wait:d} seconds (display refreshes {refresh:.2f} times/second).\n")
+        live.console.log(
+            f"Querying HTCondor every {wait:d} seconds "
+            f"(display refreshes {refresh:.2f} times/second).\n"
+        )
+
         while True:
-            try:  # query HTCondor queue, process, update display
+            try:
+                # query HTCondor queue, process, update display
                 live.update(generate_renderable())
-                time.sleep(wait)
+
+                # Show countdown until next query
+                wait_with_progress(live.console, wait)
+                # time.sleep(wait)
+
             # In case the 'condor_q' command failed
             except CondorQError as err:
                 live.console.log(f"[red]Error querying HTCondor:[/red]\n {err}")
                 live.console.print_exception()
                 break  # exits
+
             # In case parsing the output of 'condor_q' failed
             except (ClusterSummaryParseError, SchedulerInformationParseError) as err:
                 live.console.log(f"[red]Error parsing HTCondor output:[/red]\n {err}")
                 live.console.print_exception()
                 break  # exits
+
             # Allow user to exit cleanly
             except KeyboardInterrupt:
                 live.console.log("Exiting Program")
