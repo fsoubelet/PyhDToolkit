@@ -14,7 +14,6 @@ Note
     one shoule be able to build a different monitor script
     from the functions in here.
 """
-
 import re
 import time
 
@@ -251,9 +250,19 @@ def _process_scheduler_information_line(line: str) -> str:
     -------
     str
         The scheduler name extracted from the input line.
+
+    Raises
+    ------
+    ValueError
+        If the scheduler information could not be extracted
+        from the input line. This typically happens when no
+        jobs are present in the HTCondor queue and condor_q
+        returns empty lines.
     """
-    result = re.search(r"Schedd: (.*).cern.ch", line)
-    return result.group(1)
+    match: re.Match[str] | None = re.search(r"Schedd: (.*).cern.ch", line)
+    if match is None:
+        raise ValueError("Could not extract scheduler information from HTCondor output.")
+    return match.group(1)
 
 
 def _process_task_summary_line(line: str) -> HTCTaskSummary:
