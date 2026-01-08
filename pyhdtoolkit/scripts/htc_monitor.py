@@ -200,20 +200,18 @@ def main(
                 progress.update(task_id, total=wait, completed=0)
 
                 # We start rendering our layout with progress + table
-                layout: Layout = make_layout(progress, tables)
+                layout: Layout = make_layout(progress, tables, console)
                 live.update(layout)
 
-                # Now we need to update the progress bar until we have
-                # waited long enough for the next query
+                # Now we need to update the progress bar until
+                # we have waited long enough for the next query
                 start: float = time.monotonic()
                 while not progress.finished:
                     elapsed: float = time.monotonic() - start
                     progress.update(task_id, completed=min(elapsed, wait))
 
-                    # Refresh the live display for the progress bar
+                    # Refresh the live display for the progress bar and sleep
                     live.refresh()
-
-                    # And sleep a little
                     time.sleep(sleep_interval)
 
                 # This is to force a clean 100% completion render before resetting
