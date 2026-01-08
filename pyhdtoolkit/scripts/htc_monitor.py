@@ -124,8 +124,8 @@ def wait_with_progress(console: Console, wait: int) -> None:
 
 @app.command()
 def main(
-    wait: int = Option(300, "-w", "--wait", min=0, help="Seconds to wait between calls to `condor_q`."),
-    refresh: float = Option(1, "-r", "--refresh", min=0, help="Table display refreshes per second."),
+    wait: int = Option(300, "-w", "--wait", min=1, help="Seconds to wait between calls to `condor_q`."),
+    refresh: float = Option(1, "-r", "--refresh", min=0.1, help="Table display refreshes per second."),
     log_level: str = Option("warning", help="Console logging level. Can be 'debug', 'info', 'warning' and 'error'."),
 ):
     """
@@ -139,10 +139,7 @@ def main(
     # is defined in the function above and takes care of the query etc.
     with Live(generate_renderable(), refresh_per_second=refresh) as live:
         # live.console.log(f"Querying HTCondor every {wait:d} seconds (display refreshes {refresh:.2f} times/second).\n")
-        live.console.log(
-            f"Querying HTCondor every {wait:d} seconds "
-            f"(display refreshes {refresh:.2f} times/second).\n"
-        )
+        live.console.log(f"Querying HTCondor every {wait:d} seconds (display refreshes {refresh:.2f} times/second).\n")
 
         while True:
             try:
