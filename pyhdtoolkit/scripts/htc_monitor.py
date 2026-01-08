@@ -150,15 +150,15 @@ def main(
     """
     # Configure our logger and level (only for functions, not rich Console)
     config_logger(level=log_level)
+    sleep_interval = float(min(0.1, 1 / refresh))
 
     # Create re-usable console and progress bar
     console: Console = Console()
     progress: Progress = Progress(
-        TextColumn("Next HTCondor query"),
+        TextColumn("[bold]Next HTCondor query[/bold]"),
         BarColumn(),
         TimeRemainingColumn(),
         console=console,
-        transient=True,
     )
     task_id: TaskID = progress.add_task("waiting", total=wait)
 
@@ -180,7 +180,8 @@ def main(
                 progress.update(task_id, total=wait, completed=0)
 
                 # We start rendering our layout with progress + table
-                live.update(make_layout(progress, table))
+                layout: Layout = make_layout(progress, table)
+                live.update(layout)
 
                 # Now we need to update the progress bar until we have
                 # waited long enough for the next query
@@ -190,10 +191,14 @@ def main(
                     progress.update(task_id, completed=min(elapsed, wait))
 
                     # Refresh the live display for the progress bar
-                    live.update(make_layout(progress, table))
+                    live.refresh()
 
                     # And sleep a little
-                    time.sleep(refresh)
+                    time.sleep(sleep_interval)
+
+                # This is to force a clean 100% completion render before resetting
+                progress.update(task_id, completed=wait)
+                live.refresh()
 
             # In case the 'condor_q' command failed
             except CondorQError as err:
