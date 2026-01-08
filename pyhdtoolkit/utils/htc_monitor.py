@@ -31,7 +31,12 @@ from pyhdtoolkit.utils.logging import config_logger
 
 config_logger(level="ERROR")
 
-# ----- Data ----- #
+# ----- Caching ------ #
+
+# We compile our regex pattern once only
+_SCHEDD_RE: re.Pattern[str] = re.compile(r"Schedd:\s+([^.]+)\.cern\.ch")
+
+# ----- Settings ----- #
 
 TASK_COLUMNS_SETTINGS: dict[str, dict[str, str | bool]] = {
     "OWNER": {"justify": "left", "header_style": "bold", "style": "bold", "no_wrap": True},
@@ -259,7 +264,7 @@ def _process_scheduler_information_line(line: str) -> str:
         jobs are present in the HTCondor queue and condor_q
         returns empty lines.
     """
-    match: re.Match[str] | None = re.search(r"Schedd:\s+([^.]+)\.cern\.ch", line)
+    match: re.Match[str] | None = _SCHEDD_RE.search(line)
     if match is None:
         raise ValueError("Could not extract scheduler information from HTCondor output.")
     return match.group(1)
