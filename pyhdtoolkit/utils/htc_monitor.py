@@ -259,7 +259,7 @@ def _process_scheduler_information_line(line: str) -> str:
         jobs are present in the HTCondor queue and condor_q
         returns empty lines.
     """
-    match: re.Match[str] | None = re.search(r"Schedd: (.*)\.cern\.ch", line)
+    match: re.Match[str] | None = re.search(r"Schedd:\s+([^.]+)\.cern\.ch", line)
     if match is None:
         raise ValueError("Could not extract scheduler information from HTCondor output.")
     return match.group(1)
