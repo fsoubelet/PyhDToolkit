@@ -21,13 +21,20 @@ from __future__ import annotations
 import time
 from typing import TYPE_CHECKING
 
-from loguru import logger
 from rich.console import Group
 from rich.live import Live
 from rich.panel import Panel
 from typer import Option, Typer
 
-from pyhdtoolkit.utils.htcondor import _make_cluster_table, _make_tasks_table, query_condor_q, read_condor_q
+from pyhdtoolkit.utils.htcondor import (
+    ClusterSummaryParseError,
+    CondorQError,
+    SchedulerInformationParseError,
+    _make_cluster_table,
+    _make_tasks_table,
+    query_condor_q,
+    read_condor_q,
+)
 from pyhdtoolkit.utils.logging import config_logger
 
 if TYPE_CHECKING:
@@ -41,7 +48,6 @@ app: Typer = Typer(help="A script to monitor HTCondor queue status.")
 # ----- Bread and Butter ----- #
 
 
-@logger.catch()
 def generate_renderable() -> Group:
     """
     .. versionadded:: 0.9.0
@@ -89,7 +95,7 @@ def generate_renderable() -> Group:
 def main(
     wait: int = Option(300, "-w", "--wait", help="Seconds to wait between calls to `condor_q`."),
     refresh: float = Option(0.25, "-r", "--refresh", help="Display refreshes per second (higher means more CPU usage)."),
-    log_level: str = Option("info", help="Console logging level. Can be 'DEBUG', 'INFO', 'WARNING' and 'ERROR'."),
+    log_level: str = Option("warning", help="Console logging level. Can be 'DEBUG', 'INFO', 'WARNING' and 'ERROR'."),
 ):
     """
     Parse the HTCondor queue and display
@@ -101,14 +107,25 @@ def main(
     # Directly use Live to update the display. The display build itself
     # is defined in the function above and takes care of the query etc.
     with Live(generate_renderable(), refresh_per_second=refresh) as live:
-        live.console.log("Querying HTCondor Queue - Refreshed Every 5 Minutes\n")
+        live.console.log(f"Querying HTCondor Queue - Refreshed Every {wait:d} Seconds\n")
         while True:
-            try:
+            try:  # query HTCondor queue, process, update display
                 live.update(generate_renderable())
                 time.sleep(wait)
+            # In case the 'condor_q' command failed
+            except CondorQError as err:
+                live.console.log(f"[red]Error querying HTCondor:[/red]\n {err}")
+                live.console.print_exception()
+                break  # exits
+            # In case parsing the output of 'condor_q' failed
+            except (ClusterSummaryParseError, SchedulerInformationParseError) as err:
+                live.console.log(f"[red]Error parsing HTCondor output:[/red]\n {err}")
+                live.console.print_exception()
+                break  # exits
+            # Allow user to exit cleanly
             except KeyboardInterrupt:
                 live.console.log("Exiting Program")
-                break
+                break  # exits
 
 
 # ----- Script Mode ----- #
