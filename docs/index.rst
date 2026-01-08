@@ -86,6 +86,7 @@ Contents
 
     quickstart
     gallery/index
+    scripts
     api
     contributing
     release
@@ -121,7 +122,7 @@ The following people have contributed to the development of PyhDToolkit by contr
 License
 -------
 
-The package is licensed under the `MIT license <https://github.com/fsoubelet/PyhDToolkit/blob/master/LICENSE>`_. 
+The package is licensed under the `MIT license <https://github.com/fsoubelet/PyhDToolkit/blob/master/LICENSE>`_.
 
 Indices and tables
 ------------------
