@@ -1,18 +1,13 @@
 """
-.. _utils-htc-monitor:
+.. _utils-htcondor:
 
-HTCondor Monitoring
--------------------
+HTCondor Monitoring Utilities
+-----------------------------
 
 A module with utility to query the HTCondor queue, process
-the returned data and display it nicely.
-
-Note
-----
-    This module is meant to be called as a script, but some
-    of the individual functionality is made public API and
-    one shoule be able to build a different monitor script
-    from the functions in here.
+the returned data and display it nicely with rich. Only
+the utility functions are included here, a callable script
+is provided in `pyhdtoolkit.scripts.htc_monitor`.
 """
 import re
 

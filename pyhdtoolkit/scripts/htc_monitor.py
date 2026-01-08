@@ -1,3 +1,19 @@
+"""
+.. _utils-htcondor:
+
+HTCondor Monitoring Utilities
+-----------------------------
+
+A script to query the HTCondor queue and display
+the status nicely with rich.
+
+Note
+----
+    This module is meant to be called as a script. Utility
+    functionality is provided in `pyhdtoolkit.utils.htcondor`.
+    Some of it is made public API and one should be able to
+    build a different monitor script from the functions there.
+"""
 import time
 
 from loguru import logger
@@ -5,7 +21,7 @@ from rich.console import Group
 from rich.live import Live
 from rich.panel import Panel
 
-from pyhdtoolkit.utils.htc_monitor import _make_cluster_table, _make_tasks_table, query_condor_q, read_condor_q
+from pyhdtoolkit.utils.htcondor import _make_cluster_table, _make_tasks_table, query_condor_q, read_condor_q
 from pyhdtoolkit.utils.logging import config_logger
 
 config_logger(level="ERROR")
