@@ -13,6 +13,7 @@ Additions
 * A new module, `pyhdtoolkit.utils.htcondor`, has been created to host all `HTCondor`-related utilities. The previous `htc_monitor` module's functionality has been moved here, with some improvements.
 * A new command-line script, `htcondor-monitor`, has been added to provide an easy way to monitor `HTCondor` clusters from the terminal. It contains the entrypoint from the previous `pyhdtoolkit.utils.htc_monitor` module, adapted to the new module structure.
 * The new script allows passing command-line options to customize its behavior (see its documentation and help message for details).
+* The new scripts provides a progress bar while waiting between `condor_q` calls.
 * The new script is declared as `htc-monitor` in the project metadata. It can be called simply as `htc-monitor` at the command line in an environment where `PyhDToolkit` is installed.
 
 Enhancements
