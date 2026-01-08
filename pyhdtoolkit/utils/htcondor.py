@@ -97,6 +97,14 @@ class ClusterSummaryParseError(ValueError):
         super().__init__(errmsg)
 
 
+class CondorQError(ChildProcessError):
+    """Raised when executing the 'condor_q' command fails."""
+
+    def __init__(self) -> None:
+        errmsg = "Checking htcondor status (condor_q) failed"
+        super().__init__(errmsg)
+
+
 # ----- HTCondor Querying / Processing ----- #
 
 
@@ -113,6 +121,11 @@ def query_condor_q() -> str:
     str
         The utf-8 decoded string returned by the
         ``condor_q`` command.
+
+    Raises
+    ------
+    CondorQError
+        If the ``condor_q`` command fails for any reason.
     """
     return_code, raw_result = CommandLine.run("condor_q")
     condor_status = raw_result.decode().strip()
@@ -120,8 +133,7 @@ def query_condor_q() -> str:
         return condor_status
 
     # An issue occured, let's raise
-    msg = "Checking htcondor status failed"
-    raise ChildProcessError(msg)
+    raise CondorQError()
 
 
 def read_condor_q(report: str) -> tuple[list[HTCTaskSummary], ClusterSummary]:
