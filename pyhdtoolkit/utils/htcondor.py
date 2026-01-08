@@ -393,7 +393,7 @@ def _default_tasks_table() -> Table:
     """
     table = Table(width=120, box=box.SIMPLE_HEAVY)
     for header, header_col_settings in TASK_COLUMNS_SETTINGS.items():
-        table.add_column(header, **header_col_settings)
+        table.add_column(header, **header_col_settings)  # ty:ignore[invalid-argument-type]
     return table
 
 
@@ -410,5 +410,5 @@ def _default_cluster_table() -> Table:
     """
     table = Table(width=120, box=box.HORIZONTALS)
     for header, header_col_settings in CLUSTER_COLUMNS_SETTINGS.items():
-        table.add_column(header, **header_col_settings)
+        table.add_column(header, **header_col_settings)  # ty:ignore[invalid-argument-type]
     return table
