@@ -1,0 +1,30 @@
+# Runs linting on the codebase with Ruff
+name: Ruff linting
+
+defaults:
+  run:
+    shell: bash
+
+# Runs on the following conditions:
+# - Any push to a branch linked to a pull request
+#   -> if the pushed commit changes files within the codebase (in pyhdtoolkit/ or tests/ directories)
+#   -> or if the pushed commit changes the pyproject.toml configuration file
+on:
+  pull_request:
+    paths:
+      - 'pyhdtoolkit/**'
+      - 'tests/**'
+      - 'pyproject.toml'
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # This runs ruff check by default, our pyproject.toml has the config
+      - uses: astral-sh/ruff-action@v3
+        with:
+          version: "latest"
+          src: "pyhdtoolkit/"
