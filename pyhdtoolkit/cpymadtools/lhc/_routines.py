@@ -102,9 +102,9 @@ def do_kmodulation(
         logger.trace(f"Modulation of '{element}' - Setting '{powering_variable}' to {powering}")
         madx.globals[powering_variable] = powering
         twiss_df = get_ir_twiss(madx, ir=ir, centre=True, columns=["k1l", "l"], **kwargs)
-        results.loc[powering].K = twiss_df.loc[element.lower()].k1l / twiss_df.loc[element.lower()].l  # Store K
-        results.loc[powering].TUNEX = madx.table.summ.q1[0]  # Store Qx
-        results.loc[powering].TUNEY = madx.table.summ.q2[0]  # Store Qy
+        results.at[powering, "K"] = twiss_df.loc[element.lower()].k1l / twiss_df.loc[element.lower()].l  # Store K
+        results.at[powering, "TUNEX"] = madx.table.summ.q1[0]  # Store Qx
+        results.at[powering, "TUNEY"] = madx.table.summ.q2[0]  # Store Qy
 
     logger.debug(f"Resetting '{element}' powering")
     madx.globals[powering_variable] = old_powering
