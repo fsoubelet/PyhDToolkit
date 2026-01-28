@@ -10,6 +10,8 @@ are meant to be used in the package's documentation and :ref:`example
 gallery <gallery>`.
 """
 
+from __future__ import annotations
+
 # ----- Utlites ----- #
 
 

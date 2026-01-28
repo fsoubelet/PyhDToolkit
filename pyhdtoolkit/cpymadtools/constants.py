@@ -8,6 +8,8 @@ Specific constants to be used in `~.cpymadtools` functions,
 to help with consistency.
 """
 
+from __future__ import annotations
+
 _MAX_SECTOR_VALUE: int = 8
 
 # fmt: off

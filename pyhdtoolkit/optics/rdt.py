@@ -8,6 +8,8 @@ Module implementing utilities for the handling of
 resonance driving terms.
 """
 
+from __future__ import annotations
+
 
 def rdt_to_order_and_type(rdt: int | str) -> str:
     """

@@ -9,6 +9,8 @@ data obtained by interacting with the ``MAD-X`` process
 through `cpymad`.
 """
 
+from __future__ import annotations
+
 from enum import Enum
 
 from pydantic import BaseModel, PositiveFloat, PositiveInt

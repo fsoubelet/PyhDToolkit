@@ -1,40 +1,47 @@
 """
-.. _utils-htc-monitor:
+.. _utils-htcondor:
 
-HTCondor Monitoring
--------------------
+HTCondor Monitoring Utilities
+-----------------------------
 
 A module with utility to query the HTCondor queue, process
-the returned data and display it nicely.
-
-Note
-----
-    This module is meant to be called as a script, but some
-    of the individual functionality is made public API and
-    one shoule be able to build a different monitor script
-    from the functions in here.
+the returned data and display it nicely with rich. Only
+the utility functions are included here, a callable script
+is provided in `pyhdtoolkit.scripts.htc_monitor`.
 """
 
+from __future__ import annotations
+
 import re
-import time
 
 import pendulum
-from loguru import logger
 from rich import box
-from rich.console import Group
-from rich.live import Live
-from rich.panel import Panel
 from rich.table import Table
 
 from pyhdtoolkit.models.htc import BaseSummary, ClusterSummary, HTCTaskSummary
 from pyhdtoolkit.utils.cmdline import CommandLine
-from pyhdtoolkit.utils.logging import config_logger
 
-config_logger(level="ERROR")
+# ----- Caching ------ #
 
-# ----- Data ----- #
+# We compile regex patterns once only
+_SCHEDD_RE: re.Pattern[str] = re.compile(r"Schedd:\s+(?P<cluster>[^.]+)\.cern\.ch")
 
-TASK_COLUMNS_SETTINGS = {
+# This one needs to be formatted with the
+# querying owner before it can be compiled
+_CLUSTER_SUMMARY_RE_TEMPLATE: str = (
+    r"Total for {query}: "
+    r"(?P<jobs>\d+) jobs; "
+    r"(?P<completed>\d+) completed, "
+    r"(?P<removed>\d+) removed, "
+    r"(?P<idle>\d+) idle, "
+    r"(?P<running>\d+) running, "
+    r"(?P<held>\d+) held, "
+    r"(?P<suspended>\d+) suspended"
+)
+
+# ----- Settings ----- #
+
+TASK_COLUMNS_SETTINGS: dict[str, dict[str, str | bool]] = {
     "OWNER": {"justify": "left", "header_style": "bold", "style": "bold", "no_wrap": True},
     "BATCH_NAME": {"justify": "center", "header_style": "magenta", "style": "magenta", "no_wrap": True},
     "SUBMITTED": {
@@ -55,7 +62,7 @@ TASK_COLUMNS_SETTINGS = {
     "JOB_IDS": {"justify": "right", "no_wrap": True},
 }
 
-CLUSTER_COLUMNS_SETTINGS = {
+CLUSTER_COLUMNS_SETTINGS: dict[str, dict[str, str | bool]] = {
     "SOURCE": {"justify": "left", "header_style": "bold", "style": "bold", "no_wrap": True},
     "JOBS": {"justify": "right", "header_style": "bold", "style": "bold", "no_wrap": True},
     "COMPLETED": {"justify": "right", "header_style": "bold green3", "style": "bold green3", "no_wrap": True},
@@ -70,6 +77,32 @@ CLUSTER_COLUMNS_SETTINGS = {
     "SUSPENDED": {"justify": "right", "header_style": "bold slate_blue1", "style": "bold slate_blue1", "no_wrap": True},
     "REMOVED": {"justify": "right", "header_style": "bold red3", "style": "bold red3", "no_wrap": True},
 }
+
+# ----- Exceptions ----- #
+
+
+class SchedulerInformationParseError(ValueError):
+    """Raised when scheduler information line cannot be parsed properly."""
+
+    def __init__(self, line: str) -> None:
+        errmsg = f"Could not extract scheduler information from HTCondor output: {line!r}"
+        super().__init__(errmsg)
+
+
+class ClusterSummaryParseError(ValueError):
+    """Raised when cluster summary line cannot be parsed properly."""
+
+    def __init__(self, line: str) -> None:
+        errmsg = f"Could not extract cluster summary information from HTCondor output: {line!r}"
+        super().__init__(errmsg)
+
+
+class CondorQError(ChildProcessError):
+    """Raised when executing the 'condor_q' command fails."""
+
+    def __init__(self) -> None:
+        errmsg = "Checking htcondor status (condor_q) failed"
+        super().__init__(errmsg)
 
 
 # ----- HTCondor Querying / Processing ----- #
@@ -88,6 +121,11 @@ def query_condor_q() -> str:
     str
         The utf-8 decoded string returned by the
         ``condor_q`` command.
+
+    Raises
+    ------
+    CondorQError
+        If the ``condor_q`` command fails for any reason.
     """
     return_code, raw_result = CommandLine.run("condor_q")
     condor_status = raw_result.decode().strip()
@@ -95,8 +133,7 @@ def query_condor_q() -> str:
         return condor_status
 
     # An issue occured, let's raise
-    msg = "Checking htcondor status failed"
-    raise ChildProcessError(msg)
+    raise CondorQError()
 
 
 def read_condor_q(report: str) -> tuple[list[HTCTaskSummary], ClusterSummary]:
@@ -146,13 +183,17 @@ def read_condor_q(report: str) -> tuple[list[HTCTaskSummary], ClusterSummary]:
                 next_line_is_task_report = False
 
         else:  # extract cluster information, only 3 lines here
-            querying_owner = tasks[0].owner if tasks else r"(\D+)"
+            # Try to see if we get the owner from the tasks
+            querying_owner: str | None = tasks[0].owner if tasks else None
             if "query" in line:  # first line
-                query_summary = _process_cluster_summary_line(line, "query")
+                query_summary: BaseSummary = _process_cluster_summary_line(line, "query")
             elif "all users" in line:  # last line
-                full_summary = _process_cluster_summary_line(line, "all users")
-            elif line not in ("\n", ""):  # user line, whoever the user is
-                owner_summary = _process_cluster_summary_line(line, querying_owner)
+                full_summary: BaseSummary = _process_cluster_summary_line(line, "all users")
+            elif line not in ("\n", ""):  # user line, whoever the user is (e.g. me, fesoubel)
+                # If there were no tasks, we provide None and let the function default to
+                # a wildcard in the regex which will match anything up to the colon
+                owner_summary: BaseSummary = _process_cluster_summary_line(line, querying_owner)
+
     cluster_summary = ClusterSummary(
         scheduler_id=scheduler_id, query=query_summary, user=owner_summary, cluster=full_summary
     )
@@ -251,9 +292,19 @@ def _process_scheduler_information_line(line: str) -> str:
     -------
     str
         The scheduler name extracted from the input line.
+
+    Raises
+    ------
+    SchedulerInformationError
+        If the scheduler information could not be extracted
+        from the input line. This typically happens when no
+        jobs are present in the HTCondor queue and condor_q
+        returns empty lines.
     """
-    result = re.search(r"Schedd: (.*).cern.ch", line)
-    return result.group(1)
+    match: re.Match[str] | None = _SCHEDD_RE.search(line)
+    if match is None:
+        raise SchedulerInformationParseError(line)
+    return match["cluster"]
 
 
 def _process_task_summary_line(line: str) -> HTCTaskSummary:
@@ -275,14 +326,14 @@ def _process_task_summary_line(line: str) -> HTCTaskSummary:
     line_elements = line.split()
     return HTCTaskSummary(
         owner=line_elements[0],
-        batch_name=line_elements[2],  # line_elements[1] is the 'ID:' part, we don't need it
+        batch_name=int(line_elements[2]),  # line_elements[1] is the 'ID:' part, we don't need it
         submitted=pendulum.from_format(
             f"{line_elements[3]} {line_elements[4]}", fmt="MM/D HH:mm", tz="Europe/Paris"
         ),  # Geneva timezone is Paris timezone,
         done=line_elements[5],
         run=line_elements[6],
         idle=line_elements[7],
-        total=line_elements[8],
+        total=int(line_elements[8]),
         job_ids=line_elements[9],
     )
 
@@ -294,11 +345,20 @@ def _process_cluster_summary_line(line: str, query: str | None = None) -> BaseSu
 
     Note
     ----
-        Beware if no jobs are running we can't have taken the
-        ``querying_owner`` info from tasks summaries, so we need
-        to match a wildcard word by giving querying_owner=(\D+).
-        This would add a match to the regex search, and we need
-        to look one match further for the wanted information.
+        A typical block to parse lines from looks like this:
+
+        .. code-block:: bash
+
+            Total for query: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
+            Total for fesoubel: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
+            Total for all users: 7279 jobs; 1 completed, 1 removed, 3351 idle, 3724 running, 202 held, 0 suspended
+
+        Beware that if no jobs are running for the querying user (calling
+        'condor_q') the calling function (read_condor_q) will not have been
+        able to determine the `owner` info from the tasks summaries. In this
+        case, the line for the user (i.e. fesoubel in the example above) will
+        need to be parsed with a wildcard instead of the actual user name. For
+        this we use r"[^:]+" which will match anything up to the colon.
 
     Parameters
     ----------
@@ -313,20 +373,24 @@ def _process_cluster_summary_line(line: str, query: str | None = None) -> BaseSu
         The cluster summary information as a validated
         `~.models.htc.BaseSummary` object.
     """
-    result = re.search(
-        rf"Total for {query}: (\d+) jobs; (\d+) completed, "
-        r"(\d+) removed, (\d+) idle, (\d+) running, (\d+) held, (\d+) suspended",
-        line,
-    )
-    first_interesting_match_index = 1 if query != r"(\D+)" else 2
+    # We prepare the regex pattern with the proper query - if no query is given
+    # by caller (i.e. read_condor_q), we use a wildcard (see docstring note)
+    query_pattern: str = re.escape(query) if query is not None else r"[^:]+"
+    pattern: re.Pattern[str] = re.compile(_CLUSTER_SUMMARY_RE_TEMPLATE.format(query=query_pattern))
+
+    # Parse and search the line, exit early if no match
+    match: re.Match[str] | None = pattern.search(line)
+    if match is None:
+        raise ClusterSummaryParseError(line)
+
     return BaseSummary(
-        jobs=result.group(first_interesting_match_index),
-        completed=result.group(first_interesting_match_index + 1),
-        removed=result.group(first_interesting_match_index + 2),
-        idle=result.group(first_interesting_match_index + 3),
-        running=result.group(first_interesting_match_index + 4),
-        held=result.group(first_interesting_match_index + 5),
-        suspended=result.group(first_interesting_match_index + 6),
+        jobs=int(match["jobs"]),
+        completed=int(match["completed"]),
+        removed=int(match["removed"]),
+        idle=int(match["idle"]),
+        running=int(match["running"]),
+        held=int(match["held"]),
+        suspended=int(match["suspended"]),
     )
 
 
@@ -343,7 +407,7 @@ def _default_tasks_table() -> Table:
     """
     table = Table(width=120, box=box.SIMPLE_HEAVY)
     for header, header_col_settings in TASK_COLUMNS_SETTINGS.items():
-        table.add_column(header, **header_col_settings)
+        table.add_column(header, **header_col_settings)  # ty:ignore[invalid-argument-type]
     return table
 
 
@@ -360,62 +424,5 @@ def _default_cluster_table() -> Table:
     """
     table = Table(width=120, box=box.HORIZONTALS)
     for header, header_col_settings in CLUSTER_COLUMNS_SETTINGS.items():
-        table.add_column(header, **header_col_settings)
+        table.add_column(header, **header_col_settings)  # ty:ignore[invalid-argument-type]
     return table
-
-
-# ----- Executable ----- #
-
-
-@logger.catch()
-def main():
-    def generate_renderable() -> Group:
-        """
-        .. versionadded:: 0.9.0
-
-        Function called to update the live display,
-        fetches data from htcondor, does the processing
-        and returns a Group with both Panels.
-
-        Returns
-        -------
-        rich.console.Group
-            A `rich.console.Group` object with two
-            `rich.panel.Panel` objects inside, one
-            holding the tasks table and the other
-            holding the cluster information.
-        """
-        condor_string = query_condor_q()
-        user_tasks, cluster_info = read_condor_q(condor_string)
-        owner = user_tasks[0].owner if user_tasks else "User"
-
-        tasks_table = _make_tasks_table(user_tasks)
-        cluster_table = _make_cluster_table(owner, cluster_info)
-        return Group(
-            Panel(
-                tasks_table,
-                title=f"Scheduler: {cluster_info.scheduler_id}.cern.ch",
-                expand=False,
-                border_style="scope.border",
-            ),
-            Panel(
-                cluster_table,
-                title=f"{cluster_info.scheduler_id} Statistics",
-                expand=False,
-                border_style="scope.border",
-            ),
-        )
-
-    with Live(generate_renderable(), refresh_per_second=0.25) as live:
-        live.console.log("Querying HTCondor Queue - Refreshed Every 5 Minutes\n")
-        while True:
-            try:
-                live.update(generate_renderable())
-                time.sleep(300)
-            except KeyboardInterrupt:
-                live.console.log("Exiting Program")
-                break
-
-
-if __name__ == "__main__":
-    main()

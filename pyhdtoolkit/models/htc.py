@@ -8,7 +8,12 @@ Module with ``pydantic`` models to validate and store
 data obtained by querying the ``HTCondor`` queue.
 """
 
-from pendulum import DateTime
+from __future__ import annotations
+
+# Do not move DateTime import into a TYPE_CHECKING block, since
+# we need it defined to rebuild the pydantic model for validation
+# (this is required when using from __future__ import annotations)
+from pendulum import DateTime  # noqa: TC002
 from pydantic import BaseModel, ConfigDict
 
 
@@ -55,10 +60,15 @@ class HTCTaskSummary(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     owner: str
-    batch_name: int
+    batch_name: int  # only keep the part after 'ID:'
     submitted: DateTime
-    done: int | str
-    run: int | str
-    idle: int | str
+    done: int | str  # can be "-" if jobs in other state
+    run: int | str  # can be "-" if jobs in other state
+    idle: int | str  # can be "-" if jobs in other state
     total: int
     job_ids: str
+
+
+# This is necessary to make pydantic recognize the DateTime type
+# from pendulum when using from __future__ import annotations
+HTCTaskSummary.model_rebuild()

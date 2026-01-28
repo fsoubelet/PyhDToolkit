@@ -17,6 +17,8 @@ exclude = [
 [tool.hatch.build.targets.wheel]
 packages = ["pyhdtoolkit"]
 
+# ----- Project Metadata ----- #
+
 [project]
 name = "pyhdtoolkit"
 readme = "README.md"
@@ -26,7 +28,7 @@ authors = [
 ]
 license = "MIT"
 dynamic = ["version"]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 
 keywords = [
   "PHD",
@@ -42,11 +44,10 @@ classifiers = [
     "Natural Language :: English",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Programming Language :: Python :: Implementation :: CPython",
     "Topic :: Scientific/Engineering",
     "Topic :: Scientific/Engineering :: Physics",
@@ -55,25 +56,32 @@ classifiers = [
 ]
 
 dependencies = [
+  # -- Core scientific -- #
   "numpy >= 2.0",
   "pandas >= 2.0",
   "matplotlib >=3.7",
   "scipy >= 1.10",
-  "tfs-pandas >= 3.8",
-  "loguru < 1.0",
+  # -- Domain specific -- #
   "cpymad >= 1.16",
-  "rich >= 13.0",
-  "pydantic >= 2.0",
-  "pendulum >= 3.0",
+  "tfs-pandas >= 3.8",
   "optics-functions >= 0.1",
+  # -- Utilities -- #
+  "loguru < 1.0",
+  "pydantic >= 2.0",
 ]
 
 [project.optional-dependencies]
+monitor = [
+  "typer > 0.20",
+  "rich >= 13.0",
+  "pendulum >= 3.0",
+]
 test = [
+  "pyhdtoolkit[monitor]",  # htc stuff is tested
   "pytest >= 8.0",
   "pytest-cov >= 6.0",
   "pytest-xdist >= 3.0",
-  "numba >= 0.60.0",
+  "numba >= 0.60.0",  # for @maybe_jit
   "flaky >= 3.5",
   "pytest-randomly >= 3.10",
   "coverage[toml] >= 7.0",
@@ -99,7 +107,11 @@ all = [
   "pyhdtoolkit[dev]",
   "pyhdtoolkit[docs]",
   "pyhdtoolkit[test]",
+  "pyhdtoolkit[monitor]",
 ]
+
+[project.scripts]
+htc-monitor = "pyhdtoolkit.scripts.htc_monitor:app"
 
 [project.urls]
 homepage = "https://github.com/fsoubelet/PyhDToolkit"
@@ -125,7 +137,8 @@ source = ["pyhdtoolkit/"]
 ignore_errors = true
 omit = [
   "pyhdtoolkit/cpymadtools/setup.py",
-  "pyhdtoolkit/utils/htc_monitor.py",
+  "pyhdtoolkit/utils/htcondor.py",
+  "pyhdtoolkit/scripts/htc_monitor.py",
 ]
 exclude_also = [
   "if TYPE_CHECKING:",  # do not count if TYPE_CHECKING block imports (ignored at runtime) for coverage
@@ -134,41 +147,6 @@ exclude_also = [
 precision = 2
 
 # ----- Dev Tools Configuration ----- #
-
-[tool.isort]
-atomic = true
-ensure_newline_before_comments = true
-filter_files = true
-force_grid_wrap = 0
-force_single_line = false
-include_trailing_comma = true
-known_first_party = "pyhdtoolkit"
-known_third_party = "pytest"
-line_length = 110
-lines_between_types = 1
-multi_line_output = 3
-use_parentheses = true
-profile = "black"
-
-[tool.black]
-line-length = 120
-include = '\.pyi?$'
-exclude = '''
-/(
-    \.eggs
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-  | tests/.*/setup.py
-  | acc-models-lhc
-)/
-'''
 
 [tool.ruff]
 target-version = "py311"  # Assume Python 3.11+.

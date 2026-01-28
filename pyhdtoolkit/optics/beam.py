@@ -8,6 +8,8 @@ Module implementing various functionality for
 simple beam parameter calculations.
 """
 
+from __future__ import annotations
+
 import numpy as np
 from scipy import constants
 

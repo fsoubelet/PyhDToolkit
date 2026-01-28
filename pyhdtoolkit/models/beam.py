@@ -8,6 +8,8 @@ Module with ``pydantic`` models to validate and store
 data structures relative to particle beams.
 """
 
+from __future__ import annotations
+
 from math import sqrt
 
 from pydantic import BaseModel
