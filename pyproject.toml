@@ -122,7 +122,7 @@ changelog = "https://fsoubelet.github.io/PyhDToolkit/release.html"
 # ----- Some uv Specifics ----- #
 
 [tool.uv]
-no-build = true  # don't allow arbitrary python code by default
+# no-build = true  # don't allow arbitrary python code by default
 exclude-newer = "10 days"  # dependency cooldown, since the world is mad
 
 [tool.uv.pip]
