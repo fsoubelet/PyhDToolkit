@@ -636,14 +636,15 @@ def setup_lhc_orbit(madx: Madx, /, scheme: str = "flat", **kwargs) -> dict[str, 
     for orbit_variable in variables:
         variable_value = kwargs.get(orbit_variable, scheme_dict.get(orbit_variable, 0))
         logger.trace(f"Setting orbit variable '{orbit_variable}' to {variable_value}")
-        # Sets value in MAD-X globals & returned dict, taken from scheme dict or kwargs if provided
-        madx.globals[orbit_variable] = final_scheme[orbit_variable] = variable_value
+        final_scheme[orbit_variable] = variable_value
 
     for special_variable, copy_from in special.items():
-        special_variable_value = kwargs.get(special_variable, madx.globals[copy_from])
+        special_variable_value = kwargs.get(special_variable, final_scheme.get(copy_from, madx.globals[copy_from]))
         logger.trace(f"Setting special orbit variable '{special_variable}' to {special_variable_value}")
-        # Sets value in MAD-X globals & returned dict, taken from a given global or kwargs if provided
-        madx.globals[special_variable] = final_scheme[special_variable] = special_variable_value
+        final_scheme[special_variable] = special_variable_value
+
+    with madx.batch():
+        madx.globals.update(final_scheme)
 
     return final_scheme
 
