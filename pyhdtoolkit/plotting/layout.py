@@ -26,7 +26,7 @@ from pyhdtoolkit.plotting.utils import (
 if TYPE_CHECKING:
     from cpymad.madx import Madx
     from matplotlib.axes import Axes
-    from pandas import DataFrame
+    from pandas import DataFrame, Series
 
 
 def plot_machine_layout(  # noqa: PLR0912 (function branches justified)
@@ -287,7 +287,7 @@ def plot_machine_layout(  # noqa: PLR0912 (function branches justified)
         plotted_elements = 0
         for octupole_name, octupole in octupoles_df.iterrows():
             logger.trace(f"Plotting octupole element '{octupole_name}'")
-            element_k = octupole.k3l if octupole.k3l else octupole.k3sl  # can be skew octupole
+            element_k = octupole.k3l or octupole.k3sl  # can be skew octupole
             _plot_lattice_series(
                 octupoles_patches_axis,
                 octupole,
@@ -378,7 +378,7 @@ def scale_patches(scale: float, ylabel: str, **kwargs) -> None:
 
 def _plot_lattice_series(
     ax: Axes,
-    series: DataFrame,
+    series: DataFrame | Series,
     height: float = 1.0,
     v_offset: float = 0.0,
     color: str = "r",
@@ -397,7 +397,7 @@ def _plot_lattice_series(
     ax : matplotlib.axes.Axes
         An existing `~matplotlib.axes.Axes` object to draw on.
     series : pd.DataFrame
-        A `pandas.DataFrame` with the elements' data.
+        A `pandas.DataFrame` or `pandas.Series` with the elements' data.
     height : float
         Value to reach for the patch on the y axis. Defaults to 1.
     v_offset : float
