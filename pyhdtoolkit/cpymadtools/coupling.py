@@ -168,7 +168,7 @@ def get_closest_tune_approach(
 def get_cminus_from_coupling_rdts(
     madx: Madx,
     /,
-    patterns: Sequence[str] = [""],
+    patterns: Sequence[str] = ("",),
     method: str = "teapot",
     qx: float | None = None,
     qy: float | None = None,
