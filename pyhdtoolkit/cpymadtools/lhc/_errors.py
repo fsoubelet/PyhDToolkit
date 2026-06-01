@@ -205,7 +205,7 @@ def misalign_lhc_ir_quadrupoles(
                         madx.select(flag="error", pattern=quad_pattern.format(side=side, ip=ip, beam=beam))
     madx.command.ealign(**kwargs)
 
-    table = table if table else "etable"  # guarantee etable command won't fail if someone gives `table=None`
+    table = table or "etable"  # guarantee etable command won't fail if someone gives `table=None`
     logger.debug(f"Saving assigned errors in internal table '{table}'")
     madx.command.etable(table=table)
 

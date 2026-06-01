@@ -487,8 +487,8 @@ def ptc_track_particle(
             )
     """
     logger.debug("Performing single particle PTC (thick) tracking")
-    start = initial_coordinates if initial_coordinates else [0, 0, 0, 0, 0, 0]
-    observation_points = observation_points if observation_points else []
+    start = initial_coordinates or [0, 0, 0, 0, 0, 0]
+    observation_points = observation_points or []
 
     logger.debug("Looking for PTC universe parameters in keyword arguments")
     model = kwargs.pop("model", 3)
