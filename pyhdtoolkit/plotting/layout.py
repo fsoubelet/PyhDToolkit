@@ -351,7 +351,7 @@ def plot_machine_layout(  # noqa: PLR0912 (function branches justified)
             plotted_elements += 1
         logger.debug(f"Plotted {plotted_elements} BPMs")
         logger.trace("Determining BPM legend location")
-        if bpms_legend is True:
+        if bpms_legend:
             if k2l_lim is not None and k3l_lim is not None:
                 bpm_legend_loc = 8  # all corners are taken, we go bottom center
             elif k2l_lim is not None:

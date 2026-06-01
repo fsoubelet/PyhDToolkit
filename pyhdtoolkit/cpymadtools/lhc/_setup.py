@@ -407,7 +407,7 @@ def make_lhc_beams(
     sigma_e = kwargs.pop("sige", 4.5e-4)  # keep default, let user override
 
     for beam in (1, 2):
-        bv = 1 if beam == 1 or b4 is True else -1
+        bv = 1 if beam == 1 or b4 else -1
         logger.debug(f"Defining beam for sequence 'lhcb{beam:d}'")
         madx.command.beam(
             sequence=f"lhcb{beam:d}",

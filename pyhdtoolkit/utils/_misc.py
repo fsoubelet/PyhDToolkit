@@ -99,7 +99,7 @@ def split_complex_columns(df: pd.DataFrame, drop: bool = False) -> pd.DataFrame:
     for column in complex_columns:
         res[f"{column}_REAL"] = np.real(res[column])
         res[f"{column}_IMAG"] = np.imag(res[column])
-    if drop is True:
+    if drop:
         res = res.drop(columns=complex_columns)
     return res
 
