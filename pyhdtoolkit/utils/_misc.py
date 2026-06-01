@@ -145,15 +145,16 @@ def add_noise_to_ir_bpms(
     """
     result = df.copy()
     selected_bpms = LHC_IR_BPM_REGEX.format(max_index=max_index)
-    columns = columns or result.columns
+    columns = columns or result.columns  # ty:ignore[invalid-assignment]
 
     logger.debug(f"Adding noise to IR BPMs up to index {max_index} (included), with standard deviation {stdev}")
-    array_length: int = len(result[result.index.str.match(selected_bpms, case=False)])
+    mask = result.index.str.match(selected_bpms, case=False)
+    array_length: int = mask.sum()
     logger.trace(f"Number of affected BPMs: {array_length}")
 
-    for column in columns:
+    for column in columns:  # ty:ignore[not-iterable]
         logger.trace(f"Adding noise to column {column}")
-        result.loc[result.index.str.match(selected_bpms, case=False), column] += RNG.normal(0, stdev, array_length)
+        result.loc[mask, column] += RNG.normal(0, stdev, array_length)
     return result
 
 
@@ -208,12 +209,13 @@ def add_noise_to_arc_bpms(
     columns = columns or result.columns
 
     logger.debug(f"Adding noise to arc BPMs from index {min_index} (included), with standard deviation {stdev}")
-    array_length: int = len(result[~result.index.str.match(ir_bpms, case=False)])  # exclusive selection
+    mask = ~result.index.str.match(ir_bpms, case=False)  # exclusive selection
+    array_length: int = mask.sum()
     logger.trace(f"Number of affected BPMs: {array_length}")
 
     for column in columns:
         logger.trace(f"Adding noise to column {column}")
-        result.loc[~result.index.str.match(ir_bpms, case=False), column] += RNG.normal(0, stdev, array_length)
+        result.loc[mask, column] += RNG.normal(0, stdev, array_length)
     return result
 
 
