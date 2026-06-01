@@ -200,11 +200,13 @@ def plot_machine_layout(  # noqa: PLR0912 (function branches justified)
         plotted_elements = 0  # will help us not declare a label for legend at every patch
         for dipole in dipoles_df.itertuples():
             logger.trace(
-                f"Plotting dipole element '{dipole.Index}'"
-            )  # .Index is the name  # ty:ignore[unresolved-attribute]
+                f"Plotting dipole element '{dipole.Index}'"  # .Index is the name  # ty:ignore[unresolved-attribute]
+            )
             bend_value = (
-                dipole.k0l if dipole.k0l != 0 else dipole.angle
-            )  # check for each element  # ty:ignore[unresolved-attribute]
+                dipole.k0l
+                if dipole.k0l != 0
+                else dipole.angle  # check for each element  # ty:ignore[unresolved-attribute]
+            )
             _plot_lattice_series(
                 dipole_patches_axis,
                 dipole,  # ty:ignore[invalid-argument-type]
@@ -217,8 +219,8 @@ def plot_machine_layout(  # noqa: PLR0912 (function branches justified)
             # Plot dipole quadrupolar gradient (with reduced alpha)
             if dipole.k1l != 0 and plot_dipole_k1:  # ty:ignore[unresolved-attribute]
                 logger.trace(
-                    f"Plotting quadrupolar gradient of dipole element '{dipole.Index}'"
-                )  # .Index is the name  # ty:ignore[unresolved-attribute]
+                    f"Plotting quadrupolar gradient of dipole element '{dipole.Index}'"  # .Index is the name  # ty:ignore[unresolved-attribute]
+                )
                 _plot_lattice_series(
                     axis,
                     dipole,  # ty:ignore[invalid-argument-type]
@@ -237,11 +239,13 @@ def plot_machine_layout(  # noqa: PLR0912 (function branches justified)
         plotted_elements = 0
         for quadrupole in quadrupoles_df.itertuples():
             logger.trace(
-                f"Plotting quadrupole element '{quadrupole.Index}'"
-            )  # .Index is the name  # ty:ignore[unresolved-attribute]
+                f"Plotting quadrupole element '{quadrupole.Index}'"  # .Index is the name  # ty:ignore[unresolved-attribute]
+            )
             element_k = (
-                quadrupole.k1l if quadrupole.k1l != 0 else quadrupole.k1sl
-            )  # can be skew quadrupole  # ty:ignore[unresolved-attribute]
+                quadrupole.k1l
+                if quadrupole.k1l != 0
+                else quadrupole.k1sl  # can be skew quadrupole  # ty:ignore[unresolved-attribute]
+            )
             _plot_lattice_series(
                 axis,
                 quadrupole,  # ty:ignore[invalid-argument-type]
@@ -249,8 +253,8 @@ def plot_machine_layout(  # noqa: PLR0912 (function branches justified)
                 v_offset=element_k / 2,
                 color="r",
                 hatch=None
-                if quadrupole.k1l != 0
-                else "///",  # hatch skew quadrupoles  # ty:ignore[unresolved-attribute]
+                if quadrupole.k1l != 0  # ty:ignore[unresolved-attribute]
+                else "///",  # hatch skew quadrupoles
                 label="MQ" if plotted_elements == 0 else None,  # avoid duplicating legend labels
                 **kwargs,
             )
@@ -270,11 +274,13 @@ def plot_machine_layout(  # noqa: PLR0912 (function branches justified)
         plotted_elements = 0
         for sextupole in sextupoles_df.itertuples():
             logger.trace(
-                f"Plotting sextupole element '{sextupole.Index}'"
-            )  # .Index is the name  # ty:ignore[unresolved-attribute]
+                f"Plotting sextupole element '{sextupole.Index}'"  # .Index is the name  # ty:ignore[unresolved-attribute]
+            )
             element_k = (
-                sextupole.k2l if sextupole.k2l != 0 else sextupole.k2sl
-            )  # can be skew sextupole  # ty:ignore[unresolved-attribute]
+                sextupole.k2l
+                if sextupole.k2l != 0
+                else sextupole.k2sl  # can be skew sextupole  # ty:ignore[unresolved-attribute]
+            )
             _plot_lattice_series(
                 sextupoles_patches_axis,
                 sextupole,  # ty:ignore[invalid-argument-type]
@@ -282,8 +288,8 @@ def plot_machine_layout(  # noqa: PLR0912 (function branches justified)
                 v_offset=element_k / 2,
                 color="goldenrod",
                 hatch=None
-                if sextupole.k2l != 0
-                else "\\\\\\",  # hatch skew sextupoles  # ty:ignore[unresolved-attribute]
+                if sextupole.k2l != 0  # ty:ignore[unresolved-attribute]
+                else "\\\\\\",  # hatch skew sextupoles
                 label="MS" if plotted_elements == 0 else None,  # avoid duplicating legend labels
                 **kwargs,
             )
@@ -306,8 +312,8 @@ def plot_machine_layout(  # noqa: PLR0912 (function branches justified)
         plotted_elements = 0
         for octupole in octupoles_df.itertuples():
             logger.trace(
-                f"Plotting octupole element '{octupole.Index}'"
-            )  # .Index is the name  # ty:ignore[unresolved-attribute]
+                f"Plotting octupole element '{octupole.Index}'"  # .Index is the name  # ty:ignore[unresolved-attribute]
+            )
             element_k = octupole.k3l or octupole.k3sl  # can be skew octupole  # ty:ignore[unresolved-attribute]
             _plot_lattice_series(
                 octupoles_patches_axis,
