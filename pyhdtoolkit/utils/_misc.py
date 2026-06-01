@@ -31,14 +31,15 @@ from pyhdtoolkit.cpymadtools import lhc
 from pyhdtoolkit.cpymadtools.constants import LHC_IR_BPM_REGEX
 
 if TYPE_CHECKING:
-    from collections.abc import Callable, Sequence
+    from collections.abc import Sequence
 
     import pandas as pd
+    from numpy.random import Generator
 
 # ----- Constants ----- #
 
 N_CPUS: int = cpu_count()
-RNG: Callable = np.random.default_rng()
+RNG: Generator = np.random.default_rng()
 
 
 def log_runtime_versions() -> None:
@@ -147,7 +148,7 @@ def add_noise_to_ir_bpms(
     columns = columns or result.columns
 
     logger.debug(f"Adding noise to IR BPMs up to index {max_index} (included), with standard deviation {stdev}")
-    array_length = len(result[result.index.str.match(selected_bpms, case=False)])
+    array_length: int = len(result[result.index.str.match(selected_bpms, case=False)])
     logger.trace(f"Number of affected BPMs: {array_length}")
 
     for column in columns:
@@ -207,7 +208,7 @@ def add_noise_to_arc_bpms(
     columns = columns or result.columns
 
     logger.debug(f"Adding noise to arc BPMs from index {min_index} (included), with standard deviation {stdev}")
-    array_length = len(result[~result.index.str.match(ir_bpms, case=False)])  # exclusive selection
+    array_length: int = len(result[~result.index.str.match(ir_bpms, case=False)])  # exclusive selection
     logger.trace(f"Number of affected BPMs: {array_length}")
 
     for column in columns:
