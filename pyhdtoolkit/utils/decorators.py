@@ -10,8 +10,7 @@ Provides useful decorators.
 from __future__ import annotations
 
 import functools
-import inspect
-import traceback
+import sys
 import warnings
 from typing import TYPE_CHECKING, ParamSpec, TypeVar
 
@@ -53,11 +52,12 @@ def deprecated(message: str = "") -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
 
     def decorator_wrapper(func: Callable[P, R]) -> Callable[P, R]:
-        last_call_sources: set[str] = set()
+        last_call_sources: set[tuple[str, int]] = set()
 
         @functools.wraps(func)
         def function_wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
-            current_call_source = "|".join(traceback.format_stack(inspect.currentframe()))
+            frame = sys._getframe(1)
+            current_call_source = (frame.f_code.co_filename, frame.f_lineno)
 
             if current_call_source not in last_call_sources:
                 warnings.warn(
