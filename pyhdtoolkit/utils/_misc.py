@@ -206,14 +206,14 @@ def add_noise_to_arc_bpms(
     """
     result = df.copy()
     ir_bpms = LHC_IR_BPM_REGEX.format(max_index=min(1, min_index - 1))  # so that provided min_index is included
-    columns = columns or result.columns
+    columns = columns or result.columns  # ty:ignore[invalid-assignment]
 
     logger.debug(f"Adding noise to arc BPMs from index {min_index} (included), with standard deviation {stdev}")
     mask = ~result.index.str.match(ir_bpms, case=False)  # exclusive selection
     array_length: int = mask.sum()
     logger.trace(f"Number of affected BPMs: {array_length}")
 
-    for column in columns:
+    for column in columns:  # ty:ignore[not-iterable]
         logger.trace(f"Adding noise to column {column}")
         result.loc[mask, column] += RNG.normal(0, stdev, array_length)
     return result
