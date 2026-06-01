@@ -30,7 +30,7 @@ jobs:
         run: sudo apt-get install -y optipng dvipng cm-super
 
       - name: Install uv and Python ${{ env.python-version }}
-        uses: astral-sh/setup-uv@v8
+        uses: astral-sh/setup-uv@v8.1.0
         with:
           python-version: ${{ env.python-version }}
           enable-cache: true
