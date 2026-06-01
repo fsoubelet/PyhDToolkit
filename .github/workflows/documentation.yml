@@ -15,10 +15,10 @@ jobs:
   documentation:
     runs-on: ubuntu-latest
     env:
-        python-version: "3.13"
+        python-version: "3.14"
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Update apt
         run: sudo apt-get update
@@ -30,7 +30,7 @@ jobs:
         run: sudo apt-get install -y optipng dvipng cm-super
 
       - name: Install uv and Python ${{ env.python-version }}
-        uses: astral-sh/setup-uv@v6
+        uses: astral-sh/setup-uv@v8
         with:
           python-version: ${{ env.python-version }}
           enable-cache: true
@@ -52,7 +52,7 @@ jobs:
 
       # Upload artifacts if in PR so reviewers can have a quick look without building documentation from the branch locally
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: success() && github.event_name == 'pull_request'  # only for pushes in PR
         with:
           name: site-build

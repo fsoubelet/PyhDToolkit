@@ -13,14 +13,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-        python-version: "3.13"
+        python-version: "3.14"
 
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install uv and Python ${{ env.python-version }}
-        uses: astral-sh/setup-uv@v6
+        uses: astral-sh/setup-uv@v8
         with:
           python-version: ${{ env.python-version }}
           enable-cache: true
