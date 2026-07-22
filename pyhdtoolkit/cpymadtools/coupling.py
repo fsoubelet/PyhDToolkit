@@ -168,7 +168,7 @@ def get_closest_tune_approach(
 def get_cminus_from_coupling_rdts(
     madx: Madx,
     /,
-    patterns: Sequence[str] = [""],
+    patterns: Sequence[str] = ("",),
     method: str = "teapot",
     qx: float | None = None,
     qy: float | None = None,
@@ -397,10 +397,11 @@ def _filter_outlier_bpms_from_coupling_rdts(twiss_df: TfsDataFrame, stdev: float
         The `~tfs.TfsDataFrame` with the filtered BPMs.
     """
     logger.debug("Filtering out outlier BPMs based on coupling RDTs")
-    twiss_df = twiss_df.copy(deep=True)
+    twiss_df: TfsDataFrame = twiss_df.copy(deep=True)
+    original_len: int = len(twiss_df)
     twiss_df = twiss_df[np.abs(stats.zscore(twiss_df.F1001.abs())) < stdev]
     twiss_df = twiss_df[np.abs(stats.zscore(twiss_df.F1010.abs())) < stdev]
-    removed = len(twiss_df) - len(twiss_df)
+    removed: int = original_len - len(twiss_df)
     if removed > 0:
         logger.debug(f"{removed} BPMs removed due to outlier coupling RDTs")
     return twiss_df

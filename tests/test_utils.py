@@ -1,3 +1,4 @@
+import errno
 import os
 import pathlib
 import pickle
@@ -5,6 +6,7 @@ import random
 import subprocess
 import sys
 import time
+import unittest.mock
 from collections.abc import Iterator
 
 import numpy as np
@@ -47,6 +49,19 @@ class TestCommandLine:
         assert CommandLine.check_pid_exists(int(1e6)) is False  # default max PID is 32768 on linux, 99999 on macOS
         with pytest.raises(TypeError):
             CommandLine.check_pid_exists("not_an_integer")  # ty:ignore[invalid-argument-type]
+
+    def test_check_pid_permission_denied(self):
+        assert CommandLine.check_pid_exists(1) is True
+
+    def test_check_pid_unexpected_oserror(self):
+        # os.kill documents only ESRCH (no such process) and EPERM (permission denied).
+        # Force an EINVAL to exercise the fallback branch that logs and re-raises
+        # unexpected OSError errnos (lines 76-78 in cmdline.py).
+        with (
+            unittest.mock.patch("os.kill", side_effect=OSError(errno.EINVAL, "Invalid argument")),
+            pytest.raises(OSError, match="Invalid argument"),
+        ):
+            CommandLine.check_pid_exists(42)
 
     def test_run_cmd(self):
         assert isinstance(CommandLine.run("echo hello"), tuple)
@@ -260,7 +275,7 @@ def _correct_cluster_summary() -> Iterator[ClusterSummary]:
 def _complex_columns_df() -> pd.DataFrame:
     rng = np.random.default_rng()
     array = rng.random(size=(50, 5)) + 1j * rng.random(size=(50, 5))
-    return pd.DataFrame(data=array, columns=["A", "B", "C", "D", "E"])  # ty:ignore[invalid-argument-type]
+    return pd.DataFrame(data=array, columns=["A", "B", "C", "D", "E"])
 
 
 @pytest.fixture

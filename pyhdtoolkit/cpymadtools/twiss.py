@@ -21,6 +21,7 @@ if TYPE_CHECKING:
     from collections.abc import Sequence
 
     from cpymad.madx import Madx
+    from tfs import TfsDataFrame
 
 
 # ----- Utlites ----- #
@@ -110,7 +111,7 @@ def get_pattern_twiss(
     logger.trace("Extracting relevant parts of the TWISS table")
     twiss_df = tfs.TfsDataFrame(madx.table.twiss.dframe())
     twiss_df.headers = {var.upper(): madx.table.summ[var][0] for var in madx.table.summ}
-    twiss_df = twiss_df[madx.table.twiss.selected_columns()].iloc[madx.table.twiss.selected_rows()]
+    twiss_df: TfsDataFrame = twiss_df[madx.table.twiss.selected_columns()].iloc[madx.table.twiss.selected_rows()]
 
     logger.trace("Clearing 'TWISS' flag")
     madx.select(flag="twiss", clear=True)
@@ -153,9 +154,9 @@ def get_twiss_tfs(madx: Madx, /, **kwargs) -> tfs.TfsDataFrame:
 
     logger.debug("Exporting internal TWISS and SUMM tables to TfsDataFrame")
     twiss_tfs = tfs.TfsDataFrame(madx.table.twiss.dframe())
-    twiss_tfs.name = twiss_tfs.name.apply(lambda x: x[:-2])  # remove :1 from names
+    twiss_tfs.name = twiss_tfs.name.str[:-2]  # remove :1 from names
     twiss_tfs.columns = twiss_tfs.columns.str.upper()
-    twiss_tfs = twiss_tfs.set_index("NAME")
+    twiss_tfs: TfsDataFrame = twiss_tfs.set_index("NAME")  # ty:ignore[invalid-assignment]
     twiss_tfs.index = twiss_tfs.index.str.upper()
     twiss_tfs.headers = {var.upper(): madx.table.summ[var][0] for var in madx.table.summ}
     return twiss_tfs

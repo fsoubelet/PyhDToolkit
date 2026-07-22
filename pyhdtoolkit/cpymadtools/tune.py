@@ -178,7 +178,7 @@ def get_footprint_lines(dynap_dframe: tfs.TfsDataFrame) -> tuple[np.ndarray, np.
     angle = dynap_dframe.headers["ANGLE"]
     dsigma = dynap_dframe.headers["DSIGMA"]
 
-    tune_groups = _make_tune_groups(dynap_string_rep=_get_dynap_string_rep(dynap_dframe), dsigma=dsigma)
+    tune_groups = _make_tune_groups(dynap_dframe)
     footprint = _Footprint(tune_groups, amplitude, angle, dsigma)
     qxs, qys = footprint.get_plottable()
     return np.array(qxs, dtype=float), np.array(qys, dtype=float)
@@ -265,54 +265,15 @@ def get_footprint_patches(dynap_dframe: tfs.TfsDataFrame) -> matplotlib.collecti
 # ----- Arcane Private Utilities ----- #
 
 
-def _get_dynap_string_rep(dynap_dframe: tfs.TfsDataFrame) -> str:
+def _make_tune_groups(dynap_dframe: tfs.TfsDataFrame) -> list[list[dict[str, float]]]:
     """
-    This is a weird dusty function to get a specific useful string
-    representation from the `~tfs.frame.TfsDataFrame` returned by
-    `~.tune.make_footprint_table`. This specific dataframe contains
-    important information.
+    Creates appropriate tune points groups from the ``DYNAP`` `~tfs.frame.TfsDataFrame`
+    based on starting amplitude and angle for each particle.
 
     Parameters
     ----------
     dynap_dframe : tfs.TfsDataFrame
         The dynap data frame returned by `~.tune.make_footprint_table`.
-
-    Returns
-    -------
-    str
-        A weird string representation gathering tune points split according
-        to the number of angles and amplitudes. This result in internally used
-        in `~.tune.make_footprint_table`.
-    """
-    logger.trace("Retrieving AMPLITUDE and ANGLE data from TfsDataFrame headers")
-    amplitude = dynap_dframe.headers["AMPLITUDE"]
-    angle = dynap_dframe.headers["ANGLE"]
-    string_rep = f"TMPNAME,{amplitude},1,<{dynap_dframe.tunx[0]};{dynap_dframe.tuny[0]}>"
-    for n in range(1, amplitude):
-        string_rep += f",{angle}"
-        for m in range(angle):
-            string_rep += (
-                f",<{dynap_dframe.tunx[1 + (n - 1) * angle + m]};{dynap_dframe.tuny[1 + (n - 1) * angle + m]}>"
-            )
-    return string_rep
-
-
-def _make_tune_groups(dynap_string_rep: str, dsigma: float = 1.0) -> list[list[dict[str, float]]]:  # noqa: ARG001
-    """
-    Creates appropriate tune points groups from the arcane string representation
-    returned by `~.tune._get_dynap_string_rep` based on starting amplitude and
-    angle for each particle.
-
-    Parameters
-    ----------
-    dynap_string_rep : str
-        The weird string representation of the `~tfs.frame.TfsDataFrame` returned by
-        `~.tune.make_footprint_table` and as given by `~.tune._get_dynap_string_rep()`.
-    dsigma : float
-        The increment in amplitude between different starting amplitudes when starting
-        particles for the ``DYNAP`` command in ``MAD-X``. This information is found in
-        the headers of the `~tfs.frame.TfsDataFrame` returned by the
-        `~.tune.make_footprint_table` function.
 
     Returns
     -------
@@ -323,19 +284,21 @@ def _make_tune_groups(dynap_string_rep: str, dsigma: float = 1.0) -> list[list[d
         function is only meant to be used internally by `~.tune.get_footprint_lines`.
     """
     logger.debug("Constructing tune points groups based on starting amplitudes and angles")
+    amplitude = dynap_dframe.headers["AMPLITUDE"]
+    angle = dynap_dframe.headers["ANGLE"]
+    tunx = dynap_dframe["tunx"].to_numpy()
+    tuny = dynap_dframe["tuny"].to_numpy()
+
     tune_groups: list[list[dict[str, float]]] = []
-    items = dynap_string_rep.strip().split(",")
-    amplitude = int(items[1])
-    current = 2
-    for i in np.arange(amplitude):
-        tune_groups.append([])
-        angle = int(items[current])
-        current = current + 1
-        for j in np.arange(angle):
-            tune_groups[i].append([])
-            tune_string = items[current].lstrip("<").rstrip(">").split(";")
-            tune_groups[i][j] = {"H": float(tune_string[0]), "V": float(tune_string[1])}
-            current = current + 1
+    tune_groups.append([{"H": float(tunx[0]), "V": float(tuny[0])}])
+
+    for n in range(1, amplitude):
+        group = []
+        for m in range(angle):
+            idx = 1 + (n - 1) * angle + m
+            group.append({"H": float(tunx[idx]), "V": float(tuny[idx])})
+        tune_groups.append(group)
+
     return tune_groups
 
 
@@ -360,36 +323,36 @@ class _Footprint:
 
     def get_plottable(self) -> tuple[list[float], list[float]]:  # noqa: PLR0912
         qxs, qys = [], []
-        for i in np.arange(0, self._nampl - 1, 2):
-            for j in np.arange(self._maxnangl):
+        for i in range(0, self._nampl - 1, 2):
+            for j in range(self._maxnangl):
                 qxs.append(self.get_h_tune(i, j))
                 qys.append(self.get_v_tune(i, j))
-            for j in np.arange(self._maxnangl - 1, -1, -1):
+            for j in range(self._maxnangl - 1, -1, -1):
                 qxs.append(self.get_h_tune(i + 1, j))
                 qys.append(self.get_v_tune(i + 1, j))
         if self._nampl % 2 == 0:  # pragma: no cover
-            for j in np.arange(0, self._maxnangl - 1, 2):
-                for i in np.arange(self._nampl - 1, -1, -1):
+            for j in range(0, self._maxnangl - 1, 2):
+                for i in range(self._nampl - 1, -1, -1):
                     qxs.append(self.get_h_tune(i, j))
                     qys.append(self.get_v_tune(i, j))
-                for i in np.arange(0, self._nampl, 1):
+                for i in range(0, self._nampl, 1):
                     qxs.append(self.get_h_tune(i, j + 1))
                     qys.append(self.get_v_tune(i, j + 1))
             if self._maxnangl % 2 != 0:  # pragma: no cover
-                for i in np.arange(self._nampl - 1, -1, -1):
+                for i in range(self._nampl - 1, -1, -1):
                     qxs.append(self.get_h_tune(i, self._maxnangl - 1))
                     qys.append(self.get_v_tune(i, self._maxnangl - 1))
                 qxs.append(self.get_h_tune(0, self._maxnangl - 2))
                 qys.append(self.get_v_tune(0, self._maxnangl - 2))
         else:
-            for j in np.arange(self._maxnangl):
+            for j in range(self._maxnangl):
                 qxs.append(self.get_h_tune(self._nampl - 1, j))
                 qys.append(self.get_v_tune(self._nampl - 1, j))
-            for j in np.arange(self._maxnangl - 1, -1, -2):
-                for i in np.arange(self._nampl - 1, -1, -1):
+            for j in range(self._maxnangl - 1, -1, -2):
+                for i in range(self._nampl - 1, -1, -1):
                     qxs.append(self.get_h_tune(i, j))
                     qys.append(self.get_v_tune(i, j))
-                for i in np.arange(0, self._nampl, 1):
+                for i in range(0, self._nampl, 1):
                     qxs.append(self.get_h_tune(i, j - 1))
                     qys.append(self.get_v_tune(i, j - 1))
         return qxs, qys

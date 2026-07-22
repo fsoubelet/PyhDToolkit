@@ -11,12 +11,12 @@ through `cpymad`.
 
 from __future__ import annotations
 
-from enum import Enum
+from enum import StrEnum
 
 from pydantic import BaseModel, PositiveFloat, PositiveInt
 
 
-class ParticleEnum(str, Enum):
+class ParticleEnum(StrEnum):
     """
     .. versionadded:: 0.12.0
 

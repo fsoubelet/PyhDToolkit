@@ -156,7 +156,7 @@ def plot_machine_layout(  # noqa: PLR0912 (function branches justified)
     twiss_df = _get_twiss_table_with_offsets_and_limits(madx, xoffset, xlimits)
 
     logger.trace("Extracting element-specific dataframes")
-    element_dfs = make_elements_groups(madx, xoffset, xlimits)
+    element_dfs = make_elements_groups(madx, xoffset, xlimits, _twiss_df=twiss_df)
     dipoles_df = element_dfs["dipoles"]
     quadrupoles_df = element_dfs["quadrupoles"]
     sextupoles_df = element_dfs["sextupoles"]
@@ -198,25 +198,34 @@ def plot_machine_layout(  # noqa: PLR0912 (function branches justified)
     if plot_dipoles:  # beware 'sbend' and 'rbend' have an 'angle' value and not a 'k0l'
         logger.trace("Plotting dipole patches")
         plotted_elements = 0  # will help us not declare a label for legend at every patch
-        for dipole_name, dipole in dipoles_df.iterrows():
-            logger.trace(f"Plotting dipole element '{dipole_name}'")
-            bend_value = dipole.k0l if dipole.k0l != 0 else dipole.angle  # check for each element
+        for dipole in dipoles_df.itertuples():
+            logger.trace(
+                f"Plotting dipole element '{dipole.Index}'"  # .Index is the name  # ty:ignore[unresolved-attribute]
+            )
+            bend_value = (
+                dipole.k0l
+                if dipole.k0l != 0
+                else dipole.angle  # check for each element  # ty:ignore[unresolved-attribute]
+            )
             _plot_lattice_series(
                 dipole_patches_axis,
-                dipole,
+                dipole,  # ty:ignore[invalid-argument-type]
                 height=bend_value,
                 v_offset=bend_value / 2,
                 color="royalblue",
                 label="MB" if plotted_elements == 0 else None,  # avoid duplicating legend labels
                 **kwargs,
             )
-            if dipole.k1l != 0 and plot_dipole_k1:  # plot dipole quadrupolar gradient (with reduced alpha)
-                logger.trace(f"Plotting quadrupolar gradient of dipole element '{dipole_name}'")
+            # Plot dipole quadrupolar gradient (with reduced alpha)
+            if dipole.k1l != 0 and plot_dipole_k1:  # ty:ignore[unresolved-attribute]
+                logger.trace(
+                    f"Plotting quadrupolar gradient of dipole element '{dipole.Index}'"  # .Index is the name  # ty:ignore[unresolved-attribute]
+                )
                 _plot_lattice_series(
                     axis,
-                    dipole,
-                    height=dipole.k1l,
-                    v_offset=dipole.k1l / 2,
+                    dipole,  # ty:ignore[invalid-argument-type]
+                    height=dipole.k1l,  # ty:ignore[unresolved-attribute]
+                    v_offset=dipole.k1l / 2,  # ty:ignore[unresolved-attribute]
                     color="r",
                     **kwargs,
                 )
@@ -228,16 +237,24 @@ def plot_machine_layout(  # noqa: PLR0912 (function branches justified)
     if plot_quadrupoles:
         logger.trace("Plotting quadrupole patches")
         plotted_elements = 0
-        for quadrupole_name, quadrupole in quadrupoles_df.iterrows():
-            logger.trace(f"Plotting quadrupole element '{quadrupole_name}'")
-            element_k = quadrupole.k1l if quadrupole.k1l != 0 else quadrupole.k1sl  # can be skew quadrupole
+        for quadrupole in quadrupoles_df.itertuples():
+            logger.trace(
+                f"Plotting quadrupole element '{quadrupole.Index}'"  # .Index is the name  # ty:ignore[unresolved-attribute]
+            )
+            element_k = (
+                quadrupole.k1l
+                if quadrupole.k1l != 0
+                else quadrupole.k1sl  # can be skew quadrupole  # ty:ignore[unresolved-attribute]
+            )
             _plot_lattice_series(
                 axis,
-                quadrupole,
+                quadrupole,  # ty:ignore[invalid-argument-type]
                 height=element_k,
                 v_offset=element_k / 2,
                 color="r",
-                hatch=None if quadrupole.k1l != 0 else "///",  # hatch skew quadrupoles
+                hatch=None
+                if quadrupole.k1l != 0  # ty:ignore[unresolved-attribute]
+                else "///",  # hatch skew quadrupoles
                 label="MQ" if plotted_elements == 0 else None,  # avoid duplicating legend labels
                 **kwargs,
             )
@@ -255,16 +272,24 @@ def plot_machine_layout(  # noqa: PLR0912 (function branches justified)
         k2l_lim = _ylim_from_input(k2l_lim, "k2l_lim")
         sextupoles_patches_axis.set_ylim(k2l_lim)
         plotted_elements = 0
-        for sextupole_name, sextupole in sextupoles_df.iterrows():
-            logger.trace(f"Plotting sextupole element '{sextupole_name}'")
-            element_k = sextupole.k2l if sextupole.k2l != 0 else sextupole.k2sl  # can be skew sextupole
+        for sextupole in sextupoles_df.itertuples():
+            logger.trace(
+                f"Plotting sextupole element '{sextupole.Index}'"  # .Index is the name  # ty:ignore[unresolved-attribute]
+            )
+            element_k = (
+                sextupole.k2l
+                if sextupole.k2l != 0
+                else sextupole.k2sl  # can be skew sextupole  # ty:ignore[unresolved-attribute]
+            )
             _plot_lattice_series(
                 sextupoles_patches_axis,
-                sextupole,
+                sextupole,  # ty:ignore[invalid-argument-type]
                 height=element_k,
                 v_offset=element_k / 2,
                 color="goldenrod",
-                hatch=None if sextupole.k2l != 0 else "\\\\\\",  # hatch skew sextupoles
+                hatch=None
+                if sextupole.k2l != 0  # ty:ignore[unresolved-attribute]
+                else "\\\\\\",  # hatch skew sextupoles
                 label="MS" if plotted_elements == 0 else None,  # avoid duplicating legend labels
                 **kwargs,
             )
@@ -285,16 +310,18 @@ def plot_machine_layout(  # noqa: PLR0912 (function branches justified)
         k3l_lim = _ylim_from_input(k3l_lim, "k3l_lim")
         octupoles_patches_axis.set_ylim(k3l_lim)
         plotted_elements = 0
-        for octupole_name, octupole in octupoles_df.iterrows():
-            logger.trace(f"Plotting octupole element '{octupole_name}'")
-            element_k = octupole.k3l or octupole.k3sl  # can be skew octupole
+        for octupole in octupoles_df.itertuples():
+            logger.trace(
+                f"Plotting octupole element '{octupole.Index}'"  # .Index is the name  # ty:ignore[unresolved-attribute]
+            )
+            element_k = octupole.k3l or octupole.k3sl  # can be skew octupole  # ty:ignore[unresolved-attribute]
             _plot_lattice_series(
                 octupoles_patches_axis,
-                octupole,
-                height=octupole.k3l,
-                v_offset=octupole.k3l / 2,
+                octupole,  # ty:ignore[invalid-argument-type]
+                height=octupole.k3l,  # ty:ignore[unresolved-attribute]
+                v_offset=octupole.k3l / 2,  # ty:ignore[unresolved-attribute]
                 color="forestgreen",
-                hatch=None if octupole.k3l != 0 else "xxx",  # hatch skew octupoles
+                hatch=None if octupole.k3l != 0 else "xxx",  # hatch skew octupoles  # ty:ignore[unresolved-attribute]
                 label="MO" if plotted_elements == 0 else None,  # avoid duplicating legend labels
                 **kwargs,
             )
@@ -310,11 +337,11 @@ def plot_machine_layout(  # noqa: PLR0912 (function branches justified)
         bpm_patches_axis.set_axis_off()  # hide yticks, labels etc
         bpm_patches_axis.set_ylim(-1.6, 1.6)
         plotted_elements = 0
-        for bpm_name, bpm in bpms_df.iterrows():
-            logger.trace(f"Plotting BPM element '{bpm_name}'")
+        for bpm in bpms_df.itertuples():
+            logger.trace(f"Plotting BPM element '{bpm.Index}'")  # .Index is the name  # ty:ignore[unresolved-attribute]
             _plot_lattice_series(
                 bpm_patches_axis,
-                bpm,
+                bpm,  # ty:ignore[invalid-argument-type]
                 height=2,
                 v_offset=0,
                 color="dimgrey",
@@ -324,7 +351,7 @@ def plot_machine_layout(  # noqa: PLR0912 (function branches justified)
             plotted_elements += 1
         logger.debug(f"Plotted {plotted_elements} BPMs")
         logger.trace("Determining BPM legend location")
-        if bpms_legend is True:
+        if bpms_legend:
             if k2l_lim is not None and k3l_lim is not None:
                 bpm_legend_loc = 8  # all corners are taken, we go bottom center
             elif k2l_lim is not None:

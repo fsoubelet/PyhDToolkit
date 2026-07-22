@@ -487,8 +487,8 @@ def ptc_track_particle(
             )
     """
     logger.debug("Performing single particle PTC (thick) tracking")
-    start = initial_coordinates if initial_coordinates else [0, 0, 0, 0, 0, 0]
-    observation_points = observation_points if observation_points else []
+    start = initial_coordinates or [0, 0, 0, 0, 0, 0]
+    observation_points = observation_points or []
 
     logger.debug("Looking for PTC universe parameters in keyword arguments")
     model = kwargs.pop("model", 3)
@@ -524,7 +524,7 @@ def ptc_track_particle(
     madx.command.ptc_track(turns=nturns, element_by_element=element_by_element, onetable=onetable, **kwargs)
     madx.ptc_end()
 
-    if onetable is True:  # there will only be one table 'trackone' given back by MAD-X
+    if onetable:  # there will only be one table 'trackone' given back by MAD-X
         logger.debug("Because of option ONETABLE only one table 'TRACKONE' exists to be returned.")
         return {"trackone": madx.table.trackone.dframe()}
     return {

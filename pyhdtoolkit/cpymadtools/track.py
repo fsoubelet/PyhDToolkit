@@ -95,8 +95,8 @@ def track_single_particle(
     """
     logger.debug("Performing single particle MAD-X (thin) tracking")
     onetable = kwargs.get("onetable", False) if "onetable" in kwargs else kwargs.get("ONETABLE", False)
-    start = initial_coordinates if initial_coordinates else [0, 0, 0, 0, 0, 0]
-    observation_points = observation_points if observation_points else []
+    start = initial_coordinates or [0, 0, 0, 0, 0, 0]
+    observation_points = observation_points or []
 
     if isinstance(sequence, str):
         logger.warning(f"Sequence '{sequence}' was provided and will be USEd, beware that this will erase errors etc.")

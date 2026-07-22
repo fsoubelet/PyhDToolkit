@@ -152,7 +152,7 @@ def plot_tune_diagram(
             ORDER_TO_ALPHA[order],
             ORDER_TO_LINESTYLE[order],
             ORDER_TO_LINEWIDTH[order],
-            ORDER_TO_RGB[order] if differentiate_orders is True else "blue",
+            ORDER_TO_RGB[order] if differentiate_orders else "blue",
         )
         plot_resonance_lines_for_order(order, axis, alpha=alpha, ls=ls, lw=lw, color=rgb, **kwargs)
 

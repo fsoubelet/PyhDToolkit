@@ -40,7 +40,7 @@ if TYPE_CHECKING:
 
 
 def get_magnets_powering(
-    madx: Madx, /, patterns: Sequence[str] = [r"^mb\.", r"^mq\.", r"^ms\."], brho: str | float | None = None, **kwargs
+    madx: Madx, /, patterns: Sequence[str] = (r"^mb\.", r"^mq\.", r"^ms\."), brho: str | float | None = None, **kwargs
 ) -> TfsDataFrame:
     r"""
     .. versionadded:: 0.17.0

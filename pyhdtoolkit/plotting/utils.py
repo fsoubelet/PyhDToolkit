@@ -109,15 +109,15 @@ def find_ip_s_from_segment_start(segment_df: TfsDataFrame, model_df: TfsDataFram
             )
     """
     logger.debug(f"Determining location of IP{ip:d} from the start of segment.")
-    first_element: str = segment_df.NAME.to_numpy()[0]
-    first_element_s_in_model = model_df[first_element == model_df.NAME].S.to_numpy()[0]
-    ip_s_in_model = model_df[f"IP{ip:d}" == model_df.NAME].S.to_numpy()[0]
+    first_element: str = segment_df.NAME.to_numpy()[0]  # ty:ignore[unresolved-attribute]
+    first_element_s_in_model = model_df[first_element == model_df.NAME].S.to_numpy()[0]  # ty:ignore[unresolved-attribute]
+    ip_s_in_model = model_df[f"IP{ip:d}" == model_df.NAME].S.to_numpy()[0]  # ty:ignore[unresolved-attribute]
 
     # Handle case where IP segment is cut and by end of sequence and the IP is at beginning of machine
     if ip_s_in_model < first_element_s_in_model:
         # Distance to end of sequence + distance from start to IP s
         logger.debug("IP{ip:d} segment seems cut off by end of sequence, looping around to determine IP location")
-        distance = (model_df.S.to_numpy().max() - first_element_s_in_model) + ip_s_in_model
+        distance = (model_df.S.to_numpy().max() - first_element_s_in_model) + ip_s_in_model  # ty:ignore[unresolved-attribute]
     else:  # just the difference
         distance = ip_s_in_model - first_element_s_in_model
     return distance
@@ -169,7 +169,12 @@ def get_lhc_ips_positions(dataframe: DataFrame) -> dict[str, float]:
 
 
 def make_elements_groups(
-    madx: Madx, /, xoffset: float = 0, xlimits: tuple[float, float] | None = None
+    madx: Madx,
+    /,
+    xoffset: float = 0,
+    xlimits: tuple[float, float] | None = None,
+    *,
+    _twiss_df: DataFrame | None = None,
 ) -> dict[str, DataFrame]:
     """
     .. versionadded:: 1.0.0
@@ -191,6 +196,10 @@ def make_elements_groups(
     xlimits : tuple[float, float], optional
         If given, will be used for the xlim (for the ``s`` coordinate),
         using the tuple passed.
+    _twiss_df: DataFrame | None
+        Optional dataframe with the twiss information already extracted.
+        Passing this acts as caching from the caller and avoids another
+        TWISS call to the MAD-X process, which could be costly.
 
     Returns
     -------
@@ -205,7 +214,7 @@ def make_elements_groups(
 
             element_dfs = make_elements_groups(madx)
     """
-    twiss_df = _get_twiss_table_with_offsets_and_limits(madx, xoffset, xlimits)
+    twiss_df = _twiss_df if _twiss_df is not None else _get_twiss_table_with_offsets_and_limits(madx, xoffset, xlimits)
 
     logger.debug("Getting different element groups dframes from MAD-X twiss table")
     # Elements are detected by their keyword being either 'multipole' or their specific element type,
